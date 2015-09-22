@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* main css for timesheets */
+
+html, body, div, section, input, aside {
+	font-family: 'Roboto', sans-serif;
+}
+/*		MIGHT NOT NEED THIS
+.robocon {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+*/
