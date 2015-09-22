@@ -9,8 +9,8 @@ Chris Schaefer  | cschaefer@arbsol.com
 
 
 
-*Change Log*
+**Change Log**
 
-*Date*    | *Developer*     | *Description*
-----------|-----------------|---------------------------------
-09/22/2015| TJB             | Init Developement
+Date       | Developer        | Description
+:----------|:-----------------|:---------------------------------
+09/22/2015 | TJB              | Init Developement
