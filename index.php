@@ -14,7 +14,7 @@ ini_set("html_errors", 1);
 /**********************************
  * only entry point for application
  *********************************/
-include_once("Include/TSApp.php");
+include_once("include/TSApp.php");
 $app = new TSApp();
 $app->Boot();
 
