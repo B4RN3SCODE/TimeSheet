@@ -1,5 +1,5 @@
 <?php
-var_dump(function_exists("mysql_query"));
+var_dump(function_exists("mysqli_query"));
 include_once("include/config.php");
 include_once("include/DBCon.php");
 $db=new DBCon();
