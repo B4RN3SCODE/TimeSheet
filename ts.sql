@@ -1,7 +1,9 @@
 /*
  * SQL for timesheet application
- * @author			CT Technologies
- * @contact			b4rn3scode@gmail.com
+ * @author			Tyler Barnes
+ * @author			Chris Schaefer
+ * @contact			tbarnes@arbsol.com
+ * @contact			cschaefer@arbsol.com
  */
 
 USE timesheet;

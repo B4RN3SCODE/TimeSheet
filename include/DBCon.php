@@ -4,8 +4,10 @@
  * Main class for database connections;
  * primarily a MySQL(I) db class
  *
- * @author			CT Technologies
- * @contact			b4rn3scode@gmail.com
+ * @author			Tyler Barnes
+ * @author			Chris Schaefer
+ * @contact			tbarnes@arbsol.com
+ * @contact			cschaefer@arbsol.com
  * @version			1.0
  ***************************************************/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*
