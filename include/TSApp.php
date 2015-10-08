@@ -1,8 +1,8 @@
 <?php
-include_once("Include/config.php");
-include_once("Include/glob.php");
-include_once("Include/TSView.php");
-include_once("Include/DBCon.php");
+include_once("include/config.php");
+include_once("include/glob.php");
+include_once("include/TSView.php");
+include_once("include/DBCon.php");
 
 /**************************************************
  * TSApp
