@@ -13,7 +13,7 @@ define("STR_EMP", "");
 
 /**		DB		**/
 // detects what db connection credentials to use
-define("DB_HOST", "localhost");
+define("DB_HOST", "bctimesheet.db");
 define("DB_USER", "tsuser");
 define("DB_PASS", "12wsxcWSXC21");
 define("DB_NAME", "timesheet");
