@@ -1,0 +1,43 @@
+#inner-panel
+  border: 1px solid $table-border-color
+  border-top: none
+
+  #client-list
+    .panel
+      border: none
+      & + .panel
+        margin-top: 0px
+      &:first-child
+        .panel-title
+          .list-group-item
+            &:first-child
+              border-top-width: 1px
+              border-top-left-radius: $list-group-border-radius
+              border-top-right-radius: $list-group-border-radius
+      &:last-child
+        .panel-title
+          .list-group-item
+            &:last-child
+              border-bottom-width: 1px
+              border-bottom-left-radius: $list-group-border-radius
+              border-bottom-right-radius: $list-group-border-radius
+            &[aria-expanded="true"]
+              border-radius: 0px
+      .panel-title
+        .list-group-item
+          border-top-left-radius: 0px
+          border-top-right-radius: 0px
+          border-bottom-left-radius: 0px
+          border-bottom-right-radius: 0px
+          border-top-width: 0px
+      .panel-collapse
+        .list-group
+          border-color: #dddddd
+          &:last-child
+            .list-group-item:last-child
+              border-bottom: 1px solid $list-group-border
+              border-bottom-left-radius: $list-group-border-radius
+              border-bottom-right-radius: $list-group-border-radius
+          .list-group-item
+            border-width: 0px 1px 1px 1px
+            border-radius: 0px

@@ -1,0 +1,87 @@
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Welcome to the TimeSheet module. Please begin by selecting your client and project below.</h3>
+              </div>
+              <div class="panel-body">
+                <!-- Begin Notification -->
+                <div class="alert alert-info alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <strong>Hey!</strong> Did you know you can set your default client and project in your account settings?
+                </div>
+                <!-- End Notification -->
+                <div class="row">
+                  <form name="timesheet" action="process.php" method="post">
+                    <div class="col-sm-6">
+                      <div class="input-group">
+                        <select name="client" class="form-control">
+                          <option value="-1" selected>-- Select Client --</option>
+                          <option value="0">Flex-N-Gate</option>
+                          <option value="1">GRAR</option>
+                        </select>
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="input-group">
+                        <select name="project" class="form-control">
+                          <option value="-1" selected>-- Select Project --</option>
+                          <option value="0">Vendor Portal</option>
+                        </select>
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="tbl-entries" class="col-md-12" style="display: block;">
+                      <br>
+                      <table class="table table-striped table-hover table-condensed">
+                        <thead>
+                          <tr>
+                            <th width="15%">Date</th>
+                            <th width="10%">Hours</th>
+                            <th>Description</th>
+                            <th colspan="2" width="1%">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><input class="form-control datepicker" name="timesheet-date[]" placeholder="<?=date("d/m/Y", time())?>" /></td>
+                            <td><input class="form-control" type="number" name="timesheet-hours[]" placeholder="0.5" /></td>
+                            <td><input class="form-control" type="text" name="timsheet-description[]" placeholder="Created database" /></td>
+                            <td><button class="btn btn-danger" type="button" title="Remove">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</button></td>
+                            <td><button class="btn btn-warning" type="button" title="Save">&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;</button></td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="5"><button class="btn btn-primary btn-block">Click to add a new row</button></td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <?php sidebar("default"); ?>
+      </div>
+    </div>
+    <script>
+      $('#tbl-entries table tfoot button').on('click',function(event) {
+        event.preventDefault();
+        $('#tbl-entries table tbody').append('<tr>' + $('#tbl-entries table tbody tr:first-child').html() + '<tr>');
+        $('.datepicker').datepicker();
+      });
+      $('.datepicker').datepicker();
+    </script>

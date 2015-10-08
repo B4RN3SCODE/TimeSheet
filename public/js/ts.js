@@ -2,12 +2,10 @@
  * ts
  * javascript for timesheet application
  *
- * @author			Tyler J Barnes
- * @author			Chris Schaefer
- * @contact			tbarnes@arbsol.com
+ * @author			CT Technologies
+ * @contact			b4rn3scode@gmail.com
  * @version			1.0
  */
 
 // strict mode
 'use strict';
-
