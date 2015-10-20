@@ -10,13 +10,8 @@
  * @version			1.0
  *******************************************/
 
-$GLOBALS["App"] = array(
-
-	"Module"	=>	null,
-	"View"	=>	null,
-	"Action"	=>	null,
-	"Instance"	=>	null,
-
+$GLOBALS["APP"] = array(
+	"INSTANCE"	=>	null,
 	"ERROR"	=>	null,
 
 );
