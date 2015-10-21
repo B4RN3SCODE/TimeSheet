@@ -1,8 +1,7 @@
 <?php
-include_once("include/core/TSController.php");
-/*
- * TSControllerFactory
- * A class to build controllers
+/*************************************
+ * IAuthService
+ * Interface for authentication services
  *
  * @author			Tyler Barnes
  * @author			Chris Schaefer
@@ -14,9 +13,10 @@ include_once("include/core/TSController.php");
  * 				Change Log
  *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
-class TSControllerFactory {
-	public static function getController($module) {
-		return new TSController();
-	}
+interface IAuthService {
+
+	public function validEntryPoint($path);
+	public function isLoggedIn();
+
 }
 ?>

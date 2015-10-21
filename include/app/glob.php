@@ -13,6 +13,5 @@
 $GLOBALS["APP"] = array(
 	"INSTANCE"	=>	null,
 	"ERROR"	=>	null,
-
 );
 ?>

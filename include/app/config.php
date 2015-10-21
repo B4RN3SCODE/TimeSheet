@@ -15,9 +15,15 @@ define("STR_EMP", "");
 
 /**		DB		**/
 // detects what db connection credentials to use
-define("DB_HOST", "bctimesheet.db");
+if(strpos($_SERVER["HTTP_HOST"],"barnescode") === false) {
+	define("DB_HOST", "localhost");
+} else {
+	define("DB_HOST", "bctimesheet.db");
+}
 define("DB_USER", "tsuser");
 define("DB_PASS", "12wsxcWSXC21");
-define("DB_NAME", "timesheet");
+define("DB_NAME", "TimeSheet");
 
+/**		MISC	**/
+define("DEFAULT_SESSION_TIME", 3600);
 ?>

@@ -30,12 +30,16 @@ class TSApp {
 	/**		Properties		**/
 
 	// configuration (default mvc values - add more to config if needed)
-	public $_config_;
+	private $_config_;
+	// max time allowed to be logged in for per session
+	private $_maxSessionTime_;
 	// debug mode - influences logging behavior and such
-	public $_debug_;
+	private $_debug_;
 
+	// authentication service
+	private $_authService;
 	// controller
-	public $_controller;
+	private $_controller;
 	// dbcon instance
 	public $_dbAdapter;
 
@@ -51,7 +55,7 @@ class TSApp {
 					"urii"		=>	0,
 					"default"	=>	"timesheet",
 				),
-		"view"	=>	array(
+		"view"		=>	array(
 					"urii"		=>	1,
 					"default"	=>	"index",
 				),
@@ -70,10 +74,15 @@ class TSApp {
 	 * C'TOR
 	 * Constructs an application object
 	 *
+	 * @param config: array config vals (assoc array)
+	 * @param debug: bool true means app will run in debug mode --- default false
 	 ***************************/
-	public function TSApp(array $config = array(), $debug = false) {
+	public function TSApp(array $config = array(), $maxLoggedInTime = 0, $debug = false) {
 		// debug mode or not
 		$this->_debug_ = $debug;
+
+		$this->setMaxLoggedInTime($maxLoggedInTime);
+
 
 		// check if config was passed
 		if(!isset($config) || !is_array($config) || count($config) !== count(self::$DEFAULT_CONFIG_MAP)) {
@@ -88,6 +97,8 @@ class TSApp {
 		$this->_defaultView = $this->_config_["view"];
 		$this->_defaultAction = $this->_config_["action"];
 
+		// auth service
+		$this->_authService = null;
 		// app controller
 		$this->_controller = null;
 
@@ -99,22 +110,65 @@ class TSApp {
 				exit;
 			}
 
-			/* TODO handle the database connection error in a way that makes sense */
+			/* TODO handle the database connection error in a way that makes sense  replacing the following line of code */
+			die("Cant Run Right Now.... sorry dude.");
 		}
 
 	}
 
 
 	public function Boot() {
+		// find the module, instantiate a controller
+		// based on result
+		$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"]);
+		if($module === false)
+			$module = $this->_defaultModule;
+
+		$this->_controller = TSControllerFactory::getController($module);
+
+		// get the view and action if there is one
+		$view = $this->Isolate(self::$DEFAULT_CONFIG_MAP["view"]["urii"]);
+		if($view === false)
+			$view = $this->_defaultView;
+
+		$action = $this->Isolate(self::$DEFAULT_CONFIG_MAP["action"]["urii"]);
+		if($action === false)
+			$action = $this->_defaultAction;
 
 
+		// set controller vars
+		$this->_controller->setVars(array("_module"=>$module,"_view"=>$view,"_action"=>$action));
+
+		if($this->_debug_) {
+			echo "<!---";
+			var_dump($this);
+			echo "--->";
+		}
+		// run application
 		$this->Run();
 
 	}
 
 
 	private function Run() {
-		// lets the app use these functions later without having everything static
+		$this->_authService = new TSAuthService($this->_maxSessionTime_);
+		/*
+		 * TODO
+		 * 		- validation
+		 * 		- get or load user / session data
+		 * 		- prepare controller
+		 * 		- execute controller processes
+		 */
+		if(!$this->_authService->validEntryPoint()) {
+			// TODO handle
+		}
+
+		if(!$this->_authService->isLoggedIn()) {
+			// TODO redirect to login
+		}
+
+
+		// lets the app access these functions later
 		$GLOBALS["APP"]["INSTANCE"] = $this;
 	}
 
@@ -123,11 +177,23 @@ class TSApp {
 
 	/************************************************
 	 * Isolate
-	 * Isolates the module, view, action vars from the
+	 * Finds the module, view, action vars from the
 	 * request URI
 	 *
+	 * @param uri_idx: int index number
+	 * @return string value
 	 *************************************************/
-	private function Isolate() {
+	private function Isolate($uri_idx) {
+		$uri_cmpnts = explode("/", $_SERVER['REQUEST_URI']);
+
+		foreach($uri_cmpnts as $idx => $cmpnt)
+			if(!self::StringHasValue($cmpnt) || is_null($cmpnt))
+				unset($uri_cmpnts[$idx]);
+
+		if(count($uri_cmpnts) > $uri_idx)
+			return $uri_cmpnts[array_keys($uri_cmpnts)[$uri_idx]];
+		else
+			return false;
 	}
 
 
@@ -145,6 +211,53 @@ class TSApp {
 
 		return $ret;
 	}
+
+
+
+	/********************************
+	 * sets max session time allowed
+	 * default 1 hour (3600 seconds)
+	 *********************************/
+	public function setMaxLoggedInTime($secs = DEFAULT_SESSION_TIME) {
+		$this->_maxSessionTime_ = $secs;
+	}
+
+
+
+	/*****************************************
+	 * CleanUp
+	 * clear resources and things
+	 ****************************************/
+	private function CleanUp() {
+		return true;
+	}
+
+
+	/*********************************************
+	 * SessionActivate
+	 * starts a session
+	 *
+	 * @return bool true if success
+	 **********************************************/
+	public function SessionActivate() {
+		if(isset($_SESSION["PHPSESSID"]) && $_SESSION["PHPSESSID"] == true && isset($_COOKIE["PHPSESSID"]) && !(is_null(session_id())))
+			return false;
+
+		if(isset($_SESSION["PHPSESSID"])) unset($_SESSION["PHPSESSID"]);
+		session_start();
+		$_SESSION["PHPSESSID"] = true;
+		return true;
+	}
+
+	/*********************************************
+	 * SessionTerminate
+	 * destroys a session
+	 *********************************************/
+	public function SessionTerminate() {
+		if(isset($_SESSION["PHPSESSID"])) unset($_SESSION["PHPSESSID"]);
+		session_destroy();
+	}
+
 
 
 	public function CookieBake($name = null, $value = null, $expr = 1, $pth = "/", $domain = null, $secr = null, $httpOnly = null) {
