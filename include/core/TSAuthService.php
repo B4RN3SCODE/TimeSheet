@@ -1,4 +1,6 @@
 <?php
+include_once("include/core/IAuthService.php");
+
 /***********************************************
  * TSAuthService
  * Handles authentication, entry point access,
