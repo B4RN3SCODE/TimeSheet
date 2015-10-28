@@ -18,7 +18,7 @@ class TSControllerFactory {
 
 	public static function getController($module) {
 		$pth = CONTROLLER_PATH;
-		$module = $GLOBALS["APP"]["MODULE_MAP"][$module];
+		$module = $GLOBALS["APP"]["MODULE_MAP"][strtolower($module)];
 		$ctlName = "{$module}Controller";
 
 		$newController = "{$pth}{$module}/{$ctlName}.php";

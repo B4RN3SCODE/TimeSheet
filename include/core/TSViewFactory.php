@@ -19,7 +19,7 @@ include_once("include/core/TSView.php");
 class TSViewFactory {
 
 	public static function getView($module, $view) {
-		$module = $GLOBALS["APP"]["MODULE_MAP"][$module];
+		$module = $GLOBALS["APP"]["MODULE_MAP"][strtolower($module)];
 		$vw_pth = "modules/{$module}/views/{$view}.php";
 
 		if(!file_exists($vw_pth)) {
