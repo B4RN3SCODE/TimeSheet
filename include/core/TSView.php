@@ -35,12 +35,11 @@ class TSView {
 	public static $DEFAULT_OPTIONS = array("head" => true, "foot" => true);
 
 
-	public function TSView($title = "", $css = array(), $js = array(), $tpl = STR_EMP) {
-		$this->PageTitle = $title;
-		$this->CssHrefs = $css;
-		$this->JsSrcs = $js;
+	public function TSView() {
+		$this->PageTitle = STR_EMP;
+		$this->CssHrefs = array();
+		$this->JsSrcs = array();
 		$this->MetaTags = array();
-		$this->ViewTpl = $tpl;
 		$this->HtmlHead = "";
 		$this->TplData = "";
 		$this->DisplayOptions = self::$DEFAULT_OPTIONS;
@@ -66,40 +65,10 @@ class TSView {
 		}
 	}
 
-	public function LoadView($once = true, $listData = null) {
-		if(!$this->ViewExists()) {
-			$errStr = "Tried to load a view template that does not exist: Path '{$this->ViewTpl}'";
-			throw new Exception($errStr);
-		} else {
-			if(!isset($this->PageTitle) || !FTBase::StringHasValue($this->PageTitle))
-				$this->PageTitle = "FastTimes - Where the fastest sites are found";
-
-			$PAGETITLE = $this->PageTitle;
-			$HTMLHEAD = $this->HtmlHead;
-			if($this->DisplayOptions["head"])
-				include_once("Views/head.php");
-
-			$listData = (!empty($listData)) ? $listData : array();
-			$TPLDATA = $this->TplData;
-
-			if($once)
-				include_once($this->ViewTpl);
-			else
-				include($this->ViewTpl);
-
-			if($this->DisplayOptions["foot"])
-				include_once("Views/foot.php");
-
-		}
+	public function SetUp() {
+		return true;
 	}
 
-	public function ParseTemplate($tpl, $extract_vars) {
-		$buffer = file_get_contents($tpl);
-		foreach($extract_vars as $k => $v) {
-			$buffer = str_replace("%{$k}%", $v, $buffer);
-		}
-		$this->TplData = $buffer;
-	}
 
 	public function SetOptions($opts = array()) {
 		if(count($opts) < 1)

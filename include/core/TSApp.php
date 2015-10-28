@@ -5,7 +5,7 @@ include_once("include/data/DBCon.php");
 include_once("include/core/TSControllerFactory.php");
 include_once("include/core/TSViewFactory.php");
 include_once("include/core/TSAuthService.php");
-
+include_once("controllers/User/UserController.php");
 /**************************************************
  * TSApp
  *
@@ -119,26 +119,40 @@ class TSApp {
 
 
 	public function Boot() {
-		// find the module, instantiate a controller
-		// based on result
-		$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"]);
-		if($module === false)
-			$module = $this->_defaultModule;
+		// set auth service
+		$this->_authService = new TSAuthService($this->_maxSessionTime_);
+		// check entry point
+		if(!$this->_authService->validEntryPoint()) {
+			// TODO handle
+		}
+		// check user is logged in
+		if(!$this->_authService->isLoggedIn()) {
+			// set controller as user controller
+			$this->_controller = TSControllerFactory::getController("user");
+			// set controller vars to execute index & set global error msg
+			$this->_controller->setVars(array("_module"=>"user","_view"=>"index","_action"=>"index"));
 
-		$this->_controller = TSControllerFactory::getController($module);
+		} else {
+			// find the module, instantiate a controller
+			// based on result
+			$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"]);
+			if($module === false)
+				$module = $this->_defaultModule;
 
-		// get the view and action if there is one
-		$view = $this->Isolate(self::$DEFAULT_CONFIG_MAP["view"]["urii"]);
-		if($view === false)
-			$view = $this->_defaultView;
+			$this->_controller = TSControllerFactory::getController($module);
 
-		$action = $this->Isolate(self::$DEFAULT_CONFIG_MAP["action"]["urii"]);
-		if($action === false)
-			$action = $this->_defaultAction;
+			// get the view and action if there is one
+			$view = $this->Isolate(self::$DEFAULT_CONFIG_MAP["view"]["urii"]);
+			if($view === false)
+				$view = $this->_defaultView;
 
+			$action = $this->Isolate(self::$DEFAULT_CONFIG_MAP["action"]["urii"]);
+			if($action === false)
+				$action = $this->_defaultAction;
 
-		// set controller vars
-		$this->_controller->setVars(array("_module"=>$module,"_view"=>$view,"_action"=>$action));
+			// set controller vars
+			$this->_controller->setVars(array("_module"=>$module,"_view"=>$view,"_action"=>$action));
+		}
 
 		if($this->_debug_) {
 			echo "<!---";
@@ -152,27 +166,24 @@ class TSApp {
 
 
 	private function Run() {
-		$this->_authService = new TSAuthService($this->_maxSessionTime_);
-		/*
-		 * TODO
-		 * 		- validation
-		 * 		- get or load user / session data
-		 * 		- prepare controller
-		 * 		- execute controller processes
-		 */
-		if(!$this->_authService->validEntryPoint()) {
-			// TODO handle
+
+		if(!$this->HasUser()) {
+			if($this->_debug_) {
+				var_dump($_SESSION);
+			}
+			exit;
 		}
 
-		if(!$this->_authService->isLoggedIn()) {
-			// TODO redirect to login
+		if($this->_controller->Init()) {
+			// lets the app access these functions later
+			$GLOBALS["APP"]["INSTANCE"] = $this;
+			$this->_controller->Proc();
+			$this->CleanUp();
+		} else {
+			die("Could not initialize controller");
 		}
 
-
-		// lets the app access these functions later
-		$GLOBALS["APP"]["INSTANCE"] = $this;
 	}
-
 
 
 
@@ -223,6 +234,12 @@ class TSApp {
 		$this->_maxSessionTime_ = $secs;
 	}
 
+
+
+
+	private function HasUser() {
+		return (isset($_SESSION["User"]) && gettype($_SESSION["User"]) == "User");
+	}
 
 
 	/*****************************************

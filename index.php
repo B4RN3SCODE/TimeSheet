@@ -9,13 +9,12 @@ ini_set("track_errors", 1);
 ini_set("html_errors", 1);
 /* END DEBUG SHIT */
 
-
 /**********************************
  * only entry point for application
  *********************************/
 include_once("include/core/TSApp.php");
-$app = new TSApp(array(),true);
-//$app->SessionStart();
+$app = new TSApp(array(),0,true);
+$app->SessionActivate();
 $app->Boot();
 
 ?>

@@ -2,8 +2,10 @@
 include_once("include/core/TSView.php");
 /*
  * TSViewFactory
- * A class to build views
- * 
+ * A class to build views and determine if
+ * the view object should include action files
+ * by passing the action to the view object...
+ *
  * @author			Tyler Barnes
  * @author			Chris Schaefer
  * @contact			tbarnes@arbsol.com
@@ -12,10 +14,20 @@ include_once("include/core/TSView.php");
  ***************************************************/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*
  * 				Change Log
- * 
+ *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class TSViewFactory {
-	
+
+	public static function getView($module, $view) {
+		$module = $GLOBALS["APP"]["MODULE_MAP"][$module];
+		$vw_pth = "modules/{$module}/views/{$view}.php";
+
+		if(!file_exists($vw_pth)) {
+			die("Cant find view");
+		}
+		include_once($vw_pth);
+		return new $newController();
+	}
 }
 ?>
 

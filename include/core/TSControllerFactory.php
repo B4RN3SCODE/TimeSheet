@@ -15,8 +15,18 @@ include_once("include/core/TSController.php");
  *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class TSControllerFactory {
+
 	public static function getController($module) {
-		return new TSController();
+		$pth = CONTROLLER_PATH;
+		$module = $GLOBALS["APP"]["MODULE_MAP"][$module];
+
+		$newController = "{$pth}{$module}/{$module}Controller.php";
+		if(!file_exists($newController)) {
+			die("Cant find controller");
+		}
+		include_once($newController);
+		return new $newController();
 	}
+
 }
 ?>

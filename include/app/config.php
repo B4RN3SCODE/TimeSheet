@@ -26,4 +26,7 @@ define("DB_NAME", "TimeSheet");
 
 /**		MISC	**/
 define("DEFAULT_SESSION_TIME", 3600);
+// default controller path
+define("CONTROLLER_PATH", "controllers/");
+
 ?>
