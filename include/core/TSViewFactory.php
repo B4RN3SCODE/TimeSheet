@@ -23,10 +23,10 @@ class TSViewFactory {
 		$vw_pth = "modules/{$module}/views/{$view}.php";
 
 		if(!file_exists($vw_pth)) {
-			die("Cant find view");
+			die("Cant find view: {$vw_pth}");
 		}
 		include_once($vw_pth);
-		return new $newController();
+		return new $view();
 	}
 }
 ?>

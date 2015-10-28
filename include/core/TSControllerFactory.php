@@ -19,13 +19,14 @@ class TSControllerFactory {
 	public static function getController($module) {
 		$pth = CONTROLLER_PATH;
 		$module = $GLOBALS["APP"]["MODULE_MAP"][$module];
+		$ctlName = "{$module}Controller";
 
-		$newController = "{$pth}{$module}/{$module}Controller.php";
+		$newController = "{$pth}{$module}/{$ctlName}.php";
 		if(!file_exists($newController)) {
 			die("Cant find controller");
 		}
 		include_once($newController);
-		return new $newController();
+		return new $ctlName();
 	}
 
 }

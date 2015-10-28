@@ -167,12 +167,15 @@ class TSApp {
 
 	private function Run() {
 
-		if(!$this->HasUser()) {
-			if($this->_debug_) {
-				var_dump($_SESSION);
-			}
-			exit;
-		}
+	/*	TODO
+	 * 		uncomment when done testing
+	 */
+		//if(!$this->HasUser()) {
+			//if($this->_debug_) {
+				//var_dump($_SESSION);
+			//}
+			//exit;
+		//}
 
 		if($this->_controller->Init()) {
 			// lets the app access these functions later
