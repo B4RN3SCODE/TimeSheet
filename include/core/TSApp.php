@@ -5,7 +5,7 @@ include_once("include/data/DBCon.php");
 include_once("include/core/TSControllerFactory.php");
 include_once("include/core/TSViewFactory.php");
 include_once("include/core/TSAuthService.php");
-include_once("controllers/User/UserController.php");
+
 /**************************************************
  * TSApp
  *
