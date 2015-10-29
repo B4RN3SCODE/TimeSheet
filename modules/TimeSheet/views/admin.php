@@ -1,6 +1,6 @@
 <?php
 /*
- * login view for user module
+ * admin view for timesheet module
  *
  * @author			Tyler Barnes
  * @author			Chris Schaefer
@@ -12,11 +12,11 @@
  * 				Change Log
  *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
-class login extends TSView
+class admin extends TSView
 {
     public function display() {
         $this->setOptions(array());
-        $this->_viewTpl = "login";
+        $this->_viewTpl = "admin";
         $vwData = $this->LoadView();
     }
 }

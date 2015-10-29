@@ -1,6 +1,6 @@
 <?php
 /*
- * login view for user module
+ * login view for timesheet module
  *
  * @author			Tyler Barnes
  * @author			Chris Schaefer
