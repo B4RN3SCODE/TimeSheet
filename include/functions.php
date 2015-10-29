@@ -7,7 +7,8 @@
  */
 
 function nav_menu($pages,$return=false) {
-  global $view;
+  $module = $GLOBALS["APP"]["INSTANCE"]->_controller->_module;
+  $view = $GLOBALS["APP"]["INSTANCE"]->_controller->_view;
   $menu = '';
   foreach($pages as $title => $name) {
     $class = ($name == $view) ? ' class="active"' : '';
@@ -21,7 +22,7 @@ function nav_menu($pages,$return=false) {
       $menu_item .= '  </ul>';
       $menu_item .= '</li>';
     } else {
-      $menu_item = "<li$class><a href=\"#\" data-view=\"$name\">$title$sr</a></li>";
+      $menu_item = "<li$class><a href=\"/$module/$name\" data-view=\"$name\">$title$sr</a></li>";
     }
     $menu .= $menu_item;
   }
@@ -33,10 +34,10 @@ function nav_menu($pages,$return=false) {
 }
 
 function module_menu($pages,$return=false) {
-  global $module;
+  $module = $GLOBALS["APP"]["INSTANCE"]->_controller->_module;
   $menu = '';
   foreach($pages as $title => $name) {
-    if ($title == $module) {
+    if ($name == $module) {
       $class = ' class="active"';
       $sr = '<span class="sr-only">(current)</span>';
     } else {
@@ -82,5 +83,5 @@ function sidebar($name) {
 }
 
 function is_logged_in() {
-  return isset($_SESSION["user"]);
+  return isset($_SESSION["User"]);
 }
