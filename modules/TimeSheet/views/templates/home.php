@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="col-md-3">
-        <?php sidebar("default"); ?>
+        <?php sidebar("sidebar"); ?>
       </div>
     <script>
       $('#tbl-entries table tfoot button').on('click',function(event) {

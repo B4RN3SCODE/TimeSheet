@@ -65,16 +65,16 @@ function module_menu($pages,$return=false) {
 
 function user_options_menu() {
   if(is_logged_in()) {
-    nav_menu(array("Account" => array("Edit Account" => "editaccount", "Logout" => "logout")));
+    nav_menu(array("Account" => array("Edit Account" => "edit", "Logout" => "logout")));
   } else {
     nav_menu(array("Login"=>"login"));
   }
 }
 
 function sidebar($name) {
-  global $module;
-  if(file_exists("modules/$module/sidebar/$name.php")) {
-    include_once "modules/$module/sidebar/$name.php";
+  $module = $GLOBALS["APP"]["MODULE_MAP"][strtolower($GLOBALS["APP"]["INSTANCE"]->_controller->GetModule())];
+  if(file_exists("modules/$module/views/sidebar/$name.php")) {
+    include_once "modules/$module/views/sidebar/$name.php";
   } else {
     if(file_exists("sidebar/$name.php")) {
       include_once "sidebar/$name.php";
