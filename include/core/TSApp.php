@@ -308,7 +308,9 @@ class TSApp {
 		return (strlen($str) > 0 && !empty($str) && !is_null($str));
 	}
 
-
+	public function GetController() {
+		return $this->_controller;
+	}
 
 }
 ?>
