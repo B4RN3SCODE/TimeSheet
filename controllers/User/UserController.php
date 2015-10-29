@@ -13,6 +13,8 @@
  * 				Change Log
  *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+include_once "classes/User.php";
 class UserController extends TSController {
 
 	public function index() {
@@ -27,8 +29,10 @@ class UserController extends TSController {
 		if($userid < 1) {
 			return false;
 		}
-
-		return $this->_serviceAdapter->getUserData($userid);
+		$User = new User();
+		$User->load($userid);
+		return $User->toArray();
+//		return $this->_serviceAdapter->getUserData($userid);
 	}
 }
 ?>
