@@ -152,7 +152,7 @@ class TSApp {
 				$action = $this->_defaultAction;
 
 			// set controller vars
-			$this->_controller->setVars(array("_module"=>$module,"_view"=>$view,"_action"=>$action));
+			$this->_controller->setVars(array("_module"=>strtolower($module),"_view"=>strtolower($view),"_action"=>strtolower($action)));
 		}
 
 		if($this->_debug_) {

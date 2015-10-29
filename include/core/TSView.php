@@ -73,7 +73,7 @@ class TSView {
 	}
 
 	public function LoadView($listData = null) {
-		$tmp = $GLOBALS["APP"]["INSTANCE"]->_controller->_module;
+		$tmp = strtolower($GLOBALS["APP"]["INSTANCE"]->_controller->_module);
 		$str_pth = "modules/{$GLOBALS["APP"]["MODULE_MAP"][$tmp]}/views/{$this->_viewTpl}.php";
 
 		if(!$this->ViewExists($str_pth)) {
