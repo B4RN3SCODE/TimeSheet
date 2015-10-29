@@ -50,7 +50,10 @@ class UserController extends TSController {
      * @param null $password
      * @return bool
      */
-    public function Login($username = null, $password = null) {
+    public function Login() {
+		$username = $_REQUEST["email"];
+		$password = $_REQUEST["password"];
+
         $this->User = new User();
         if($username == null || $password == null) {// || !$this->User->LoadByEmail($username)) {
             $GLOBALS["ERROR"] = "Invalid username or password";
