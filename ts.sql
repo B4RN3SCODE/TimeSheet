@@ -335,7 +335,7 @@ CREATE TABLE ProjectItem (
 	TargetHours FLOAT(10) NULL DEFAULT NULL,
 	ActualHours FLOAT(10) NULL DEFAULT NULL,
 	IsComplete TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 /* end projectitem table */
 
@@ -348,7 +348,7 @@ CREATE TABLE Project (
 	Title VARCHAR(50) NOT NULL DEFAULT 'New Project',
 	Description VARCHAR(100) NOT NULL DEFAULT 'General Project Description',
 	DateCreated DATETIME NULL DEFAULT NULL,
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 /* end project table */
 
@@ -361,25 +361,25 @@ CREATE TABLE TimeSheet (
 	PayWeekStart DATE NULL DEFAULT NULL,
 	PayWeekEnd DATE NULL DEFAULT NULL,
 	IsSubmitted TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 /* end timesheet table */
 
 
-/* TaskProject table */
-CREATE TABLE TaskProject (
+/* ProjectItemProject table */
+CREATE TABLE ProjectItemProject (
 	id INT NOT NULL AUTO_INCREMENT ,
 	TaskId INT NOT NULL DEFAULT 0,
 	ProjectId INT NOT NULL DEFAULT 0,
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 ) ENGINE = InnoDB;
-/* end TaskProject table */
+/* end ProjectItemProject table */
 
 /* ProjectTimeSheet table */
 CREATE TABLE ProjectTimeSheet (
 	id INT NOT NULL AUTO_INCREMENT ,
 	ProjectId INT NOT NULL DEFAULT 0,
 	TimeSheetId INT NOT NULL DEFAULT 0,
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 /* end ProjectTimeSheet table */
