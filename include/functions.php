@@ -83,5 +83,5 @@ function sidebar($name) {
 }
 
 function is_logged_in() {
-  return isset($_SESSION["User"]);
+  return (($_SESSION["User"]->getId() > 0));
 }
