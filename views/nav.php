@@ -1,7 +1,3 @@
-<form name="navForm" id="navForm" method="POST">
-  <input type="hidden" name="module" />
-  <input type="hidden" name="view" />
-</form>
   <nav class="navbar navbar-default">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->

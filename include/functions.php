@@ -22,7 +22,7 @@ function nav_menu($pages,$return=false) {
       $menu_item .= '  </ul>';
       $menu_item .= '</li>';
     } else {
-      $menu_item = "<li$class><a href=\"/$module/$name\" data-view=\"$name\">$title$sr</a></li>";
+      $menu_item = "<li$class><a href=\"/$module/$name\">$title$sr</a></li>";
     }
     $menu .= $menu_item;
   }
@@ -52,7 +52,7 @@ function module_menu($pages,$return=false) {
       $menu_item .= '  </ul>';
       $menu_item .= '</li>';
     } else {
-      $menu_item = "<li$class><a href=\"#\" data-module=\"$name\">" . ucfirst($name) . "$sr</a></li>";
+      $menu_item = "<li$class><a href=\"/$name\">" . ucfirst($name) . "$sr</a></li>";
     }
     $menu .= $menu_item;
   }
