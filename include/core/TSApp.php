@@ -3,9 +3,9 @@ include_once("include/app/config.php");
 include_once("include/app/glob.php");
 include_once("include/data/DBCon.php");
 include_once("include/functions.php");
-include_once("include/core/TSControllerFactory.php");
-include_once("include/core/TSViewFactory.php");
-include_once("include/core/TSAuthService.php");
+//include_once("include/core/TSControllerFactory.php");
+//include_once("include/core/TSViewFactory.php");
+//include_once("include/core/TSAuthService.php");
 
 /**************************************************
  * TSApp
@@ -39,7 +39,7 @@ class TSApp {
 	private $_debug_;
 
 	// authentication service
-	private $_authService;
+	public $_authService;
 	// controller
 	public $_controller;
 	// dbcon instance

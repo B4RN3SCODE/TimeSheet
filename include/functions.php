@@ -15,7 +15,10 @@ function nav_menu($pages,$return=false,$module=null) {
   $view = $GLOBALS["APP"]["INSTANCE"]->GetController()->GetView();
   $menu = '';
   foreach($pages as $title => $name) {
-    $class = ($name == $view) ? ' class="active"' : '';
+    $class = '';
+    if(strtolower($name) == strtolower($view) && strtolower($module) == strtolower($GLOBALS["APP"]["MODULE_MAP"][$GLOBALS["APP"]["INSTANCE"]->GetController()->GetModule()])) {
+      $class = ' class="active"';
+    }
     $sr = ($name == $view) ? '<span class="sr-only">(current)</span>' : '';
     $menu_item = '';
     if(is_array($name)) {
@@ -41,7 +44,7 @@ function module_menu($pages,$return=false) {
   $module = $GLOBALS["APP"]["INSTANCE"]->GetController()->GetModule();
   $menu = '';
   foreach($pages as $title => $name) {
-    if ($name == $module) {
+    if (!is_array($name) && strtolower($name) == strtolower($module)) {
       $class = ' class="active"';
       $sr = '<span class="sr-only">(current)</span>';
     } else {
@@ -87,5 +90,6 @@ function sidebar($name) {
 }
 
 function is_logged_in() {
+//  return $GLOBALS["APP"]["INSTANCE"]->_authService->isLoggedIn();
   return (isset($_SESSION["User"]) && ($_SESSION["User"]->getId() > 0));
 }

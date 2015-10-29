@@ -1,13 +1,15 @@
 <?php
-include_once("include/config.php");
-include_once("include/DBCon.php");
+include_once("include/app/config.php");
+include_once("include/data/DBCon.php");
 $db=new DBCon();
 $db->Link();
-$db->setQueryStmt("SELECT * FROM Country");
+$db->setQueryStmt("SELECT * FROM User");
 if(!$db->Query()) {
 	echo $db->GetLastErrorMsg();
 	exit;
 }
-var_dump($db->GetAll());
+echo "<pre>";
+print_r($db->GetAll());
+echo "</pre>";
 exit;
 ?>

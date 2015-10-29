@@ -1,8 +1,8 @@
 <?php
 include_once "include/app/config.php";
-include_once "classes/base.php";
-include_once "classes/BaseDB.php";
-include_once "classes/ArrayClass.php";
+//include_once "classes/base.php";
+//include_once "classes/BaseDB.php";
+//include_once "classes/ArrayClass.php";
 
 class UserArray extends ArrayClass {
     protected $db;
