@@ -14,9 +14,9 @@
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class index extends TSView {
 	public function display() {
-		include_once("views/header.php");
-		include_once("modules/User/views/login.php");
-		include_once("views/footer.php");
+		$this->setOptions(array());
+		$this->_viewTpl = "login";
+		$vwData = $this->LoadView();
 	}
 }
 ?>

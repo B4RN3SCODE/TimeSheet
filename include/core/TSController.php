@@ -56,17 +56,21 @@ class TSController {
 	public function Init() {
 		$this->_viewProcessor = TSViewFactory::getView($this->_module, $this->_view);
 		if(!$this->_hasAction) {
-			$this->index();
-			return false;
+			$this->Proc(true);
 		}
 		return true;
 	}
 
-	public function Proc() {
-		// TODO introduce output buffering shit when needed
-		$this->_viewProcessor->SetUp(); // not sure what this should do yet... maybe look for extra js files to include or something
-		$this->{$this->_action}();
-		// end output buffering shit in the view
+	public function Proc($forceIndexAction = false) {
+		ob_start(); // start considering saving display stuff to buffer
+
+		if($forceIndexAction) {
+			$this->index();
+		} else {
+			$this->_viewProcessor->SetUp(); // not sure what this should do yet... maybe look for extra js files to include or something
+			$this->{$this->_action}();
+			// end output buffering shit in the view
+		}
 	}
 
 }

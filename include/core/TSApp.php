@@ -2,6 +2,7 @@
 include_once("include/app/config.php");
 include_once("include/app/glob.php");
 include_once("include/data/DBCon.php");
+include_once("include/functions.php");
 include_once("include/core/TSControllerFactory.php");
 include_once("include/core/TSViewFactory.php");
 include_once("include/core/TSAuthService.php");
@@ -40,7 +41,7 @@ class TSApp {
 	// authentication service
 	private $_authService;
 	// controller
-	private $_controller;
+	public $_controller;
 	// dbcon instance
 	public $_dbAdapter;
 
@@ -159,6 +160,8 @@ class TSApp {
 			var_dump($this);
 			echo "--->";
 		}
+		// lets the app access these functions later
+		$GLOBALS["APP"]["INSTANCE"] = $this;
 		// run application
 		$this->Run();
 
@@ -178,8 +181,6 @@ class TSApp {
 		//}
 
 		if($this->_controller->Init()) {
-			// lets the app access these functions later
-			$GLOBALS["APP"]["INSTANCE"] = $this;
 			$this->_controller->Proc();
 			$this->CleanUp();
 		} else {
