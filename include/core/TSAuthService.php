@@ -53,6 +53,7 @@ class TSAuthService implements IAuthService {
 			$logged_in_time = (isset($_SESSION["LoggedInTime"]) && $_SESSION["LoggedInTime"] > 0) ? $_SESSION["LoggedInTime"] : 0;
 			// make sure user have not been logged in longer than max allowed time
 			if((($time_now - $logged_in_time) / 1000) >= $this->_forceLogOutSeconds) {
+				$GLOBALSS["APP"]["FORCE_LOGIN"]=true;
 				return false;
 			}
 			/*
