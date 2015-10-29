@@ -84,5 +84,9 @@ class TSController {
 		}
 	}
 
+	public function GetModule() { return $this->_module; }
+	public function GetView() { return $this->_view; }
+	public function GetAction() { return $this->_action; }
+
 }
 ?>

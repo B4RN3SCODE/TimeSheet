@@ -1,4 +1,3 @@
-    <div class="row">
       <div class="col-md-9">
         <div class="row">
           <div class="col-xs-12">
@@ -14,7 +13,7 @@
                 </div>
                 <!-- End Notification -->
                 <div class="row">
-                  <form name="timesheet" action="process.php" method="post">
+                  <form name="timesheet" action="" method="post">
                     <div class="col-sm-6">
                       <div class="input-group">
                         <select name="client" class="form-control">
@@ -47,21 +46,26 @@
                             <th width="15%">Date</th>
                             <th width="10%">Hours</th>
                             <th>Description</th>
-                            <th colspan="2" width="1%">Action</th>
+                            <th colspan="2" width="1%">Remove</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td><input class="form-control datepicker" name="timesheet-date[]" placeholder="<?=date("d/m/Y", time())?>" /></td>
+                            <td><input class="form-control datepicker" name="timesheet-date[]" placeholder="<?=date("m/d/Y", time())?>" /></td>
                             <td><input class="form-control" type="number" name="timesheet-hours[]" placeholder="0.5" /></td>
-                            <td><input class="form-control" type="text" name="timsheet-description[]" placeholder="Created database" /></td>
-                            <td><button class="btn btn-danger" type="button" title="Remove">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</button></td>
-                            <td><button class="btn btn-warning" type="button" title="Save">&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;</button></td>
+                            <td><input class="form-control" type="text" name="timesheet-description[]" placeholder="Created database" /></td>
+                            <td><button class="btn btn-danger pull-right" type="button" title="Remove">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</button></td>
+<!--                            <td><button class="btn btn-warning" type="button" title="Save">&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;</button></td>-->
                           </tr>
                         </tbody>
                         <tfoot>
                           <tr>
-                            <td colspan="5"><button class="btn btn-primary btn-block">Click to add a new row</button></td>
+                            <td colspan="5">
+                              <div class="row">
+                                <div class="col-xs-4"><button class="btn btn-primary btn-block">New row</button></div>
+                                <div class="col-xs-4 pull-right"><input type="submit" class="btn btn-secondary btn-block" value="Save" /></div>
+                              </div>
+                            </td>
                           </tr>
                         </tfoot>
                       </table>
@@ -76,7 +80,6 @@
       <div class="col-md-3">
         <?php sidebar("default"); ?>
       </div>
-    </div>
     <script>
       $('#tbl-entries table tfoot button').on('click',function(event) {
         event.preventDefault();
