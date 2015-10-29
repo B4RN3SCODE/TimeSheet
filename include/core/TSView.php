@@ -74,7 +74,7 @@ class TSView {
 
 	public function LoadView($listData = null) {
 		$tmp = strtolower($GLOBALS["APP"]["INSTANCE"]->_controller->_module);
-		$str_pth = "modules/{$GLOBALS["APP"]["MODULE_MAP"][$tmp]}/views/{$this->_viewTpl}.php";
+		$str_pth = "modules/{$GLOBALS["APP"]["MODULE_MAP"][$tmp]}/views/templates/{$this->_viewTpl}.php";
 
 		if(!$this->ViewExists($str_pth)) {
 			$errStr = "Tried to load a view template that does not exist: Path '{$this->_viewTpl}'";

@@ -25,6 +25,11 @@ class UserServiceAdapter implements UserServiceAdapterUI {
 
 	}
 
+	public function getAllUserData() {
+		$UserArray = new UserArray();
+		$UserArray->load();
+		return $UserArray->getArray();
+	}
 
 	public function getUserData($userid) {
 		$User = new User();
