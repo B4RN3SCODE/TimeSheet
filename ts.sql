@@ -369,7 +369,7 @@ CREATE TABLE TimeSheet (
 /* ProjectItemProject table */
 CREATE TABLE ProjectItemProject (
 	id INT NOT NULL AUTO_INCREMENT ,
-	TaskId INT NOT NULL DEFAULT 0,
+	ProjectItemId INT NOT NULL DEFAULT 0,
 	ProjectId INT NOT NULL DEFAULT 0,
 	PRIMARY KEY (id)
 ) ENGINE = InnoDB;
