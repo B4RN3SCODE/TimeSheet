@@ -13,8 +13,6 @@
  * 				Change Log
  *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-include_once "classes/User.php";
 class UserController extends TSController {
 
     private $User;

@@ -11,10 +11,15 @@ function loadClass($class) {
         if(file_exists("include/core/$class.php")) {
             include "include/core/$class.php";
         }
-    } else if(strpos($class,"Controller")){ // Load controller
-        $module = substr($class,0,strpos($class,"Controller"));
-        if(file_exists("controllers/$module/$class.php")) {
+    } else if(strpos($class,"Controller")) { // Load controller
+        $module = substr($class, 0, strpos($class, "Controller"));
+        if (file_exists("controllers/$module/$class.php")) {
             include "controllers/$module/$class.php";
+        }
+    } else if(strpos($class,"ServiceAdapter")) { // Load service adapter
+        $module = substr($class, 0, strpos($class, "ServiceAdapter"));
+        if(file_exists("services/$module/$class.php")) {
+            include "services/$module/$class.php";
         }
     } else {
         throw new Exception("Unable to load class: $class");

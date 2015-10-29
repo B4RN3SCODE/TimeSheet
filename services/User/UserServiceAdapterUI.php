@@ -13,7 +13,7 @@
  *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 interface UserServiceAdapterUI {
-
 	public function getUserData($userid);
+	public function getAllUserData();
 }
 ?>
