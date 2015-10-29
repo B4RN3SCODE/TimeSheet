@@ -68,7 +68,7 @@ function module_menu($pages,$return=false) {
 }
 
 function user_options_menu() {
-  if(!is_logged_in()) {
+  if(is_logged_in()) {
     nav_menu(array("Account" => array("Edit Account" => "Edit", "Logout" => "Logout")),false,"User");
   } else {
     nav_menu(array("Login"=>"Login"),false,"User");
