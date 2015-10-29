@@ -16,7 +16,19 @@
 class UserController extends TSController {
 
 	public function index() {
+		if($this->_view == "edit") {
+			$userData = $this->getUserData(1);
+			$this->_viewProcessor->_tplData = $userData;
+		}
 		$this->_viewProcessor->display();
+	}
+
+	public function getUserData($userid=0) {
+		if($userid < 1) {
+			return false;
+		}
+
+		return $this->_serviceAdapter->getUserData(1); // for testing... replace with $_SESSION["User"]->getUserId() when ready
 	}
 }
 ?>
