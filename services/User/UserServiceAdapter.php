@@ -27,10 +27,9 @@ class UserServiceAdapter implements UserServiceAdapterUI {
 
 
 	public function getUserData($userid) {
-		$userid = $this->_dbAdapter->EscapeQueryStmt($userid);
-		$this->_dbAdapter->SStatement(null,"User",array("id"=>$userid),null);
-		$this->_dbAdapter->Query();
-		return $this->_dbAdapter->GetRow();
+		$User = new User();
+		$User->load($userid);
+		return $User->toArray();
 	}
 }
 ?>

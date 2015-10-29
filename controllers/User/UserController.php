@@ -29,10 +29,7 @@ class UserController extends TSController {
 		if($userid < 1) {
 			return false;
 		}
-		$User = new User();
-		$User->load($userid);
-		return $User->toArray();
-//		return $this->_serviceAdapter->getUserData($userid);
+		return $this->_serviceAdapter->getUserData($userid);
 	}
 }
 ?>
