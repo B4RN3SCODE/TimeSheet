@@ -15,10 +15,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <?php module_menu(array("Select Module"=>array_keys($GLOBALS["APP"]["MODULE_MAP"]))); ?>
+          <?php module_menu(array("Select Module"=>array_keys(array_flip($GLOBALS["APP"]["MODULE_MAP"])))); ?>
         </ul>
         <ul class="nav navbar-nav">
-          <?php nav_menu(array("Home"=>"home","Admin"=>"admin")); ?>
+          <?php nav_menu($GLOBALS["APP"]["NAVIGATION"][strtolower($GLOBALS["APP"]["INSTANCE"]->_controller->GetModule())]); ?>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <?php user_options_menu(); ?>

@@ -14,10 +14,13 @@ $GLOBALS["APP"] = array(
 	"INSTANCE"	=>	null,
 	"ERROR"	=>	null,
 	"FORCE_LOGIN"	=>	null,
-
 	"MODULE_MAP"	=>	array(
-			"timesheet"	=>	"TimeSheet",
-			"user"		=>	"User",
+		"timesheet"	=>	"TimeSheet",
+		"user"		=>	"User",
+	),
+	"NAVIGATION"	=>	array(
+		"timesheet"	=>	array("Home"=>"Home","Admin"=>"Admin"),
+		"user"		=>	array("Home"=>"Home"),
 	),
 );
 ?>
