@@ -2,7 +2,7 @@
 <div class="col-md-offset-4 col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Please sign in</h3><br /><?php if(TSApp::StringHasValue($GLOBALS["APP"]["ERROR"])) echo "<h4 style=\"color:red;\">{$GLOBALS["APP"]["ERROR"]}</h4>"; ?>
+      <h3 class="panel-title">Please sign in</h3>
     </div>
     <div class="panel-body">
       <form action="/User/Index/Login/" method="POST">
