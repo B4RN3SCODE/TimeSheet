@@ -16,7 +16,7 @@ function nav_menu($pages,$return=false,$module=null) {
   $menu = '';
   foreach($pages as $title => $name) {
     $class = '';
-    if(strtolower($name) == strtolower($view) && strtolower($module) == strtolower($GLOBALS["APP"]["MODULE_MAP"][$GLOBALS["APP"]["INSTANCE"]->GetController()->GetModule()])) {
+    if(!is_array($name) && strtolower($name) == strtolower($view) && strtolower($module) == strtolower($GLOBALS["APP"]["MODULE_MAP"][$GLOBALS["APP"]["INSTANCE"]->GetController()->GetModule()])) {
       $class = ' class="active"';
     }
     $sr = ($name == $view) ? '<span class="sr-only">(current)</span>' : '';

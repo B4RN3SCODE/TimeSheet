@@ -107,10 +107,26 @@ class TSView {
 			if($this->_displayOptions["foot"])
 				include_once("views/foot.php");
 
+
+//            echo "<pre>";
+//            print_r(base::stack_trace());
+//            echo "</pre>";
+
 			$viewData = ob_get_contents();
 			return $viewData;
 			ob_end_clean();
-		}
+
+
+
+            /**
+             * [file] => /opt/lampp/htdocs/TimeSheet/modules/User/views/index.php
+             * [line] => 19
+             * [function] => LoadView
+             * [class] => TSView
+             * [object] => index Object
+             */
+
+        }
 	}
 
 
