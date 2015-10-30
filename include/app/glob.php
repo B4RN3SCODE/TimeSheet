@@ -12,8 +12,12 @@
 
 $GLOBALS["APP"] = array(
 	"INSTANCE"	=>	null,
-	"ERROR"	=>	null,
 	"FORCE_LOGIN"	=>	null,
+  "MSG" => array(
+    "ERROR"	=>	null,
+    "SUCCESS" => null,
+    "INFO" => null,
+  ),
 	"MODULE_MAP"	=>	array(
 		"timesheet"	=>	"TimeSheet",
 		"user"		=>	"User",

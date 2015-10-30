@@ -13,7 +13,7 @@ ini_set("html_errors", 1);
  * only entry point for application
  *********************************/
 include_once("include/app/initialize.php");
-$app = new TSApp(array(),0,true);
+$app = new TSApp(array(),0,false);
 $app->SessionActivate();
 $app->Boot();
 

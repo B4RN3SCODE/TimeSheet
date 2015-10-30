@@ -37,7 +37,9 @@ class UserController extends TSController {
         } else {
           $GLOBALS["APP"]["FORCE_LOGIN"] = true;
         }
-		}
+		} else if($this->_view == "logout") {
+      $this->Reinitialize("user","index","logout");
+    }
 		$this->_viewProcessor->display();
 	}
 
@@ -55,30 +57,31 @@ class UserController extends TSController {
      * @return bool
      */
     public function Login() {
-echo "<pre>";
-debug_print_backtrace();
-echo "</pre>";
-		$username = isset($_REQUEST["email"]) ? $_REQUEST["email"] : null;
-		$password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : null;
+      $username = isset($_REQUEST["email"]) ? $_REQUEST["email"] : null;
+      $password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : null;
 
       if($username == null || $password == null) {// || !$this->User->LoadByEmail($username)) {
-          $GLOBALS["APP"]["ERROR"] = "Invalid username or password";
-          return false;
+        $GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
+        $this->Reinitialize("user","index");
+        return false;
       } else {
-          $this->User = new User();
-          $this->User->LoadByEmail($username);
+        $this->User = new User();
+        $this->User->LoadByEmail($username);
       }
       if(password_verify($password, $this->User->getPassword())) {
-          $this->User->setOnline(1);
-          $this->User->save();
-          $_SESSION["User"] = $this->User;
-          return true;
+        $this->User->setOnline(1);
+        $this->User->save();
+        $_SESSION["User"] = $this->User;
+        $_SESSION["PHPSESSID"] = true;
+        $_SESSION["LoggedInTime"] = time();
+        $GLOBALSS["APP"]["FORCE_LOGIN"]=false;
       } else {
-          $GLOBALS["APP"]["ERROR"] = "Invalid username or password";
-          unset($_SESSION["User"]);
-          return false;
+        $GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
+        $this->Reinitialize("user","index");
+        return false;
       }
-      $this->index();
+      // Redirect after successful login to timesheet home
+      header('Location: http://' . $_SERVER["HTTP_HOST"] . '/TimeSheet/Home');
     }
 
 	/**
@@ -90,8 +93,9 @@ echo "</pre>";
 			$this->User->setOnline(0);
 			$this->User->save();
 			$GLOBALS["APP"]["INSTANCE"]->SessionTerminate();
+      $GLOBALS["APP"]["MSG"]["ERROR"] = "You have been logged out!";
 		}
-		return true;
+    $this->Reinitialize("user","index");
 	}
 
 	/**
@@ -101,7 +105,7 @@ echo "</pre>";
 	 */
 	public function ChangePassword($oldpassword,$newpassword) {
 		if(!isset($_SESSION["User"])) {
-			$GLOBALS["ERROR"] = "Please login";
+      $GLOBALS["APP"]["MSG"]["ERROR"] = "Please login";
 			return false;
 		}
 		$this->User = $_SESSION["User"];
@@ -111,11 +115,11 @@ echo "</pre>";
 			if($this->User->save()) {
 				return true;
 			} else {
-				$GLOBALS["ERROR"] = "There was a problem changing your password, please try again.";
+        $GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem changing your password, please try again.";
 				return false;
 			}
 		} else {
-			$GLOBALS["ERROR"] = "Please enter your old password.";
+      $GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter your old password.";
 			return false;
 		}
 	}

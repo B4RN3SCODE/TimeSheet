@@ -232,7 +232,7 @@ class DBCon {
      ***********************************/
     public function Query() {
 //      echo "<pre>";
-//      print_r(base::stack_trace());
+//      debug_print_backtrace();
 //      echo "</pre>";
         if($sent = $this->LinkRef->query($this->QueryStmt)) {
             $this->setQueryRslt($sent);

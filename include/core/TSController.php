@@ -45,6 +45,11 @@ class TSController {
 		$this->_hasAction = (isset($this->_action) && !empty($this->_action) && strtolower($this->_action) != "index");
 	}
 
+  protected function Reinitialize($module, $view, $action="index") {
+    $this->setVars(array("_module"=>strtolower($module),"_view"=>strtolower($view),"_action"=>strtolower($action)));
+    $this->Init();
+  }
+
 
 
 	public function setVars(array $arr = array()) {
@@ -58,7 +63,7 @@ class TSController {
 
 	public function Init() {
 		$this->_viewProcessor = TSViewFactory::getView($this->_module, $this->_view);
-		$tmp = $GLOBALS["APP"]["MODULE_MAP"][$this->_module];
+		$tmp = $GLOBALS["APP"]["MODULE_MAP"][strtolower($this->_module)];
 		$srv_name = "{$tmp}ServiceAdapter";
 		$srv_file = "services/{$tmp}/{$srv_name}.php";
 		if(file_exists($srv_file)) {
