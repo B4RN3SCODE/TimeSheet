@@ -231,6 +231,9 @@ class DBCon {
      * @return boolean true for success
      ***********************************/
     public function Query() {
+//      echo "<pre>";
+//      print_r(base::stack_trace());
+//      echo "</pre>";
         if($sent = $this->LinkRef->query($this->QueryStmt)) {
             $this->setQueryRslt($sent);
             return true;

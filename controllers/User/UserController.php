@@ -32,7 +32,7 @@ class UserController extends TSController {
 	public function index() {
 		if($this->_view == "edit") {
             if(is_logged_in()) {
-                $userData = $this->getUserData($_SESSION["User"]->getUser());// for testing... replace with $_SESSION["User"]->getUserId() when ready
+                $userData = $this->getUserData($_SESSION["User"]->getId());// for testing... replace with $_SESSION["User"]->getUserId() when ready
                 $this->_viewProcessor->_tplData = $userData;
             } else {
                 echo "<pre>";
@@ -65,7 +65,7 @@ class UserController extends TSController {
 
         $this->User = new User();
         if($username == null || $password == null) {// || !$this->User->LoadByEmail($username)) {
-            $GLOBALS["ERROR"] = "Invalid username or password";
+            $GLOBALS["APP"]["ERROR"] = "Invalid username or password";
             return false;
         } else {
             $this->User->LoadByEmail($username);
@@ -76,7 +76,7 @@ class UserController extends TSController {
             $_SESSION["User"] = $this->User;
             return true;
         } else {
-            $GLOBALS["ERROR"] = "Invalid username or password";
+            $GLOBALS["APP"]["ERROR"] = "Invalid username or password";
             unset($_SESSION["User"]);
             return false;
         }

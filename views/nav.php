@@ -28,6 +28,6 @@
   </nav>
   <div class="container">
     <div class="row">
-      <div class="col-md-10">
-        <?php if(TSApp::StringHasValue($GLOBALS["APP"]["ERROR"])) echo "<h4 style=\"color:red;\">{$GLOBALS["APP"]["ERROR"]}</h4>"; ?>
-      </div>
+<!--      <div class="col-md-10">-->
+<!--        --><?php //if(TSApp::StringHasValue($GLOBALS["APP"]["ERROR"])) echo "<h4 style=\"color:red;\">{$GLOBALS["APP"]["ERROR"]}</h4>"; ?>
+<!--      </div>-->

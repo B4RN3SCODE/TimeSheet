@@ -277,7 +277,9 @@ class TSApp {
 	 *********************************************/
 	public function SessionTerminate() {
 		if(isset($_SESSION["PHPSESSID"])) unset($_SESSION["PHPSESSID"]);
-		session_destroy();
+		if(session_id() != "") {
+			session_destroy();
+		}
 	}
 
 

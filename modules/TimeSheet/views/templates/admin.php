@@ -7,7 +7,7 @@ $clients = array(
   "Design One"=>array("NetServ")
 )
 ?>
-      <div class="col-md-push-1 col-md-10">
+      <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Maintain Database</h3>
@@ -80,6 +80,7 @@ $clients = array(
                       </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="users">
+                      <form name="timesheet-active-users" action="" method="post">
                       <table class="table table-striped table-hover table-condensed">
                         <thead>
                         <tr>
@@ -89,12 +90,11 @@ $clients = array(
                         </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        for($i = 0; $i <= 10; $i++) { ?>
+                        <?php foreach($TPLDATA["Users"] as $User) { ?>
                           <tr>
-                            <td class="text-center"><?=$i?></td>
-                            <td><?="User$i"?></td>
-                            <td class="text-center"><input type="checkbox" type="active[]" name="timesheet-hours[]" /></td>
+                            <td class="text-center"><? echo $User->getId(); ?><input type="hidden" name="userid[]" value="<? echo $User->getId(); ?>" /></td>
+                            <td><? echo $User->getFirstName() . ' ' . $User->getLastName(); ?></td>
+                            <td class="text-center"><input type="checkbox" name="active[]"<? if($User->getActive()) echo " checked"; ?> /></td>
                           </tr>
                         <? } ?>
                         </tbody>
@@ -104,6 +104,7 @@ $clients = array(
                         </tr>
                         </tfoot>
                       </table>
+                      </form>
                     </div>
                   </div>
                 </div>

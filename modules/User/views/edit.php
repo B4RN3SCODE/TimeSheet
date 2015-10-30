@@ -15,7 +15,7 @@
 class edit extends TSView {
 	public function display() {
 		$this->setOptions(array());
-		$this->_viewTpl = "userinfo";
+		$this->_viewTpl = "edit";
 		$vwData = $this->LoadView();
 	}
 }
