@@ -38,7 +38,7 @@ class UserController extends TSController {
           $GLOBALS["APP"]["FORCE_LOGIN"] = true;
         }
 		} else if($this->_view == "logout") {
-      $this->Reinitialize("user","index","logout");
+      $this->Redirect("user","index","logout");
     }
 		$this->_viewProcessor->display();
 	}
@@ -62,7 +62,7 @@ class UserController extends TSController {
 
       if($username == null || $password == null) {// || !$this->User->LoadByEmail($username)) {
         $GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
-        $this->Reinitialize("user","index");
+        $this->Redirect("user","index");
         return false;
       } else {
         $this->User = new User();
@@ -77,7 +77,7 @@ class UserController extends TSController {
         $GLOBALSS["APP"]["FORCE_LOGIN"]=false;
       } else {
         $GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
-        $this->Reinitialize("user","index");
+        $this->Redirect("user","index");
         return false;
       }
       // Redirect after successful login to timesheet home
@@ -95,7 +95,7 @@ class UserController extends TSController {
 			$GLOBALS["APP"]["INSTANCE"]->SessionTerminate();
       $GLOBALS["APP"]["MSG"]["ERROR"] = "You have been logged out!";
 		}
-    $this->Reinitialize("user","index");
+    $this->Redirect("user","index");
 	}
 
 	/**

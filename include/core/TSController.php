@@ -45,7 +45,7 @@ class TSController {
 		$this->_hasAction = (isset($this->_action) && !empty($this->_action) && strtolower($this->_action) != "index");
 	}
 
-  protected function Reinitialize($module, $view, $action="index") {
+  protected function Redirect($module, $view, $action="index") {
     $this->setVars(array("_module"=>strtolower($module),"_view"=>strtolower($view),"_action"=>strtolower($action)));
     $this->Init();
   }
