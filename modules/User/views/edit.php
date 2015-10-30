@@ -13,9 +13,17 @@
  *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class edit extends TSView {
+
+	function __constructor() {
+		$forceLogin = false;
+	}
 	public function display() {
 		$this->setOptions(array());
-		$this->_viewTpl = "edit";
+		if($GLOBALS["APP"]["FORCE_LOGIN"]) {
+			$this->_viewTpl = "login";
+		} else {
+			$this->_viewTpl = "edit";
+		}
 		$vwData = $this->LoadView();
 	}
 }

@@ -30,14 +30,12 @@ class UserController extends TSController {
     }
 
 	public function index() {
-		if($this->_view == "edit" || $this->_view = "home") {
+		if($this->_view == "edit") {
         if(is_logged_in()) {
             $userData = $this->getUserData($_SESSION["User"]->getId());// for testing... replace with $_SESSION["User"]->getUserId() when ready
             $this->_viewProcessor->_tplData = $userData;
         } else {
-            echo "<pre>";
-            throw new Exception("You are not logged in!");
-            echo "</pre>";
+          $GLOBALS["APP"]["FORCE_LOGIN"] = true;
         }
 		}
 		$this->_viewProcessor->display();
@@ -57,28 +55,30 @@ class UserController extends TSController {
      * @return bool
      */
     public function Login() {
-		$username = $_REQUEST["email"];
-		$password = $_REQUEST["password"];
+echo "<pre>";
+debug_print_backtrace();
+echo "</pre>";
+		$username = isset($_REQUEST["email"]) ? $_REQUEST["email"] : null;
+		$password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : null;
 
-        $this->User = new User();
-        if($username == null || $password == null) {// || !$this->User->LoadByEmail($username)) {
-            $GLOBALS["APP"]["ERROR"] = "Invalid username or password";
-            return false;
-        } else {
-            $this->User->LoadByEmail($username);
-        }
-        if(password_verify($password, $this->User->getPassword())) {
-            $this->User->setOnline(1);
-            $this->User->save();
-            $_SESSION["User"] = $this->User;
-            return true;
-        } else {
-            $GLOBALS["APP"]["ERROR"] = "Invalid username or password";
-            unset($_SESSION["User"]);
-            return false;
-        }
-        $this->_view = "Edit";
-        $this->index();
+      if($username == null || $password == null) {// || !$this->User->LoadByEmail($username)) {
+          $GLOBALS["APP"]["ERROR"] = "Invalid username or password";
+          return false;
+      } else {
+          $this->User = new User();
+          $this->User->LoadByEmail($username);
+      }
+      if(password_verify($password, $this->User->getPassword())) {
+          $this->User->setOnline(1);
+          $this->User->save();
+          $_SESSION["User"] = $this->User;
+          return true;
+      } else {
+          $GLOBALS["APP"]["ERROR"] = "Invalid username or password";
+          unset($_SESSION["User"]);
+          return false;
+      }
+      $this->index();
     }
 
 	/**

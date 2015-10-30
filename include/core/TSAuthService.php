@@ -27,7 +27,6 @@ class TSAuthService implements IAuthService {
 		$this->_forceLogOutSeconds = $forceLogOutSeconds;
 	}
 
-
 	/********************************************
 	 * validEntryPoint
 	 * validates app entry point

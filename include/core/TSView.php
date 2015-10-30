@@ -98,7 +98,7 @@ class TSView {
 			$listData = (!empty($listData)) ? $listData : array();
 			$TPLDATA = $this->_tplData;
 
-			$FORCELOGIN = (isset($GLOBALSS["APP"]["FORCE_LOGIN"]) && $GLOBALSS["APP"]["FORCE_LOGIN"]===true);
+			$FORCELOGIN = (isset($GLOBALS["APP"]["FORCE_LOGIN"]) && $GLOBALS["APP"]["FORCE_LOGIN"]===true);
 
 			if(TSApp::StringHasValue($this->_viewTpl)) {
 				include_once($str_pth);

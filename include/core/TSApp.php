@@ -127,7 +127,7 @@ class TSApp {
 			// TODO handle
 		}
 		// check user is logged in
-		if(!$this->_authService->isLoggedIn()) {
+		if(!is_logged_in()) { // $this->_authService->isLoggedIn()) {
 			// set controller as user controller
 			$this->_controller = TSControllerFactory::getController("user");
 			// set controller vars to execute index & set global error msg
