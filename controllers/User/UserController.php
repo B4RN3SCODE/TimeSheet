@@ -30,18 +30,15 @@ class UserController extends TSController {
     }
 
 	public function index() {
-		if($this->_view == "edit") {
-            if(is_logged_in()) {
-                $userData = $this->getUserData($_SESSION["User"]->getId());// for testing... replace with $_SESSION["User"]->getUserId() when ready
-                $this->_viewProcessor->_tplData = $userData;
-            } else {
-                echo "<pre>";
-                throw new Exception("You are not logged in!");
-                echo "</pre>";
-            }
-		} else if($this->_view == "logout") {
-            echo "Logging out!";
-			$this->Logout();
+		if($this->_view == "edit" || $this->_view = "home") {
+        if(is_logged_in()) {
+            $userData = $this->getUserData($_SESSION["User"]->getId());// for testing... replace with $_SESSION["User"]->getUserId() when ready
+            $this->_viewProcessor->_tplData = $userData;
+        } else {
+            echo "<pre>";
+            throw new Exception("You are not logged in!");
+            echo "</pre>";
+        }
 		}
 		$this->_viewProcessor->display();
 	}
@@ -80,6 +77,8 @@ class UserController extends TSController {
             unset($_SESSION["User"]);
             return false;
         }
+        $this->_view = "Edit";
+        $this->index();
     }
 
 	/**

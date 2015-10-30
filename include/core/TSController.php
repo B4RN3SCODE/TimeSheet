@@ -62,13 +62,13 @@ class TSController {
 		$srv_name = "{$tmp}ServiceAdapter";
 		$srv_file = "services/{$tmp}/{$srv_name}.php";
 		if(file_exists($srv_file)) {
-			include_once($srv_file);
 			$this->_serviceAdapter = new $srv_name($GLOBALS["APP"]["INSTANCE"]->_dbAdapter);
 		}
 
-		if(!$this->_hasAction) {
-			$this->Proc(true);
-		}
+		$this->Proc($this->_hasAction);
+//		if(!$this->_hasAction) {
+//			$this->Proc(true);
+//		}
 		return true;
 	}
 

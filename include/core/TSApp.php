@@ -181,7 +181,7 @@ class TSApp {
 		//}
 
 		if($this->_controller->Init()) {
-			$this->_controller->Proc();
+//			$this->_controller->Proc(false);
 			$this->CleanUp();
 		} else {
 			die("Could not initialize controller");
