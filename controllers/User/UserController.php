@@ -101,7 +101,7 @@ class UserController extends TSController {
 	 */
 	public function Logout() {
 		// you dont need to check for login because when TSApp boots up it checks that EVERY REQUEST
-		if(!is_null($this->User = $_SESSION["User"])) {
+		if(!is_null($this->User)) {
 			$this->User->setOnline(0);
 			$this->User->save();
 		}
