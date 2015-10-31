@@ -40,7 +40,6 @@ class User extends BaseDB {
     protected $_LastName;       //varchar(30) DEFAULT NULL
     protected $_AccountType;    //int(10) NOT NULL DEFAULT '0'
     protected $_Password;       //varchar(150) DEFAULT NULL
-    protected $_Sault;          //varchar(30) DEFAULT NULL
     protected $_DateAdded;      //datetime DEFAULT NULL
     protected $_LastModified;   //datetime DEFAULT NULL
     protected $_Phone;          //varchar(17) DEFAULT NULL
@@ -49,7 +48,7 @@ class User extends BaseDB {
     protected $_Online;         //tinyint(1) DEFAULT '0'
 
     protected $columns = array("id","Email","FirstName","LastName","AccountType","Password",
-        "Sault","DateAdded","LastModified","Phone","Active","Restriction","Online");
+        "DateAdded","LastModified","Phone","Active","Restriction","Online");
     protected $db;
 
     public function getId() { return $this->_id; }
@@ -58,7 +57,6 @@ class User extends BaseDB {
     public function getLastName() { return $this->_LastName; }
     public function getAccountType() { return $this->_AccountType; }
     public function getPassword() { return $this->_Password; }
-    public function getSault() { return $this->_Sault; }
     public function getDateAdded() { return $this->_DateAdded; }
     public function getLastModified() { return $this->_LastModified; }
     public function getPhone() { return $this->_Phone; }
@@ -72,7 +70,6 @@ class User extends BaseDB {
     public function setLastName($value) { $this->_LastName = $value; }
     public function setAccountType($value) { $this->_AccountType = $value; }
     public function setPassword($value) { $this->_Password = $value; }
-    public function setSault($value) { $this->_Sault = $value; }
     public function setDateAdded($value) { $this->_DateAdded = $value; }
     public function setLastModified($value) { $this->_LastModified = $value; }
     public function setPhone($value) { $this->_Phone = $value; }
@@ -132,6 +129,12 @@ class User extends BaseDB {
             return false;
         }
     }
+
+	public function PrepNewUser() {
+		$this->setAccountType(0);
+		$this->setActive(1);
+		$this->setRestriction(0);
+	}
 
     public function save() {
         $this->setLastModified(base::now());

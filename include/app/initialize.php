@@ -22,7 +22,9 @@ function loadClass($class) {
             include "services/$module/$class.php";
         }
     } else {
+        echo "<pre>";
         throw new Exception("Unable to load class: $class");
+        echo "</pre>";
     }
 }
 spl_autoload_register('loadClass');

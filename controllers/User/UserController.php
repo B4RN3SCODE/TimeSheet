@@ -33,14 +33,14 @@ class UserController extends TSController {
 	public function index() {
 		// you dont need to check for login because when TSApp boots up it checks that EVERY REQUEST
 		switch($this->_view) {
+			case "edit":
+				$userData = $this->getUserData($_SESSION["User"]->getId());
+				$this->_viewProcessor->_tplData = $userData;
+				break;
 			case "index":
 				case "home":
 				if(is_logged_in())
 					$this->Redirect("user","edit");
-				break;
-			case "edit":
-				$userData = $this->getUserData($_SESSION["User"]->getId());
-				$this->_viewProcessor->_tplData = $userData;
 				break;
 			case "logout":
 				$this->Redirect("user","index","logout");
@@ -142,10 +142,25 @@ class UserController extends TSController {
 	 * @param null $User
 	 * @return bool
 	 */
-	public function AddUser($User = null) {
-		if($User === null) { return false; }
-		$User->setPassword(password_hash($User->getPassword(),PASSWORD_DEFAULT));
-		return $User->save();
+	public function AddUser() {
+		if(isset($_POST["email"]) && strlen(trim($_POST["email"])) > 0) {
+			if(isset($_POST["password"]) && strlen(trim($_POST["password"])) > 0 ) {
+				$User = new User();
+				$User->PrepNewUser();
+				$User->setEmail(trim($_POST["email"]));
+				$User->setPassword(password_hash($_POST["password"],PASSWORD_DEFAULT));
+				if($User->save()) {
+					$GLOBALS["APP"]["MSG"]["INFO"] = "User account created successfully.";
+				} else {
+					$GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem creating a new user.<br />" . $this->User->GetDBError();
+				}
+			} else {
+				$GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter a password.";
+			}
+		} else {
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter an email address.";
+		}
+		return $this->Redirect("user","admin");
 	}
 
 	public function Update() {
