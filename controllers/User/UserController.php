@@ -76,11 +76,16 @@ class UserController extends TSController {
 			$this->User->LoadByEmail($username);
 		}
 		if(password_verify($password, $this->User->getPassword())) {
-			$this->User->setOnline(1);
-			$_SESSION["User"] = $this->User;
-			$_SESSION["PHPSESSID"] = true;
-			$_SESSION["LoggedInTime"] = time();
-			$GLOBALS["APP"]["FORCE_LOGIN"]=false;
+			if($this->User->getActive()) {
+				$this->User->setOnline(1);
+				$_SESSION["User"] = $this->User;
+				$_SESSION["PHPSESSID"] = true;
+				$_SESSION["LoggedInTime"] = time();
+				$GLOBALS["APP"]["FORCE_LOGIN"] = false;
+			} else {
+				$GLOBALS["APP"]["MSG"]["ERROR"] = "Your account has been disabled";
+				return $this->Redirect("user","login");
+			}
 		} else {
 			$GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
 			$this->Redirect("user","index");
