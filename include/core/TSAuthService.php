@@ -46,21 +46,26 @@ class TSAuthService implements IAuthService {
 	 * @return bool true if logged in
 	 **********************************************/
 	public function isLoggedIn() {
-    return true;
+//    return true;
 		if(isset($_SESSION["PHPSESSID"]) && !empty($_SESSION["PHPSESSID"]) && $_SESSION["PHPSESSID"] === true) {
 			$time_now = time();
 			$logged_in_time = (isset($_SESSION["LoggedInTime"]) && $_SESSION["LoggedInTime"] > 0) ? $_SESSION["LoggedInTime"] : 0;
 			// make sure user have not been logged in longer than max allowed time
-			if((($time_now - $logged_in_time) / 1000) >= $this->_forceLogOutSeconds) {
+			if(($time_now - $logged_in_time) >= $this->_forceLogOutSeconds) {
 				$GLOBALS["APP"]["FORCE_LOGIN"]=true;
+				$GLOBALS["valid_login"] = false;
 				return false;
+			} else {
+				$_SESSION["LoggedInTime"] = time();
 			}
 			/*
 			 * TODO
 			 * 		check user session values.... like validating a hash that is created at log in and shit
 			 */
+			$GLOBALS["valid_login"] = true;
 			 return true;
 		}
+		$GLOBALS["valid_login"] = false;
 		return false;
 	}
 

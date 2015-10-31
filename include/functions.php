@@ -90,6 +90,5 @@ function sidebar($name) {
 }
 
 function is_logged_in() {
-//  return $GLOBALS["APP"]["INSTANCE"]->_authService->isLoggedIn();
-  return (isset($_SESSION["User"]) && ($_SESSION["User"]->getId() > 0));
+  return $GLOBALS["valid_login"];
 }

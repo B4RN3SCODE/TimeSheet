@@ -119,31 +119,32 @@ class TSApp {
 		if(!$this->_authService->validEntryPoint()) {
 			// TODO handle
 		}
-		// check user is logged in
-		if(!$this->_authService->isLoggedIn()) {
+
+		// find the module, instantiate a controller
+		// based on result
+		$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"]);
+		if($module === false)
+			$module = $this->_defaultModule;
+
+		// get the view and action if there is one
+		$view = $this->Isolate(self::$DEFAULT_CONFIG_MAP["view"]["urii"]);
+		if($view === false)
+			$view = $this->_defaultView;
+
+		$action = $this->Isolate(self::$DEFAULT_CONFIG_MAP["action"]["urii"]);
+		if($action === false)
+			$action = $this->_defaultAction;
+
+		// Need to make sure we are not trying to login then check that the user is logged in
+		if(strtolower($action) != "login" && !$this->_authService->isLoggedIn()) {
 			// set controller as user controller
 			$this->_controller = TSControllerFactory::getController("user");
 			// set controller vars to execute index & set global error msg
 			$this->_controller->setVars(array("_module"=>"user","_view"=>"index","_action"=>"index"));
 
 		} else {
-			// find the module, instantiate a controller
-			// based on result
-			$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"]);
-			if($module === false)
-				$module = $this->_defaultModule;
-
+			// Get the appropriate controller
 			$this->_controller = TSControllerFactory::getController($module);
-
-			// get the view and action if there is one
-			$view = $this->Isolate(self::$DEFAULT_CONFIG_MAP["view"]["urii"]);
-			if($view === false)
-				$view = $this->_defaultView;
-
-			$action = $this->Isolate(self::$DEFAULT_CONFIG_MAP["action"]["urii"]);
-			if($action === false)
-				$action = $this->_defaultAction;
-
 			// set controller vars
 			$this->_controller->setVars(array("_module"=>strtolower($module),"_view"=>strtolower($view),"_action"=>strtolower($action)));
 		}
@@ -261,7 +262,6 @@ class TSApp {
 		if(isset($_SESSION["PHPSESSID"])) unset($_SESSION["PHPSESSID"]);
 		session_start();
 		$_SESSION["PHPSESSID"] = true;
-		// TODO after we get the is_logged_in function working accurately then we should move the follo
 		if(isset($_SESSION["User"])) { $_SESSION["User"]->setDB($this->_dbAdapter); }
 		return true;
 	}
