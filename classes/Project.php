@@ -26,9 +26,23 @@ class ProjectArray extends ArrayClass {
             return false;
         }
     }
+
+    function LoadByClientId($id) {
+        $strSQL = $this->db->SStatement(array("id","Title","Rate"), self::getClass(), array("ClientId"=>$id) );
+        $this->db->SetQueryStmt($strSQL);
+        if($this->db->Query()) {
+            $retArray = array();
+            foreach ($this->db->GetAll() as $row) {
+                $retArray[$row["id"]] = array("Name" => $row["Title"], "Rate" => $row["Rate"]);
+            }
+            return $retArray;
+        } else {
+            return false;
+        }
+    }
 }
 
-class User extends BaseDB {
+class Project extends BaseDB {
     protected $_id;
     protected $_UserId;
     protected $_ClientId;

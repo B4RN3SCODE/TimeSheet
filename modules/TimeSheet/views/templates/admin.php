@@ -39,14 +39,14 @@ $clients = $TPLDATA["Clients"]; //array(
                       <br />
                       <!-- input list here -->
                       <div class="panel-group" id="client-list">
-                        <?php foreach ($clients as $id => $client) { ?>
+                        <?php foreach ($clients as $cid => $client) { ?>
                           <div class="panel panel-default">
                             <!--    <div class="panel-heading">-->
                             <h4 class="panel-title">
-                              <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $id; ?>"><?php echo $client["Name"]; ?><span class="badge"><? echo count($client["Projects"]); ?></span></a>
+                              <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>"><?php echo $client["Name"]; ?><span class="badge"><? echo count($client["Projects"]); ?></span></a>
                             </h4>
                             <!--    </div>-->
-                            <div id="client<?php echo $id; ?>" class="panel-collapse collapse">
+                            <div id="client<?php echo $cid; ?>" class="panel-collapse collapse">
                               <?php if(count($client["Projects"]) == 0) { //count($projects) == 0) { ?>
                                 <div class="list-group">
                                   <a class="list-group-item">
@@ -55,7 +55,7 @@ $clients = $TPLDATA["Clients"]; //array(
                                 </div>
       <!--                          echo '<div class="list-group">nothing</div>';-->
                               <? } else {
-                                foreach($client["Projects"] as $project) { ?>
+                                foreach($client["Projects"] as $pid => $project) { ?>
                                   <div class="list-group">
                                   <a class="list-group-item">
                                     <span class="rate">$<?php echo $project["Rate"]; ?></span><h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
