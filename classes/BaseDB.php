@@ -43,5 +43,13 @@ class BaseDB {
     public function toArray() {
         return $this->prepare_data();
     }
+
+    public function GetDBError() {
+        if(isset($this->db)) {
+            return $this->db->GetLastErrorMsg();
+        } else {
+            return "No DB Connection";
+        }
+    }
 }
 ?>

@@ -50,7 +50,7 @@ class User extends BaseDB {
 
     protected $columns = array("id","Email","FirstName","LastName","AccountType","Password",
         "Sault","DateAdded","LastModified","Phone","Active","Restriction","Online");
-    private $db;
+    protected $db;
 
     public function getId() { return $this->_id; }
     public function getEmail() { return $this->_Email; }

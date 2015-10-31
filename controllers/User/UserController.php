@@ -156,8 +156,11 @@ class UserController extends TSController {
 		$this->User->setLastName($_POST["last-name"]);
 		$this->User->setEmail($_POST["email"]);
 		$this->User->setPhone($_POST["phone"]);
-		$this->User->save();
-		$GLOBALS["APP"]["MSG"]["SUCCESS"] = "Your profile information has been updated.";
+		if($this->User->save()) {
+			$GLOBALS["APP"]["MSG"]["SUCCESS"] = "Your profile information has been updated.";
+		} else {
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem updating your profile.<br />" . $this->User->GetDBError();
+		}
 		$this->Redirect("user","edit");
 	}
 }
