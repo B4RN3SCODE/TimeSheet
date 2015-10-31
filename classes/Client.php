@@ -27,15 +27,24 @@ class ClientArray extends ArrayClass {
         }
     }
 
-    function LoadClientNames() {
-        $strSQL = $this->db->SStatement(array(), self::getClass());
+    function LoadClientWithProjects() {
+        $strSQL = $this->db->SStatement(array("id","Name"), self::getClass());
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
+            $retArray = array();
             foreach ($this->db->GetAll() as $row) {
-                $this->_arrObjects[$row["id"]] = new Client();
-                $this->_arrObjects[$row["id"]]->setVarsFromRow($row);
+                // TODO create Projects class and load projects from there
+                $retArray[$row["id"]] = array(
+                    "Name" => $row['Name'],
+                    "Projects" => array(
+                        array("Name" => "Project 1", "Rate" => 15),
+                        array("Name" => "Project 2", "Rate" => 70),
+                        array("Name" => "Project 3", "Rate" => 120),
+                        array("Name" => "Project 4", "Rate" => 0)
+                    ),
+                );
             }
-            return true;
+            return $retArray;
         } else {
             return false;
         }

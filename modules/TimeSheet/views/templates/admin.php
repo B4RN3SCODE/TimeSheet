@@ -39,15 +39,15 @@ $clients = $TPLDATA["Clients"]; //array(
                       <br />
                       <!-- input list here -->
                       <div class="panel-group" id="client-list">
-                        <?php $count = 0; foreach ($clients as $client => $projects) { $count++; ?>
+                        <?php foreach ($clients as $id => $client) { ?>
                           <div class="panel panel-default">
                             <!--    <div class="panel-heading">-->
                             <h4 class="panel-title">
-                              <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$count?>"><?=$client?><span class="badge"><?=count($projects)?></span></a>
+                              <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $id; ?>"><?php echo $client["Name"]; ?><span class="badge"><? echo count($client["Projects"]); ?></span></a>
                             </h4>
                             <!--    </div>-->
-                            <div id="collapse<?=$count?>" class="panel-collapse collapse">
-                              <?php if(count($projects) == 0) { ?>
+                            <div id="client<?php echo $id; ?>" class="panel-collapse collapse">
+                              <?php if(count($client["Projects"]) == 0) { //count($projects) == 0) { ?>
                                 <div class="list-group">
                                   <a class="list-group-item">
                                     <input type="text" class="form-control">
@@ -55,17 +55,17 @@ $clients = $TPLDATA["Clients"]; //array(
                                 </div>
       <!--                          echo '<div class="list-group">nothing</div>';-->
                               <? } else {
-                                foreach($projects as $project) { ?>
+                                foreach($client["Projects"] as $project) { ?>
                                   <div class="list-group">
                                   <a class="list-group-item">
-                                    <span class="rate">$<?=rand(10,150)?></span><h4 class="list-group-item-heading"><?=$project?></h4>
+                                    <span class="rate">$<?php echo $project["Rate"]; ?></span><h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
                                   </a>
                                   </div><?
                                 } ?>
                                 <div class="list-group">
                                   <a class="list-group-item">
                                     <div class="input-group">
-                                      <input type="text" class="form-control" placeholder="Add a new project to <?=$client?>">
+                                      <input type="text" class="form-control" placeholder="Add a new project to <?php echo $client["Name"]; ?>">
                                       <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" disabled>&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;</button>
                                       </span>
@@ -94,7 +94,7 @@ $clients = $TPLDATA["Clients"]; //array(
                           <tr>
                             <td class="text-center"><? echo $User->getId(); ?><input type="hidden" name="userid[]" value="<? echo $User->getId(); ?>" /></td>
                             <td><? echo $User->getFirstName() . ' ' . $User->getLastName(); ?></td>
-                            <td class="text-center"><input type="checkbox" name="active[]"<? if($User->getActive()) echo " checked"; ?> /></td>
+                            <td class="text-center"><input type="checkbox" name="active[]"<?php if($User->getActive()) echo " checked"; ?> /></td>
                           </tr>
                         <? } ?>
                         </tbody>

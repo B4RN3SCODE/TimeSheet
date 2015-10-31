@@ -20,9 +20,8 @@ class admin extends TSView
         $Users->load();
         // Load all clients
         $Clients = new ClientArray();
-        $Clients->load();
         // Set template data
-        $this->_tplData = array("Clients" => $Clients->getArray(), "Users" => $Users->getArray());
+        $this->_tplData = array("Clients" => $Clients->LoadClientWithProjects(), "Users" => $Users->getArray());
         $this->setOptions(array());
         $this->_viewTpl = "admin";
         $vwData = $this->LoadView();
