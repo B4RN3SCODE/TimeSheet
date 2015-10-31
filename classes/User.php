@@ -67,7 +67,7 @@ class User extends BaseDB {
     public function getOnline() { return $this->_Online; }
 
     private function setId($value) { $this->_id = $value; }
-    public function setEmail($value) { $this->_Email = $value; }
+    public function setEmail($value) { $this->_Email = strtolower(trim($value)); }
     public function setFirstName($value) { $this->_FirstName = $value; }
     public function setLastName($value) { $this->_LastName = $value; }
     public function setAccountType($value) { $this->_AccountType = $value; }
@@ -81,10 +81,6 @@ class User extends BaseDB {
     public function setOnline($value) { $this->_Online = $value; }
 
     public function __construct($id=null) {
-        if(!isset($GLOBALS["APP"]["INSTANCE"]->_dbAdapter)) {
-            $GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
-            $GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
-        }
         $this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
         $this->db->setTBL(get_class($this));
         if($id) {
