@@ -115,12 +115,13 @@ class UserController extends TSController {
 	 * @param $oldpassword
 	 * @param $newpassword
 	 */
-	public function ChangePassword($oldpassword,$newpassword) {
-		if(!isset($_SESSION["User"])) {
-			$GLOBALS["APP"]["MSG"]["ERROR"] = "Please login";
-			return false;
+	public function ChangePassword() {
+		$oldpassword = $_POST["old-pw"];
+		$newpassword = ($_POST["new-pw"] == $_POST["cfm-pw"]) ? $_POST["new-pw"] : "";
+		if($newpassword == "") {
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "Passwords do not match.";
+			return $this->Redirect("User","ChangePassword");
 		}
-		$this->User = $_SESSION["User"];
 		if(password_verify($oldpassword, $this->User->getPassword())) {
 			$newpassword = password_hash($newpassword, PASSWORD_DEFAULT);
 			$this->User->setPassword($newpassword);
@@ -131,8 +132,8 @@ class UserController extends TSController {
 				return false;
 			}
 		} else {
-			$GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter your old password.";
-			return false;
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "Incorrect password.";
+			return $this->Redirect("User","ChangePassword");
 		}
 	}
 
