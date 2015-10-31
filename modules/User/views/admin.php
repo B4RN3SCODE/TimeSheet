@@ -15,13 +15,9 @@
 class admin extends TSView
 {
 	public function display() {
-		if(isset($_POST["email"]) && !empty($_POST["email"])) {
-			$email = $_POST["email"];
-		} else {
-			$email = "";
-		}
+		$email = (isset($_POST["email"]) && !empty($_POST["email"])) ? $_POST["email"] : "";
 		$this->_tplData = array("Email" => $email);
-			$this->setOptions(array());
+		$this->setOptions(array());
 		$this->_viewTpl = "admin";
 		$vwData = $this->LoadView();
 	}

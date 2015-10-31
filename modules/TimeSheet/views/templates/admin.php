@@ -1,11 +1,11 @@
 <?php
-$clients = array(
-  "American Home Fitness"=>array("Desktop","NetServ","NetServ_50"),
-  "American Seating"=>array("Appdev","Appdev38","RPGDev"),
-  "Arbor"=>array("Adrt","Appdev","Cognos","Holiday","OverQuote","Vacation"),
-  "Corvac"=>array("Appdev","RPGDev","SMDB_V2"),
-  "Design One"=>array("NetServ")
-)
+$clients = $TPLDATA["Clients"]; //array(
+//  "American Home Fitness"=>array("Desktop","NetServ","NetServ_50"),
+//  "American Seating"=>array("Appdev","Appdev38","RPGDev"),
+//  "Arbor"=>array("Adrt","Appdev","Cognos","Holiday","OverQuote","Vacation"),
+//  "Corvac"=>array("Appdev","RPGDev","SMDB_V2"),
+//  "Design One"=>array("NetServ")
+//)
 ?>
       <div class="col-md-12">
         <div class="panel panel-default">

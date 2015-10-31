@@ -11,6 +11,10 @@ include_once("include/app/config.php");
 function loadClass($class) {
     if (file_exists('classes/'.$class.'.php')) { // Load class
         include "classes/$class.php";
+    } else if(strpos($class,"Array")) {
+        $class = substr($class,0,strpos($class, "Array"));
+        if(file_exists("classes/$class.php"))
+            include "classes/$class.php";
     } else if(strpos($class,"TS") === 0) { // Load core
         if(file_exists("include/core/$class.php")) {
             include "include/core/$class.php";

@@ -9,11 +9,25 @@ class ClientArray extends ArrayClass {
             $GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
             $GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
         }
-        $this->db = $GLOBALS["APP"]["INSTANCE"];
+        $this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
         $this->db->setTBL(self::getClass());
     }
 
     function load() {
+        $strSQL = $this->db->SStatement(array(), self::getClass());
+        $this->db->SetQueryStmt($strSQL);
+        if($this->db->Query()) {
+            foreach ($this->db->GetAll() as $row) {
+                $this->_arrObjects[$row["id"]] = new Client();
+                $this->_arrObjects[$row["id"]]->setVarsFromRow($row);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function LoadClientNames() {
         $strSQL = $this->db->SStatement(array(), self::getClass());
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
@@ -67,7 +81,7 @@ class Client extends BaseDB {
             $GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
             $GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
         }
-        $this->db = $GLOBALS["APP"]["INSTANCE"];
+        $this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
         $this->db->setTBL(get_class($this));
         if($id) {
             $this->load($id);
