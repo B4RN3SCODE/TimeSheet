@@ -268,6 +268,8 @@ class TSApp {
 		if(isset($_SESSION["PHPSESSID"])) unset($_SESSION["PHPSESSID"]);
 		session_start();
 		$_SESSION["PHPSESSID"] = true;
+		// TODO after we get the is_logged_in function working accurately then we should move the following line there.
+		if(isset($_SESSION["User"])) { $_SESSION["User"]->setDB($this->_dbAdapter); }
 		return true;
 	}
 

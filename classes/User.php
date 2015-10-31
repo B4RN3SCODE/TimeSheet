@@ -154,5 +154,9 @@ class User extends BaseDB {
             return ($this->db->GetAffectedRows() > 0);
         return false;
     }
+
+	public function setDB(DBCon $db) {
+		$this->db = $db;
+	}
 }
 ?>

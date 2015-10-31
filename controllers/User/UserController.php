@@ -147,11 +147,7 @@ class UserController extends TSController {
 		return $User->save();
 	}
 
-	public function Update() {
-		/*
-		 * TODO after we get the mysqli can't fetch issue figured out we should be able to remove the next line and not instantiate a new user.
-		 */
-		$this->User = new User($_SESSION["User"]->getId());
+	public function Update() {;
 		$this->User->setFirstName($_POST["first-name"]);
 		$this->User->setLastName($_POST["last-name"]);
 		$this->User->setEmail($_POST["email"]);

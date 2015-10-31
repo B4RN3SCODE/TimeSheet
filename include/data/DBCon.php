@@ -92,7 +92,7 @@ class DBCon {
 
         $this->LinkRef = null;
         $this->Error = "";
-        $this->LinkRef = new mysqli($this->HOST, $this->USER, $this->PWD, $this->DB);
+        $this->LinkRef = new mysqli("p:".$this->HOST, $this->USER, $this->PWD, $this->DB);
 
         if($this->LinkRef->connect_errno) {
 
