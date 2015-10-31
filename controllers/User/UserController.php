@@ -34,7 +34,7 @@ class UserController extends TSController {
 		// you dont need to check for login because when TSApp boots up it checks that EVERY REQUEST
 		switch($this->_view) {
 			case "index":
-			case "home":
+				case "home":
 				if(is_logged_in())
 					$this->Redirect("user","edit");
 				break;
@@ -145,6 +145,20 @@ class UserController extends TSController {
 		if($User === null) { return false; }
 		$User->setPassword(password_hash($User->getPassword(),PASSWORD_DEFAULT));
 		return $User->save();
+	}
+
+	public function Update() {
+		/*
+		 * TODO after we get the mysqli can't fetch issue figured out we should be able to remove the next line and not instantiate a new user.
+		 */
+		$this->User = new User($_SESSION["User"]->getId());
+		$this->User->setFirstName($_POST["first-name"]);
+		$this->User->setLastName($_POST["last-name"]);
+		$this->User->setEmail($_POST["email"]);
+		$this->User->setPhone($_POST["phone"]);
+		$this->User->save();
+		$GLOBALS["APP"]["MSG"]["SUCCESS"] = "Your profile information has been updated.";
+		$this->Redirect("user","edit");
 	}
 }
 ?>

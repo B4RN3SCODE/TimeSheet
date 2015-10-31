@@ -1,9 +1,3 @@
-<?php
-echo "<ul>";
-foreach($_POST as $key => $value)
-	echo "<li>$key => $value</li>";
-echo "</ul>";
-?>
 <div id="edit-account">
 	<div id="user-edit" class="col-md-6">
 		<div class="panel panel-default">
