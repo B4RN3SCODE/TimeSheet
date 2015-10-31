@@ -28,23 +28,27 @@
   </nav>
   <div class="container">
     <div class="row">
+      <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["ERROR"])) { ?>
       <div class="col-md-offset-1 col-md-10">
-        <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["ERROR"])) { ?>
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <? echo $GLOBALS["APP"]["MSG"]["ERROR"]; ?>
-                </div>
-        <? } ?>
-        <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["INFO"])) { ?>
-          <div class="alert alert-info alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Hey!</strong> <? echo $GLOBALS["APP"]["MSG"]["INFO"]; ?>
-          </div>
-        <? } ?>
-        <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["SUCCESS"])) { ?>
-          <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Success!</strong> <? echo $GLOBALS["APP"]["MSG"]["SUCCESS"]; ?>
-          </div>
-        <? } ?>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <? echo $GLOBALS["APP"]["MSG"]["ERROR"]; ?>
+        </div>
       </div>
+      <? } ?>
+      <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["INFO"])) { ?>
+      <div class="col-md-offset-1 col-md-10">
+        <div class="alert alert-info alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Hey!</strong> <? echo $GLOBALS["APP"]["MSG"]["INFO"]; ?>
+        </div>
+      </div>
+      <? } ?>
+      <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["SUCCESS"])) { ?>
+      <div class="col-md-offset-1 col-md-10">
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Success!</strong> <? echo $GLOBALS["APP"]["MSG"]["SUCCESS"]; ?>
+        </div>
+      </div>
+      <? } ?>

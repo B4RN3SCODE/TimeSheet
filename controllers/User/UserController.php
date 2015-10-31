@@ -32,11 +32,20 @@ class UserController extends TSController {
 
 	public function index() {
 		// you dont need to check for login because when TSApp boots up it checks that EVERY REQUEST
-		if($this->_view == "edit") {
-			$userData = $this->getUserData($_SESSION["User"]->getId());// for testing... replace with $_SESSION["User"]->getUserId() when ready
-			$this->_viewProcessor->_tplData = $userData;
-		} else if($this->_view == "logout") {
-			$this->Redirect("user","index","logout");
+		switch($this->_view) {
+			case "edit":
+				$userData = $this->getUserData($_SESSION["User"]->getId());
+				$this->_viewProcessor->_tplData = $userData;
+				break;
+			case "logout":
+				$this->Redirect("user","index","logout");
+				break;
+			case "index":
+				if(is_logged_in())
+					$this->Redirect("user","edit");
+				break;
+			default:
+				break;
 		}
 		$this->_viewProcessor->display();
 	}
