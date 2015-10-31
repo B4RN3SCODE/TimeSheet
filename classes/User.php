@@ -9,7 +9,7 @@ class UserArray extends ArrayClass {
 			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
 			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
 		}
-		$this->db = $GLOBALS["APP"]["INSTANCE"];
+		$this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
         $this->db->setTBL(self::getClass()); // ArrayClass function
     }
 
