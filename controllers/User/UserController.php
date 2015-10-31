@@ -147,7 +147,7 @@ class UserController extends TSController {
 		return $User->save();
 	}
 
-	public function Update() {;
+	public function Update() {
 		$this->User->setFirstName($_POST["first-name"]);
 		$this->User->setLastName($_POST["last-name"]);
 		$this->User->setEmail($_POST["email"]);
