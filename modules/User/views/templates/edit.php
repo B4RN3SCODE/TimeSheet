@@ -11,7 +11,7 @@ echo "</ul>";
 				<h3 class="panel-title">User Settings</h3>
 			</div>
 			<div class="panel-body">
-				<form name="user-settings" action="" method="post">
+				<form name="user-settings" action="/User/Edit/Update" method="post">
 					<input type="hidden" name="form" value="user-settings">
           <div class="row">
             <div class="form-group col-sm-6">
