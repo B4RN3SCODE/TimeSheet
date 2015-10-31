@@ -1,6 +1,10 @@
 <?php
 
+include_once("include/data/DBCon.php");
 include_once "include/functions.php";
+include_once("include/app/glob.php");
+include_once("include/app/config.php");
+
 /*
  * Autoloader
  */

@@ -1,11 +1,4 @@
 <?php
-include_once("include/app/config.php");
-include_once("include/app/glob.php");
-include_once("include/data/DBCon.php");
-include_once("include/functions.php");
-//include_once("include/core/TSControllerFactory.php");
-//include_once("include/core/TSViewFactory.php");
-//include_once("include/core/TSAuthService.php");
 
 /**************************************************
  * TSApp
@@ -268,7 +261,7 @@ class TSApp {
 		if(isset($_SESSION["PHPSESSID"])) unset($_SESSION["PHPSESSID"]);
 		session_start();
 		$_SESSION["PHPSESSID"] = true;
-		// TODO after we get the is_logged_in function working accurately then we should move the following line there.
+		// TODO after we get the is_logged_in function working accurately then we should move the follo
 		if(isset($_SESSION["User"])) { $_SESSION["User"]->setDB($this->_dbAdapter); }
 		return true;
 	}

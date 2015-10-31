@@ -1,20 +1,15 @@
 <?php
-include_once "include/app/config.php";
-//include_once "classes/base.php";
-//include_once "classes/BaseDB.php";
-//include_once "classes/ArrayClass.php";
 
 class UserArray extends ArrayClass {
     protected $db;
 
     function __construct(){
         parent::__construct("User");
-        if(!isset($GLOBALS["App"]["DBAdapter"])) {
-            include_once "include/data/DBCon.php";
-            $GLOBALS["App"]["DBAdapter"] = new DBCon();
-            $GLOBALS["App"]["DBAdapter"]->Link();
-        }
-        $this->db = $GLOBALS["App"]["DBAdapter"];
+		if(!isset($GLOBALS["APP"]["INSTANCE"])) {
+			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
+			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
+		}
+		$this->db = $GLOBALS["APP"]["INSTANCE"];
         $this->db->setTBL(self::getClass()); // ArrayClass function
     }
 

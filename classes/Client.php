@@ -1,19 +1,15 @@
 <?php
-include_once "include/app/config.php";
-//include_once "classes/BaseDB.php";
-//include_once "classes/ArrayClass.php";
 
 class ClientArray extends ArrayClass {
     protected $db;
 
     function __construct(){
         parent::__construct("Client");
-        if(!isset($GLOBALS["App"]["DBAdapter"])) {
-            include_once "include/data/DBCon.php";
-            $GLOBALS["App"]["DBAdapter"] = new DBCon();
-            $GLOBALS["App"]["DBAdapter"]->Link();
+        if(!isset($GLOBALS["APP"]["INSTANCE"])) {
+            $GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
+            $GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
         }
-        $this->db = $GLOBALS["App"]["DBAdapter"];
+        $this->db = $GLOBALS["APP"]["INSTANCE"];
         $this->db->setTBL(self::getClass());
     }
 
@@ -67,12 +63,11 @@ class Client extends BaseDB {
     public function setStreetAddress($value) { $this->_StreetAddress = $value; }
 
     public function __construct($id=null) {
-        if(!isset($GLOBALS["App"]["DBAdapter"])) {
-            include_once "include/data/DBCon.php";
-            $GLOBALS["App"]["DBAdapter"] = new DBCon();
-            $GLOBALS["App"]["DBAdapter"]->Link();
+        if(!isset($GLOBALS["APP"]["INSTANCE"])) {
+            $GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
+            $GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
         }
-        $this->db = $GLOBALS["App"]["DBAdapter"];
+        $this->db = $GLOBALS["APP"]["INSTANCE"];
         $this->db->setTBL(get_class($this));
         if($id) {
             $this->load($id);
