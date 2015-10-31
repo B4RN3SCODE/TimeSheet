@@ -15,31 +15,32 @@
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class UserController extends TSController {
 
-    private $User;
+	private $User;
 
-    /**
-     * UserController constructor
-     */
-    public function __construct() {
-        if(isset($_SESSION["User"])) {
-            $this->User = $_SESSION["User"];
-        } else {
-            $this->User = new User();
-            $_SESSION["User"] = $this->User;
-        }
-    }
+	/**
+	 * UserController constructor
+	 */
+	public function __construct() {
+		// you dont need to instantuate a user here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		// because during the login process, one is created and stored in the session !!!!!!!!!!!!
+		// THEREFORE you will always be able to get a user object, cux you have to be logged in !!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if(isset($_SESSION["User"])) {
+			$this->User = $_SESSION["User"];
+		}
+	}
 
-	public function index() {
+	public function index()
+	{
+		// you dont need to check for login because when TSApp boots up it checks that EVERY REQUEST
 		if($this->_view == "edit") {
-        if(is_logged_in()) {
-            $userData = $this->getUserData($_SESSION["User"]->getId());// for testing... replace with $_SESSION["User"]->getUserId() when ready
-            $this->_viewProcessor->_tplData = $userData;
-        } else {
-          $GLOBALS["APP"]["FORCE_LOGIN"] = true;
-        }
+			$userData = $this->getUserData($_SESSION["User"]->getId());// for testing... replace with $_SESSION["User"]->getUserId() when ready
+			$this->_viewProcessor->_tplData = $userData;
 		} else if($this->_view == "logout") {
-      $this->Redirect("user","index","logout");
-    }
+			$this->Redirect("user","index","logout");
+		} else if($this->_view == "index") {
+			$this->Redirect("user","edit");
+		}
 		$this->_viewProcessor->display();
 	}
 
@@ -50,52 +51,51 @@ class UserController extends TSController {
 		return $this->_serviceAdapter->getUserData($userid);
 	}
 
-    /**
-     * Log a user into the application.
-     * @param null $username
-     * @param null $password
-     * @return bool
-     */
-    public function Login() {
-      $username = isset($_REQUEST["email"]) ? $_REQUEST["email"] : null;
-      $password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : null;
+	/**
+	 * Log a user into the application.
+	 * @param null $username
+	 * @param null $password
+	 * @return bool
+	 */
+	public function Login() {
+		$username = isset($_REQUEST["email"]) ? $_REQUEST["email"] : null;
+		$password = isset($_REQUEST["password"]) ? $_REQUEST["password"] : null;
 
-      if($username == null || $password == null) {// || !$this->User->LoadByEmail($username)) {
-        $GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
-        $this->Redirect("user","index");
-        return false;
-      } else {
-        $this->User = new User();
-        $this->User->LoadByEmail($username);
-      }
-      if(password_verify($password, $this->User->getPassword())) {
-        $this->User->setOnline(1);
-        $this->User->save();
-        $_SESSION["User"] = $this->User;
-        $_SESSION["PHPSESSID"] = true;
-        $_SESSION["LoggedInTime"] = time();
-        $GLOBALSS["APP"]["FORCE_LOGIN"]=false;
-      } else {
-        $GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
-        $this->Redirect("user","index");
-        return false;
-      }
-      // Redirect after successful login to timesheet home
-      header('Location: http://' . $_SERVER["HTTP_HOST"] . '/TimeSheet/Home');
-    }
+		if($username == null || $password == null) {
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
+			$this->Redirect("user","index");
+			return false;
+		} else {
+			$this->User = new User();
+			$this->User->LoadByEmail($username);
+		}
+		if(password_verify($password, $this->User->getPassword())) {
+			$this->User->setOnline(1);
+			$_SESSION["User"] = $this->User;
+			$_SESSION["PHPSESSID"] = true;
+			$_SESSION["LoggedInTime"] = time();
+			$GLOBALS["APP"]["FORCE_LOGIN"]=false;
+		} else {
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "Invalid username or password";
+			$this->Redirect("user","index");
+			return false;
+		}
+		// Redirect after successful login to timesheet home
+		header('Location: http://' . $_SERVER["HTTP_HOST"] . '/');
+	}
 
 	/**
 	 * Log the current user out.
 	 */
 	public function Logout() {
-		if(is_logged_in()) {
-			$this->User = $_SESSION["User"];
+		// you dont need to check for login because when TSApp boots up it checks that EVERY REQUEST
+		if(!is_null($this->User)) {
 			$this->User->setOnline(0);
 			$this->User->save();
-			$GLOBALS["APP"]["INSTANCE"]->SessionTerminate();
-      $GLOBALS["APP"]["MSG"]["ERROR"] = "You have been logged out!";
 		}
-    $this->Redirect("user","index");
+		$GLOBALS["APP"]["INSTANCE"]->SessionTerminate();
+		$GLOBALS["APP"]["MSG"]["ERROR"] = "You have been logged out!";
+		$this->Redirect("user","index");
 	}
 
 	/**
@@ -105,7 +105,7 @@ class UserController extends TSController {
 	 */
 	public function ChangePassword($oldpassword,$newpassword) {
 		if(!isset($_SESSION["User"])) {
-      $GLOBALS["APP"]["MSG"]["ERROR"] = "Please login";
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "Please login";
 			return false;
 		}
 		$this->User = $_SESSION["User"];
@@ -115,11 +115,11 @@ class UserController extends TSController {
 			if($this->User->save()) {
 				return true;
 			} else {
-        $GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem changing your password, please try again.";
+				$GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem changing your password, please try again.";
 				return false;
 			}
 		} else {
-      $GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter your old password.";
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter your old password.";
 			return false;
 		}
 	}
