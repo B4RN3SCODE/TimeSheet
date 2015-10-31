@@ -126,7 +126,8 @@ class UserController extends TSController {
 			$newpassword = password_hash($newpassword, PASSWORD_DEFAULT);
 			$this->User->setPassword($newpassword);
 			if($this->User->save()) {
-				return true;
+				$GLOBALS["APP"]["MSG"]["SUCCESS"] = "Password changed successfully.";
+				return $this->Redirect("User","Edit");
 			} else {
 				$GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem changing your password, please try again.";
 				return false;
