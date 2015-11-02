@@ -93,5 +93,11 @@ class TSController {
 	public function GetView() { return $this->_view; }
 	public function GetAction() { return $this->_action; }
 
+	protected function EncodeAndSendJSON($arrayData) {
+		$jsonData = json_encode($arrayData);
+		header('Content-Type: application/json');
+		echo $jsonData;
+	}
+
 }
 ?>

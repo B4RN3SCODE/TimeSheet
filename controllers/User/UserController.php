@@ -205,5 +205,16 @@ class UserController extends TSController {
 		}
 		return $this->Redirect("user","edit");
 	}
+
+	public function GetProjectsByClient() {
+		$ReturnArray = array();
+		if(isset($_POST["ClientId"]) && $_POST["ClientId"] != 0) {
+			$ProjectArray = new ProjectArray();
+			foreach ($ProjectArray->LoadByClientId($_POST["ClientId"]) as $id => $values) {
+				$ReturnArray[$id] = $values["Name"];
+			}
+		}
+		$this->EncodeAndSendJSON($ReturnArray);
+	}
 }
 ?>

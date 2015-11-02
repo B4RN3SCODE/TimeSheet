@@ -1,6 +1,3 @@
-<div class="col-md-12">
-	<div class="alert alert-warning text-center" role="alert"><strong>TODO: </strong>Ajax call to load projects when client select changes.</div>
-</div>
 <div id="edit-account">
 	<div id="user-edit" class="col-md-6">
 		<div class="panel panel-default">
@@ -13,7 +10,7 @@
 						<div class="row">
 							<div class="form-group col-sm-6">
 							  <label for="first-name">First Name</label>
-							  <input type="text" class="form-control" name="first-name" placeholder="First Name" value="<? echo $TPLDATA["FirstName"]; ?>">
+							  <input type="text" class="form-control" name="first-name" placeholder="First Name" value="<? echo $TPLDATA["FirstName"]; ?>" autofocus>
 							</div>
 							<div class="form-group col-sm-6">
 							  <label for="last-name">Last Name</label>
