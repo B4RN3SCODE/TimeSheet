@@ -17,6 +17,9 @@ class TimeSheetSettings extends BaseDB
 	public function setDefaultClient($value) { $this->_DefaultClient = $value; }
 	public function setDefaultProject($value) { $this->_DefaultProject = $value; }
 
+	public function getDB() {
+		return $this->db;
+	}
 	public function __construct($id=null) {
 		if(!isset($GLOBALS["APP"]["INSTANCE"])) {
 			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
@@ -73,7 +76,7 @@ class TimeSheetSettings extends BaseDB
 		$strSQL = $this->db->UStatement(self::prepare_data(),get_class($this),array("userId" => array(0 => $this->getUserId())));
 		$this->db->setQueryStmt($strSQL);
 		if($this->db->Query())
-			return ($this->db->GetAffectedRows() > 0);
+			return ($this->db->GetAffectedRows() > -1);
 		return false;
 	}
 }
