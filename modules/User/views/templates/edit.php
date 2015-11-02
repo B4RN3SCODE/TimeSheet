@@ -1,3 +1,4 @@
+<div class="alert alert-warning text-center" role="alert"><strong>TODO: </strong>Ajax call to load projects when client select changes.</div>
 <div id="edit-account">
 	<div id="user-edit" class="col-md-6">
 		<div class="panel panel-default">
