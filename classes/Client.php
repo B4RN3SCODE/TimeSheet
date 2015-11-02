@@ -37,12 +37,7 @@ class ClientArray extends ArrayClass {
                 // TODO create Projects class and load projects from there
                 $retArray[$row["id"]] = array(
                     "Name" => $row['Name'],
-                    "Projects" => $ProjectArray->LoadByClientId($row["id"])//array(
-//                        array("Name" => "Project 1", "Rate" => 15),
-//                        array("Name" => "Project 2", "Rate" => 70),
-//                        array("Name" => "Project 3", "Rate" => 120),
-//                        array("Name" => "Project 4", "Rate" => 0)
-//                    ),
+                    "Projects" => $ProjectArray->LoadByClientId($row["id"])
                 );
             }
             return $retArray;

@@ -47,7 +47,7 @@
 						<select name="default-client" class="form-control">
 							<option value="-1">-- Select Client --</option>
 							<?php foreach($TPLDATA["Clients"] as $id => $name) { ?>
-								<option value="<?php echo $id ?>"><?php echo $name ?></option>
+								<option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultClient"] == $id) echo " selected";?>><?php echo $name ?></option>
 							<?php } ?>
 						</select>
 					</div>
@@ -55,9 +55,9 @@
 						<label for="default-project">Default Project</label>
 						<select name="default-project" class="form-control">
 							<option value="-1" selected>-- Select Project --</option>
-<!--							--><?php //foreach($TPLDATA["Clients"] as $id => $name) { ?>
-<!--								<option value="--><?php //echo $id ?><!--">--><?php //echo $name ?><!--</option>-->
-<!--							--><?php //} ?>
+							<?php foreach($TPLDATA["Projects"] as $id => $name) { ?>
+								<option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultProject"] == $id) echo " selected";?>><?php echo $name ?></option>
+							<?php } ?>
 						</select>
 					</div>
 					<input type="submit" class="btn btn-secondary pull-right" value="Save Changes" />

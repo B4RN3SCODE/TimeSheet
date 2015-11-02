@@ -27,6 +27,11 @@ class ProjectArray extends ArrayClass {
         }
     }
 
+    /**
+     * Returns an array of client information [id, name, rate]
+     * @param $id
+     * @return array|bool
+     */
     function LoadByClientId($id) {
         $strSQL = $this->db->SStatement(array("id","Title","Rate"), self::getClass(), array("ClientId"=>$id) );
         $this->db->SetQueryStmt($strSQL);
