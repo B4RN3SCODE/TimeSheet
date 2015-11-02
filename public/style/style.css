@@ -30,6 +30,8 @@
       #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item {
         border-width: 0px 1px 1px 1px;
         border-radius: 0px; }
+        #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item .rate {
+          float: right; }
 
 form[name="timesheet"] table input[type="checkbox"] {
   display: block;
@@ -93,5 +95,16 @@ html {
 body {
   background-color: #eee;
   margin-bottom: 60px; }
+
+.rate {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-weight: bold;
+  color: #090;
+  line-height: 1;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
