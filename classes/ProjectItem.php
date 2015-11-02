@@ -112,7 +112,6 @@ class ProjectItem extends BaseDB {
 	}
 
 	public function save() {
-		$this->setLastModified(base::now());
 		if($this->_id) {
 			return self::update();
 		} else {

@@ -51,6 +51,20 @@ function GetProjectsByClient(form_name,select_name,ClientId) {
     });
 }
 
+function ShowSelectedClientsProjectList(ClientName) {
+    alert('hi');
+    $("#client-list .panel-collapse").removeClass("in");
+    $("#client-list .panel .panel-title a.list-group-item").each(function () {
+        var label = $(this).text().substr(0,$(this).text().length - $(this).children("span").text().length);
+        if (label != ClientName) {
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+    $('#client-list .panel-title a.list-group-item:visible').click();
+}
+
 function initialize() {
     $('form[name="timesheet-settings"] select[name="default-client"]').on('change', function(event) {
         $('form[name="timesheet-settings"] select[name="default-project"] option:not(:first)').remove();
@@ -62,6 +76,10 @@ function initialize() {
         GetProjectsByClient('timesheet','project',event.target.selectedIndex);
         if(event.target.selectedIndex !== 0) $('form[name="timesheet"] select[name="project"]').focus();
     });
+}
+
+function validate_add_client(form) {
+    return false;
 }
 
 $(document).ready(initialize);

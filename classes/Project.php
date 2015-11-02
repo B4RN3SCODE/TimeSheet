@@ -55,8 +55,7 @@ class Project extends BaseDB {
     protected $_Description;
     protected $_DateCreated;
     protected $_Rate;
-    protected $columns = array("id","Email","FirstName","LastName","AccountType","Password",
-        "DateAdded","LastModified","Phone","Active","Restriction","Online");
+    protected $columns = array("id","UserId","ClientId","Title","Description","DateCreated","Rate");
     protected $db;
 
     public function getId() { return $this->_id; }
@@ -78,6 +77,7 @@ class Project extends BaseDB {
     public function __construct($id=null) {
         $this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
         $this->db->setTBL(get_class($this));
+        $this->_Description = "General description of project.";
         if($id) {
             $this->load($id);
         }
@@ -129,11 +129,10 @@ class Project extends BaseDB {
     }
 
     public function save() {
-        $this->setLastModified(base::now());
         if($this->_id) {
             return self::update();
         } else {
-            $this->setDateAdded(base::now());
+            $this->setDateCreated(base::now());
             return self::insert();
         }
     }

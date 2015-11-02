@@ -29,7 +29,7 @@ $clients = $TPLDATA["Clients"]; //array(
                             <span class="input-group-addon" id="sizing-addon2">
                               <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </span>
-                            <input id="search-box" type="text" class="form-control" placeholder="Search for a client..." aria-describedby="sizing-addon2">
+                            <input id="search-box" type="text" value="<?php echo $TPLDATA["SearchText"]; ?>" class="form-control" placeholder="Search for a client..." aria-describedby="sizing-addon2">
                           </div>
                         </div>
                         <div class="col-sm-4">
@@ -47,33 +47,35 @@ $clients = $TPLDATA["Clients"]; //array(
                             </h4>
                             <!--    </div>-->
                             <div id="client<?php echo $cid; ?>" class="panel-collapse collapse">
-                              <?php if(count($client["Projects"]) == 0) { //count($projects) == 0) { ?>
-                                <div class="list-group">
-                                  <a class="list-group-item">
-                                    <input type="text" class="form-control">
-                                  </a>
-                                </div>
-      <!--                          echo '<div class="list-group">nothing</div>';-->
-                              <? } else {
+                              <?php if(count($client["Projects"]) > 0) {
                                 foreach($client["Projects"] as $pid => $project) { ?>
                                   <div class="list-group">
-                                  <a class="list-group-item">
-                                    <span class="rate">$<?php echo $project["Rate"]; ?></span><h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
-                                  </a>
+                                    <a class="list-group-item">
+                                      <span class="rate">$<?php echo $project["Rate"]; ?></span><h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
+                                    </a>
                                   </div><?
-                                } ?>
+                                }}?>
+                              <form name="add-project" action="/TimeSheet/Admin/AddProject" method="post" onsubmit="return validate_add_client(this);">
+                                <input type="hidden" name="clientId" value="<?php echo $cid; ?>" />
                                 <div class="list-group">
                                   <a class="list-group-item">
-                                    <div class="input-group">
-                                      <input type="text" class="form-control" placeholder="Add a new project to <?php echo $client["Name"]; ?>">
-                                      <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" disabled>&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;</button>
-                                      </span>
+                                    <div class="row">
+                                      <div class="col-sm-7">
+                                        <input name="name" type="text" class="form-control" placeholder="Add a new project to <?php echo $client["Name"]; ?>">
+                                      </div>
+                                      <div class="col-sm-3">
+                                        <div class="input-group">
+                                          <span class="input-group-addon">$</span>
+                                          <input name="rate" type="number" class="form-control" placeholder="50" aria-label="Amount (to the nearest dollar)">
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-2">
+                                        <button class="btn btn-block btn-default" type="button" onclick="this.form.submit()" disabled>&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;</button>
+                                      </div>
                                     </div>
                                   </a>
                                 </div>
-                              <? } ?>
-
+                              </form>
                             </div>
                           </div>
                         <? } ?>
@@ -145,22 +147,26 @@ $clients = $TPLDATA["Clients"]; //array(
       }
     });
 
-    $(".list-group-item .input-group input.form-control").on("keyup",function() {
-      var button = $($(this).siblings()[0]).children('button.btn')[0];
-      if($(this).val().trim().length == 0) {
-        $(button).attr('disabled', 'disabled');
+    $(".list-group-item input[name='name'],.list-group-item input[name='rate']").on("keyup",function() {
+      var button = $(this.form).find('button')[0];
+      if(this.form.name.value.trim().length > 0 && this.form.rate.value.trim().length > 0) {
+        $(button).removeAttr('disabled');
       } else {
-        $(button).removeAttr('disabled')
+        $(button).attr('disabled','disabled');
       }
     });
 
-    $(".glyphicon-floppy-disk").click(function() {
-      var value = $(this).closest(".list-group-item").children('.input-group').children('input.form-control').val();
-      var oldclass = $(this).attr("class");
-      $(this).attr("class","fa fa-refresh fa-spin");
-      var html = '<div class="list-group"><a class="list-group-item"><h4 class="list-group-item-heading">' + value + '</h4></a></div>';
-      $(this).closest(".list-group").before(html);
-      $(this).attr("class", oldclass);
-    });
+//    $(".glyphicon-floppy-disk").click(function() {
+//      var value = $(this).closest(".list-group-item").children('.input-group').children('input.form-control').val();
+//      var oldclass = $(this).attr("class");
+//      $(this).attr("class","fa fa-refresh fa-spin");
+//      var html = '<div class="list-group"><a class="list-group-item"><h4 class="list-group-item-heading">' + value + '</h4></a></div>';
+//      $(this).closest(".list-group").before(html);
+//      $(this).attr("class", oldclass);
+//    });
+
+    <?php if($TPLDATA["SearchText"] != "") { ?>
+    ShowSelectedClientsProjectList("<?php echo $TPLDATA["SearchText"]; ?>");
+    <?php } ?>
   });
 </script>

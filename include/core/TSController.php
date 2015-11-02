@@ -50,6 +50,7 @@ class TSController {
 	protected function Redirect($module, $view, $action="index") {
 		$this->setVars(array("_module"=>strtolower($module),"_view"=>strtolower($view),"_action"=>strtolower($action)));
 		$this->Init();
+		return false;
 	}
 
 
