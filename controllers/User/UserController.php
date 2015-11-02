@@ -146,14 +146,22 @@ class UserController extends TSController {
 	public function AddUser() {
 		if(isset($_POST["email"]) && strlen(trim($_POST["email"])) > 0) {
 			if(isset($_POST["password"]) && strlen(trim($_POST["password"])) > 0 ) {
-				$User = new User();
-				$User->PrepNewUser();
-				$User->setEmail(trim($_POST["email"]));
-				$User->setPassword(password_hash($_POST["password"],PASSWORD_DEFAULT));
-				if($User->save()) {
-					$GLOBALS["APP"]["MSG"]["INFO"] = "User account created successfully.";
+				if(isset($_POST["fname"]) && strlen(trim($_POST["fname"])) > 0) {
+					if(isset($_POST["lname"]) && strlen(trim($_POST["lname"])) > 0) {
+						$User = new User();
+						$User->PrepNewUser();
+						$User->setEmail(trim($_POST["email"]));
+						$User->setPassword(password_hash($_POST["password"],PASSWORD_DEFAULT));
+						if($User->save()) {
+							$GLOBALS["APP"]["MSG"]["INFO"] = "User account created successfully.";
+						} else {
+							$GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem creating a new user.<br />" . $this->User->GetDBError();
+						}
+					} else {
+						$GLOBALS["APP"]["MSG"]["ERROR"] = "Please provide a last name.";
+					}
 				} else {
-					$GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem creating a new user.<br />" . $this->User->GetDBError();
+					$GLOBALS["APP"]["MSG"]["ERROR"] = "Please provide a first name.";
 				}
 			} else {
 				$GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter a password.";

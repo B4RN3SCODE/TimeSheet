@@ -16,6 +16,16 @@
 						<input type="text" class="form-control" name="password">
 					</div>
 				</div>
+				<div class="row">
+					<div class="form-group col-sm-6">
+						<label for="fname">First Name</label>
+						<input type="text" class="form-control" name="fname" placeholder="First" value="<?php echo $TPLDATA["FName"]; ?>">
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="lname">Last Name</label>
+						<input type="text" class="form-control" name="lname" placeholder="Last" value="<?php echo $TPLDATA["LName"]; ?>">
+					</div>
+				</div>
 				<input type="submit" class="btn btn-block btn-secondary pull-right" value="Create User" />
 			</form>
 		</div>
