@@ -1,4 +1,6 @@
-<div class="alert alert-warning text-center" role="alert"><strong>TODO: </strong>Ajax call to load projects when client select changes.</div>
+<div class="col-md-12">
+	<div class="alert alert-warning text-center" role="alert"><strong>TODO: </strong>Ajax call to load projects when client select changes.</div>
+</div>
 <div id="edit-account">
 	<div id="user-edit" class="col-md-6">
 		<div class="panel panel-default">
@@ -46,7 +48,7 @@
 					<div class="form-group">
 						<label for="default-client">Default Client</label>
 						<select name="default-client" class="form-control">
-							<option value="-1">-- Select Client --</option>
+							<option value="0">-- Select Client --</option>
 							<?php foreach($TPLDATA["Clients"] as $id => $name) { ?>
 								<option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultClient"] == $id) echo " selected";?>><?php echo $name ?></option>
 							<?php } ?>
@@ -55,7 +57,7 @@
 					<div class="form-group">
 						<label for="default-project">Default Project</label>
 						<select name="default-project" class="form-control">
-							<option value="-1" selected>-- Select Project --</option>
+							<option value="0" selected>-- Select Project --</option>
 							<?php foreach($TPLDATA["Projects"] as $id => $name) { ?>
 								<option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultProject"] == $id) echo " selected";?>><?php echo $name ?></option>
 							<?php } ?>

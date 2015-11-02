@@ -188,11 +188,22 @@ class UserController extends TSController {
 	}
 
 	public function UpdateDefault() {
+		if(!isset($_POST["default-client"])) {
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "<strong>Uh oh! </strong>There was a problem updating your settings. Please try again.";
+			return $this->Redirect("user","edit");
+		}
+		if(!isset($_POST["default-project"])) {
+			$_POST["default-project"] = 0;
+		}
 		$TimeSheetSettings = new TimeSheetSettings($this->User->getId());
 		$TimeSheetSettings->setDefaultClient($_POST["default-client"]);
 		$TimeSheetSettings->setDefaultProject($_POST["default-project"]);
-		$TimeSheetSettings->save();
-		$this->Redirect("user","edit");
+		if($TimeSheetSettings->save()) {
+			$GLOBALS["APP"]["MSG"]["SUCCESS"] = "Your settings updated.";
+		} else {
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "There was a problem updating your settings.<br />" . $TimeSheetSettings->GetDBError();
+		}
+		return $this->Redirect("user","edit");
 	}
 }
 ?>
