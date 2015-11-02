@@ -6,12 +6,6 @@
                 <h3 class="panel-title">Welcome to the TimeSheet module. Please begin by selecting your client and project below.</h3>
               </div>
               <div class="panel-body">
-                <!-- Begin Notification -->
-                <div class="alert alert-info alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <strong>Hey!</strong> Did you know you can set your default client and project in your account settings?
-                </div>
-                <!-- End Notification -->
                 <div class="row">
                   <form name="timesheet" action="" method="post">
                     <div class="col-sm-6">
