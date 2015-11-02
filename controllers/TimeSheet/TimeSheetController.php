@@ -6,9 +6,21 @@ class TimeSheetController extends TSController {
         }
     }
     public function index() {
+        if($this->_view = "admin" && $this->_action = "addclient") {
+            $this->_viewProcessor->_tplData["addclient"] = $_POST;
+        }
         $this->_viewProcessor->display();
     }
 
+    public function AddClient() {
+        foreach($_POST as $key => $value) {
+            $$key = $value;
+        }
+        if(empty($name) || empty($street) || empty($state) || empty($zip) || empty($contact) || empty($phone)) {
+            $GLOBALS["APP"]["MSG"]["ERROR"] = 'Please fill out all fields.<script>$(document).ready(function() { $("button[data-target=\'#modal-newclient\']").click(); });</script>';
+        }
+        return $this->Redirect("timesheet","admin");
+    }
     public function AddProject() {
         if(!isset($_POST["clientId"]) || empty($_POST["clientId"])) {
             $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing client id, please try again.";

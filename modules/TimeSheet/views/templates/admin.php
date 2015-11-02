@@ -33,7 +33,7 @@ $clients = $TPLDATA["Clients"]; //array(
                           </div>
                         </div>
                         <div class="col-sm-4">
-                          <button class="btn btn-block btn-default btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add a new client</button>
+                          <button class="btn btn-block btn-default btn-primary" data-toggle="modal" data-target="#modal-newclient"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add a new client</button>
                         </div>
                       </div>
                       <br />
@@ -170,3 +170,4 @@ $clients = $TPLDATA["Clients"]; //array(
     <?php } ?>
   });
 </script>
+<?php include_once "views/modals/AddClient.php"; ?>
