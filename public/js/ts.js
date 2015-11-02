@@ -52,7 +52,6 @@ function GetProjectsByClient(form_name,select_name,ClientId) {
 }
 
 function ShowSelectedClientsProjectList(ClientName) {
-    alert('hi');
     $("#client-list .panel-collapse").removeClass("in");
     $("#client-list .panel .panel-title a.list-group-item").each(function () {
         var label = $(this).text().substr(0,$(this).text().length - $(this).children("span").text().length);
