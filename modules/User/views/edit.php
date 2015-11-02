@@ -23,6 +23,11 @@ class edit extends TSView {
 			$this->_viewTpl = "login";
 		} else {
 			$this->_viewTpl = "edit";
+			$ClientArray = new ClientArray();
+			$ClientArray->load();
+			foreach($ClientArray->getArray() as $Client) {
+				$this->_tplData["Clients"][$Client->getId()] = $Client->getName();
+			}
 		}
 		$vwData = $this->LoadView();
 	}

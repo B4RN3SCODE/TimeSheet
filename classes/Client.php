@@ -14,7 +14,7 @@ class ClientArray extends ArrayClass {
     }
 
     function load() {
-        $strSQL = $this->db->SStatement(array(), self::getClass());
+        $strSQL = $this->db->SStatement(null, self::getClass());
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
             foreach ($this->db->GetAll() as $row) {

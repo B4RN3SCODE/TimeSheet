@@ -45,16 +45,19 @@
 					<div class="form-group">
 						<label for="default-client">Default Client</label>
 						<select name="default-client" class="form-control">
-							<option value="-1" selected>-- Select Client --</option>
-							<option value="0">Flex-N-Gate</option>
-							<option value="1">GRAR</option>
+							<option value="-1">-- Select Client --</option>
+							<?php foreach($TPLDATA["Clients"] as $id => $name) { ?>
+								<option value="<?php echo $id ?>"><?php echo $name ?></option>
+							<?php } ?>
 						</select>
 					</div>
 					<div class="form-group">
 						<label for="default-project">Default Project</label>
 						<select name="default-project" class="form-control">
 							<option value="-1" selected>-- Select Project --</option>
-							<option value="0">Vendor Portal</option>
+<!--							--><?php //foreach($TPLDATA["Clients"] as $id => $name) { ?>
+<!--								<option value="--><?php //echo $id ?><!--">--><?php //echo $name ?><!--</option>-->
+<!--							--><?php //} ?>
 						</select>
 					</div>
 					<input type="submit" class="btn btn-secondary pull-right" value="Save Changes" />

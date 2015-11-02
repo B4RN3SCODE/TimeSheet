@@ -18,7 +18,7 @@ class ProjectArray extends ArrayClass {
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
             foreach ($this->db->GetAll() as $row) {
-                $this->_arrObjects[$row["id"]] = new User();
+                $this->_arrObjects[$row["id"]] = new Project();
                 $this->_arrObjects[$row["id"]]->setVarsFromRow($row);
             }
             return true;
