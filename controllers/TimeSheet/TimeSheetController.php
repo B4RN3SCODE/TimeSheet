@@ -7,7 +7,8 @@ class TimeSheetController extends TSController {
     }
     public function index() {
         if($this->_view = "admin" && $this->_action = "addclient") {
-            $this->_viewProcessor->_tplData["addclient"] = $_POST;
+            if(isset($_POST))
+                $this->_viewProcessor->_tplData["addclient"] = $_POST;
         }
         $this->_viewProcessor->display();
     }
@@ -18,6 +19,22 @@ class TimeSheetController extends TSController {
         }
         if(empty($name) || empty($street) || empty($state) || empty($zip) || empty($contact) || empty($phone)) {
             $GLOBALS["APP"]["MSG"]["ERROR"] = 'Please fill out all fields.<script>$(document).ready(function() { $("button[data-target=\'#modal-newclient\']").click(); });</script>';
+        } else {
+            $Client = new Client();
+            $Client->setName($name);
+            $Client->setStreetAddress($street);
+            $Client->setStateOrProv($state);
+            $Client->setZip($zip);
+            $Client->setPriority(1);
+            $Client->setPhone($phone);
+            $Client->setContact($contact);
+            $Client->setCountry($country);
+            if($Client->save()) {
+                $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project added.";
+                unset($_POST);
+            } else {
+                $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong while trying to add a new client. Please try again.";
+            }
         }
         return $this->Redirect("timesheet","admin");
     }
