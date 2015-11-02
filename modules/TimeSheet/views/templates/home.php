@@ -49,10 +49,10 @@
                         </thead>
                         <tbody>
                           <tr>
-                            <td><input class="form-control datepicker" name="timesheet-date[]" placeholder="<?=date("m/d/Y", time())?>" /></td>
-                            <td><input class="form-control" type="number" name="timesheet-hours[]" placeholder="0.5" /></td>
-                            <td><input class="form-control" type="text" name="timesheet-description[]" placeholder="Created database" /></td>
-                            <td class="text-center"><input type="checkbox" name="active[]" checked /></td>
+                            <td><input class="form-control datepicker" name="date[]" placeholder="<?=date("m/d/Y", time())?>" /></td>
+                            <td><input class="form-control" type="number" name="hours[]" placeholder="0.5" /></td>
+                            <td><input class="form-control" type="text" name="description[]" placeholder="Created database" /></td>
+                            <td class="text-center"><input type="checkbox" name="bill[]" checked /></td>
                             <td><button class="btn btn-danger pull-right" type="button" title="Remove">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</button></td>
 <!--                            <td><button class="btn btn-warning" type="button" title="Save">&nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;</button></td>-->
                           </tr>
