@@ -23,31 +23,7 @@ class edit extends TSView {
 			$this->_viewTpl = "login";
 		} else {
 			$this->_viewTpl = "edit";
-			$ClientArray = new ClientArray();
-			$ClientArray->load();
-			foreach($ClientArray->getArray() as $Client) {
-				$this->_tplData["Clients"][$Client->getId()] = $Client->getName();
-			}
-			$TSsettings = new TimeSheetSettings();
-			if($TSsettings->load($_SESSION["User"]->getId())) {
-				$DefaultClient = $TSsettings->getDefaultClient();
-				$DefaultProject = $TSsettings->getDefaultProject();
-			} else {
-				$DefaultClient = 0;
-				$DefaultProject = 0;
-			}
-			$this->_tplData["DefaultClient"] = $DefaultClient;
-			$this->_tplData["DefaultProject"] = $DefaultProject;
-			if(isset($DefaultClient)) {
-				$ProjectArray = new ProjectArray();
-				if($Projects = $ProjectArray->LoadByClientId($DefaultClient)) {
-					foreach ($Projects as $id => $vals) {
-						$this->_tplData["Projects"][$id] = $vals["Name"];
-					}
-				}
-			} else {
-				$this->_tplData["Projects"] = null;
-			}
+			$this->LoadTimeSheetDefaults();
 		}
 		$vwData = $this->LoadView();
 	}

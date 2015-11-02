@@ -15,16 +15,10 @@
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class UserController extends TSController {
 
-	private $User;
-
 	/**
 	 * UserController constructor
 	 */
 	public function __construct() {
-		// you dont need to instantuate a user here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// because during the login process, one is created and stored in the session !!!!!!!!!!!!
-		// THEREFORE you will always be able to get a user object, cux you have to be logged in !!
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if(isset($_SESSION["User"])) {
 			$this->User = $_SESSION["User"];
 		}

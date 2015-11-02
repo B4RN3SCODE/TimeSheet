@@ -16,6 +16,7 @@ class index extends TSView {
 	public function display() {
 		$this->setOptions(array());
 		$this->_viewTpl = "index";
+		$this->LoadTimeSheetDefaults();
 		$vwData = $this->LoadView();
 	}
 }

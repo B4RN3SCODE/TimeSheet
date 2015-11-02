@@ -57,6 +57,11 @@ function initialize() {
         GetProjectsByClient('timesheet-settings','default-project',event.target.selectedIndex);
         if(event.target.selectedIndex !== 0) $('form[name="timesheet-settings"] select[name="default-project"]').focus();
     });
+    $('form[name="timesheet"] select[name="client"]').on('change', function(event) {
+        $('form[name="timesheet"] select[name="project"] option:not(:first)').remove();
+        GetProjectsByClient('timesheet','project',event.target.selectedIndex);
+        if(event.target.selectedIndex !== 0) $('form[name="timesheet"] select[name="project"]').focus();
+    });
 }
 
 $(document).ready(initialize);

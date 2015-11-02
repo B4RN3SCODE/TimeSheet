@@ -12,8 +12,9 @@
                       <div class="input-group">
                         <select name="client" class="form-control">
                           <option value="-1" selected>-- Select Client --</option>
-                          <option value="0">Flex-N-Gate</option>
-                          <option value="1">GRAR</option>
+                            <?php foreach($TPLDATA["Clients"] as $id => $name) { ?>
+                                <option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultClient"] == $id) echo " selected";?>><?php echo $name ?></option>
+                            <?php } ?>
                         </select>
                         <span class="input-group-btn">
                           <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</button>
@@ -24,7 +25,9 @@
                       <div class="input-group">
                         <select name="project" class="form-control">
                           <option value="-1" selected>-- Select Project --</option>
-                          <option value="0">Vendor Portal</option>
+                            <?php foreach($TPLDATA["Projects"] as $id => $name) { ?>
+                                <option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultProject"] == $id) echo " selected";?>><?php echo $name ?></option>
+                            <?php } ?>
                         </select>
                         <span class="input-group-btn">
                           <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</button>
