@@ -62,7 +62,7 @@ class TimeSheetSettings extends BaseDB
 		}
 	}
 	public function save() {
-		if($this->_id) {
+		if($this->_userId) {
 			return self::update();
 		} else {
 			return self::insert();
@@ -70,7 +70,7 @@ class TimeSheetSettings extends BaseDB
 	}
 
 	private function update() {
-		$strSQL = $this->db->UStatement(self::prepare_data(),get_class($this),array("userId" => array(0 => $this->getId())));
+		$strSQL = $this->db->UStatement(self::prepare_data(),get_class($this),array("userId" => array(0 => $this->getUserId())));
 		$this->db->setQueryStmt($strSQL);
 		if($this->db->Query())
 			return ($this->db->GetAffectedRows() > 0);

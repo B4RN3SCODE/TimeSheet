@@ -186,5 +186,13 @@ class UserController extends TSController {
 		}
 		$this->Redirect("user","edit");
 	}
+
+	public function UpdateDefault() {
+		$TimeSheetSettings = new TimeSheetSettings($this->User->getId());
+		$TimeSheetSettings->setDefaultClient($_POST["default-client"]);
+		$TimeSheetSettings->setDefaultProject($_POST["default-project"]);
+		$TimeSheetSettings->save();
+		$this->Redirect("user","edit");
+	}
 }
 ?>

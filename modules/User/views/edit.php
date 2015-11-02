@@ -40,8 +40,10 @@ class edit extends TSView {
 			$this->_tplData["DefaultProject"] = $DefaultProject;
 			if(isset($DefaultClient)) {
 				$ProjectArray = new ProjectArray();
-				foreach($ProjectArray->LoadByClientId($DefaultClient) as $id => $vals) {
-					$this->_tplData["Projects"][$id] = $vals["Name"];
+				if($Projects = $ProjectArray->LoadByClientId($DefaultClient)) {
+					foreach ($Projects as $id => $vals) {
+						$this->_tplData["Projects"][$id] = $vals["Name"];
+					}
 				}
 			} else {
 				$this->_tplData["Projects"] = null;
