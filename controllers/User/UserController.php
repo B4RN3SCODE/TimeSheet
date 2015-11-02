@@ -101,7 +101,7 @@ class UserController extends TSController {
 		}
 		$GLOBALS["APP"]["INSTANCE"]->SessionTerminate();
 		$GLOBALS["APP"]["MSG"]["ERROR"] = "You have been logged out!";
-		$this->Redirect("user","index");
+		$this->Redirect("user","login");
 	}
 
 	/**
