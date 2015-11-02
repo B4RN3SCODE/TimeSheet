@@ -33,7 +33,7 @@
 
 form[name="timesheet"] table input[type="checkbox"] {
   display: block;
-  width: 100%;
+  width: 34px;
   height: 34px;
   margin-top: -1px; }
 

@@ -43,7 +43,7 @@
                             <th width="15%">Date</th>
                             <th width="10%">Hours</th>
                             <th>Description</th>
-                            <th width="1%">Billable</th>
+                            <th width="1%">Bill</th>
                             <th width="1%">Remove</th>
                           </tr>
                         </thead>
