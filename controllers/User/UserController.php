@@ -150,6 +150,8 @@ class UserController extends TSController {
 					if(isset($_POST["lname"]) && strlen(trim($_POST["lname"])) > 0) {
 						$User = new User();
 						$User->PrepNewUser();
+						$User->setFirstName($_POST["fname"]);
+						$User->setLastName($_POST["lname"]);
 						$User->setEmail(trim($_POST["email"]));
 						$User->setPassword(password_hash($_POST["password"],PASSWORD_DEFAULT));
 						if($User->save()) {
