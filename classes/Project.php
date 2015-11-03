@@ -32,7 +32,7 @@ class ProjectArray extends ArrayClass {
      * @param $id
      * @return array|bool
      */
-    function LoadByClientId($id) {
+    function LoadProjectsByClientId($id) {
         $strSQL = $this->db->SStatement(array("id","Title","Rate"), self::getClass(), array("ClientId"=>$id, "Active"=>"1") );
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
@@ -40,7 +40,7 @@ class ProjectArray extends ArrayClass {
             foreach ($this->db->GetAll() as $row) {
                 $retArray[$row["id"]] = array("Name" => $row["Title"], "Rate" => $row["Rate"]);
             }
-            usort($retArray,array("ProjectArray","CompareByTitle"));
+            uasort($retArray,array("ProjectArray","CompareByTitle"));
             return $retArray;
         } else {
             return false;

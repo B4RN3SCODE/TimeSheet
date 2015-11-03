@@ -21,11 +21,21 @@ class ClientArray extends ArrayClass {
                 $this->_arrObjects[$row["id"]] = new Client();
                 $this->_arrObjects[$row["id"]]->setVarsFromRow($row);
             }
-            usort($this->_arrObjects,array("ClientArray","CompareByName"));
+            uasort($this->_arrObjects,array("ClientArray","CompareByName"));
             return true;
         } else {
             return false;
         }
+    }
+
+    function GetClientArray() {
+        if($this->load()) {
+            $Clients = array();
+            foreach ($this->getArray() as $key => $ClientObject) {
+                $Clients[$ClientObject->getId()] = $ClientObject->toArray();
+            }
+        }
+        return $Clients;
     }
 
     function LoadClientWithProjects() {
@@ -37,9 +47,10 @@ class ClientArray extends ArrayClass {
             foreach ($this->db->GetAll() as $row) {
                 $retArray[$row["id"]] = array(
                     "Name" => $row['Name'],
-                    "Projects" => $ProjectArray->LoadByClientId($row["id"])
+                    "Projects" => $ProjectArray->LoadProjectsByClientId($row["id"])
                 );
             }
+            uasort($retArray,array("ClientArray","CompareClientsWithProjects"));
             return $retArray;
         } else {
             return false;

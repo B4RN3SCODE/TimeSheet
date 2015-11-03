@@ -62,10 +62,10 @@ class TimeSheetController extends TSController {
         $UserProjects = new UserProjects();
         $UserProjects->setUserId($this->User->getId());
         $UserProjects->setProjectId($ProjectId);
-        if(!$UserProjects->save()) {
-            $this->EncodeAndSendJSON(array("Error"=>$UserProjects->GetDBError()));
+        if($UserProjects->save()) {
+            $this->EncodeAndSendJSON(array("Status" => "Project added to your list!"));
         } else {
-            $this->EncodeAndSendJSON($UserProjects->toArray());
+            $this->EncodeAndSendJSON(array("Status" => "Error: " . $UserProjects->GetDBError()));
         }
     }
 
@@ -140,7 +140,7 @@ class TimeSheetController extends TSController {
         $ReturnArray = array();
         if(isset($_POST["ClientId"]) && $_POST["ClientId"] != 0) {
             $ProjectArray = new ProjectArray();
-            foreach ($ProjectArray->LoadByClientId($_POST["ClientId"]) as $id => $values) {
+            foreach ($ProjectArray->LoadProjectsByClientId($_POST["ClientId"]) as $id => $values) {
                 $ReturnArray[$id] = $values["Name"];
             }
         }

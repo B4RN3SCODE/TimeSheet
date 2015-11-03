@@ -33,15 +33,13 @@ $clients = $TPLDATA["Clients"];
                           </div>
                         </div>
                         <br />
-                        <!-- input list here -->
                         <div class="panel-group" id="client-list">
                           <?php foreach ($clients as $cid => $client) { ?>
                             <div class="panel panel-default">
-                              <!--    <div class="panel-heading">-->
                               <h4 class="panel-title">
                                 <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="pull-right glyphicon glyphicon-pencil" data-edit-client="<?php echo $cid; ?>"></span><span class="badge"><? echo count($client["Projects"]); ?></span></a>
                               </h4>
-                              <!--    </div>-->
+
                               <div id="client<?php echo $cid; ?>" class="panel-collapse collapse">
                                 <?php if(count($client["Projects"]) > 0) {
                                   foreach($client["Projects"] as $pid => $project) { ?>
@@ -96,15 +94,12 @@ $clients = $TPLDATA["Clients"];
                           </div>
                         </div>
                         <br />
-                        <!-- input list here -->
                         <div class="panel-group" id="my-client-list">
                           <?php foreach ($clients as $cid => $client) { ?>
                             <div class="panel panel-default">
-                              <!--    <div class="panel-heading">-->
                               <h4 class="panel-title">
                                 <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="pull-right glyphicon glyphicon-pencil" data-edit-client="<?php echo $cid; ?>"></span><span class="badge"><? echo count($client["Projects"]); ?></span></a>
                               </h4>
-                              <!--    </div>-->
                               <div id="client<?php echo $cid; ?>" class="panel-collapse collapse">
                                 <?php if(count($client["Projects"]) > 0) {
                                   foreach($client["Projects"] as $pid => $project) { ?>

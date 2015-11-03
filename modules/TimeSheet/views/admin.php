@@ -20,11 +20,11 @@ class admin extends TSView
         $Users->load();
         // Load all clients
         $Clients = new ClientArray();
-//        $MyClients = new UserProjects();
+
         // Set template data
         $this->_tplData["Clients"] = $Clients->LoadClientWithProjects();
         $this->_tplData["Users"] = $Users->getArray();
-//        $this->_tplData["MyClients"] = $
+        $this->_tplData["MyClients"] = $_SESSION["User"]->GetClientProjectArray();
         if(isset($_POST["clientId"]) && !empty($_POST["clientId"])) {
             foreach($this->_tplData["Clients"] as $cid => $values) {
                 if($cid == $_POST["clientId"]) {

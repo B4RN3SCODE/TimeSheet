@@ -162,7 +162,7 @@ class TSView {
 		$this->_tplData["DefaultProject"] = $DefaultProject;
 		if(isset($DefaultClient)) {
 			$ProjectArray = new ProjectArray();
-			if($Projects = $ProjectArray->LoadByClientId($DefaultClient)) {
+			if($Projects = $ProjectArray->LoadProjectsByClientId($DefaultClient)) {
 				foreach ($Projects as $id => $vals) {
 					$this->_tplData["Projects"][$id] = $vals["Name"];
 				}

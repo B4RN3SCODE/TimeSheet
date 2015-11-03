@@ -169,6 +169,10 @@ class ArrayClass extends BaseDB {
     {
         return strcmp(strtolower($a["Name"]), strtolower($b["Name"]));
     }
+
+    static function CompareClientsWithProjects(Array $a, Array $b) {
+        return strcmp(strtolower($a["Name"]), strtolower($b["Name"]));
+    }
 }
 
 

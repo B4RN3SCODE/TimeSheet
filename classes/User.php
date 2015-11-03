@@ -152,5 +152,21 @@ class User extends BaseDB {
 	public function setDB(DBCon $db) {
 		$this->db = $db;
 	}
+
+    public function GetClientProjectArray() {
+        $strSQL = "SELECT Client.id AS cid, Client.Name, Project.id AS pid, Project.Title
+                    FROM Client
+                      INNER JOIN Project
+                        ON Client.id = Project.ClientId
+                      INNER JOIN UserProjects
+                        ON Project.id = UserProjects.ProjectId
+                    WHERE UserProjects.UserId = $this->_id;";
+        $this->db->SetQueryStmt($strSQL);
+        if($this->db->Query()) {
+            return $this->db->GetAll();
+        } else {
+            return false;
+        }
+    }
 }
 ?>

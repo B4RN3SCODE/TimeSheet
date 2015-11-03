@@ -38,8 +38,8 @@ class UserProjectsArray extends ArrayClass {
 		if($this->db->Query()) {
 			$retArray = array();
 			foreach ($this->db->GetAll() as $row) {
-				$Project = new Project($row["projectId"]);
-				$retArray[$Project->getClientId()][] = $row["projectId"];
+				$Project = new Project($row["ProjectId"]);
+				$retArray[$Project->getClientId()][] = $row["ProjectId"];
 			}
 			return $retArray;
 		} else {
@@ -83,9 +83,9 @@ class UserProjects extends BaseDB {
 	private function insert() {
 		$strSQL = $this->db->IStatement(get_class($this),self::prepare_data());
 		$this->db->setQueryStmt($strSQL);
+		return $this->db->Query();
 		if($this->db->Query()) {
-			$this->_id = $this->db->GetLastInsertedId();
-			return $this->_id;
+			return $this->db->NumRows();
 		} else {
 			return false;
 		}

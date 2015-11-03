@@ -23,11 +23,7 @@ function AddProjectToMyList(ProjectId) {
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
         success: function(data) {
-            if(data.Error != undefined) {
-                alert(data.Error);
-            } else {
-                location.reload();
-            }
+            alert(data.Status);
         },
         error: function( xhr, status, errorThrown ) {
             Error_Output(xhr, status, errorThrown);
