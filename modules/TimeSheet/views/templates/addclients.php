@@ -1,6 +1,68 @@
-<?php $Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $StateOrProv = $Zip = ""; $Country = 225; ?>
-<form name="newclient" action="/TimeSheet/Admin/AddClient" method="post"><!--onsubmit="return false;">-->
-	<input type="hidden" name="id" value="" />
+<?php
+foreach($_POST as $key => $value) {
+	$$key = $value;
+}
+if(isset($Name)) {
+	for ($index = 0; $index < 1; $index++) {
+		if(!empty($Name) && $Name != "") {
+			$Client = new Client();
+			$Client->setName($Name[$index]);
+			$Client->setStreetAddress($StreetAddress[$index]);
+			$Client->setStreetAddress2($StreetAddress2[$index]);
+			$Client->setStateOrProv($StateOrProv[$index]);
+			$Client->setZip($Zip[$index]);
+			$Client->setCountry($Country[$index]);
+			$Client->setContact($Contact[$index]);
+			$Client->setPhone($Phone[$index]);
+			$Client->setPriority(1);
+			if (!$Client->save()) {
+				$errors[] = "Failed to save {$Client->getName()}";
+			}
+		}
+	}
+}
+$Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $StateOrProv = $Zip = ""; $Country = 225;?>
+<form name="newclient" action="/TimeSheet/AddClients/" method="post">
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Street Address</th>
+				<th>Street Address 2</th>
+				<th>StateOrProv</th>
+				<th>Zip</th>
+				<th>Country</th>
+				<th>Contact</th>
+				<th>Phone</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php for($index = 0; $index < 1; $index++) { ?>
+			<tr>
+				<td><input type="text" class="form-control" name="Name[]" placeholder="Client Name" value="<?php echo $Name; ?>" maxlength="50"/></td>
+				<td><input type="text" class="form-control" name="StreetAddress[]" placeholder="Attn: John Smith" value="<?php echo $StreetAddress; ?>" maxlength="100"/></td>
+				<td><input type="text" class="form-control" name="StreetAddress2[]" placeholder="1345 Monroe Ave" value="<?php echo $StreetAddress2; ?>" maxlength="100"/></td>
+				<td><input type="text" class="form-control" name="StateOrProv[]" placeholder="MI" value="<?php echo $StateOrProv; ?>" maxlength="100"/></td>
+				<td><input type="text" class="form-control" name="Zip[]" placeholder="49505" value="<?php echo $Zip; ?>" maxlength="10"/></td>
+				<td>
+					<select class="form-control" name="Country[]">
+						<option value="35">CA</option>
+						<option value="225" selected>US</option>
+					</select>
+				</td>
+				<td><input type="text" class="form-control" name="Contact[]" placeholder="Scott Palma" value="<?php echo $Contact; ?>" maxlength="60"/></td>
+				<td><input type="text" class="form-control" name="Phone[]" placeholder="2489829600" value="<?php echo $Phone; ?>" maxlength="17"/></td>
+			</tr>
+		<? } ?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="8">
+					<button type="submit" class="btn btn-block btn-secondary">Add Clients</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
