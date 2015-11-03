@@ -57,6 +57,18 @@ class TimeSheetController extends TSController {
         $this->Redirect("TimeSheet","Admin");
     }
 
+    public function AddProjectToMyList() {
+        if(isset($_POST["ProjectId"]) && !empty($_POST["ProjectId"])) $ProjectId = $_POST["ProjectId"];
+        $UserProjects = new UserProjects();
+        $UserProjects->setUserId($this->User->getId());
+        $UserProjects->setProjectId($ProjectId);
+        if(!$UserProjects->save()) {
+            $this->EncodeAndSendJSON(array("Error"=>$UserProjects->GetDBError()));
+        } else {
+            $this->EncodeAndSendJSON($UserProjects->toArray());
+        }
+    }
+
     public function DeleteProject() {
         if(!isset($_POST["id"]) || empty($_POST["id"])) {
             $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing project id.";

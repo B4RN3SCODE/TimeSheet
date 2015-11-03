@@ -16,6 +16,23 @@ var urlPrefix = window.location.protocol + '//' + window.location.host;
 var root_dir = '/';
 var debug = true;
 
+function AddProjectToMyList(ProjectId) {
+    Debug_Print("AddProjectToMyList(" + ProjectId + ")")
+    var url = urlPrefix + root_dir + 'TimeSheet/Admin/AddProjectToMyList';
+    var data = { ProjectId: ProjectId};
+    jQuery.ajax({
+        url: url, data: data, type: "POST", dataType: "json",
+        success: function(data) {
+            if(data.Error != undefined) {
+                alert(data.Error);
+            }
+        },
+        error: function( xhr, status, errorThrown ) {
+            Error_Output(xhr, status, errorThrown);
+        }
+    });
+}
+
 function Debug_Print(text) {
     if(debug) {
         console.log(text);
@@ -36,7 +53,6 @@ function LoadSelect(form_name,select_name,data) {
         }));
     });
 }
-
 function GetClientById(form_name,ClientId) {
     Debug_Print("GetClientById(" + ClientId + ")")
     var url = urlPrefix + root_dir + 'TimeSheet/Admin/GetClientById';
@@ -53,7 +69,6 @@ function GetClientById(form_name,ClientId) {
         }
     });
 }
-
 function GetProjectById(form_name,ProjectId) {
     Debug_Print("GetProjectById(" + ProjectId + ")")
     var url = urlPrefix + root_dir + 'TimeSheet/Admin/GetProjectById';
@@ -70,7 +85,6 @@ function GetProjectById(form_name,ProjectId) {
         }
     });
 }
-
 function GetProjectsByClient(form_name,select_name,ClientId) {
     Debug_Print("GetProjectsByClient(" + form_name + "," + select_name + "," + ClientId + ")")
     var url = urlPrefix + root_dir + 'User/Home/GetProjectsByClient';
@@ -86,7 +100,6 @@ function GetProjectsByClient(form_name,select_name,ClientId) {
         }
     });
 }
-
 function ShowSelectedClientsProjectList(ClientName) {
     $("#client-list .panel-collapse").removeClass("in");
     $("#client-list .panel .panel-title a.list-group-item").each(function () {
@@ -99,7 +112,6 @@ function ShowSelectedClientsProjectList(ClientName) {
     });
     $('#client-list .panel-title a.list-group-item:visible').click();
 }
-
 function initialize() {
     var path = window.location.pathname.toLowerCase();
     if(path.indexOf("/timesheet/admin") >= 0) {
@@ -116,6 +128,10 @@ function initialize() {
             event.preventDefault();
             GetClientById('editclient', $(this).attr('data-edit-client'));
             $('#modal-editclient').modal('show');
+        });
+        $('[id^=client] [data-addtomylist]').on('click', function () {
+            AddProjectToMyList($(this).attr('data-addtomylist'));
+            //location.reload();
         });
         var availableTags = [];
         $("#client-list .panel .panel-title a.list-group-item").each(function () {

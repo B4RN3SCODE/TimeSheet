@@ -35,9 +35,9 @@
         #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item .rate {
           float: right; }
 
-[data-edit-client], [data-del-id], [data-edit-id] {
+[data-edit-client], [data-del-id], [data-edit-id], [data-addtomylist] {
   opacity: 0.5; }
-  [data-edit-client]:hover, [data-del-id]:hover, [data-edit-id]:hover {
+  [data-edit-client]:hover, [data-del-id]:hover, [data-edit-id]:hover, [data-addtomylist]:hover {
     opacity: 1;
     cursor: pointer; }
 

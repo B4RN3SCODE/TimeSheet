@@ -39,7 +39,7 @@ class UserProjectsArray extends ArrayClass {
 			$retArray = array();
 			foreach ($this->db->GetAll() as $row) {
 				$Project = new Project($row["projectId"]);
-				$retArray[$row["projectId"]] = $Project->getTitle();
+				$retArray[$Project->getClientId()][] = $row["projectId"];
 			}
 			return $retArray;
 		} else {
@@ -49,17 +49,17 @@ class UserProjectsArray extends ArrayClass {
 }
 
 class UserProjects extends BaseDB {
-	protected $_id;
+//	protected $_id;
 	protected $_UserId;
 	protected $_ProjectId;
-	protected $columns = array("id","UserId","ProjectId");
+	protected $columns = array("UserId","ProjectId");
 	protected $db;
 
-	public function getId() { return $this->_id; }
+//	public function getId() { return $this->_id; }
 	public function getUserId() { return $this->_UserId; }
 	public function getProjectId() { return $this->_ProjectId; }
 
-	public function setId($value) { $this->_id = $value; }
+//	public function setId($value) { $this->_id = $value; }
 	public function setUserId($value) { $this->_UserId = $value; }
 	public function setProjectId($value) { $this->_ProjectId = $value; }
 
@@ -91,35 +91,34 @@ class UserProjects extends BaseDB {
 		}
 	}
 
-	public function load($id)
-	{
-		if (!$id) return false;
-		$strSQL = $this->db->SStatement(array(), get_class($this), array("id" => strval($id)));
-		$this->db->setQueryStmt($strSQL);
-		if ($this->db->Query()) {
-			$this->setVarsFromRow($this->db->getRow());
-			return true;
-		} else {
-			return false;
-		}
-	}
+//	public function load($id)
+//	{
+//		if (!$id) return false;
+//		$strSQL = $this->db->SStatement(array(), get_class($this), array("id" => strval($id)));
+//		$this->db->setQueryStmt($strSQL);
+//		if ($this->db->Query()) {
+//			$this->setVarsFromRow($this->db->getRow());
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 
 	public function save() {
-		if($this->_id) {
-			return self::update();
-		} else {
-			$this->setDateCreated(base::now());
+//		if($this->_ProjectId) {
+//			return self::update();
+//		} else {
 			return self::insert();
-		}
+//		}
 	}
 
-	private function update() {
-		$strSQL = $this->db->UStatement(self::prepare_data(),get_class($this),array("id" => array(0 => $this->getId())));
-		$this->db->setQueryStmt($strSQL);
-		if($this->db->Query())
-			return ($this->db->GetAffectedRows() > -1);
-		return false;
-	}
+//	private function update() {
+//		$strSQL = $this->db->UStatement(self::prepare_data(),get_class($this),array("id" => array(0 => $this->getId())));
+//		$this->db->setQueryStmt($strSQL);
+//		if($this->db->Query())
+//			return ($this->db->GetAffectedRows() > -1);
+//		return false;
+//	}
 
 	public function setDB(DBCon $db) {
 		$this->db = $db;
