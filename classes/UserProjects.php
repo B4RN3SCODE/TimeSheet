@@ -28,12 +28,12 @@ class UserProjectsArray extends ArrayClass {
 	}
 
 	/**
-	 * Returns an array of client information [id, name, rate]
+	 * Returns an array of projects for a given user
 	 * @param $id
 	 * @return array|bool
 	 */
 	function LoadByUserId($id) {
-		$strSQL = $this->db->SStatement(array("projectId"), self::getClass(), array("userId"=>$id) );
+		$strSQL = $this->db->SStatement(array("ProjectId"), self::getClass(), array("UserId"=>$id) );
 		$this->db->SetQueryStmt($strSQL);
 		if($this->db->Query()) {
 			$retArray = array();
