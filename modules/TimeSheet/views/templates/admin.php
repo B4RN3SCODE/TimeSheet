@@ -1,6 +1,5 @@
-<?php
-$clients = $TPLDATA["Clients"];
-?>
+<?php $clients = $TPLDATA["Clients"];
+$MyClients = $TPLDATA["MyClients"]; ?>
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -45,9 +44,11 @@ $clients = $TPLDATA["Clients"];
                                   foreach($client["Projects"] as $pid => $project) { ?>
                                     <div class="list-group">
                                       <a class="list-group-item">
-                                        <span class="pull-right glyphicon glyphicon-pencil" data-edit-id="<?php echo $pid; ?>"></span>
-                                        <span class="pull-right glyphicon glyphicon-plus" data-addtomylist="<?php echo $pid; ?>"></span>
-                                        <span class="pull-right glyphicon glyphicon-remove" data-del-id="<?php echo $pid; ?>"></span>
+                                        <span class="pull-right glyphicon glyphicon-pencil" data-edit-id="<?php echo $pid; ?>" title="Edit Project"></span>
+                                        <!-- TODO check if it is already in mylist and replace with a remove from mylist option -->
+                                        <?php if(!isset($MyClients[$cid]["Projects"][$pid])) {
+                                        ?><span class="pull-right glyphicon glyphicon-plus" data-addtomylist="<?php echo $pid; ?>" title="Add project to my list"></span><? } ?>
+                                        <span class="pull-right glyphicon glyphicon-remove" data-del-id="<?php echo $pid; ?>" title="Delete Project"></span>
                                         <span class="rate">$<?php echo $project["Rate"]; ?></span>
                                         <h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
                                       </a>
@@ -95,18 +96,18 @@ $clients = $TPLDATA["Clients"];
                         </div>
                         <br />
                         <div class="panel-group" id="my-client-list">
-                          <?php foreach ($clients as $cid => $client) { ?>
+                          <?php foreach ($MyClients as $cid => $client) { ?>
                             <div class="panel panel-default">
                               <h4 class="panel-title">
-                                <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="pull-right glyphicon glyphicon-pencil" data-edit-client="<?php echo $cid; ?>"></span><span class="badge"><? echo count($client["Projects"]); ?></span></a>
+                                <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#myclient<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="badge"><? echo count($client["Projects"]); ?></span></a>
                               </h4>
-                              <div id="client<?php echo $cid; ?>" class="panel-collapse collapse">
+                              <div id="myclient<?php echo $cid; ?>" class="panel-collapse collapse">
                                 <?php if(count($client["Projects"]) > 0) {
+//                                  print_r($client)
                                   foreach($client["Projects"] as $pid => $project) { ?>
                                     <div class="list-group">
                                     <a class="list-group-item">
-                                      <span class="pull-right glyphicon glyphicon-pencil" data-edit-id="<?php echo $pid; ?>"></span>
-                                      <span class="pull-right glyphicon glyphicon-remove" data-del-id="<?php echo $pid; ?>"></span>
+                                      <span class="pull-right glyphicon glyphicon-remove" data-rem-mylist="<?php echo $pid; ?>" title="Remove from my list"></span>
                                       <span class="rate">$<?php echo $project["Rate"]; ?></span>
                                       <h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
                                     </a>

@@ -30,7 +30,6 @@ function AddProjectToMyList(ProjectId) {
         }
     });
 }
-
 function Debug_Print(text) {
     if(debug) {
         console.log(text);
@@ -43,13 +42,6 @@ function Error_Output(xhr, status, errorThrown) {
         console.log( "Status: " + status );
         console.dir( xhr );
     }
-}
-function LoadSelect(form_name,select_name,data) {
-    $.each(data, function(key, value) {
-        $('form[name="' + form_name + '"] select[name="' + select_name + '"]').append($("<option/>", {
-            value: key, text: value
-        }));
-    });
 }
 function GetClientById(form_name,ClientId) {
     Debug_Print("GetClientById(" + ClientId + ")")
@@ -98,6 +90,32 @@ function GetProjectsByClient(form_name,select_name,ClientId) {
         }
     });
 }
+function LoadSelect(form_name,select_name,data) {
+    $.each(data, function(key, value) {
+        $('form[name="' + form_name + '"] select[name="' + select_name + '"]').append($("<option/>", {
+            value: key, text: value
+        }));
+    });
+}
+function RemoveProjectFromMyList(ProjectId) {
+    Debug_Print("RemoveProjectFromMyList(" + ProjectId + ")");
+    var url = urlPrefix + root_dir + 'TimeSheet/Admin/RemoveProjectFromMyList';
+    var data = { ProjectId: ProjectId};
+    jQuery.ajax({
+        url: url, data: data, type: "POST", dataType: "json",
+        success: function(data) {
+            var list_item = $('[data-rem-mylist="' + ProjectId + '"]').parent('.list-group-item');
+            var client = $(list_item).parents('.panel-collapse');
+            var id = $(client).attr('id');
+            $(list_item).parent('.list-group').remove();
+            $('[href="#' + id + '"]').children('.badge').html($(client[0]).children('.list-group').length);
+            alert(data.Status);
+        },
+        error: function( xhr, status, errorThrown ) {
+            Error_Output(xhr, status, errorThrown);
+        }
+    });
+}
 function ShowSelectedClientsProjectList(ClientName) {
     $("#client-list .panel-collapse").removeClass("in");
     $("#client-list .panel .panel-title a.list-group-item").each(function () {
@@ -129,6 +147,9 @@ function initialize() {
         });
         $('[id^=client] [data-addtomylist]').on('click', function () {
             AddProjectToMyList($(this).attr('data-addtomylist'));
+        });
+        $('[id^=myclient] [data-rem-mylist]').on('click', function () {
+            RemoveProjectFromMyList($(this).attr('data-rem-mylist'));
         });
         var availableTags = [];
         $("#client-list .panel .panel-title a.list-group-item").each(function () {

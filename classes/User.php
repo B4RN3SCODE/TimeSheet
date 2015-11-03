@@ -154,7 +154,7 @@ class User extends BaseDB {
 	}
 
     public function GetClientProjectArray() {
-        $strSQL = "SELECT Client.id AS cid, Client.Name, Project.id AS pid, Project.Title
+        $strSQL = "SELECT Client.id AS cid, Client.Name, Project.id AS pid, Project.Title, Project.Rate
                     FROM Client
                       INNER JOIN Project
                         ON Client.id = Project.ClientId
@@ -164,7 +164,14 @@ class User extends BaseDB {
                     ORDER BY Client.Name, Project.Title;";
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
-            return $this->db->GetAll();
+            $retArray = array();
+            $ClientProjects = $this->db->GetAll();
+            foreach($ClientProjects as $arrData) {
+                $retArray[$arrData["cid"]]["Name"] = $arrData["Name"];
+                $retArray[$arrData["cid"]]["Projects"][$arrData["pid"]]["Rate"] = $arrData["Rate"];
+                $retArray[$arrData["cid"]]["Projects"][$arrData["pid"]]["Name"] = $arrData["Title"];
+            }
+            return $retArray;
         } else {
             return false;
         }

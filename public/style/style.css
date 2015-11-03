@@ -35,16 +35,16 @@
         #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item .rate, #inner-panel #my-client-list .panel .panel-collapse .list-group .list-group-item .rate {
           float: right; }
 
-[data-edit-client], [data-del-id], [data-edit-id], [data-addtomylist] {
+[data-edit-client], [data-del-id], [data-edit-id], [data-addtomylist], [data-rem-mylist] {
   opacity: 0.5; }
-  [data-edit-client]:hover, [data-del-id]:hover, [data-edit-id]:hover, [data-addtomylist]:hover {
+  [data-edit-client]:hover, [data-del-id]:hover, [data-edit-id]:hover, [data-addtomylist]:hover, [data-rem-mylist]:hover {
     opacity: 1;
     cursor: pointer; }
 
 [data-edit-client] {
   padding-left: 0.3em; }
 
-[data-del-id] {
+[data-del-id], [data-rem-mylist] {
   color: #f00;
   padding-right: 0.3em;
   padding-top: 0.1em; }

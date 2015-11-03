@@ -72,9 +72,9 @@ class UserProjects extends BaseDB {
 	}
 
 	public function delete() {
-		if($this->_id) {
+		if($this->_ProjectId) {
 			$strSQL = "DELETE FROM " . DB_NAME . "." . get_class($this) . "
-				WHERE id = $this->_id";
+				WHERE UserId = $this->_UserId AND ProjectId = $this->_ProjectId";
 			$this->db->setQueryStmt($strSQL);
 			return $this->db->Query();
 		}
@@ -91,18 +91,18 @@ class UserProjects extends BaseDB {
 		}
 	}
 
-//	public function load($id)
-//	{
-//		if (!$id) return false;
-//		$strSQL = $this->db->SStatement(array(), get_class($this), array("id" => strval($id)));
-//		$this->db->setQueryStmt($strSQL);
-//		if ($this->db->Query()) {
-//			$this->setVarsFromRow($this->db->getRow());
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
+	public function load($id)
+	{
+		if (!$id) return false;
+		$strSQL = $this->db->SStatement(array(), get_class($this), array("UserId" => $_SESSION["User"]->getId(), "ProjectId" => $id));
+		$this->db->setQueryStmt($strSQL);
+		if ($this->db->Query()) {
+			$this->setVarsFromRow($this->db->getRow());
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public function save() {
 //		if($this->_ProjectId) {
