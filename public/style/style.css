@@ -42,7 +42,9 @@
     cursor: pointer; }
 
 [data-del-id] {
-  color: #f00; }
+  color: #f00;
+  padding-right: 0.3em;
+  padding-top: 0.1em; }
 
 form[name="timesheet"] table input[type="checkbox"] {
   display: block;

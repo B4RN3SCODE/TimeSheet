@@ -33,7 +33,7 @@ class ProjectArray extends ArrayClass {
      * @return array|bool
      */
     function LoadByClientId($id) {
-        $strSQL = $this->db->SStatement(array("id","Title","Rate"), self::getClass(), array("ClientId"=>$id) );
+        $strSQL = $this->db->SStatement(array("id","Title","Rate"), self::getClass(), array("ClientId"=>$id, "Active"=>"1") );
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
             $retArray = array();
@@ -55,7 +55,8 @@ class Project extends BaseDB {
     protected $_Description;
     protected $_DateCreated;
     protected $_Rate;
-    protected $columns = array("id","UserId","ClientId","Title","Description","DateCreated","Rate");
+    protected $_Active;
+    protected $columns = array("id","UserId","ClientId","Title","Description","DateCreated","Rate", "Active");
     protected $db;
 
     public function getId() { return $this->_id; }
@@ -65,6 +66,7 @@ class Project extends BaseDB {
     public function getDescription() { return $this->_Description; }
     public function getDateCreated() { return $this->_DateCreated; }
     public function getRate() { return $this->_Rate; }
+    public function getActive() { return $this->_Active; }
 
     public function setId($value) { $this->_id = $value; }
     public function setUserId($value) { $this->_UserId = $value; }
@@ -73,6 +75,7 @@ class Project extends BaseDB {
     public function setDescription($value) { $this->_Description = $value; }
     public function setDateCreated($value) { $this->_DateCreated = $value; }
     public function setRate($value) { $this->_Rate = $value; }
+    public function setActive($value) { $this->_Active = $value; }
 
     public function __construct($id=null) {
         $this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
@@ -80,6 +83,8 @@ class Project extends BaseDB {
         $this->_Description = "General description of project.";
         if($id) {
             $this->load($id);
+        } else {
+            $this->_Active = true;
         }
     }
 

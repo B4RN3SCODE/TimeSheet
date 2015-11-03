@@ -351,19 +351,37 @@ class DBCon {
 
         // make sure there is a condition
         if(isset($where) && count($where) > 0) {
-
             // build WHERE portion
             $str .= " WHERE";
-            foreach($where as $metaA => $arrDetails) {
-                $str .= " ${metaA} =";
+            $pos = -1;
+            foreach($where as $key => $value) {
+                $pos++;
+                if(isset($value)) {
+                    $value = trim($value);
+                    if($pos == 0) {
+                        $str .= " $key=";
+                    } else {
+                        $str .= " AND $key=";
+                    }
+                    if(gettype($value) == "string") {
+                        $str .= "'$value'";
+                    } else {
+                        $str .= " $value";
+                    }
+                }
 
-                if(gettype($arrDetails[0]) == "string" && $arrDetails[0] != "?")
-                    $str .= " '${arrDetails[0]}'";
-                else $str .= " ${arrDetails[0]}";
-
-                if(isset($arrDetails[1]) && !is_null($arrDetails[1]) && !empty($arrDetails[1]))
-                    $str .= " ${arrDetails[1]}";
-            }
+            } //end foreach
+//
+//            foreach($where as $metaA => $arrDetails) {
+//                $str .= " ${metaA} =";
+//
+//                if(gettype($arrDetails[0]) == "string" && $arrDetails[0] != "?")
+//                    $str .= " '${arrDetails[0]}'";
+//                else $str .= " ${arrDetails[0]}";
+//
+//                if(isset($arrDetails[1]) && !is_null($arrDetails[1]) && !empty($arrDetails[1]))
+//                    $str .= " ${arrDetails[1]}";
+//            }
         } // end IF
 
         if(isset($limit) && count($limit) == 2)

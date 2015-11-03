@@ -97,6 +97,10 @@ function initialize() {
         GetProjectById('editproject',$(this).attr('data-edit-id'));
         $('#modal-editproject').modal('show');
     });
+    $('[id^=client] [data-del-id]').on('click', function() {
+        $('form[name="delproject"] input[name="id"]').val($(this).attr('data-del-id'));
+        $('#modal-delproject').modal('show');
+    });
 }
 
 function validate_add_client(form) {
