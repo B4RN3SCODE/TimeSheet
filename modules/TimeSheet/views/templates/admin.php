@@ -38,9 +38,7 @@ $clients = $TPLDATA["Clients"];
                             <div class="panel panel-default">
                               <!--    <div class="panel-heading">-->
                               <h4 class="panel-title">
-                                <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>">
-                                  <?php echo $client["Name"]; ?><span class="pull-right glyphicon glyphicon-pencil" data-edit-client="<?php echo $cid; ?>"></span><span class="badge"><? echo count($client["Projects"]); ?></span>
-                                </a>
+                                <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="pull-right glyphicon glyphicon-pencil" data-edit-client="<?php echo $cid; ?>"></span><span class="badge"><? echo count($client["Projects"]); ?></span></a>
                               </h4>
                               <!--    </div>-->
                               <div id="client<?php echo $cid; ?>" class="panel-collapse collapse">
