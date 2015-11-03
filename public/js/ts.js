@@ -75,9 +75,10 @@ function GetProjectsByClient(form_name,select_name,ClientId) {
     Debug_Print("GetProjectsByClient(" + form_name + "," + select_name + "," + ClientId + ")")
     var url = urlPrefix + root_dir + 'User/Home/GetProjectsByClient';
     var data = { ClientId: ClientId };
-    jQuery.ajax({
+    $.ajax({
         url: url, data: data, type: "POST", dataType: "json",
         success: function(data) {
+            console.dir(data);
             LoadSelect(form_name,select_name,data);
         },
         error: function( xhr, status, errorThrown ) {
@@ -102,16 +103,6 @@ function ShowSelectedClientsProjectList(ClientName) {
 function initialize() {
     var path = window.location.pathname.toLowerCase();
     if(path.indexOf("/timesheet/admin") >= 0) {
-        $('form[name="timesheet-settings"] select[name="default-client"]').on('change', function (event) {
-            $('form[name="timesheet-settings"] select[name="default-project"] option:not(:first)').remove();
-            GetProjectsByClient('timesheet-settings', 'default-project', event.target.selectedIndex);
-            if (event.target.selectedIndex !== 0) $('form[name="timesheet-settings"] select[name="default-project"]').focus();
-        });
-        $('form[name="timesheet"] select[name="client"]').on('change', function (event) {
-            $('form[name="timesheet"] select[name="project"] option:not(:first)').remove();
-            GetProjectsByClient('timesheet', 'project', event.target.selectedIndex);
-            if (event.target.selectedIndex !== 0) $('form[name="timesheet"] select[name="project"]').focus();
-        });
         $('[id^=client] [data-edit-id]').on('click', function () {
             GetProjectById('editproject', $(this).attr('data-edit-id'));
             $('#modal-editproject').modal('show');
@@ -163,6 +154,16 @@ function initialize() {
             }
         });
     }
+    $('form[name="timesheet-settings"] select[name="default-client"]').on('change', function (event) {
+        $('form[name="timesheet-settings"] select[name="default-project"] option:not(:first)').remove();
+        GetProjectsByClient('timesheet-settings', 'default-project', event.target.value);
+        if (event.target.selectedIndex !== 0) $('form[name="timesheet-settings"] select[name="default-project"]').focus();
+    });
+    $('form[name="timesheet"] select[name="client"]').on('change', function (event) {
+        $('form[name="timesheet"] select[name="project"] option:not(:first)').remove();
+        GetProjectsByClient('timesheet', 'project', event.target.value);
+        if (event.target.selectedIndex !== 0) $('form[name="timesheet"] select[name="project"]').focus();
+    });
 }
 
 function AddProject(form) {
