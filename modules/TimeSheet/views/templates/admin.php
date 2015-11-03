@@ -51,7 +51,9 @@ $clients = $TPLDATA["Clients"]; //array(
                                 foreach($client["Projects"] as $pid => $project) { ?>
                                   <div class="list-group">
                                     <a class="list-group-item">
-                                      <span class="rate">$<?php echo $project["Rate"]; ?></span><h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
+                                      <span class="pull-right glyphicon glyphicon-pencil" data-edit-id="<?php echo $pid; ?>"></span>
+                                      <span class="rate">$<?php echo $project["Rate"]; ?></span>
+                                      <h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
                                     </a>
                                   </div><?
                                 }}?>
@@ -170,4 +172,5 @@ $clients = $TPLDATA["Clients"]; //array(
     <?php } ?>
   });
 </script>
-<?php include_once "views/modals/AddClient.php"; ?>
+<?php include_once "views/modals/AddClient.php";
+include_once "views/modals/EditProject.php"; ?>

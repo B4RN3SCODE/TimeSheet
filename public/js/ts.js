@@ -36,6 +36,24 @@ function LoadSelect(form_name,select_name,data) {
         }));
     });
 }
+
+function GetProjectById(form_name,ProjectId) {
+    Debug_Print("GetProjectById(" + ProjectId + ")")
+    var url = urlPrefix + root_dir + 'TimeSheet/Admin/GetProjectById';
+    var data = { ProjectId: ProjectId};
+    jQuery.ajax({
+        url: url, data: data, type: "POST", dataType: "json",
+        success: function(data) {
+            $.each(data, function(key, value) {
+                $('form[name="' + form_name + '"] input[name="' + key + '"]').val(value);
+            });
+        },
+        error: function( xhr, status, errorThrown ) {
+            Error_Output(xhr, status, errorThrown);
+        }
+    });
+}
+
 function GetProjectsByClient(form_name,select_name,ClientId) {
     Debug_Print("GetProjectsByClient(" + form_name + "," + select_name + "," + ClientId + ")")
     var url = urlPrefix + root_dir + 'User/Home/GetProjectsByClient';
@@ -74,6 +92,10 @@ function initialize() {
         $('form[name="timesheet"] select[name="project"] option:not(:first)').remove();
         GetProjectsByClient('timesheet','project',event.target.selectedIndex);
         if(event.target.selectedIndex !== 0) $('form[name="timesheet"] select[name="project"]').focus();
+    });
+    $('[id^=client] [data-edit-id]').on('click', function() {
+        GetProjectById('editproject',$(this).attr('data-edit-id'));
+        $('#modal-editproject').modal('show');
     });
 }
 

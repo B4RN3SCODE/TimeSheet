@@ -60,5 +60,24 @@ class TimeSheetController extends TSController {
         }
         $this->Redirect("TimeSheet","Admin");
     }
+
+    public function GetProjectById() {
+        if(!isset($_POST["ProjectId"]) || empty($_POST["ProjectId"])) {
+            die();
+        }
+        $Project = new Project($_POST["ProjectId"]);
+        $this->EncodeAndSendJSON($Project->toArray());
+    }
+
+    public function GetProjectsByClient() {
+        $ReturnArray = array();
+        if(isset($_POST["ClientId"]) && $_POST["ClientId"] != 0) {
+            $ProjectArray = new ProjectArray();
+            foreach ($ProjectArray->LoadByClientId($_POST["ClientId"]) as $id => $values) {
+                $ReturnArray[$id] = $values["Name"];
+            }
+        }
+        $this->EncodeAndSendJSON($ReturnArray);
+    }
 }
 ?>

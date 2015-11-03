@@ -35,6 +35,15 @@
         #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item .rate {
           float: right; }
 
+[data-del-id], [data-edit-id] {
+  opacity: 0.5; }
+  [data-del-id]:hover, [data-edit-id]:hover {
+    opacity: 1;
+    cursor: pointer; }
+
+[data-del-id] {
+  color: #f00; }
+
 form[name="timesheet"] table input[type="checkbox"] {
   display: block;
   width: 34px;
