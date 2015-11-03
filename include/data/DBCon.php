@@ -357,7 +357,7 @@ class DBCon {
             foreach($where as $key => $value) {
                 $pos++;
                 if(isset($value)) {
-                    $value = trim($value);
+                    if(is_string($value)) { $value = trim($value); }
                     if($pos == 0) {
                         $str .= " $key=";
                     } else {

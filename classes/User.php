@@ -115,7 +115,7 @@ class User extends BaseDB {
 
     public function LoadByEmail($email = null) {
         if(!$email) return false;
-        $strSQL = $this->db->SStatement(array(), get_class($this), array("Email" => array(0 => $email)));
+        $strSQL = $this->db->SStatement(array(), get_class($this), array("Email" => $email));
         $this->db->setQueryStmt($strSQL);
         if ($this->db->Query()) {
             $this->setVarsFromRow($this->db->GetRow());

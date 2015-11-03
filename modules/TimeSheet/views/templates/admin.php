@@ -1,4 +1,7 @@
 <?php
+//echo "<pre>";
+//print_r($TPLDATA);
+//echo "</pre>";
 $clients = $TPLDATA["Clients"]; //array(
 //  "American Home Fitness"=>array("Desktop","NetServ","NetServ_50"),
 //  "American Seating"=>array("Appdev","Appdev38","RPGDev"),
