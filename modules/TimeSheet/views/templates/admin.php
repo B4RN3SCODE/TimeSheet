@@ -88,7 +88,7 @@ $clients = $TPLDATA["Clients"];
                               <span class="input-group-addon" id="sizing-addon2">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                               </span>
-                              <input id="search-box" type="text" value="<?php echo $TPLDATA["SearchText"]; ?>" class="form-control" placeholder="Search for a client..." aria-describedby="sizing-addon2">
+                              <input id="my-search-box" type="text" value="<?php echo $TPLDATA["SearchText"]; ?>" class="form-control" placeholder="Search for a client..." aria-describedby="sizing-addon2">
                             </div>
                           </div>
                           <div class="col-sm-4">
@@ -97,7 +97,7 @@ $clients = $TPLDATA["Clients"];
                         </div>
                         <br />
                         <!-- input list here -->
-                        <div class="panel-group" id="client-list">
+                        <div class="panel-group" id="my-client-list">
                           <?php foreach ($clients as $cid => $client) { ?>
                             <div class="panel panel-default">
                               <!--    <div class="panel-heading">-->

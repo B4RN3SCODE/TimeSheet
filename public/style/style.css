@@ -1,38 +1,38 @@
 #inner-panel {
   border: 1px solid #ddd;
   border-top: none; }
-  #inner-panel #client-list .panel {
+  #inner-panel #client-list .panel, #inner-panel #my-client-list .panel {
     border: none; }
-    #inner-panel #client-list .panel + .panel {
+    #inner-panel #client-list .panel + .panel, #inner-panel #my-client-list .panel + .panel {
       margin-top: 0px; }
-    #inner-panel #client-list .panel:first-child .panel-title .list-group-item:first-child {
+    #inner-panel #client-list .panel:first-child .panel-title .list-group-item:first-child, #inner-panel #my-client-list .panel:first-child .panel-title .list-group-item:first-child {
       border-top-width: 1px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px; }
-    #inner-panel #client-list .panel:last-child .panel-title .list-group-item:last-child {
+    #inner-panel #client-list .panel:last-child .panel-title .list-group-item:last-child, #inner-panel #my-client-list .panel:last-child .panel-title .list-group-item:last-child {
       border-bottom-width: 1px;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px; }
-    #inner-panel #client-list .panel:last-child .panel-title .list-group-item[aria-expanded="true"] {
+    #inner-panel #client-list .panel:last-child .panel-title .list-group-item[aria-expanded="true"], #inner-panel #my-client-list .panel:last-child .panel-title .list-group-item[aria-expanded="true"] {
       border-radius: 0px; }
-    #inner-panel #client-list .panel .panel-title .list-group-item {
+    #inner-panel #client-list .panel .panel-title .list-group-item, #inner-panel #my-client-list .panel .panel-title .list-group-item {
       border-top-left-radius: 0px;
       border-top-right-radius: 0px;
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;
       border-top-width: 0px; }
-    #inner-panel #client-list .panel .panel-collapse .list-group {
+    #inner-panel #client-list .panel .panel-collapse .list-group, #inner-panel #my-client-list .panel .panel-collapse .list-group {
       border-color: #dddddd; }
-      #inner-panel #client-list .panel .panel-collapse .list-group:last-child {
+      #inner-panel #client-list .panel .panel-collapse .list-group:last-child, #inner-panel #my-client-list .panel .panel-collapse .list-group:last-child {
         margin-bottom: 0; }
-        #inner-panel #client-list .panel .panel-collapse .list-group:last-child .list-group-item:last-child {
+        #inner-panel #client-list .panel .panel-collapse .list-group:last-child .list-group-item:last-child, #inner-panel #my-client-list .panel .panel-collapse .list-group:last-child .list-group-item:last-child {
           border-bottom: 1px solid #ddd;
           border-bottom-left-radius: 4px;
           border-bottom-right-radius: 4px; }
-      #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item {
+      #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item, #inner-panel #my-client-list .panel .panel-collapse .list-group .list-group-item {
         border-width: 0px 1px 1px 1px;
         border-radius: 0px; }
-        #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item .rate {
+        #inner-panel #client-list .panel .panel-collapse .list-group .list-group-item .rate, #inner-panel #my-client-list .panel .panel-collapse .list-group .list-group-item .rate {
           float: right; }
 
 [data-edit-client], [data-del-id], [data-edit-id], [data-addtomylist] {

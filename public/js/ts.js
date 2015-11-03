@@ -25,6 +25,8 @@ function AddProjectToMyList(ProjectId) {
         success: function(data) {
             if(data.Error != undefined) {
                 alert(data.Error);
+            } else {
+                location.reload();
             }
         },
         error: function( xhr, status, errorThrown ) {
@@ -131,7 +133,6 @@ function initialize() {
         });
         $('[id^=client] [data-addtomylist]').on('click', function () {
             AddProjectToMyList($(this).attr('data-addtomylist'));
-            //location.reload();
         });
         var availableTags = [];
         $("#client-list .panel .panel-title a.list-group-item").each(function () {
