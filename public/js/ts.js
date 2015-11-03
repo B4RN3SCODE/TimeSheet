@@ -44,8 +44,6 @@ function GetClientById(form_name,ClientId) {
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
         success: function(data) {
-            console.dir(data);
-            //return;
             $.each(data, function(key, value) {
                 $('form[name="' + form_name + '"] [name="' + key + '"]').val(value);
             });
