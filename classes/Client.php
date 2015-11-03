@@ -34,7 +34,6 @@ class ClientArray extends ArrayClass {
             $ProjectArray = new ProjectArray();
             $retArray = array();
             foreach ($this->db->GetAll() as $row) {
-                // TODO create Projects class and load projects from there
                 $retArray[$row["id"]] = array(
                     "Name" => $row['Name'],
                     "Projects" => $ProjectArray->LoadByClientId($row["id"])
