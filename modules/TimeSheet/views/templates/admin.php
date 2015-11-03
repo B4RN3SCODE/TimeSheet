@@ -120,45 +120,6 @@ $clients = $TPLDATA["Clients"]; //array(
       </div>
 
 <script type="text/javascript">
-  $(function() {
-    var availableTags = [];
-    $("#client-list .panel .panel-title a.list-group-item").each(function () {
-      var label = $(this).text().substr(0,$(this).text().length - $(this).children("span").text().length);
-      availableTags.push({'label': label}); //, 'value' : $(this).parent().attr('id') });
-    });
-    $("#search-box").autocomplete({
-      source: availableTags,
-      select: function (event, ui) {
-        $("#client-list .panel-collapse").removeClass("in");
-        $("#client-list .panel .panel-title a.list-group-item").each(function () {
-          var label = $(this).text().substr(0,$(this).text().length - $(this).children("span").text().length);
-          if (label != ui.item.label) {
-            $(this).hide();
-          } else {
-            $(this).show();
-          }
-        });
-        $('#client-list .panel-title a.list-group-item:visible').click();
-      }
-    });
-    $("#search-box").keyup(function () {
-      if ($(this).val().length < 1) {
-        $("#client-list .panel .panel-title a.list-group-item").each(function () {
-          $(this).show();
-        });
-        $("#client-list .panel-collapse").removeClass("in");
-      }
-    });
-
-    $(".list-group-item input[name='name'],.list-group-item input[name='rate']").on("keyup",function() {
-      var button = $(this.form).find('button')[0];
-      if(this.form.name.value.trim().length > 0 && this.form.rate.value.trim().length > 0) {
-        $(button).removeAttr('disabled');
-      } else {
-        $(button).attr('disabled','disabled');
-      }
-    });
-
 //    $(".glyphicon-floppy-disk").click(function() {
 //      var value = $(this).closest(".list-group-item").children('.input-group').children('input.form-control').val();
 //      var oldclass = $(this).attr("class");
@@ -167,7 +128,7 @@ $clients = $TPLDATA["Clients"]; //array(
 //      $(this).closest(".list-group").before(html);
 //      $(this).attr("class", oldclass);
 //    });
-
+  $(document).ready(function () {
     <?php if($TPLDATA["SearchText"] != "") { ?>
     ShowSelectedClientsProjectList("<?php echo $TPLDATA["SearchText"]; ?>");
     <?php } ?>
