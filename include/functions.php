@@ -90,5 +90,5 @@ function sidebar($name) {
 }
 
 function is_logged_in() {
-  return $GLOBALS["valid_login"];
+  return (isset($GLOBALS["valid_login"])) ? $GLOBALS["valid_login"] : false;
 }
