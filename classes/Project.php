@@ -56,7 +56,9 @@ class Project extends BaseDB {
     protected $_DateCreated;
     protected $_Rate;
     protected $_Active;
-    protected $columns = array("id","UserId","ClientId","Title","Description","DateCreated","Rate", "Active");
+    protected $_InternalReference;
+    protected $_CustomerReference;
+    protected $columns = array("id","UserId","ClientId","Title","Description","DateCreated","Rate", "Active", "InternalReference", "CustomerReference");
     protected $db;
 
     public function getId() { return $this->_id; }
@@ -67,6 +69,8 @@ class Project extends BaseDB {
     public function getDateCreated() { return $this->_DateCreated; }
     public function getRate() { return $this->_Rate; }
     public function getActive() { return $this->_Active; }
+    public function getInternalReference() { return $this->_InternalReference; }
+    public function getCustomerReference() { return $this->_CustomerReference; }
 
     public function setId($value) { $this->_id = $value; }
     public function setUserId($value) { $this->_UserId = $value; }
@@ -76,6 +80,8 @@ class Project extends BaseDB {
     public function setDateCreated($value) { $this->_DateCreated = $value; }
     public function setRate($value) { $this->_Rate = $value; }
     public function setActive($value) { $this->_Active = $value; }
+    public function setInternalReference($value) { $this->_InternalReference = $value; }
+    public function setCustomerReference($value) { $this->_CustomerReference = $value; }
 
     public function __construct($id=null) {
         $this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;

@@ -96,18 +96,19 @@ class TimeSheetController extends TSController {
     }
 
     public function UpdateProject() {
-        if(!isset($_POST["Title"]) || empty($_POST["Title"])) {
+        foreach($_POST as $key => $value) $$key = $value;
+        if(!isset($Title) || empty($Title)) {
             $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing project title.";
-        } else if(!isset($_POST["Description"]) || empty($_POST["Description"])) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing description.";
-        } else if(!isset($_POST["Rate"]) || empty($_POST["Rate"])) {
+        } else if(!isset($Rate) || empty($Rate)) {
             $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing rate.";
         }
         if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Admin");
-        $Project = new Project($_POST["id"]);
-        $Project->setDescription(trim($_POST["Description"]));
-        $Project->setTitle(trim($_POST["Title"]));
-        $Project->setRate(trim($_POST["Rate"]));
+        $Project = new Project($id);
+        $Project->setDescription(trim($Description));
+        $Project->setTitle(trim($Title));
+        $Project->setRate($Rate);
+        $Project->setInternalReference($InternalReference);
+        $Project->setCustomerReference($CustomerReference);
         if($Project->save()) {
             $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project updated.";
         } else {

@@ -20,6 +20,20 @@
 						<label for="Description">Description (100 characters)</label>
 						<input type="text" class="form-control" name="Description" maxlength="100" placeholder="Project Description" />
 					</div>
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="InternalReference">Internal Reference #</label>
+								<input type="text" class="form-control" name="InternalReference" placeholder="12345" maxlength="50"/>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="CustomerReference">Customer Reference #</label>
+								<input type="text" class="form-control" name="CustomerReference" placeholder="12345" maxlength="50"/>
+							</div>
+						</div>
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="submit" class="btn btn-primary">Save</button>
