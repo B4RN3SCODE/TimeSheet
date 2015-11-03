@@ -61,6 +61,27 @@ class TimeSheetController extends TSController {
         $this->Redirect("TimeSheet","Admin");
     }
 
+    public function UpdateProject() {
+        if(!isset($_POST["Title"]) || empty($_POST["Title"])) {
+            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing project title.";
+        } else if(!isset($_POST["Description"]) || empty($_POST["Description"])) {
+            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing description.";
+        } else if(!isset($_POST["Rate"]) || empty($_POST["Rate"])) {
+            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing rate.";
+        }
+        if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Admin");
+        $Project = new Project($_POST["id"]);
+        $Project->setDescription(trim($_POST["Description"]));
+        $Project->setTitle(trim($_POST["Title"]));
+        $Project->setRate(trim($_POST["Rate"]));
+        if($Project->save()) {
+            $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project updated.";
+        } else {
+            $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
+        }
+        $this->Redirect("TimeSheet","Admin");
+    }
+
     public function GetProjectById() {
         if(!isset($_POST["ProjectId"]) || empty($_POST["ProjectId"])) {
             die();

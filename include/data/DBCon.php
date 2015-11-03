@@ -450,7 +450,9 @@ class DBCon {
         if(!isset($Tbl) || empty($Tbl) || is_null($Tbl))
             return false;
 
-
+        foreach($update as $key => $value) {
+            $update[$key] = $this->LinkRef->real_escape_string($value);
+        }
         // build SELECT portion
         $str = "UPDATE {$Tbl} SET";
 
