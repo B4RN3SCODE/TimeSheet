@@ -1,6 +1,12 @@
 <?php
 $clients = $TPLDATA["Clients"];
 ?>
+  <div class="col-md-12">
+    <div class="alert alert-warning alert-dismissible text-center" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>TODO: </strong>Add customer reference number / PO # to Project
+    </div>
+  </div>
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
