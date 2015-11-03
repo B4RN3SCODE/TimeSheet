@@ -9,7 +9,7 @@
 				<div class="row">
 					<div class="form-group col-sm-6">
 						<label for="email">Email</label>
-						<input type="email" class="form-control" name="email" placeholder="user@arbsol.com" value="<?php echo $TPLDATA["Email"]; ?>">
+						<input type="email" class="form-control" name="email" placeholder="user@arbsol.com" value="<?php echo $TPLDATA["Email"]; ?>" autofocus>
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="password">Password</label>
