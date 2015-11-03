@@ -160,7 +160,8 @@ class User extends BaseDB {
                         ON Client.id = Project.ClientId
                       INNER JOIN UserProjects
                         ON Project.id = UserProjects.ProjectId
-                    WHERE UserProjects.UserId = $this->_id;";
+                    WHERE UserProjects.UserId = $this->_id
+                    ORDER BY Client.Name, Project.Title;";
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
             return $this->db->GetAll();
