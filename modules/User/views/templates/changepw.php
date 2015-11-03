@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
       <form name="change-password" action="/User/Edit/ChangePassword" method="post">
-        <input type="hidden" name="form" value="change-password">
+        <input type="hidden" name="form" value="change-password" autofocus>
         <div class="form-group">
           <label for="old-pw">Old Password</label>
           <input type="password" class="form-control" name="old-pw">
