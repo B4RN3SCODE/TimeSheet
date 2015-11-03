@@ -129,6 +129,18 @@ class Client extends BaseDB {
             return false;
         }
     }
+
+    public function LoadByName($Name) {
+        if(!isset($Name) || empty($Name)) return false;
+        $strSQL = $this->db->SStatement(array(), get_class($this), array("Name" => $Name));
+        $this->db->setQueryStmt($strSQL);
+        if ($this->db->Query()) {
+            $this->setVarsFromRow($this->db->getRow());
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function save() {
         if($this->_id) {
             return self::update();
