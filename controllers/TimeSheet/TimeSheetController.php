@@ -75,6 +75,32 @@ class TimeSheetController extends TSController {
         $this->Redirect("TimeSheet","Admin");
     }
 
+    public function UpdateClient() {
+//        if(!isset($_POST["Title"]) || empty($_POST["Title"])) {
+//            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing project title.";
+//        } else if(!isset($_POST["Description"]) || empty($_POST["Description"])) {
+//            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing description.";
+//        } else if(!isset($_POST["Rate"]) || empty($_POST["Rate"])) {
+//            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing rate.";
+//        }
+//        if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Admin");
+        $Client = new Client($_POST["id"]);
+        //"Name","Country","StateOrProv","Zip","Priority","Phone","Contact","StreetAddress"
+        $Client->setName($_POST["Name"]);
+        $Client->setCountry($_POST["Country"]);
+        $Client->setStateOrProv($_POST["StateOrProv"]);
+        $Client->setZip($_POST["Zip"]);
+        $Client->setPhone($_POST["Phone"]);
+        $Client->setContact($_POST["Contact"]);
+        $Client->setStreetAddress($_POST["StreetAddress"]);
+        if($Client->save()) {
+            $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Client updated.";
+        } else {
+            $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to update project.<br />" . $Client->GetDBError();
+        }
+        $this->Redirect("TimeSheet","Admin");
+    }
+
     public function UpdateProject() {
         if(!isset($_POST["Title"]) || empty($_POST["Title"])) {
             $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing project title.";
@@ -94,6 +120,14 @@ class TimeSheetController extends TSController {
             $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
         }
         $this->Redirect("TimeSheet","Admin");
+    }
+
+    public function GetClientById() {
+        if(!isset($_POST["ClientId"]) || empty($_POST["ClientId"])) {
+            die();
+        }
+        $Client = new Client($_POST["ClientId"]);
+        $this->EncodeAndSendJSON($Client->toArray());
     }
 
     public function GetProjectById() {

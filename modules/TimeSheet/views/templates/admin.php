@@ -1,14 +1,5 @@
 <?php
-//echo "<pre>";
-//print_r($TPLDATA);
-//echo "</pre>";
-$clients = $TPLDATA["Clients"]; //array(
-//  "American Home Fitness"=>array("Desktop","NetServ","NetServ_50"),
-//  "American Seating"=>array("Appdev","Appdev38","RPGDev"),
-//  "Arbor"=>array("Adrt","Appdev","Cognos","Holiday","OverQuote","Vacation"),
-//  "Corvac"=>array("Appdev","RPGDev","SMDB_V2"),
-//  "Design One"=>array("NetServ")
-//)
+$clients = $TPLDATA["Clients"];
 ?>
       <div class="col-md-12">
         <div class="panel panel-default">
@@ -46,7 +37,9 @@ $clients = $TPLDATA["Clients"]; //array(
                           <div class="panel panel-default">
                             <!--    <div class="panel-heading">-->
                             <h4 class="panel-title">
-                              <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>"><?php echo $client["Name"]; ?><span class="badge"><? echo count($client["Projects"]); ?></span></a>
+                              <a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>">
+                                <?php echo $client["Name"]; ?><span class="pull-right glyphicon glyphicon-pencil" data-edit-client="<?php echo $cid; ?>"></span><span class="badge"><? echo count($client["Projects"]); ?></span>
+                              </a>
                             </h4>
                             <!--    </div>-->
                             <div id="client<?php echo $cid; ?>" class="panel-collapse collapse">
@@ -139,4 +132,5 @@ $clients = $TPLDATA["Clients"]; //array(
 </script>
 <?php include_once "views/modals/AddClient.php";
 include_once "views/modals/EditProject.php";
-include_once "views/modals/DeleteProject.php";?>
+include_once "views/modals/DeleteProject.php";
+include_once "views/modals/EditClient.php"; ?>

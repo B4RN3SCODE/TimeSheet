@@ -37,6 +37,25 @@ function LoadSelect(form_name,select_name,data) {
     });
 }
 
+function GetClientById(form_name,ClientId) {
+    Debug_Print("GetClientById(" + ClientId + ")")
+    var url = urlPrefix + root_dir + 'TimeSheet/Admin/GetClientById';
+    var data = { ClientId: ClientId};
+    jQuery.ajax({
+        url: url, data: data, type: "POST", dataType: "json",
+        success: function(data) {
+            console.dir(data);
+            //return;
+            $.each(data, function(key, value) {
+                $('form[name="' + form_name + '"] [name="' + key + '"]').val(value);
+            });
+        },
+        error: function( xhr, status, errorThrown ) {
+            Error_Output(xhr, status, errorThrown);
+        }
+    });
+}
+
 function GetProjectById(form_name,ProjectId) {
     Debug_Print("GetProjectById(" + ProjectId + ")")
     var url = urlPrefix + root_dir + 'TimeSheet/Admin/GetProjectById';
@@ -100,6 +119,12 @@ function initialize() {
     $('[id^=client] [data-del-id]').on('click', function() {
         $('form[name="delproject"] input[name="id"]').val($(this).attr('data-del-id'));
         $('#modal-delproject').modal('show');
+    });
+    $('[id^=client] [data-edit-client]').on('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        GetClientById('editclient',$(this).attr('data-edit-client'));
+        $('#modal-editclient').modal('show');
     });
 }
 
