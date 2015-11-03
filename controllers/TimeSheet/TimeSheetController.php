@@ -6,7 +6,7 @@ class TimeSheetController extends TSController {
         }
     }
     public function index() {
-        if($this->_view = "admin" && $this->_action = "addclient") {
+        if($this->_view = "admin" && ($this->_action = "addclient" || $this->_action = "updateclient")) {
             if(isset($_POST))
                 $this->_viewProcessor->_tplData["addclient"] = $_POST;
         }
@@ -76,16 +76,7 @@ class TimeSheetController extends TSController {
     }
 
     public function UpdateClient() {
-//        if(!isset($_POST["Title"]) || empty($_POST["Title"])) {
-//            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing project title.";
-//        } else if(!isset($_POST["Description"]) || empty($_POST["Description"])) {
-//            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing description.";
-//        } else if(!isset($_POST["Rate"]) || empty($_POST["Rate"])) {
-//            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing rate.";
-//        }
-//        if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Admin");
         $Client = new Client($_POST["id"]);
-        //"Name","Country","StateOrProv","Zip","Priority","Phone","Contact","StreetAddress"
         $Client->setName($_POST["Name"]);
         $Client->setCountry($_POST["Country"]);
         $Client->setStateOrProv($_POST["StateOrProv"]);
@@ -96,8 +87,9 @@ class TimeSheetController extends TSController {
         if($Client->save()) {
             $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Client updated.";
         } else {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to update project.<br />" . $Client->GetDBError();
+            $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to update client.<br />" . $Client->GetDBError();
         }
+        unset($_POST);
         $this->Redirect("TimeSheet","Admin");
     }
 
