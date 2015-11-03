@@ -66,11 +66,8 @@ class UserProjects extends BaseDB {
 	public function __construct($id=null) {
 		$this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
 		$this->db->setTBL(get_class($this));
-		$this->_Description = "General description of project.";
 		if($id) {
 			$this->load($id);
-		} else {
-			$this->_Active = true;
 		}
 	}
 
