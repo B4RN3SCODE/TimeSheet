@@ -5,10 +5,10 @@
     </div>
     <div class="panel-body">
       <form name="change-password" action="/User/Edit/ChangePassword" method="post">
-        <input type="hidden" name="form" value="change-password" autofocus>
+        <input type="hidden" name="form" value="change-password">
         <div class="form-group">
           <label for="old-pw">Old Password</label>
-          <input type="password" class="form-control" name="old-pw">
+          <input type="password" class="form-control" name="old-pw" autofocus>
         </div>
         <div class="form-group">
           <label for="new-pw">New Password</label>
