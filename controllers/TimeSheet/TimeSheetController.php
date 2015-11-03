@@ -17,18 +17,19 @@ class TimeSheetController extends TSController {
         foreach($_POST as $key => $value) {
             $$key = $value;
         }
-        if(empty($name) || empty($street) || empty($state) || empty($zip) || empty($contact) || empty($phone)) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = 'Please fill out all fields.<script>$(document).ready(function() { $("button[data-target=\'#modal-newclient\']").click(); });</script>';
+        if(empty($Name)) {
+            $GLOBALS["APP"]["MSG"]["ERROR"] = 'Please enter the clients name.<script>$(document).ready(function() { $("button[data-target=\'#modal-newclient\']").click(); });</script>';
         } else {
             $Client = new Client();
-            $Client->setName($name);
-            $Client->setStreetAddress($street);
-            $Client->setStateOrProv($state);
-            $Client->setZip($zip);
-            $Client->setPriority(1);
-            $Client->setPhone($phone);
-            $Client->setContact($contact);
-            $Client->setCountry($country);
+            $Client->setName($Name);
+            $Client->setCountry($Country);
+            $Client->setStateOrProv($StateOrProv);
+            $Client->setZip($Zip);
+            $Client->setCountry($Country);
+            $Client->setPhone($Phone);
+            $Client->setContact($Contact);
+            $Client->setStreetAddress($StreetAddress);
+            $Client->setStreetAddress2($StreetAddress2);
             if($Client->save()) {
                 $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project added.";
                 unset($_POST);
@@ -84,6 +85,7 @@ class TimeSheetController extends TSController {
         $Client->setPhone($_POST["Phone"]);
         $Client->setContact($_POST["Contact"]);
         $Client->setStreetAddress($_POST["StreetAddress"]);
+        $Client->setStreetAddress2($_POST["StreetAddress2"]);
         if($Client->save()) {
             $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Client updated.";
         } else {

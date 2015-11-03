@@ -52,13 +52,14 @@ class Client extends BaseDB {
     protected $_Name;            //VARCHAR(50)
     protected $_Country;         //INT
     protected $_StateOrProv;     //VARCHAR(100)
-    protected $_Zip;             //VARCHAR(8)
+    protected $_Zip;             //VARCHAR(10)
     protected $_Priority;        //INT
     protected $_Phone;           //VARCHAR(17)
     protected $_Contact;         //VARCHAR(60)
     protected $_StreetAddress;   //VARCHAR(100)
+    protected $_StreetAddress2;   //VARCHAR(100)
     protected $columns = array("id","Name","Country","StateOrProv","Zip",
-        "Priority","Phone","Contact","StreetAddress");
+        "Priority","Phone","Contact","StreetAddress", "StreetAddress2");
     private $db;
 
     public function getId() { return $this->_id; }
@@ -80,6 +81,7 @@ class Client extends BaseDB {
     public function setPhone($value) { $this->_Phone = $value; }
     public function setContact($value) { $this->_Contact = $value; }
     public function setStreetAddress($value) { $this->_StreetAddress = $value; }
+    public function setStreetAddress2($value) { $this->_StreetAddress2 = $value; }
 
     public function __construct($id=null) {
         if(!isset($GLOBALS["APP"]["INSTANCE"])) {
