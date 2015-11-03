@@ -21,15 +21,10 @@ class TimeSheetController extends TSController {
             $GLOBALS["APP"]["MSG"]["ERROR"] = 'Please enter the clients name.<script>$(document).ready(function() { $("button[data-target=\'#modal-newclient\']").click(); });</script>';
         } else {
             $Client = new Client();
-            $Client->setName($Name);
-            $Client->setCountry($Country);
-            $Client->setStateOrProv($StateOrProv);
-            $Client->setZip($Zip);
-            $Client->setCountry($Country);
-            $Client->setPhone($Phone);
-            $Client->setContact($Contact);
-            $Client->setStreetAddress($StreetAddress);
-            $Client->setStreetAddress2($StreetAddress2);
+            foreach($_POST as $key => $val) {
+                $func = "set$key";
+                $Client->$func($val);
+            }
             if($Client->save()) {
                 $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project added.";
                 unset($_POST);
@@ -78,14 +73,19 @@ class TimeSheetController extends TSController {
 
     public function UpdateClient() {
         $Client = new Client($_POST["id"]);
-        $Client->setName($_POST["Name"]);
-        $Client->setCountry($_POST["Country"]);
-        $Client->setStateOrProv($_POST["StateOrProv"]);
-        $Client->setZip($_POST["Zip"]);
-        $Client->setPhone($_POST["Phone"]);
-        $Client->setContact($_POST["Contact"]);
-        $Client->setStreetAddress($_POST["StreetAddress"]);
-        $Client->setStreetAddress2($_POST["StreetAddress2"]);
+//        $Client->setName($_POST["Name"]);
+//        $Client->setCountry($_POST["Country"]);
+//        $Client->setStateOrProv($_POST["StateOrProv"]);
+//        $Client->setZip($_POST["Zip"]);
+//        $Client->setPhone($_POST["Phone"]);
+//        $Client->setContact($_POST["Contact"]);
+//        $Client->setStreetAddress($_POST["StreetAddress"]);
+//        $Client->setStreetAddress2($_POST["StreetAddress2"]);
+//        $Client->setCity($_POST["City"]);
+        foreach($_POST as $key => $val) {
+            $func = "set$key";
+            $Client->$func($val);
+        }
         if($Client->save()) {
             $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Client updated.";
         } else {

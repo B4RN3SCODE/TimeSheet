@@ -57,8 +57,9 @@ class Client extends BaseDB {
     protected $_Contact;         //VARCHAR(60)
     protected $_StreetAddress;   //VARCHAR(100)
     protected $_StreetAddress2;   //VARCHAR(100)
+    protected $_City;
     protected $columns = array("id","Name","Country","StateOrProv","Zip",
-        "Priority","Phone","Contact","StreetAddress", "StreetAddress2");
+        "Priority","Phone","Contact","StreetAddress", "StreetAddress2", "City");
     private $db;
 
     public function getId() { return $this->_id; }
@@ -70,8 +71,9 @@ class Client extends BaseDB {
     public function getPhone() { return $this->_Phone; }
     public function getContact() { return $this->_Contact; }
     public function getStreetAddress() { return $this->_StreetAddress; }
+    public function getCity() { return $this->_City; }
 
-    private function setId($value) { $this->_id = $value; }
+    public function setId($value) { $this->_id = $value; }
     public function setName($value) { $this->_Name = $value; }
     public function setCountry($value) { $this->_Country = $value; }
     public function setStateOrProv($value) { $this->_StateOrProv = $value; }
@@ -81,6 +83,7 @@ class Client extends BaseDB {
     public function setContact($value) { $this->_Contact = $value; }
     public function setStreetAddress($value) { $this->_StreetAddress = $value; }
     public function setStreetAddress2($value) { $this->_StreetAddress2 = $value; }
+    public function setCity($value) { $this->_City = $value; }
 
     public function __construct($id=null) {
         if(!isset($GLOBALS["APP"]["INSTANCE"])) {

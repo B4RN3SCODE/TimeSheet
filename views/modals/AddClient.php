@@ -3,7 +3,7 @@
 		$$key = $value;
 	}
 } else {
-	$Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $StateOrProv = $Zip = "";
+	$Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $City = $StateOrProv = $Zip = "";
 	$Country = 225;
 }?>
 <div class="modal fade" id="modal-newclient">
@@ -26,19 +26,27 @@
 						<input type="text" class="form-control" name="StreetAddress2" placeholder="1345 Monroe Ave" value="<?php echo $StreetAddress2; ?>" maxlength="100"/>
 					</div>
 					<div class="row">
-						<div class="col-xs-4">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="City">City</label>
+								<input type="text" class="form-control" name="City" placeholder="Grand Rapids" value="<?php echo $City; ?>" maxlength="50"/>
+							</div>
+						</div>
+						<div class="col-xs-6">
 							<div class="form-group">
 								<label for="StateOrProv">State</label>
 								<input type="text" class="form-control" name="StateOrProv" placeholder="MI" value="<?php echo $StateOrProv; ?>" maxlength="100"/>
 							</div>
 						</div>
-						<div class="col-xs-4">
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
 							<div class="form-group">
 								<label for="Zip">Zip Code</label>
 								<input type="number" class="form-control" name="Zip" placeholder="49505" value="<?php echo $Zip; ?>" maxlength="10"/>
 							</div>
 						</div>
-						<div class="col-xs-4">
+						<div class="col-xs-6">
 							<div class="form-group">
 								<label for="Country">Country</label>
 								<select class="form-control" name="Country">

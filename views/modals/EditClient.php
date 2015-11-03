@@ -10,33 +10,41 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="Name">Client Name</label>
-						<input type="text" class="form-control" name="Name" placeholder="Client Name" value="<?php echo $Name; ?>" maxlength="50"/>
+						<input type="text" class="form-control" name="Name" placeholder="Client Name" value="<?php echo $Name; ?>"/>
 					</div>
 					<div class="form-group">
 						<label for="StreetAddress">Street Address</label>
-						<input type="text" class="form-control" name="StreetAddress" placeholder="Attn: John Smith" value="<?php echo $StreetAddress; ?>" maxlength="100"/>
-						<input type="text" class="form-control" name="StreetAddress2" placeholder="1345 Monroe Ave" value="<?php echo $StreetAddress2; ?>" maxlength="100"/>
+						<input type="text" class="form-control" name="StreetAddress" placeholder="1345 Monroe Ave" value="<?php echo $StreetAddress; ?>" maxlength="100"/>
+						<input type="text" class="form-control" name="StreetAddress2" placeholder="1345 Monroe Ave" value="<?php echo $StreetAddress2; ?>" maxl/>
 					</div>
 					<div class="row">
-						<div class="col-xs-4">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="City">City</label>
+								<input type="text" class="form-control" name="City" placeholder="Grand Rapids" value="<?php echo $City; ?>" maxlength="50"/>
+							</div>
+						</div>
+						<div class="col-xs-6">
 							<div class="form-group">
 								<label for="StateOrProv">State</label>
 								<input type="text" class="form-control" name="StateOrProv" placeholder="MI" value="<?php echo $StateOrProv; ?>" maxlength="100"/>
 							</div>
 						</div>
-						<div class="col-xs-4">
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
 							<div class="form-group">
 								<label for="Zip">Zip Code</label>
 								<input type="number" class="form-control" name="Zip" placeholder="49505" value="<?php echo $Zip; ?>" maxlength="10"/>
 							</div>
 						</div>
-						<div class="col-xs-4">
+						<div class="col-xs-6">
 							<div class="form-group">
 								<label for="Country">Country</label>
 								<select class="form-control" name="Country">
 									<?php $Countries = array(35=>"CA",225=>"US");
-										foreach($Countries as $key => $value) { ?>
-									<option value="<?php echo $key; ?>"<?php if($key == $Country) echo " selected"; ?>><?php echo $value; ?></option>
+									foreach($Countries as $key => $value) { ?>
+										<option value="<?php echo $key; ?>"<?php if($key == $Country) echo " selected"; ?>><?php echo $value; ?></option>
 									<? } ?>
 								</select>
 							</div>
