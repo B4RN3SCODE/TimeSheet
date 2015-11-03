@@ -40,6 +40,7 @@ class ProjectArray extends ArrayClass {
             foreach ($this->db->GetAll() as $row) {
                 $retArray[$row["id"]] = array("Name" => $row["Title"], "Rate" => $row["Rate"]);
             }
+            usort($retArray,array("ProjectArray","CompareByTitle"));
             return $retArray;
         } else {
             return false;

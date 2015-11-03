@@ -159,6 +159,16 @@ class ArrayClass extends BaseDB {
         }
         return $arrArray;
     }
+
+    static function CompareByName(Client $a,Client $b)
+    {
+        return strcmp(strtolower($a->GetName()), strtolower($b->GetName()));
+    }
+
+    static function CompareByTitle(Array $a, Array $b)
+    {
+        return strcmp(strtolower($a["Name"]), strtolower($b["Name"]));
+    }
 }
 
 

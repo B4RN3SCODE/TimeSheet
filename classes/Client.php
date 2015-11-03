@@ -21,6 +21,7 @@ class ClientArray extends ArrayClass {
                 $this->_arrObjects[$row["id"]] = new Client();
                 $this->_arrObjects[$row["id"]]->setVarsFromRow($row);
             }
+            usort($this->_arrObjects,array("ClientArray","CompareByName"));
             return true;
         } else {
             return false;
