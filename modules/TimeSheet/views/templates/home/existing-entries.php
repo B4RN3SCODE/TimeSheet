@@ -1,4 +1,4 @@
-<pre><?php print_r($TPLDATA["LineItems"]); ?></pre>
+<!--<pre>--><?php //print_r($TPLDATA["LineItems"]); ?><!--</pre>-->
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Existing Line Items</h3>
@@ -21,7 +21,7 @@
 						</thead>
 						<tbody>
 						<?php
-						if(count($TPLDATA["LineItems"]) == 0) { ?>
+						if(isset($TPLDATA["LineItems"]) && count($TPLDATA["LineItems"]) == 0) { ?>
 							<tr>
 								<td colspan="7">No entries found for this project.</td>
 							</tr>
