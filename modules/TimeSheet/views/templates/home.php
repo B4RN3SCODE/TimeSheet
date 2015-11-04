@@ -11,7 +11,7 @@ $MyProjects = array();
               </div>
               <div class="panel-body">
                 <div class="row">
-                  <form name="timesheet" action="" method="post">
+                  <form name="timesheet" action="" method="post" onsubmit="return ValidateTimeSheet();">
                     <div class="col-sm-6">
                       <select name="client" class="form-control">
                         <option value="-1">-- Select Client --</option>

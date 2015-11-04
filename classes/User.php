@@ -153,7 +153,7 @@ class User extends BaseDB {
 		$this->db = $db;
 	}
 
-    public function GetClientProjectArray() {
+    public function GetClientProjectArray($DefaultClient = -1, $DefaultProject = -1) {
         $strSQL = "SELECT Client.id AS cid, Client.Name, Project.id AS pid, Project.Title, Project.Rate
                     FROM Client
                       INNER JOIN Project
@@ -165,13 +165,13 @@ class User extends BaseDB {
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
             $retArray = array();
-            $DefaultClient = -1;
-            $DefaultProject = -1;
             $ClientProjects = $this->db->GetAll();
-            $TSsettings = new TimeSheetSettings();
-            if($TSsettings->load($this->_id)) {
-                $DefaultClient = $TSsettings->getDefaultClient();
-                $DefaultProject = $TSsettings->getDefaultProject();
+            if($DefaultClient == -1 && $DefaultProject == -1) {
+                $TSsettings = new TimeSheetSettings();
+                if ($TSsettings->load($this->_id)) {
+                    $DefaultClient = $TSsettings->getDefaultClient();
+                    $DefaultProject = $TSsettings->getDefaultProject();
+                }
             }
             foreach($ClientProjects as $arrData) {
                 $retArray[$arrData["cid"]]["Name"] = $arrData["Name"];

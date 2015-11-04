@@ -90,11 +90,16 @@ function GetProjectsByClient(form_name,select_name,ClientId) {
     });
 }
 function LoadSelect(form_name,select_name,data) {
+    var count = 0;
     $.each(data, function(key, value) {
         $('form[name="' + form_name + '"] select[name="' + select_name + '"]').append($("<option/>", {
             value: key, text: value
         }));
+        count++;
     });
+    if(count == 1) {
+        $('form[name="' + form_name + '"] select[name="' + select_name + '"] option')[1].selected = true;
+    }
 }
 function RemoveProjectFromMyList(ProjectId) {
     Debug_Print("RemoveProjectFromMyList(" + ProjectId + ")");

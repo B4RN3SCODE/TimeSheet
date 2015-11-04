@@ -14,11 +14,9 @@
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class index extends TSView {
 	public function display() {
-		$this->setOptions(array());
-		$this->_viewTpl = "index";
-		$this->_tplData["MyClients"] = $_SESSION["User"]->GetClientProjectArray();
-//		$this->LoadTimeSheetDefaults();
-		$vwData = $this->LoadView();
+		include_once "modules/TimeSheet/views/home.php";
+		$home = new home();
+		$home->display();
 	}
 }
 ?>
