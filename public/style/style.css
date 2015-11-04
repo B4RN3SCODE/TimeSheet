@@ -61,6 +61,11 @@ form[name="timesheet"] table input[type="checkbox"] {
   height: 34px;
   margin-top: -1px; }
 
+#existing-entries tbody td {
+  vertical-align: middle; }
+  #existing-entries tbody td:nth-child(n+3) {
+    text-align: center; }
+
 /* Signin */
 .signin {
   float: right; }

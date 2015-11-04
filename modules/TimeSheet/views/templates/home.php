@@ -42,6 +42,7 @@ $MyProjects = array();
                 </div>
               </div>
             </div>
+            <?php include_once "modules/TimeSheet/views/templates/home/existing-entries.php"; ?>
           </div>
         </div>
       </div>
