@@ -102,8 +102,22 @@ function LoadSelect(form_name,select_name,data) {
         $('form[name="' + form_name + '"] select[name="' + select_name + '"] option')[1].selected = true;
     }
 }
-function ReloadLineEntries() {
+function ReloadLineEntries(id) {
     $('#existing-entries').load(urlPrefix + root_dir + 'Ajax/LineItemTable',{ ProjectId: $('form[name="timesheet"] select[name="project"]').val() });
+}
+function RemoveLineEntryFromProject(id,row) {
+    var url = urlPrefix + root_dir + 'Ajax/Index/RemoveLineEntry';
+    var data = { LineEntryId: id};
+    $.ajax({
+        url: url, data: data, type: "POST", dataType: "json",
+        success: function(data) {
+            ReloadLineEntries();
+            //$(row).remove();
+        },
+        error: function( xhr, status, errorThrown ) {
+            Error_Output(xhr, status, errorThrown);
+        }
+    })
 }
 function RemoveProjectFromMyList(ProjectId) {
     Debug_Print("RemoveProjectFromMyList(" + ProjectId + ")");

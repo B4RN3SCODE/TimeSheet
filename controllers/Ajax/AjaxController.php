@@ -36,5 +36,15 @@ class AjaxController extends TSController
 		$this->_viewProcessor->_tplData["woah"] = "yeah";
 		$this->Redirect("ajax","lineitemtable");
 	}
+
+	public function RemoveLineEntry() {
+		if(!isset($_POST["LineEntryId"]) || empty($_POST["LineEntryId"])) die();
+		$LineItem = new LineItem($_POST["LineEntryId"]);
+		if($LineItem->delete()) {
+			$this->EncodeAndSendJSON(array("Status" => "Project added to your list!"));
+		} else {
+			$this->EncodeAndSendJSON(array("Status" => "Error: " . $LineItem->GetDBError()));
+		}
+	}
 }
 ?>

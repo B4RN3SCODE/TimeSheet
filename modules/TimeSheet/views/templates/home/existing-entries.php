@@ -17,8 +17,8 @@
 							</tr>
 						<? } else {
 							foreach($TPLDATA["LineItems"] as $id => $line) { ?>
-								<tr>
-									<td><?php echo $line["EntryDate"]; ?></td>
+								<tr id="listitem-<?php echo $id; ?>">
+									<td><?php echo date('m/d/Y', strtotime(str_replace('-', '/', $line["EntryDate"]))); ?></td>
 									<td><?php echo $line["Description"]; ?></td>
 									<td><?php echo $line["Hours"]; ?></td>
 									<td><?php echo $line["Travel"]; ?></td>
@@ -30,3 +30,10 @@
 						} ?>
 						</tbody>
 					</table>
+<script>
+	$('[id^=listitem] button span.glyphicon-remove').on('click',function(event) {
+		var row = $(this).parents('tr');
+		var id = $(row).attr('id').substr('listitem-'.length);
+		RemoveLineEntryFromProject(id,row);
+	});
+</script>

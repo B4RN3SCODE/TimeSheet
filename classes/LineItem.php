@@ -61,7 +61,7 @@ class LineItem extends BaseDB {
 	public function getClientId() { return $this->_ClientId; }
 	public function getProjectId() { return $this->_ProjectId; }
 	public function getDescription() { return $this->_Description; }
-	public function getEntryDate() { return $this->_EntryDate; }
+	public function getEntryDate() { return strtotime(str_replace('-', '/', $this->_EntryDate)) ;}
 	public function getHours() { return $this->_Hours; }
 	public function getTravel() { return $this->_Travel; }
 	public function getBillable() { return $this->_Billable; }
