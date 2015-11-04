@@ -51,7 +51,7 @@ $MyProjects = array();
 						<select name="default-client" class="form-control">
 							<option value="0">-- Select Client --</option>
 							<?php foreach($MyClients as $cid => $client) { ?>
-								<option value="<?php echo $id ?>"<?php if($client["Default"] == true) { $MyProjects = $client["Projects"]; echo " selected"; }?>><?php echo $client["Name"]; ?></option>
+								<option value="<?php echo $cid ?>"<?php if($client["Default"] == true) { $MyProjects = $client["Projects"]; echo " selected"; }?>><?php echo $client["Name"]; ?></option>
 							<?php } ?>
 						</select>
 					</div>
@@ -60,7 +60,7 @@ $MyProjects = array();
 						<select name="default-project" class="form-control">
 							<option value="0" selected>-- Select Project --</option>
 							<?php foreach($MyProjects as $pid => $project) { ?>
-								<option value="<?php echo $id ?>"<?php if($project["Default"] == true) echo " selected";?>><?php echo $project["Name"] ?></option>
+								<option value="<?php echo $pid ?>"<?php if($project["Default"] == true) echo " selected";?>><?php echo $project["Name"] ?></option>
 							<?php } ?>
 						</select>
 					</div>

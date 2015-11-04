@@ -82,7 +82,6 @@ function GetProjectsByClient(form_name,select_name,ClientId) {
     $.ajax({
         url: url, data: data, type: "POST", dataType: "json",
         success: function(data) {
-            console.dir(data);
             LoadSelect(form_name,select_name,data);
         },
         error: function( xhr, status, errorThrown ) {
