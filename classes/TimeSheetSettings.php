@@ -33,9 +33,9 @@ class TimeSheetSettings extends BaseDB
 	}
 
 	public function delete() {
-		if($this->_id) {
+		if($this->_userId) {
 			$strSQL = "DELETE FROM " . DB_NAME . "." . get_class($this) . "
-				WHERE id = $this->_id";
+				WHERE userId = $this->_userId";
 			$this->db->setQueryStmt($strSQL);
 			return $this->db->Query();
 		}
@@ -45,8 +45,7 @@ class TimeSheetSettings extends BaseDB
 		$strSQL = $this->db->IStatement(get_class($this),self::prepare_data());
 		$this->db->setQueryStmt($strSQL);
 		if($this->db->Query()) {
-			$this->_id = $this->db->GetLastInsertedId();
-			return $this->_id;
+			return true;
 		} else {
 			return false;
 		}
@@ -65,11 +64,8 @@ class TimeSheetSettings extends BaseDB
 		}
 	}
 	public function save() {
-		if($this->_userId) {
-			return self::update();
-		} else {
-			return self::insert();
-		}
+		self::delete();
+		return self::insert();
 	}
 
 	private function update() {

@@ -1,10 +1,10 @@
 <?php
 
-class ProjectItemArray extends ArrayClass {
+class LineItemArray extends ArrayClass {
 	protected $db;
 
 	function __construct(){
-		parent::__construct("ProjectItem");
+		parent::__construct("LineItem");
 		if(!isset($GLOBALS["APP"]["INSTANCE"])) {
 			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
 			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
@@ -43,32 +43,38 @@ class ProjectItemArray extends ArrayClass {
 	}
 }
 
-class ProjectItem extends BaseDB {
+class LineItem extends BaseDB {
 	protected $_id;
-	protected $_ProjectId;
 	protected $_UserId;
+	protected $_ClientId;
+	protected $_ProjectId;
 	protected $_Description;
+	protected $_EntryDate;
 	protected $_Hours;
+	protected $_Travel;
 	protected $_Billable;
-	protected $_TimeStamp;
-	protected $columns = array("id", "ProjectId", "UserId", "Description","Hours","Billable", "TimeStamp");
+	protected $columns = array("id", "UserId", "ClientId", "ProjectId", "Description", "EntryDate", "Hours", "Travel", "Billable");
 	protected $db;
 
 	public function getId() { return $this->_id; }
-	public function getProjectId() { return $this->_ProjectId; }
 	public function getUserId() { return $this->_UserId; }
+	public function getClientId() { return $this->_ClientId; }
+	public function getProjectId() { return $this->_ProjectId; }
 	public function getDescription() { return $this->_Description; }
+	public function getEntryDate() { return $this->_EntryDate; }
 	public function getHours() { return $this->_Hours; }
+	public function getTravel() { return $this->_Travel; }
 	public function getBillable() { return $this->_Billable; }
-	public function getTimeStamp() { return $this->_TimeStamp; }
 
 	public function setId($value) { $this->_id = $value; }
-	public function setProjectId($value) { $this->_ProjectId = $value; }
 	public function setUserId($value) { $this->_UserId = $value; }
+	public function setClientId($value) { $this->_ClientId = $value; }
+	public function setProjectId($value) { $this->_ProjectId = $value; }
 	public function setDescription($value) { $this->_Description = $value; }
+	public function setEntryDate($value) { if($value != "") { $this->_EntryDate = date('Y-m-d', strtotime(str_replace('-', '/', $value))); }}
 	public function setHours($value) { $this->_Hours = $value; }
+	public function setTravel($value) { $this->_Travel = $value; }
 	public function setBillable($value) { $this->_Billable = $value; }
-	public function setTimeStamp($value) { $this->_TimeStamp = $value; }
 
 	public function __construct($id=null) {
 		$this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
@@ -112,10 +118,10 @@ class ProjectItem extends BaseDB {
 	}
 
 	public function save() {
+		if(trim($this->_Description) == "" || empty($this->_EntryDate) || !is_numeric($this->_Hours)) return false;
 		if($this->_id) {
 			return self::update();
 		} else {
-			$this->setDateAdded(base::now());
 			return self::insert();
 		}
 	}

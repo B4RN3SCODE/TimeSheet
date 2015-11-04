@@ -34,6 +34,41 @@ class TimeSheetController extends TSController {
         }
         return $this->Redirect("timesheet","admin");
     }
+
+    public function AddEntry() {
+        if(!isset($_POST)) return $this->Redirect("timesheet","home");
+        foreach($_POST as $key => $value)
+            $$key = $value;
+        if($client == -1 || $project == -1) {
+            $GLOBALS["APP"]["MSG"]["ERROR"] = "Please select both a Client and a Project";
+            $this->_viewProcessor->_tplData = $_POST;
+            return $this->_viewProcessor->display();
+        }
+        $columns = array("EntryDate","Hours","Travel","Description","Billable");
+        $ValidEntries = 0;
+        for($index = 0; $index < count($EntryDate); $index++) {
+            $LineItem = new LineItem();
+            $LineItem->setUserId($this->User->getId());
+            $LineItem->setClientId($client);
+            $LineItem->setProjectId($project);
+            $LineItem->setDescription($Description[$index]);
+            $LineItem->setEntryDate($EntryDate[$index]);
+            $LineItem->setHours($Hours[$index]);
+            $LineItem->setTravel($Travel[$index]);
+            $LineItem->setBillable(isset($_POST["Billable"][$index]) ? 1 : 0);
+            if($LineItem->save()) {
+                $ValidEntries++;
+                $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Successfully added $ValidEntries entries";
+                foreach($columns as $key)
+                    unset($_POST[$key][$index]);
+            } else {
+                $GLOBALS["APP"]["MSG"]["ERROR"] = "Make sure you have filled out all fields.<br />" . $LineItem->GetDBError();
+            }
+            unset($LineItem);
+        }
+        $this->Redirect("TimeSheet","Home");
+    }
+
     public function AddProject() {
         if(!isset($_POST["clientId"]) || empty($_POST["clientId"])) {
             $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing client id, please try again.";

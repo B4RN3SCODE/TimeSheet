@@ -190,6 +190,7 @@ class UserController extends TSController {
 			$_POST["default-project"] = 0;
 		}
 		$TimeSheetSettings = new TimeSheetSettings($this->User->getId());
+		$TimeSheetSettings->setUserId($this->User->getId());
 		$TimeSheetSettings->setDefaultClient($_POST["default-client"]);
 		$TimeSheetSettings->setDefaultProject($_POST["default-project"]);
 		if($TimeSheetSettings->save()) {
