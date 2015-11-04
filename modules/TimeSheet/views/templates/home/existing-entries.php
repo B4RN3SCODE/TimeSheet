@@ -21,7 +21,7 @@
 						</thead>
 						<tbody>
 						<?php
-						if(isset($TPLDATA["LineItems"]) && count($TPLDATA["LineItems"]) == 0) { ?>
+						if(!isset($TPLDATA["LineItems"]) || count($TPLDATA["LineItems"]) == 0) { ?>
 							<tr>
 								<td colspan="7">No entries found for this project.</td>
 							</tr>
