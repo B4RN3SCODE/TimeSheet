@@ -1,18 +1,4 @@
 <div role="tabpanel" class="tab-pane" id="myclients">
-	<div class="row">
-		<div class="col-sm-8">
-			<div class="input-group">
-				<span class="input-group-addon" id="sizing-addon2">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				</span>
-				<input id="my-search-box" type="text" value="<?php echo $TPLDATA["SearchText"]; ?>" class="form-control" placeholder="Search for a client..." aria-describedby="sizing-addon2">
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<button class="btn btn-block btn-default btn-primary" data-toggle="modal" data-target="#modal-newclient"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add a new client</button>
-		</div>
-	</div>
-	<br />
 	<div class="panel-group" id="my-client-list">
 		<?php foreach ($MyClients as $cid => $client) { ?>
 			<div class="panel panel-default">

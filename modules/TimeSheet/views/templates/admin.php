@@ -6,10 +6,24 @@ $MyClients = $TPLDATA["MyClients"]; ?>
             <h3 class="panel-title">Maintain Database</h3>
           </div>
           <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="input-group">
+                  <span class="input-group-addon" id="sizing-addon2">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                  </span>
+                  <input id="search-box" type="text" value="<?php echo $TPLDATA["SearchText"]; ?>" class="form-control" placeholder="Search for a client..." aria-describedby="sizing-addon2">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <button class="btn btn-block btn-default btn-primary" data-toggle="modal" data-target="#modal-newclient"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add a new client</button>
+              </div>
+            </div>
+            <br />
             <ul class="nav nav-tabs nav-justified" role="tablist">
               <li role="presentation" class="active"><a href="#allclients" aria-controls="allclients" role="tab" data-toggle="tab">All Projects</a></li>
               <li role="presentation"><a href="#myclients" aria-controls="myclients" role="tab" data-toggle="tab">My Projects</a></li>
-              <li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
+<!--              <li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>-->
             </ul>
             <div id="inner-panel">
               <div class="row">
@@ -19,7 +33,7 @@ $MyClients = $TPLDATA["MyClients"]; ?>
                     <div class="tab-content">
                       <?php include_once "modules/TimeSheet/views/templates/admin_tabs/AllProjects.php"; ?>
                       <?php include_once "modules/TimeSheet/views/templates/admin_tabs/MyProjects.php"; ?>
-                      <?php include_once "modules/TimeSheet/views/templates/admin_tabs/Users.php"; ?>
+<!--                      --><?php //include_once "modules/TimeSheet/views/templates/admin_tabs/Users.php"; ?>
                     </div>
                   </div>
                 </div>
