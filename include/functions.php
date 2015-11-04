@@ -44,6 +44,7 @@ function module_menu($pages,$return=false) {
   $module = $GLOBALS["APP"]["INSTANCE"]->GetController()->GetModule();
   $menu = '';
   foreach($pages as $title => $name) {
+    if(is_string($name) && strtolower($name) == "ajax") { continue; }
     if (!is_array($name) && strtolower($name) == strtolower($module)) {
       $class = ' class="active"';
       $sr = '<span class="sr-only">(current)</span>';

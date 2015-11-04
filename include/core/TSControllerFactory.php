@@ -25,7 +25,7 @@ class TSControllerFactory {
 		if(!file_exists($newController)) {
 			die("Cant find controller");
 		}
-		include_once($newController);
+		include_once $newController;
 		return new $ctlName();
 	}
 

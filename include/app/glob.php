@@ -19,6 +19,7 @@ $GLOBALS["APP"] = array(
     "INFO" => null,
   ),
 	"MODULE_MAP"	=>	array(
+		"ajax" => "Ajax",
 		"timesheet"	=>	"TimeSheet",
 		"user"		=>	"User",
 	),
