@@ -1,3 +1,4 @@
+<pre><?php print_r($TPLDATA["LineItems"]); ?></pre>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Existing Line Items</h3>
