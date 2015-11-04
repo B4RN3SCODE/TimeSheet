@@ -28,15 +28,15 @@ class LineItemArray extends ArrayClass {
 	}
 
 	function LoadByProjectId($id) {
-		$strSQL = $this->db->SStatement(null, self::getClass(), array("ProjectId"=>$id) );
+		$strSQL = $this->db->SStatement(null, self::getClass(), array("ProjectId"=>$id, "UserId"=>$_SESSION["User"]->getId()) );
 		$this->db->SetQueryStmt($strSQL);
 		if($this->db->Query()) {
-			$retArray = array();
 			foreach ($this->db->GetAll() as $row) {
-				$this->_arrObjects[$row["id"]] = new ProjectItem();
+				$this->_arrObjects[$row["id"]] = new LineItem();
 				$this->_arrObjects[$row["id"]]->setVarsFromRow($row);
+				$this->_arrObjects[$row["id"]] = $this->_arrObjects[$row["id"]]->toArray();
 			}
-			return $retArray;
+			return $this->_arrObjects;
 		} else {
 			return false;
 		}
@@ -72,8 +72,8 @@ class LineItem extends BaseDB {
 	public function setProjectId($value) { $this->_ProjectId = $value; }
 	public function setDescription($value) { $this->_Description = $value; }
 	public function setEntryDate($value) { if($value != "") { $this->_EntryDate = date('Y-m-d', strtotime(str_replace('-', '/', $value))); }}
-	public function setHours($value) { $this->_Hours = $value; }
-	public function setTravel($value) { $this->_Travel = $value; }
+	public function setHours($value) { $this->_Hours = floatval($value); }
+	public function setTravel($value) { $this->_Travel = floatval($value); }
 	public function setBillable($value) { $this->_Billable = $value; }
 
 	public function __construct($id=null) {

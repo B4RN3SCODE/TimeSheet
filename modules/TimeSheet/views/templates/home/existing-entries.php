@@ -19,15 +19,22 @@
 						</tr>
 						</thead>
 						<tbody>
+						<?php foreach($TPLDATA["LineItems"] as $id => $line) { ?>
 						<tr>
-							<td>11/04/2015</td>
-							<td>This is the description</td>
-							<td>5</td>
-							<td>0</td>
-							<td>Yes</td>
+							<td><?php echo $line["EntryDate"]; ?></td>
+							<td><?php echo $line["Description"]; ?></td>
+							<td><?php echo $line["Hours"]; ?></td>
+							<td><?php echo $line["Travel"]; ?></td>
+							<td><?php if ($line["Billable"] == true) { echo "Yes"; } else { echo "No"; }; ?></td>
 							<td><button class="btn btn-warning" type="button" title="Edit">&nbsp;<span class="glyphicon glyphicon-pencil"></span>&nbsp;</button></td>
 							<td><button class="btn btn-danger pull-right" type="button" title="Remove">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</button></td>
 						</tr>
+						<?php }
+						if(count($TPLDATA["LineItems"]) == 0) { ?>
+						<tr>
+							<td colspan="7">No entries found for this project.</td>
+						</tr>
+						<? }?>
 						</tbody>
 					</table>
 				</div>

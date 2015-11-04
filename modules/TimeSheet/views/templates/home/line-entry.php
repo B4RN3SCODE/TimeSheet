@@ -1,8 +1,8 @@
 <?php
-if(!isset($_POST["EntryDate"])) {
+if(!isset($_POST["Hours"]) || count($_POST["Hours"]) == 0) {
 	$_POST["EntryDate"][0] = date("m/d/Y", time());
-	$_POST["Hours"][0] = 0;
-	$_POST["Travel"][0] = 0;
+	$_POST["Hours"][0] = "0";
+	$_POST["Travel"][0] = "0";
 	$_POST["Billable"][0] = "on";
 	$_POST["Description"][0] = "";
 	$_POST["Error"][0] = false;
@@ -39,7 +39,7 @@ foreach($_POST["Hours"] as $index => $value) {
 			<div class="col-xs-12">
 				<div class="form-group">
 					<label for="Description">Description</label>
-					<input class="form-control" type="text" name="Description[]" placeholder="Created database" value="<?php echo $_POST["Description"][$index]; ?>" />
+					<input class="form-control" type="text" name="Description[]" placeholder="Created database" maxlength="500" value="<?php echo $_POST["Description"][$index]; ?>" />
 				</div>
 			</div>
 		</div>
