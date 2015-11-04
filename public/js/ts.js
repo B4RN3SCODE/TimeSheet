@@ -102,6 +102,9 @@ function LoadSelect(form_name,select_name,data) {
         $('form[name="' + form_name + '"] select[name="' + select_name + '"] option')[1].selected = true;
     }
 }
+function ReloadLineEntries() {
+    $('#existing-entries').load(urlPrefix + root_dir + 'Ajax/LineItemTable',{ ProjectId: $('form[name="timesheet"] select[name="project"]').val() });
+}
 function RemoveProjectFromMyList(ProjectId) {
     Debug_Print("RemoveProjectFromMyList(" + ProjectId + ")");
     var url = urlPrefix + root_dir + 'TimeSheet/Admin/RemoveProjectFromMyList';
@@ -208,10 +211,6 @@ function initialize() {
         if($(this).val() == "-1") return;
         ReloadLineEntries();
     });
-}
-
-function ReloadLineEntries() {
-    $('#existing-entries').load(urlPrefix + root_dir + 'Ajax/LineItemTable',{ ProjectId: $('form[name="timesheet"] select[name="project"]').val() });
 }
 
 function AddProject(form) {
