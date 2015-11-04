@@ -25,15 +25,11 @@ class admin extends TSView
         $this->_tplData["Clients"] = $Clients->LoadClientWithProjects();
         $this->_tplData["Users"] = $Users->getArray();
         $this->_tplData["MyClients"] = $_SESSION["User"]->GetClientProjectArray();
-        if(isset($_POST["clientId"]) && !empty($_POST["clientId"])) {
-            foreach($this->_tplData["Clients"] as $cid => $values) {
-                if($cid == $_POST["clientId"]) {
+        $this->_tplData["SearchText"] = "";
+        if(isset($_POST["clientId"]) && !empty($_POST["clientId"]))
+            foreach($this->_tplData["Clients"] as $cid => $values)
+                if($cid == $_POST["clientId"])
                     $this->_tplData["SearchText"] = $values["Name"];
-                }
-            }
-        } else {
-            $this->_tplData["SearchText"] = "";
-        }
         $this->setOptions(array());
         $this->_viewTpl = "admin";
         $vwData = $this->LoadView();
