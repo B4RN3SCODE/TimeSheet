@@ -83,6 +83,7 @@ function GetProjectsByClient(form_name,select_name,ClientId) {
         url: url, data: data, type: "POST", dataType: "json",
         success: function(data) {
             LoadSelect(form_name,select_name,data);
+            ReloadLineEntries();
         },
         error: function( xhr, status, errorThrown ) {
             Error_Output(xhr, status, errorThrown);
@@ -202,6 +203,15 @@ function initialize() {
         GetProjectsByClient('timesheet', 'project', event.target.value);
         if (event.target.selectedIndex !== 0) $('form[name="timesheet"] select[name="project"]').focus();
     });
+    $('form[name="timesheet"] select[name="project"]').on('change', function (event) {
+        event.preventDefault();
+        if($(this).val() == "-1") return;
+        ReloadLineEntries();
+    });
+}
+
+function ReloadLineEntries() {
+    $('#existing-entries').load(urlPrefix + root_dir + 'Ajax/LineItemTable',{ ProjectId: $('form[name="timesheet"] select[name="project"]').val() });
 }
 
 function AddProject(form) {

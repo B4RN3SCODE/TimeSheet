@@ -14,8 +14,11 @@
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class lineitemtable extends TSView {
 	public function display() {
-		$this->setOptions(array());
+		$this->setOptions(array("head"=>false,"foot"=>false,"nav"=>false));
 		$this->_viewTpl = "lineitemtable";
+		if(!isset($_POST["ProjectId"])) die("Error: No ProjectId provided");
+		$LineItems = new LineItemArray();
+		$this->_tplData["LineItems"] = $LineItems->LoadByProjectId($_POST["ProjectId"]);
 		$vwData = $this->LoadView();
 	}
 }

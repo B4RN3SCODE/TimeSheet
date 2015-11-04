@@ -1,12 +1,3 @@
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title">Existing Line Items</h3>
-	</div>
-	<div class="panel-body">
-		<div class="row">
-			<form name="timesheet" action="" method="post">
-				<div id="existing-entries" class="col-md-12" style="display: block;">
-					<br>
 					<table class="table table-striped table-condensed">
 						<thead>
 						<tr>
@@ -39,8 +30,3 @@
 						} ?>
 						</tbody>
 					</table>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>

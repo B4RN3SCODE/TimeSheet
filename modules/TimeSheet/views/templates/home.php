@@ -42,7 +42,20 @@ $MyProjects = array();
                 </div>
               </div>
             </div>
-            <?php include_once "modules/TimeSheet/views/templates/home/existing-entries.php"; ?>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Existing Line Items</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <form name="timesheet" action="" method="post">
+                    <div id="existing-entries" class="col-md-12" style="display: block;">
+                      <?php include_once "modules/TimeSheet/views/templates/home/existing-entries.php"; ?>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

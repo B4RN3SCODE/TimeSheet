@@ -14,7 +14,7 @@
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
 class index extends TSView {
 	public function display() {
-		$this->setOptions(array());
+		$this->setOptions(array("head"=>false,"foot"=>false,"nav"=>false));
 		$this->_viewTpl = "index";
 		$vwData = $this->LoadView();
 	}
