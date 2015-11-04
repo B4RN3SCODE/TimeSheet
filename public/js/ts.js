@@ -173,7 +173,7 @@ function UpdateLineItem(event) {
     for(var i = 0; i < nameArr.length; i++) {
         data[nameArr[i]] = $('form[name="' + form_name + '"] input[name="' + nameArr[i] + '"]').val();
     }
-    data['Billable'] = $('form[name="' + form_name + '"] input[name="Billable"]').is(':checked');
+    data['Billable'] = ($('form[name="' + form_name + '"] input[name="Billable"]').is(':checked') == true) ? "1" : "0";
     var url = urlPrefix + root_dir + 'Ajax/Index/UpdateLineItem';
     $.ajax({
         url: url, data: data, type: "POST", dataType: "json",

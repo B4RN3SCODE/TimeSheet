@@ -60,6 +60,8 @@ class AjaxController extends TSController
 			$fn = "set$key";
 			$LineItem->$fn($value);
 		}
+		// Need to convert Billable to a boolean otherwise it is always set to Yes.
+		$LineItem->setBillable((boolval($_POST["Billable"])));
 		if($LineItem->save()) {
 			$this->EncodeAndSendJSON(array("Status" => "Line item updated!"));
 		} else {
