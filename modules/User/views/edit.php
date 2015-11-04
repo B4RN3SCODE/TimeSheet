@@ -23,7 +23,8 @@ class edit extends TSView {
 			$this->_viewTpl = "login";
 		} else {
 			$this->_viewTpl = "edit";
-			$this->LoadTimeSheetDefaults();
+			$this->_tplData["MyClients"] = $_SESSION["User"]->GetClientProjectArray();
+//			$this->LoadTimeSheetDefaults();
 		}
 		$vwData = $this->LoadView();
 	}

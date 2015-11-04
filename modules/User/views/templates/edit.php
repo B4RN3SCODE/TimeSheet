@@ -1,3 +1,7 @@
+<?php
+$MyClients = ($TPLDATA["MyClients"] == false) ? array() : $TPLDATA["MyClients"];
+$MyProjects = array();
+?>
 <div id="edit-account">
 	<div id="user-edit" class="col-md-6">
 		<div class="panel panel-default">
@@ -46,8 +50,8 @@
 						<label for="default-client">Default Client</label>
 						<select name="default-client" class="form-control">
 							<option value="0">-- Select Client --</option>
-							<?php foreach($TPLDATA["Clients"] as $id => $name) { ?>
-								<option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultClient"] == $id) echo " selected";?>><?php echo $name ?></option>
+							<?php foreach($MyClients as $cid => $client) { ?>
+								<option value="<?php echo $id ?>"<?php if($client["Default"] == true) { $MyProjects = $client["Projects"]; echo " selected"; }?>><?php echo $client["Name"]; ?></option>
 							<?php } ?>
 						</select>
 					</div>
@@ -55,8 +59,8 @@
 						<label for="default-project">Default Project</label>
 						<select name="default-project" class="form-control">
 							<option value="0" selected>-- Select Project --</option>
-							<?php foreach($TPLDATA["Projects"] as $id => $name) { ?>
-								<option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultProject"] == $id) echo " selected";?>><?php echo $name ?></option>
+							<?php foreach($MyProjects as $pid => $project) { ?>
+								<option value="<?php echo $id ?>"<?php if($project["Default"] == true) echo " selected";?>><?php echo $project["Name"] ?></option>
 							<?php } ?>
 						</select>
 					</div>

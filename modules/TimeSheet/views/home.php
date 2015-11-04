@@ -17,7 +17,8 @@ class home extends TSView
     public function display() {
         $this->setOptions(array());
         $this->_viewTpl = "home";
-        $this->LoadTimeSheetDefaults();
+        $this->_tplData["MyClients"] = $_SESSION["User"]->GetClientProjectArray();
+//        $this->LoadTimeSheetDefaults();
         $vwData = $this->LoadView();
     }
 }

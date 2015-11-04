@@ -7,8 +7,8 @@ $MyClients = $TPLDATA["MyClients"]; ?>
           </div>
           <div class="panel-body">
             <ul class="nav nav-tabs nav-justified" role="tablist">
-              <li role="presentation" class="active"><a href="#allclients" aria-controls="allclients" role="tab" data-toggle="tab">All Clients</a></li>
-              <li role="presentation"><a href="#myclients" aria-controls="myclients" role="tab" data-toggle="tab">My Clients</a></li>
+              <li role="presentation" class="active"><a href="#allclients" aria-controls="allclients" role="tab" data-toggle="tab">All Projects</a></li>
+              <li role="presentation"><a href="#myclients" aria-controls="myclients" role="tab" data-toggle="tab">My Projects</a></li>
               <li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
             </ul>
             <div id="inner-panel">

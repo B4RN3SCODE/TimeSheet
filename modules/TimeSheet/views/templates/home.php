@@ -1,3 +1,7 @@
+<?php
+$MyClients = ($TPLDATA["MyClients"] == false) ? array() : $TPLDATA["MyClients"];
+$MyProjects = array();
+?>
       <div class="col-md-9">
         <div class="row">
           <div class="col-xs-12">
@@ -9,30 +13,20 @@
                 <div class="row">
                   <form name="timesheet" action="" method="post">
                     <div class="col-sm-6">
-<!--                      <div class="input-group">-->
-                        <select name="client" class="form-control">
-                          <option value="-1" selected>-- Select Client --</option>
-                            <?php foreach($TPLDATA["Clients"] as $id => $name) { ?>
-                                <option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultClient"] == $id) echo " selected";?>><?php echo $name ?></option>
-                            <?php } ?>
-                        </select>
-<!--                        <span class="input-group-btn">-->
-<!--                          <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</button>-->
-<!--                        </span>-->
-<!--                      </div>-->
+                      <select name="client" class="form-control">
+                        <option value="-1">-- Select Client --</option>
+                          <?php foreach($MyClients as $cid => $client) { ?>
+                              <option value="<?php echo $id ?>"<?php if($client["Default"] == true) { $MyProjects = $client["Projects"]; echo " selected"; }?>><?php echo $client["Name"]; ?></option>
+                          <?php } ?>
+                      </select>
                     </div>
                     <div class="col-sm-6">
-<!--                      <div class="input-group">-->
-                        <select name="project" class="form-control">
-                          <option value="-1" selected>-- Select Project --</option>
-                            <?php foreach($TPLDATA["Projects"] as $id => $name) { ?>
-                                <option value="<?php echo $id ?>"<?php if($TPLDATA["DefaultProject"] == $id) echo " selected";?>><?php echo $name ?></option>
-                            <?php } ?>
-                        </select>
-<!--                        <span class="input-group-btn">-->
-<!--                          <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</button>-->
-<!--                        </span>-->
-<!--                      </div>-->
+                      <select name="project" class="form-control">
+                        <option value="-1">-- Select Project --</option>
+                          <?php foreach($MyProjects as $pid => $project) { ?>
+                              <option value="<?php echo $id ?>"<?php if($project["Default"] == true) echo " selected";?>><?php echo $project["Name"] ?></option>
+                          <?php } ?>
+                      </select>
                     </div>
                     <div class="clearfix"></div>
                     <div id="tbl-entries" class="col-md-12" style="display: block;">

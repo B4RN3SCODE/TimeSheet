@@ -165,11 +165,20 @@ class User extends BaseDB {
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
             $retArray = array();
+            $DefaultClient = -1;
+            $DefaultProject = -1;
             $ClientProjects = $this->db->GetAll();
+            $TSsettings = new TimeSheetSettings();
+            if($TSsettings->load($this->_id)) {
+                $DefaultClient = $TSsettings->getDefaultClient();
+                $DefaultProject = $TSsettings->getDefaultProject();
+            }
             foreach($ClientProjects as $arrData) {
                 $retArray[$arrData["cid"]]["Name"] = $arrData["Name"];
+                $retArray[$arrData["cid"]]["Default"] = ($DefaultClient == $arrData["cid"]);
                 $retArray[$arrData["cid"]]["Projects"][$arrData["pid"]]["Rate"] = $arrData["Rate"];
                 $retArray[$arrData["cid"]]["Projects"][$arrData["pid"]]["Name"] = $arrData["Title"];
+                $retArray[$arrData["cid"]]["Projects"][$arrData["pid"]]["Default"] = ($DefaultProject == $arrData["pid"]);
             }
             return $retArray;
         } else {
