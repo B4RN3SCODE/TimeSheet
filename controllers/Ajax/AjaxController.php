@@ -46,5 +46,25 @@ class AjaxController extends TSController
 			$this->EncodeAndSendJSON(array("Status" => "Error: " . $LineItem->GetDBError()));
 		}
 	}
+
+	public function GetLineEntry() {
+		if(!isset($_POST["LineEntryId"]) || empty($_POST["LineEntryId"])) die();
+		$LineItem = new LineItem($_POST["LineEntryId"]);
+		$this->EncodeAndSendJSON($LineItem->toArray());
+	}
+
+	public function UpdateLineItem() {
+		if(!isset($_POST) || empty($_POST)) die();
+		$LineItem = new LineItem($_POST["id"]);
+		foreach($_POST as $key => $value) {
+			$fn = "set$key";
+			$LineItem->$fn($value);
+		}
+		if($LineItem->save()) {
+			$this->EncodeAndSendJSON(array("Status" => "Line item updated!"));
+		} else {
+			die('Something went wrong: ' . $LineItem->GetDBError());
+		}
+	}
 }
 ?>

@@ -72,3 +72,4 @@ $MyProjects = array();
       });
       $('.datepicker').datepicker();
     </script>
+<?php include_once "views/modals/EditLineItem.php"; ?>

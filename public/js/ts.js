@@ -59,6 +59,22 @@ function GetClientById(form_name,ClientId) {
         }
     });
 }
+function GetLineItemById(row) {
+    var id = $(row).attr('id').substr('listitem-'.length);
+    var url = urlPrefix + root_dir + 'Ajax/Index/GetLineEntry';
+    var data = { LineEntryId: id };
+    $.ajax({
+        url: url, data: data, type: "POST", dataType: "json",
+        success: function(data) {
+            $.each(data, function(key, value) {
+                $('form[name="editlineitem"] input[name="' + key + '"]').val(value);
+            });
+        },
+        error: function( xhr, status, errorThrown ) {
+            Error_Output(xhr, status, errorThrown);
+        }
+    });
+}
 function GetProjectById(form_name,ProjectId) {
     Debug_Print("GetProjectById(" + ProjectId + ")")
     var url = urlPrefix + root_dir + 'TimeSheet/Admin/GetProjectById';
@@ -112,7 +128,6 @@ function RemoveLineEntryFromProject(id,row) {
         url: url, data: data, type: "POST", dataType: "json",
         success: function(data) {
             ReloadLineEntries();
-            //$(row).remove();
         },
         error: function( xhr, status, errorThrown ) {
             Error_Output(xhr, status, errorThrown);
@@ -149,6 +164,29 @@ function ShowSelectedClientsProjectList(ClientName) {
         }
     });
     $('#client-list .panel-title a.list-group-item:visible').click();
+}
+function UpdateLineItem(event) {
+    event.preventDefault();
+    var form_name = "editlineitem";
+    var nameArr = ["id", "Description", "EntryDate", "Hours", "Travel", "Billable"];
+    var data = {};
+    for(var i = 0; i < nameArr.length; i++) {
+        data[nameArr[i]] = $('form[name="' + form_name + '"] input[name="' + nameArr[i] + '"]').val();
+    }
+    data['Billable'] = $('form[name="' + form_name + '"] input[name="Billable"]').is(':checked');
+    var url = urlPrefix + root_dir + 'Ajax/Index/UpdateLineItem';
+    $.ajax({
+        url: url, data: data, type: "POST", dataType: "json",
+        success: function(data) {
+            console.dir(data);
+            $('#modal-editlineitem').modal('hide');
+            ReloadLineEntries();
+        },
+        error: function( xhr, status, errorThrown ) {
+            Error_Output(xhr, status, errorThrown);
+        }
+    });
+    return false;
 }
 function initialize() {
     var path = window.location.pathname.toLowerCase();

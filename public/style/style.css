@@ -49,7 +49,7 @@
   padding-right: 0.3em;
   padding-top: 0.1em; }
 
-#line-entries .panel.panel-default input[type="checkbox"] {
+#line-entries .panel.panel-default input[type="checkbox"], #modal-editlineitem .modal-body input[type="checkbox"] {
   display: block;
   width: 100%;
   height: 34px;

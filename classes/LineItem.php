@@ -130,7 +130,7 @@ class LineItem extends BaseDB {
 		$strSQL = $this->db->UStatement(self::prepare_data(),get_class($this),array("id" => array(0 => $this->getId())));
 		$this->db->setQueryStmt($strSQL);
 		if($this->db->Query())
-			return ($this->db->GetAffectedRows() > 0);
+			return true; //($this->db->GetAffectedRows() > 0);
 		return false;
 	}
 
