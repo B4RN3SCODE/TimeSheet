@@ -5,11 +5,12 @@ if(!isset($_POST["EntryDate"])) {
 	$_POST["Travel"][0] = 0;
 	$_POST["Billable"][0] = "on";
 	$_POST["Description"][0] = "";
+	$_POST["Error"][0] = false;
 }
 //for($index = 0; $index < count($_POST["EntryDate"]); $index++) {
 foreach($_POST["Hours"] as $index => $value) {
 ?>
-<div class="panel panel-default">
+<div class="panel panel-default" style="<?php if($_POST["Error"][$index]) echo "border-color: #f00;";?>">
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-sm-3">

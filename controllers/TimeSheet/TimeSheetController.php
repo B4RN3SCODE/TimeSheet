@@ -62,6 +62,7 @@ class TimeSheetController extends TSController {
                 foreach($columns as $key)
                     unset($_POST[$key][$index]);
             } else {
+                $_POST["Error"][$index] = true;
                 $GLOBALS["APP"]["MSG"]["ERROR"] = "Make sure you have filled out all fields.<br />" . $LineItem->GetDBError();
             }
             unset($LineItem);
