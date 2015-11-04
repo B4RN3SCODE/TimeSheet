@@ -7,7 +7,6 @@ if(!isset($_POST["EntryDate"])) {
 	$_POST["Description"][0] = "";
 	$_POST["Error"][0] = false;
 }
-//for($index = 0; $index < count($_POST["EntryDate"]); $index++) {
 foreach($_POST["Hours"] as $index => $value) {
 ?>
 <div class="panel panel-default" style="<?php if($_POST["Error"][$index]) echo "border-color: #f00;";?>">
