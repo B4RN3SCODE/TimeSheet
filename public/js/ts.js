@@ -182,7 +182,6 @@ function UpdateLineItem(event) {
     $.ajax({
         url: url, data: data, type: "POST", dataType: "json",
         success: function(data) {
-            console.dir(data);
             $('#modal-editlineitem').modal('hide');
             ReloadLineEntries();
         },
