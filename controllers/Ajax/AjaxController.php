@@ -50,7 +50,9 @@ class AjaxController extends TSController
 	public function GetLineEntry() {
 		if(!isset($_POST["LineEntryId"]) || empty($_POST["LineEntryId"])) die();
 		$LineItem = new LineItem($_POST["LineEntryId"]);
-		$this->EncodeAndSendJSON($LineItem->toArray());
+		$LineItemArray = $LineItem->toArray();
+		$LineItemArray["EntryDate"] = (new DateTime($LineItemArray["EntryDate"]))->format("m/d/Y");
+		$this->EncodeAndSendJSON($LineItemArray);
 	}
 
 	public function UpdateLineItem() {
