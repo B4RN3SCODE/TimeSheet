@@ -119,7 +119,11 @@ function LoadSelect(form_name,select_name,data) {
     }
 }
 function ReloadLineEntries(id) {
-    $('#existing-entries').load(urlPrefix + root_dir + 'Ajax/LineItemTable',{ ProjectId: $('form[name="timesheet"] select[name="project"]').val() });
+    var data = {
+        ProjectId: $('form[name="timesheet"] select[name="project"]').val(),
+        BillingPeriod: $('select[name="BillingPeriod"]').val()
+    }
+    $('#existing-entries').load(urlPrefix + root_dir + 'Ajax/LineItemTable',data);
 }
 function RemoveLineEntryFromProject(id,row) {
     var url = urlPrefix + root_dir + 'Ajax/Index/RemoveLineEntry';
@@ -263,6 +267,10 @@ function initialize() {
         if($(this).val() == "-1") return;
         ReloadLineEntries();
     });
+    $('select[name="BillingPeriod"]').on('change', function(event) {
+        event.preventDefault();
+        ReloadLineEntries();
+    })
 }
 
 function AddProject(form) {

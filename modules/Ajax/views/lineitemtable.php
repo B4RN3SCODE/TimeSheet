@@ -17,8 +17,10 @@ class lineitemtable extends TSView {
 		$this->setOptions(array("head"=>false,"foot"=>false,"nav"=>false));
 		$this->_viewTpl = "lineitemtable";
 		if(!isset($_POST["ProjectId"])) die("Error: No ProjectId provided");
+		$CycleStart = (isset($_POST["BillingPeriod"])) ? date("Y/m/d",substr($_POST["BillingPeriod"],0,strpos($_POST["BillingPeriod"],"-"))) : null;
+		$CycleEnd = (isset($_POST["BillingPeriod"])) ? date("Y/m/d",substr($_POST["BillingPeriod"],strpos($_POST["BillingPeriod"],"-") + 1)) : null;
 		$LineItems = new LineItemArray();
-		$this->_tplData["LineItems"] = $LineItems->LoadByProjectId($_POST["ProjectId"]);
+		$this->_tplData["LineItems"] = $LineItems->LoadLineItems($_POST["ProjectId"],$CycleStart,$CycleEnd);
 		$vwData = $this->LoadView();
 	}
 }

@@ -22,7 +22,7 @@ class home extends TSView
         $client = isset($_POST["client"]) ? $_POST["client"] : $TimeSheetSettings->getDefaultClient();
         $project = isset($_POST["project"]) ? $_POST["project"] : $TimeSheetSettings->getDefaultProject();
         $this->_tplData["MyClients"] = $_SESSION["User"]->GetClientProjectArray($client,$project);
-        $this->_tplData["LineItems"] = $LineItems->LoadByProjectId($project);
+        $this->_tplData["LineItems"] = $LineItems->LoadLineItems($project);
         $vwData = $this->LoadView();
     }
 }

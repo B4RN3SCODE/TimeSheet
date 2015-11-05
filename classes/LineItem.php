@@ -27,8 +27,11 @@ class LineItemArray extends ArrayClass {
 		}
 	}
 
-	function LoadByProjectId($id) {
+	function LoadLineItems($id, $CycleStart = null, $CycleEnd = null) {
+		$CycleStart = ($CycleStart == null) ? $_SESSION["CurrentBillingPeriod"]["StartDate"] : $CycleStart;
+		$CycleEnd = ($CycleEnd == null) ? $_SESSION["CurrentBillingPeriod"]["EndDate"] : $CycleEnd;
 		$strSQL = $this->db->SStatement(null, self::getClass(), array("ProjectId"=>$id, "UserId"=>$_SESSION["User"]->getId()) );
+		$strSQL .= " AND EntryDate BETWEEN '$CycleStart' AND '$CycleEnd'";
 		$this->db->SetQueryStmt($strSQL);
 		if($this->db->Query()) {
 			foreach ($this->db->GetAll() as $row) {
