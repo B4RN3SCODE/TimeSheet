@@ -256,14 +256,32 @@ class TSApp {
 	 * @return bool true if success
 	 **********************************************/
 	public function SessionActivate() {
-		if(isset($_SESSION["PHPSESSID"]) && $_SESSION["PHPSESSID"] == true && isset($_COOKIE["PHPSESSID"]) && !(is_null(session_id())))
+		if(isset($_SESSION["PHPSESSID"]) && $_SESSION["PHPSESSID"] == true && isset($_COOKIE["PHPSESSID"]) && !(is_null(session_id()))) {
+			SessionBillingCycle();
 			return false;
+		}
 
 		if(isset($_SESSION["PHPSESSID"])) unset($_SESSION["PHPSESSID"]);
 		session_start();
+		$this->SessionBillingCycle();
 		$_SESSION["PHPSESSID"] = true;
 		if(isset($_SESSION["User"])) { $_SESSION["User"]->setDB($this->_dbAdapter); }
 		return true;
+	}
+
+	/*********************************************
+	 * Set up our billing cycle information
+	 ********************************************/
+	private function SessionBillingCycle() {
+		if(!isset($_SESSION["CurrentDay"]) || empty($_SESSION["CurrentDay"]) || strtotime($_SESSION["CurrentDay"]) != strtotime(date("Y-m-d"))) {
+			$_SESSION["CurrentDay"] = date("Y-m-d");
+			unset($_SESSION["CurrentBillingPeriod"]);
+		}
+		if(!isset($_SESSION["CurrentBillingPeriod"]) || empty($_SESSION["CurrentBillingPeriod"])) {
+			$_SESSION["CurrentBillingPeriod"] = base::GetBillingCycle();
+			$days_left = date_diff(new DateTime($_SESSION["CurrentDay"]),new DateTime($_SESSION["CurrentBillingPeriod"]["EndDate"]))->days;
+			$_SESSION["CurrentBillingPeriod"]["DaysLeft"] = $days_left;
+		}
 	}
 
 	/*********************************************

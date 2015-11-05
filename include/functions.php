@@ -93,3 +93,29 @@ function sidebar($name) {
 function is_logged_in() {
   return (isset($GLOBALS["valid_login"])) ? $GLOBALS["valid_login"] : false;
 }
+
+/**
+ * Check if a date is in a billing cycle range
+ * @param $start_date
+ * @param $end_date
+ * @param $date_from_user
+ * @return bool
+ */
+function check_in_range($start_date, $end_date, $date_from_user)
+{
+  // Subtract a day from our end date because it is actually
+  // the first day of the next cycle.
+//  $end_date = date_sub(new DateTime($end_date),new DateInterval("P1D"))->format("Y-m-d");
+
+//  $tmp_date = new DateTime($end_date);
+//  $tmp_date->sub(new DateInterval('P1D'));
+//  $end_date = $tmp_date->format("Y-m-d");
+
+  // Convert to timestamp
+  $start_ts = strtotime($start_date);
+  $end_ts = strtotime($end_date);
+  $user_ts = strtotime($date_from_user);
+
+  // Check that user date is between start & end
+  return (($user_ts >= $start_ts) && ($user_ts <= $end_ts));
+}

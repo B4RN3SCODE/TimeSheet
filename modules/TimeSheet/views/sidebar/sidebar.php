@@ -2,8 +2,14 @@
   <div class="panel-heading">
     <h3 class="panel-title">Current Billing Cycle</h3>
   </div>
+  <?php
+  ?>
   <div class="panel-body">
-    <span class="btn-block text-center"><label>Ending in 2 Days<br><br>Sunday [10/04/15]</label></span>
+    <span class="btn-block text-center">
+      <label><?php echo date("l",strtotime($_SESSION["CurrentBillingPeriod"]["StartDate"])); ?> [<?php echo date("m/d/Y",strtotime($_SESSION["CurrentBillingPeriod"]["StartDate"])); ?>]</label><br />to<br />
+      <label><?php echo date("l",strtotime($_SESSION["CurrentBillingPeriod"]["EndDate"])); ?> [<?php echo date("m/d/Y",strtotime($_SESSION["CurrentBillingPeriod"]["EndDate"])); ?>]</label><br />
+      <label><?php echo $_SESSION["CurrentBillingPeriod"]["DaysLeft"]; ?> days left</label>
+    </span>
   </div>
 </div>
 <div class="panel panel-default">
