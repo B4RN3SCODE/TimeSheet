@@ -42,9 +42,38 @@ $MyProjects = array();
                 </div>
               </div>
             </div>
+            <div class="alert alert-danger alert-dismissible text-center" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong>TODO: </strong>Make the line entries refresh with currently selected billing period.
+            </div>
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title">Existing Line Items</h3>
+                <div class="row">
+                  <div class="col-sm-6"><h3 class="panel-title">Existing Line Items</h3></div>
+                  <div class="col-sm-6">
+                    <select name="BillingPeriod" class="form-control">
+                      <?php
+                      $start_date = $_SESSION["CurrentBillingPeriod"]["StartDate"];
+                      $end_date = $_SESSION["CurrentBillingPeriod"]["EndDate"];
+                      ?>
+                      <option value="<?php echo strtotime($start_date) . "-" . strtotime($end_date);?>">Current Cycle</option>
+                      <?php
+                      $previousArr = array();
+                      $new_start_date = date_sub(new DateTime($start_date),new DateInterval("P16W"))->format("Y-m-d");
+                      $daterange = new DatePeriod(new DateTime($new_start_date), new DateInterval('P2W'), new DateTime($start_date));
+                      foreach($daterange as $date) {
+                        $end_date = clone($date);
+                        $end_date = $end_date->modify("+13 days")->format("m/d/Y");
+                        $date = $date->format("m/d/Y");
+                        $previousArr[] = array("value"=>strtotime($date) . "-" . strtotime($end_date),"label"=>$date . " to " . $end_date);
+                      }
+                      $previousArr = array_reverse($previousArr);
+                      foreach($previousArr as $option) { ?>
+                        <option value="<?php echo $option["value"]; ?>"><?php echo $option["label"]; ?></option><?
+                      } ?>
+                    </select>
+                  </div>
+                </div>
               </div>
               <div class="panel-body">
                 <div class="row">

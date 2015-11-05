@@ -13,7 +13,7 @@
 						<?php
 						if(!isset($TPLDATA["LineItems"]) || !is_array($TPLDATA["LineItems"]) || count($TPLDATA["LineItems"]) == 0) { ?>
 							<tr>
-								<td colspan="7">No entries found for this project.</td>
+								<td colspan="7">No entries found for selected billing cycle.</td>
 							</tr>
 						<? } else {
 							foreach($TPLDATA["LineItems"] as $id => $line) { ?>

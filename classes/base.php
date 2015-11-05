@@ -21,16 +21,19 @@ class base
         return array_reverse($entries);
     }
 
-    static function GetBillingCycle($input_date = null) {
+    static function GetBillingCycle(DateTime $start_date = null, $input_date = null, DateTime $end_date = null) {
+        $start_date = ($start_date == null) ? $GLOBALS["STARTDATE"] : $start_date;
         $input_date = ($input_date == null) ? date("Y-m-d") : $input_date;
-        $interval = new DateInterval('P2W');
-        $daterange = new DatePeriod($GLOBALS["STARTDATE"], $interval ,$GLOBALS["ENDDATE"]);
+        $end_date = ($end_date == null) ? $GLOBALS["ENDDATE"] : $end_date;
+        $daterange = new DatePeriod($start_date, new DateInterval('P2W'), $end_date);
         foreach($daterange as $date){
             $start_date = $date->format("Y-m-d");
             $end_date = $date->modify("+13 days")->format("Y-m-d");
-            if(check_in_range($start_date,$end_date,date("Y-m-d"))) {
+            if(check_in_range($start_date,$end_date,$input_date)) {
                 return array("StartDate"=>$start_date,"EndDate"=>$end_date);
             }
         }
+        $end_date = new DateTime($end_date);
+        return self::GetBillingCycle(new DateTime($start_date), $input_date, new DateTime($end_date->modify("+1 year")->format("Y-m-d")));
     }
 }
