@@ -50,10 +50,11 @@ class ProjectArray extends ArrayClass {
     function LoadActiveProjects() {
         $startDate = date_sub(new DateTime($_SESSION["CurrentBillingPeriod"]["StartDate"]),new DateInterval("P2W"))->format("Y-m-d");
         $endDate = $_SESSION["CurrentBillingPeriod"]["EndDate"];
+        $userId = $_SESSION["User"]->getId();
         $strSQL = "SELECT Project.Title, COUNT(Project.Title) AS Count
                     FROM LineItem
                       INNER JOIN Project ON LineItem.ProjectId = Project.id
-                        AND LineItem.UserId = '2'
+                        AND LineItem.UserId = '$userId'
                     WHERE EntryDate BETWEEN '$startDate' AND '$endDate'
                     ORDER BY Count
                     LIMIT 10;";
