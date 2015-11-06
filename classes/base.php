@@ -30,6 +30,11 @@ class base
             $start_date = $date->format("Y-m-d");
             $end_date = $date->modify("+13 days")->format("Y-m-d");
             if(check_in_range($start_date,$end_date,$input_date)) {
+                // Ensure that the current billing cycle is in the table.
+                $TimeSheetPeriod = new TimeSheetPeriod();
+                $TimeSheetPeriod->setCycleStart($start_date);
+                $TimeSheetPeriod->setCycleEnd($end_date);
+                $TimeSheetPeriod->save();
                 return array("StartDate"=>$start_date,"EndDate"=>$end_date);
             }
         }

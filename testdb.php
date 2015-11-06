@@ -15,7 +15,7 @@
 //exit;
 
 
-$columns = array("id", "UserId", "CycleStart", "CycleEnd", "IsSubmitted");
+$columns = array("id", "CycleStart", "CycleEnd");
 foreach($columns as $column) {
     echo "protected \$_$column;<br />";
 }

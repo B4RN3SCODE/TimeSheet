@@ -44,6 +44,67 @@ class LineItemArray extends ArrayClass {
 			return false;
 		}
 	}
+
+	function LoadLineItemTotals(TimeSheetPeriod $TimeSheetPeriod, $UserId = null) {
+		if(!isset($TimeSheetPeriod)) return false;
+		$UserId = ($UserId == null) ? $_SESSION["User"]->getId() : $UserId;
+		$TimeSheetPeriodId = $TimeSheetPeriod->getId();
+		$strSQL = "SELECT CycleStart, CycleEnd, Processed, Billable, Total, Submitted, PeriodId FROM
+			(SELECT SUM(Hours) AS Billable, TP.*, TS.*,
+				(CASE WHEN COUNT(TS.PeriodId) = 0 THEN FALSE ELSE TRUE END) AS Submitted
+			 FROM TimeSheetPeriod TP LEFT OUTER JOIN
+				TimeSheet.LineItem LI ON  LI.EntryDate BETWEEN TP.CycleStart AND TP.CycleEnd LEFT OUTER JOIN
+				User U ON LI.UserId = U.id LEFT OUTER JOIN
+				TimeSheetSubmit TS ON TS.UserId = U.id AND TS.PeriodId = TP.id
+				WHERE U.id = $UserId AND TP.id = $TimeSheetPeriodId AND LI.Billable = TRUE) AS BILL,
+			(SELECT UserId, SUM(Hours) AS Total
+			 FROM TimeSheetPeriod TP LEFT OUTER JOIN
+				 TimeSheet.LineItem LI ON  LI.EntryDate BETWEEN TP.CycleStart AND TP.CycleEnd LEFT OUTER JOIN
+				 User U ON LI.UserId = U.id
+			 WHERE U.id = $UserId AND TP.id = $TimeSheetPeriodId) AS TOTL";
+		$this->db->SetQueryStmt($strSQL);
+		if($this->db->Query()) {
+			foreach ($this->db->GetAll() as $row) {
+				return $row;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function LoadTotalHours($CycleStart, $CycleEnd, $UserId = null) {
+		if($UserId == null) $UserId = $_SESSION["User"]->getId();
+		if($CycleStart == null || $CycleEnd == null) return false;
+		$strSQL = "SELECT
+				User.id,
+				(CASE WHEN BLI.Billable IS NULL THEN 0 ELSE BLI.Billable END) AS Billable,
+				(CASE WHEN TLI.Total IS NULL THEN 0 ELSE TLI.Total END) AS Total,
+				(CASE WHEN SUB.Submitted IS NULL THEN FALSE ELSE (CASE WHEN SUB.Submitted = '1B' THEN TRUE ELSE FALSE END) END) AS Submitted,
+				(CASE WHEN SUB.Processed IS NULL THEN FALSE ELSE (CASE WHEN SUB.Processed = '1B' THEN TRUE ELSE FALSE END) END) AS Processed
+			FROM
+				(SELECT UserId, SUM(Hours) AS Billable
+					FROM TimeSheet.LineItem
+					WHERE UserId = '$UserId' AND Billable = TRUE AND EntryDate BETWEEN '$CycleStart' AND '$CycleEnd') AS BLI,
+  			(SELECT SUM(Hours) AS Total
+					FROM TimeSheet.LineItem
+					WHERE UserId = '$UserId' AND EntryDate BETWEEN '$CycleStart' AND '$CycleEnd') AS TLI,
+    		User
+    			LEFT OUTER JOIN (SELECT UserId, Submitted, Processed
+        		FROM TimeSheet.TimeSheet
+        		WHERE CycleStart = '$CycleStart' AND CycleEnd = '$CycleEnd') AS SUB ON User.id = SUB.UserId
+  		WHERE User.id = '$UserId'";
+		$this->db->SetQueryStmt($strSQL);
+		if($this->db->Query()) {
+			$retArr = array();
+			foreach ($this->db->GetAll() as $row) {
+				return $row;
+			}
+			return $retArr;
+		} else {
+			return false;
+		}
+	}
 }
 
 class LineItem extends BaseDB {

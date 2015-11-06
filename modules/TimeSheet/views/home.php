@@ -38,10 +38,9 @@ class home extends TSView
         $this->_tplData["MyClients"] = $_SESSION["User"]->GetClientProjectArray($client,$project);
         $this->_tplData["LineItems"] = $LineItems->LoadLineItems($project);
         $this->_tplData["ActiveProject"] = $Projects->LoadActiveProjects();
-        $TimeSheet = new TimeSheet();
         $CycleStart = $_SESSION["CurrentBillingPeriod"]["StartDate"];
         $CycleEnd = $_SESSION["CurrentBillingPeriod"]["EndDate"];
-        $this->_tplData["Submitted"] = $TimeSheet->CheckSubmitted($CycleStart,$CycleEnd);
+        $this->_tplData["Submitted"] = TimeSheetSubmit::Submitted($_SESSION["User"]->getId(),$_SESSION["CurrentBillingPeriod"]["StartDate"],$_SESSION["CurrentBillingPeriod"]["EndDate"]); //$TimeSheet->CheckSubmitted($CycleStart,$CycleEnd);
         $vwData = $this->LoadView();
     }
 }

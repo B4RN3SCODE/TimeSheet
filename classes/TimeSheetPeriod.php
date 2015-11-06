@@ -1,10 +1,10 @@
 <?php
 
-class TimeSheetArray extends ArrayClass {
+class TimeSheetPeriodArray extends ArrayClass {
 	protected $db;
 
 	function __construct(){
-		parent::__construct("TimeSheet");
+		parent::__construct("TimeSheetPeriod");
 		if(!isset($GLOBALS["APP"]["INSTANCE"])) {
 			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
 			$GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
@@ -18,7 +18,7 @@ class TimeSheetArray extends ArrayClass {
 		$this->db->SetQueryStmt($strSQL);
 		if($this->db->Query()) {
 			foreach ($this->db->GetAll() as $row) {
-				$this->_arrObjects[$row["id"]] = new User();
+				$this->_arrObjects[$row["id"]] = new TimeSheetPeriod();
 				$this->_arrObjects[$row["id"]]->setVarsFromRow($row);
 			}
 			return true;
@@ -28,34 +28,27 @@ class TimeSheetArray extends ArrayClass {
 	}
 }
 
-class TimeSheet extends BaseDB {
+class TimeSheetPeriod extends BaseDB {
+
 	protected $_id;
-	protected $_UserId;
 	protected $_CycleStart;
 	protected $_CycleEnd;
-	protected $_Submitted;
-	protected $_Processed;
-
-	protected $columns = array("id", "UserId", "CycleStart", "CycleEnd", "Submitted", "Processed");
-	protected $db;
 
 	public function getId() { return $this->_id; }
-	public function getUserId() { return $this->_UserId; }
 	public function getCycleStart() { return $this->_CycleStart; }
 	public function getCycleEnd() { return $this->_CycleEnd; }
-	public function getSubmitted() { return $this->_Submitted; }
-	public function getProcessed() { return $this->_Processed; }
 
 	public function setId($value) { $this->_id = $value; }
-	public function setUserId($value) { $this->_UserId = $value; }
 	public function setCycleStart($value) { $this->_CycleStart = $value; }
 	public function setCycleEnd($value) { $this->_CycleEnd = $value; }
-	public function setSubmitted($value) { $this->_Submitted = $value; }
-	public function setProcessed($value) { $this->_Processed = $value; }
+
+	protected $columns = array("id", "CycleStart", "CycleEnd");
+	protected $db;
 
 
 	public function __construct($id=null) {
-		$this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
+		$this->db = new DBCon();
+		$this->db->Link();
 		$this->db->setTBL(get_class($this));
 		if($id) {
 			$this->load($id);
@@ -96,9 +89,6 @@ class TimeSheet extends BaseDB {
 	}
 
 	public function save() {
-		if($this->getUserId() == "") {
-			$this->setUserId($_SESSION["User"]->getId());
-		}
 		if($this->_id) {
 			return self::update();
 		} else {
@@ -118,19 +108,5 @@ class TimeSheet extends BaseDB {
 		$this->db = $db;
 	}
 
-	public function CheckSubmitted($CycleStart = null,$CycleEnd = null,$UserId = null) {
-		if($CycleStart == null || $CycleEnd == null) return false;
-		if($UserId == null) $UserId = $_SESSION["User"]->getId();
-		$strSQL = $this->db->SStatement(array(), get_class($this), array("UserId"=>$UserId,"CycleStart"=>$CycleStart,"CycleEnd"=>$CycleEnd));
-		$this->db->setQueryStmt($strSQL);
-		if ($this->db->Query()) {
-			$count = 0;
-			while($row = $this->db->getRow())
-				$count++;
-			return $count > 0;
-		} else {
-			return false;
-		}
-	}
 }
 ?>
