@@ -19,10 +19,12 @@ class home extends TSView
         $this->_viewTpl = "home";
         $LineItems = new LineItemArray();
         $TimeSheetSettings = new TimeSheetSettings($_SESSION["User"]->getId());
+        $Projects = new ProjectArray();
         $client = isset($_POST["client"]) ? $_POST["client"] : $TimeSheetSettings->getDefaultClient();
         $project = isset($_POST["project"]) ? $_POST["project"] : $TimeSheetSettings->getDefaultProject();
         $this->_tplData["MyClients"] = $_SESSION["User"]->GetClientProjectArray($client,$project);
         $this->_tplData["LineItems"] = $LineItems->LoadLineItems($project);
+        $this->_tplData["ActiveProject"] = $Projects->LoadActiveProjects();
         $vwData = $this->LoadView();
     }
 }

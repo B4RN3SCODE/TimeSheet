@@ -46,6 +46,27 @@ class ProjectArray extends ArrayClass {
             return false;
         }
     }
+
+    function LoadActiveProjects() {
+        $startDate = date_sub(new DateTime($_SESSION["CurrentBillingPeriod"]["StartDate"]),new DateInterval("P2W"))->format("Y-m-d");
+        $endDate = date_sub(new DateTime($_SESSION["CurrentBillingPeriod"]["StartDate"]),new DateInterval("P1D"))->format("Y-m-d");
+        $strSQL = "SELECT Project.Title, COUNT(Project.Title) AS Count
+                    FROM LineItem
+                      INNER JOIN Project ON LineItem.ProjectId = Project.id
+                        AND LineItem.UserId = '2'
+                    WHERE EntryDate BETWEEN '$startDate' AND '$endDate'
+                    ORDER BY Count
+                    LIMIT 10;";
+        $this->db->SetQueryStmt($strSQL);
+        if($this->db->Query()) {
+            $retArray = array();
+            foreach ($this->db->GetAll() as $row)
+                $retArray[] = $row;
+            return $retArray;
+        } else {
+            return false;
+        }
+    }
 }
 
 class Project extends BaseDB {

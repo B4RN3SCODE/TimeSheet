@@ -85,7 +85,7 @@ $MyProjects = array();
         </div>
       </div>
       <div class="col-md-3">
-        <?php sidebar("sidebar"); ?>
+        <?php include_once "modules/TimeSheet/views/sidebar/sidebar.php"; ?>
       </div>
     <script>
       $('#newrow').on('click',function(event) {
