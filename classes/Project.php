@@ -51,18 +51,21 @@ class ProjectArray extends ArrayClass {
         $startDate = date_sub(new DateTime($_SESSION["CurrentBillingPeriod"]["StartDate"]),new DateInterval("P2W"))->format("Y-m-d");
         $endDate = $_SESSION["CurrentBillingPeriod"]["EndDate"];
         $userId = $_SESSION["User"]->getId();
-        $strSQL = "SELECT Project.Title, COUNT(Project.Title) AS Count
+        $strSQL = "SELECT Project.id, Project.Title, COUNT(Project.Title) AS Count
                     FROM LineItem
                       INNER JOIN Project ON LineItem.ProjectId = Project.id
                         AND LineItem.UserId = '$userId'
                     WHERE EntryDate BETWEEN '$startDate' AND '$endDate'
+                    GROUP BY Project.id
                     ORDER BY Count
                     LIMIT 10;";
+        echo $strSQL;
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
             $retArray = array();
-            foreach ($this->db->GetAll() as $row)
-                $retArray[] = $row;
+            foreach ($this->db->GetAll() as $row) {
+                $retArray[$row["id"]] = array("Title" => $row["Title"], "Count" => $row["Count"]);
+            }
             return $retArray;
         } else {
             return false;

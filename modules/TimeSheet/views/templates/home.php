@@ -84,7 +84,7 @@ $MyProjects = array();
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div id="ActiveProjects" class="col-md-3">
         <?php include_once "modules/TimeSheet/views/sidebar/sidebar.php"; ?>
       </div>
     <script>

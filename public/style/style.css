@@ -66,6 +66,9 @@ form[name="timesheet"] table input[type="checkbox"] {
   #existing-entries tbody td:nth-child(n+3) {
     text-align: center; }
 
+#ActiveProjects ul li[data-pid] {
+  cursor: pointer; }
+
 /* Signin */
 .signin {
   float: right; }
