@@ -59,7 +59,6 @@ class ProjectArray extends ArrayClass {
                     GROUP BY Project.id
                     ORDER BY Count
                     LIMIT 10;";
-        echo $strSQL;
         $this->db->SetQueryStmt($strSQL);
         if($this->db->Query()) {
             $retArray = array();

@@ -273,7 +273,6 @@ function initialize() {
     $('#ActiveProjects [data-pid]').on('click', function(event) {
         $('form[name="ActiveProjects"] input[name="project"]').val($(this).attr('data-pid'));
         $('form[name="ActiveProjects"]').submit();
-        //alert($(this).attr('data-pid'));
     });
 }
 
