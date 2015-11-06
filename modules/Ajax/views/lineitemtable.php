@@ -21,6 +21,8 @@ class lineitemtable extends TSView {
 		$CycleEnd = (isset($_POST["BillingPeriod"])) ? date("Y/m/d",substr($_POST["BillingPeriod"],strpos($_POST["BillingPeriod"],"-") + 1)) : null;
 		$LineItems = new LineItemArray();
 		$this->_tplData["LineItems"] = $LineItems->LoadLineItems($_POST["ProjectId"],$CycleStart,$CycleEnd);
+		$TimeSheet = new TimeSheet();
+		$this->_tplData["Submitted"] = $TimeSheet->CheckSubmitted($CycleStart,$CycleEnd);
 		$vwData = $this->LoadView();
 	}
 }

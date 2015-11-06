@@ -435,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `TimeSheet` (
 -- Dumping data for table `TimeSheet`
 --
 
-INSERT INTO `TimeSheet` (`id`, `Alias`, `UserId`, `PayWeekStart`, `PayWeekEnd`, `IsSubmitted`) VALUES
+INSERT INTO `TimeSheet` (`id`, `Alias`, `UserId`, CycleStart, CycleEnd, `IsSubmitted`) VALUES
 (1, 'Test TimeSheet', 1, '2015-10-25', '2015-11-09', 0);
 
 -- --------------------------------------------------------
