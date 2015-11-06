@@ -22,6 +22,9 @@
 //	"Billable"=>rand(0,8));
 //$TimeSheetArray = array_reverse($TimeSheetArray);
 ?>
+<div class="alert alert-danger">
+	Get submit, unsubmit buttons working
+</div>
 <div id="TimeSheetSummary" class="col-md-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -41,8 +44,8 @@
 				<tbody>
 				<?php foreach($TPLDATA["TimeSheets"] as $TimeSheet) { ?>
 					<tr data-period="<?php echo $TimeSheet["PeriodId"]; ?>">
-						<td><?php echo $TimeSheet["CycleStart"]; ?></td>
-						<td><?php echo $TimeSheet["CycleEnd"]; ?></td>
+						<td><?php echo (new DateTime($TimeSheet["CycleStart"]))->format("m/d/Y"); ?></td>
+						<td><?php echo (new DateTime($TimeSheet["CycleEnd"]))->format("m/d/Y"); ?></td>
 						<td><?php echo $TimeSheet["Total"]; ?></td>
 						<td><?php echo $TimeSheet["Billable"]; ?></td><?php
 						// If processed then no button
