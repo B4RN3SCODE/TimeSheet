@@ -49,7 +49,7 @@ class ProjectArray extends ArrayClass {
 
     function LoadActiveProjects() {
         $startDate = date_sub(new DateTime($_SESSION["CurrentBillingPeriod"]["StartDate"]),new DateInterval("P2W"))->format("Y-m-d");
-        $endDate = date_sub(new DateTime($_SESSION["CurrentBillingPeriod"]["StartDate"]),new DateInterval("P1D"))->format("Y-m-d");
+        $endDate = $_SESSION["CurrentBillingPeriod"]["EndDate"];
         $strSQL = "SELECT Project.Title, COUNT(Project.Title) AS Count
                     FROM LineItem
                       INNER JOIN Project ON LineItem.ProjectId = Project.id
