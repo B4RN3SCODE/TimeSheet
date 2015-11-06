@@ -88,6 +88,7 @@ class LineItem extends BaseDB {
 	}
 
 	public function delete() {
+		if($this->_UserId != $_SESSION["User"]->getId()) return false;
 		if($this->_id) {
 			$strSQL = "DELETE FROM " . DB_NAME . "." . get_class($this) . "
 				WHERE id = $this->_id";
@@ -121,6 +122,7 @@ class LineItem extends BaseDB {
 	}
 
 	public function save() {
+		if($this->_UserId != $_SESSION["User"]->getId()) return false;
 		if(trim($this->_Description) == "" || empty($this->_EntryDate) || !is_numeric($this->_Hours)) return false;
 		if($this->_id) {
 			return self::update();
