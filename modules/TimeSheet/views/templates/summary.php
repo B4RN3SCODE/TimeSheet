@@ -48,7 +48,7 @@
 		<div class="panel-body">
 			<div class="list-group panel">
 				<?php foreach($TPLDATA["UserEntries"] as $PeriodId => $Period) { ?>
-					<a href="#period<?php echo $PeriodId; ?>" class="list-group-item-info list-group-item" data-toggle="collapse"><?php
+					<a href="#period<?php echo $PeriodId; ?>" class="period list-group-item-info list-group-item" data-toggle="collapse"><?php
 						if($Period["CycleStart"] == $_SESSION["CurrentBillingPeriod"]["StartDate"]) {
 							echo "Current Cycle";
 						} else {
