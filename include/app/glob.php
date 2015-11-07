@@ -25,7 +25,7 @@ $GLOBALS["APP"] = array(
 		"user"		=>	"User",
 	),
 	"NAVIGATION"	=>	array(
-		"timesheet"	=>	array("Home"=>"Home","Summary"=>"Summary","Database"=>"Database"),
+		"timesheet"	=>	array("Home"=>"Home","Database"=>"Database","Summary"=>"Summary"),
 		"user"		=>	array("Home"=>"Home","Admin"=>"Admin"),
 	),
 );
