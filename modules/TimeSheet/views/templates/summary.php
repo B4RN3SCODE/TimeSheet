@@ -52,7 +52,7 @@
 						if($Period["CycleStart"] == $_SESSION["CurrentBillingPeriod"]["StartDate"]) {
 							echo "Current Cycle";
 						} else {
-							echo $Period["CycleStart"] . " to " . $Period["CycleEnd"];
+							echo date("m/d/Y",strtotime($Period["CycleStart"])) . " to " . date("m/d/Y",strtotime($Period["CycleEnd"]));
 						}
 						?></a>
 					<div class="collapse" id="period<?php echo $PeriodId; ?>">
@@ -75,11 +75,11 @@
 											<tbody>
 											<?php foreach($Project["Entry"] as $EntryId => $Entry) { ?>
 												<tr>
-													<td><?php echo $Entry["Date"]; ?></td>
+													<td><?php echo date("m/d/Y",strtotime($Entry["Date"])); ?></td>
 													<td><?php echo $Entry["Description"]; ?></td>
 													<td><?php echo $Entry["Hours"]; ?></td>
 													<td><?php echo $Entry["Travel"]; ?></td>
-													<td><?php echo $Entry["Billable"]; ?></td>
+													<td><?php echo ($Entry["Billable"] == 1) ? "Yes" : "No"; ?></td>
 												</tr>
 											<? } ?>
 											</tbody>
