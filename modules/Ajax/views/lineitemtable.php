@@ -22,7 +22,7 @@ class lineitemtable extends TSView {
 		$CycleEnd = (isset($_POST["PeriodId"])) ? $TimeSheetPeriod->getCycleEnd() : null;
 		$LineItems = new LineItemArray();
 		$this->_tplData["LineItems"] = $LineItems->LoadLineItems($_POST["ProjectId"],$CycleStart,$CycleEnd);
-		$this->_tplData["Submitted"] = TimeSheetSubmit::Submitted($_SESSION["User"]->getId(),$_SESSION["CurrentBillingPeriod"]["StartDate"],$_SESSION["CurrentBillingPeriod"]["EndDate"]); //$TimeSheet->CheckSubmitted($CycleStart,$CycleEnd);
+		$this->_tplData["Submitted"] = TimeSheetSubmit::Submitted($_SESSION["User"]->getId(),$CycleStart,$CycleEnd);
 		$vwData = $this->LoadView();
 	}
 }
