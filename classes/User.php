@@ -185,5 +185,41 @@ class User extends BaseDB {
             return false;
         }
     }
+
+    function LoadAllUserEntries() {
+        $UserId = $_SESSION["User"]->getId();
+        $strSQL = "SELECT * FROM (SELECT tsp.id AS PeriodId, CycleStart, CycleEnd, cl.id As ClientId, cl.Name as ClientName, pr.id As ProjectId, pr.Title As ProjectName, li.id As EntryId, li.Description, EntryDate, Hours, Travel, Billable
+FROM TimeSheetPeriod tsp
+  INNER JOIN LineItem li ON li.EntryDate BETWEEN tsp.CycleStart AND tsp.CycleEnd
+  INNER JOIN Project pr ON li.ProjectId = pr.id
+  INNER JOIN Client cl ON cl.id = pr.ClientId
+  WHERE li.UserId = $UserId) AS SUM
+ORDER BY CycleStart DESC, CycleEnd DESC, EntryDate DESC";
+        $this->db->setQueryStmt($strSQL);
+        if($this->db->query()) {
+            $arr = array();
+            foreach ($this->db->GetAll() as $row) {
+                foreach($row as $key => $value) $$key = $value;
+                $arr[$PeriodId]["CycleStart"] = $CycleStart;
+                $arr[$PeriodId]["CycleEnd"] = $CycleEnd;
+                $arr[$PeriodId]["Client"][$ClientId]["Name"] = $ClientName;
+                $arr[$PeriodId]["Client"][$ClientId]["Project"][$ProjectId]["Name"] = $ProjectName;
+                $arr[$PeriodId]["Client"][$ClientId]["Project"][$ProjectId]["Entry"][$EntryId] = array(
+                  "Date" => $EntryDate,
+                  "Description" => $Description,
+                  "Hours" => $Hours,
+                  "Travel" => $Travel,
+                  "Billable" => $Billable
+                );
+            }
+//            $arr = array();
+//            while($this->db->GetAll() as $row) {
+//                $arr[] = $row;
+//            }
+//            return $arr;
+            return $arr;
+        }
+        return false;
+    }
 }
 ?>

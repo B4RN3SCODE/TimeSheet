@@ -22,6 +22,8 @@ class summary extends TSView {
 		}
 
 		$this->_tplData["TimeSheets"] = $TimeSheetArray;
+
+		$this->_tplData["UserEntries"] = (new User())->LoadAllUserEntries();
 		$vwData = $this->LoadView();
 	}
 }
