@@ -18,7 +18,7 @@ class TimeSheetController extends TSController {
             $$key = $value;
         }
         if(empty($Name)) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = 'Please enter the clients name.<script>$(document).ready(function() { $("button[data-target=\'#modal-newclient\']").click(); });</script>';
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = 'Please enter the clients name.<script>$(document).ready(function() { $("button[data-target=\'#modal-newclient\']").click(); });</script>';
         } else {
             $Client = new Client();
             foreach($_POST as $key => $val) {
@@ -29,7 +29,7 @@ class TimeSheetController extends TSController {
                 $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project added.";
                 unset($_POST);
             } else {
-                $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong while trying to add a new client. Please try again.";
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong while trying to add a new client. Please try again.";
             }
         }
         return $this->Redirect("timesheet","admin");
@@ -40,27 +40,41 @@ class TimeSheetController extends TSController {
         foreach($_POST as $key => $value)
             $$key = $value;
         if($client == -1 || $project == -1) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Please select both a Client and a Project";
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please select both a Client and a Project";
             $this->_viewProcessor->_tplData = $_POST;
             return $this->_viewProcessor->display();
         }
         $columns = array("EntryDate","Hours","Travel","Description","Billable");
         $ValidEntries = 0;
+
         for($index = 0; $index < count($EntryDate); $index++) {
             // Make sure we have valid input
-            if($Hours[$index] < 0 || $Travel[$index] < 0) {
+            if(empty($Description[$index]) || strlen(trim($Description[$index])) < 1) {
+                $_POST["Error"]["Description"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"] = "You can not enter negative hours or travel time.";
-                continue;
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "You must enter a description of the task.";
+            }
+            if($Hours[$index] < 0 ) {
+                $_POST["Error"]["Hours"][$index] = true;
+                $_POST["Error"][$index] = true;
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "You can not enter negative hours.";
+            }
+            if($Travel[$index] < 0 ) {
+                $_POST["Error"]["Travel"][$index] = true;
+                $_POST["Error"][$index] = true;
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "You can not enter negative travel distance.";
             }
             // Check for a valid date.
             try {
                 $tmpDate = new DateTime($EntryDate[$index]);
             } catch(Exception $ex) {
+                $_POST["Error"]["EntryDate"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter a valid date, ex: 12/25/2015";
-                continue;
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a valid date, ex: 12/25/2015";
+            } finally {
+                unset($tmpDate);
             }
+            if(isset($_POST["Error"][$index]) && $_POST["Error"][$index] == true) continue;
             // Enter the data into a new LineItem object
             $LineItem = new LineItem();
             $LineItem->setUserId($this->User->getId());
@@ -79,7 +93,7 @@ class TimeSheetController extends TSController {
                     unset($_POST[$key][$index]);
             } else {
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"] = "Make sure you have filled out all fields correctly.<br />" . $LineItem->GetDBError();
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Make sure you have filled out all fields correctly.<br />" . $LineItem->GetDBError();
             }
             unset($LineItem);
         }
@@ -88,11 +102,11 @@ class TimeSheetController extends TSController {
 
     public function AddProject() {
         if(!isset($_POST["clientId"]) || empty($_POST["clientId"])) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing client id, please try again.";
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Missing client id, please try again.";
         } else if(!isset($_POST["name"]) || empty($_POST["name"])) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing new project name, please try again.";
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Missing new project name, please try again.";
         } else if(!isset($_POST["rate"]) || empty($_POST["rate"])) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing rate, please try again.";
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Missing rate, please try again.";
         }
         if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Admin");
         $Project = new Project();
@@ -104,7 +118,7 @@ class TimeSheetController extends TSController {
         if($Project->save()) {
             $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project added.";
         } else {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to create new project.<br />" . $Project->GetDBError();
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to create new project.<br />" . $Project->GetDBError();
         }
         $this->Redirect("TimeSheet","Admin");
     }
@@ -123,14 +137,14 @@ class TimeSheetController extends TSController {
 
     public function DeleteProject() {
         if(!isset($_POST["id"]) || empty($_POST["id"])) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing project id.";
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Missing project id.";
         }
         $Project = new Project($_POST["id"]);
         $Project->setActive(false);
         if($Project->save()) {
             $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project removed. If this was an accident contact an administrator to restore it.";
         } else {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
         }
         $this->Redirect("TimeSheet","Admin");
     }
@@ -157,7 +171,7 @@ class TimeSheetController extends TSController {
         if($Client->save()) {
             $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Client updated.";
         } else {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to update client.<br />" . $Client->GetDBError();
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update client.<br />" . $Client->GetDBError();
         }
         unset($_POST);
         $this->Redirect("TimeSheet","Admin");
@@ -166,9 +180,9 @@ class TimeSheetController extends TSController {
     public function UpdateProject() {
         foreach($_POST as $key => $value) $$key = $value;
         if(!isset($Title) || empty($Title)) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing project title.";
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Missing project title.";
         } else if(!isset($Rate) || empty($Rate)) {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Missing rate.";
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Missing rate.";
         }
         if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Admin");
         $Project = new Project($id);
@@ -180,7 +194,7 @@ class TimeSheetController extends TSController {
         if($Project->save()) {
             $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project updated.";
         } else {
-            $GLOBALS["APP"]["MSG"]["ERROR"] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
+            $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
         }
         $this->Redirect("TimeSheet","Admin");
     }

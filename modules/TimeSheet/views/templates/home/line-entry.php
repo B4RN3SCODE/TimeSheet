@@ -12,31 +12,31 @@ foreach($_POST["Hours"] as $index => $value) {
 <div class="panel panel-default" style="<?php if($_POST["Error"][$index]) echo "border-color: #f00;";?>">
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-sm-3<?php if(isset($_POST["Error"]["EntryDate"][$index])) echo " alert-danger"; ?>">
 				<div class="form-group">
 					<label for="EntryDate">Date</label>
 					<input class="form-control datepicker text-center" name="EntryDate[]" placeholder="<? echo date("m/d/Y", time())?>" value="<?php echo $_POST["EntryDate"][$index]; ?>" />
 				</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-3<?php if(isset($_POST["Error"]["Hours"][$index])) echo " alert-danger"; ?>">
 				<div class="form-group">
 					<label for="Hours">Hours</label>
 					<input class="form-control text-center" type="text" name="Hours[]" placeholder="2.5" value="<?php echo $_POST["Hours"][$index]; ?>" />
 				</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-3<?php if(isset($_POST["Error"]["Travel"][$index])) echo " alert-danger"; ?>">
 				<div class="form-group">
 					<label for="Travel">Travel (miles)</label>
 					<input class="form-control text-center" type="text" name="Travel[]" placeholder="15" value="<?php echo $_POST["Travel"][$index]; ?>" />
 				</div>
 			</div>
-			<div class="col-sm-3 text-center">
+			<div class="col-sm-3 text-center<?php if(isset($_POST["Error"]["Billable"][$index])) echo " alert-danger"; ?>">
 				<div class="form-group">
 					<label for="Billable">Billable</label>
 					<input type="checkbox" name="Billable[]" <?php if(isset($_POST["Billable"][$index])) echo "checked"; ?> />
 				</div>
 			</div>
-			<div class="col-xs-12">
+			<div class="col-xs-12<?php if(isset($_POST["Error"]["Description"][$index])) echo " alert-danger"; ?>">
 				<div class="form-group">
 					<label for="Description">Description</label>
 					<input class="form-control" type="text" name="Description[]" placeholder="Created database" maxlength="500" value="<?php echo $_POST["Description"][$index]; ?>" />

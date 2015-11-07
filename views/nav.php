@@ -28,11 +28,13 @@
   </nav>
   <div class="container">
     <div class="row">
-      <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["ERROR"])) { ?>
+      <?php if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) { ?>
       <div class="col-md-12">
-        <div class="alert alert-danger alert-dismissible text-center" role="alert">
+        <div class="alert alert-danger alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <? echo $GLOBALS["APP"]["MSG"]["ERROR"]; ?>
+          <ul><?php foreach($GLOBALS["APP"]["MSG"]["ERROR"] as $error) { ?>
+            <li><?php echo $error; ?></li>
+          <? } ?></ul>
         </div>
       </div>
       <? } ?>
