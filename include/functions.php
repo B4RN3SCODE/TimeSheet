@@ -8,11 +8,11 @@
 
 function nav_menu($pages,$return=false,$module=null) {
   if(!isset($module)) {
-    $module = $GLOBALS["APP"]["MODULE_MAP"][$GLOBALS["APP"]["INSTANCE"]->GetController()->GetModule()];
+    $module = $GLOBALS["APP"]["MODULE_MAP"][strtolower($GLOBALS["APP"]["INSTANCE"]->_requested["Module"])];
   } else {
     $module = $module;
   }
-  $view = $GLOBALS["APP"]["INSTANCE"]->GetController()->GetView();
+  $view = $GLOBALS["APP"]["INSTANCE"]->_requested["View"];
   $menu = '';
   foreach($pages as $title => $name) {
     $class = '';

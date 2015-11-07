@@ -43,6 +43,8 @@ class TSApp {
 	public $_defaultView;
 	public $_defaultAction;
 
+	public $_requested = array();
+
 	/**	STATIC	**/
 
 	public static $DEFAULT_CONFIG_MAP = array(
@@ -125,15 +127,18 @@ class TSApp {
 		$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"]);
 		if($module === false)
 			$module = $this->_defaultModule;
+		$this->_requested["Module"] = $module;
 
 		// get the view and action if there is one
 		$view = $this->Isolate(self::$DEFAULT_CONFIG_MAP["view"]["urii"]);
 		if($view === false)
 			$view = $this->_defaultView;
+		$this->_requested["View"] = ($view == "index") ? "Home" : $view;
 
 		$action = $this->Isolate(self::$DEFAULT_CONFIG_MAP["action"]["urii"]);
 		if($action === false)
 			$action = $this->_defaultAction;
+		$this->_requested["Action"] = $action;
 
 		// Need to make sure we are not trying to login then check that the user is logged in
 		if(strtolower($action) != "login" && !$this->_authService->isLoggedIn()) {
