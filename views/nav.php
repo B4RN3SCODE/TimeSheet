@@ -38,19 +38,23 @@
         </div>
       </div>
       <? } ?>
-      <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["INFO"])) { ?>
+      <?php if(isset($GLOBALS["APP"]["MSG"]["INFO"])) { ?>
       <div class="col-md-12">
         <div class="alert alert-info alert-dismissible text-center" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <strong>Hey!</strong> <? echo $GLOBALS["APP"]["MSG"]["INFO"]; ?>
+          <ul><?php foreach($GLOBALS["APP"]["MSG"]["INFO"] as $info) { ?>
+              <li><?php echo $info; ?></li>
+            <? } ?></ul>
         </div>
       </div>
       <? } ?>
-      <?php if(TSApp::StringHasValue($GLOBALS["APP"]["MSG"]["SUCCESS"])) { ?>
+      <?php if(isset($GLOBALS["APP"]["MSG"]["SUCCESS"])) { ?>
       <div class="col-md-12">
         <div class="alert alert-success alert-dismissible text-center" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <strong>Success!</strong> <? echo $GLOBALS["APP"]["MSG"]["SUCCESS"]; ?>
+          <ul><?php foreach($GLOBALS["APP"]["MSG"]["SUCCESS"] as $success) { ?>
+              <li><?php echo $success; ?></li>
+            <? } ?></ul>
         </div>
       </div>
       <? } ?>
