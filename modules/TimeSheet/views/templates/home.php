@@ -10,7 +10,7 @@ $MyProjects = array();
           <div class="col-xs-12">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title">Welcome to the TimeSheet module. Please begin by selecting your client and project below.</h3>
+                <h3 class="panel-title">Line Entry</h3>
               </div>
               <div class="panel-body">
                 <div class="row">
