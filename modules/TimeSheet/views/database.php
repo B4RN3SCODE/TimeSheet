@@ -12,7 +12,7 @@
  * 				Change Log
  *
  *+++++++++++++++++++++++++++++++++++++++++++++++++*/
-class admin extends TSView
+class database extends TSView
 {
     public function display() {
         // Load all users
@@ -31,7 +31,7 @@ class admin extends TSView
                 if($cid == $_POST["clientId"])
                     $this->_tplData["SearchText"] = $values["Name"];
         $this->setOptions(array());
-        $this->_viewTpl = "admin";
+        $this->_viewTpl = "database";
         $vwData = $this->LoadView();
     }
 }

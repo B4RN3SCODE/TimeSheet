@@ -6,7 +6,7 @@ class TimeSheetController extends TSController {
         }
     }
     public function index() {
-        if($this->_view = "admin" && ($this->_action = "addclient" || $this->_action = "updateclient")) {
+        if($this->_view = "database" && ($this->_action = "addclient" || $this->_action = "updateclient")) {
             if(isset($_POST))
                 $this->_viewProcessor->_tplData["addclient"] = $_POST;
         }
@@ -32,7 +32,7 @@ class TimeSheetController extends TSController {
                 $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong while trying to add a new client. Please try again.";
             }
         }
-        return $this->Redirect("timesheet","admin");
+        return $this->Redirect("timesheet","database");
     }
 
     public function AddEntry() {
@@ -108,7 +108,7 @@ class TimeSheetController extends TSController {
         } else if(!isset($_POST["rate"]) || empty($_POST["rate"])) {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Missing rate, please try again.";
         }
-        if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Admin");
+        if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Database");
         $Project = new Project();
         $Project->setClientId($_POST["clientId"]);
         $Project->setUserId($this->User->getId());
@@ -120,7 +120,7 @@ class TimeSheetController extends TSController {
         } else {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to create new project.<br />" . $Project->GetDBError();
         }
-        $this->Redirect("TimeSheet","Admin");
+        $this->Redirect("TimeSheet","Database");
     }
 
     public function AddProjectToMyList() {
@@ -146,7 +146,7 @@ class TimeSheetController extends TSController {
         } else {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
         }
-        $this->Redirect("TimeSheet","Admin");
+        $this->Redirect("TimeSheet","Database");
     }
 
     public function RemoveProjectFromMyList() {
@@ -174,7 +174,7 @@ class TimeSheetController extends TSController {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update client.<br />" . $Client->GetDBError();
         }
         unset($_POST);
-        $this->Redirect("TimeSheet","Admin");
+        $this->Redirect("TimeSheet","Database");
     }
 
     public function UpdateProject() {
@@ -184,7 +184,7 @@ class TimeSheetController extends TSController {
         } else if(!isset($Rate) || empty($Rate)) {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Missing rate.";
         }
-        if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Admin");
+        if(isset($GLOBALS["APP"]["MSG"]["ERROR"])) return $this->Redirect("TimeSheet","Database");
         $Project = new Project($id);
         $Project->setDescription(trim($Description));
         $Project->setTitle(trim($Title));
@@ -196,7 +196,7 @@ class TimeSheetController extends TSController {
         } else {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
         }
-        $this->Redirect("TimeSheet","Admin");
+        $this->Redirect("TimeSheet","Database");
     }
 
     public function GetClientById() {
