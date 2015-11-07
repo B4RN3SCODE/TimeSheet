@@ -39,6 +39,6 @@ class base
             }
         }
         $end_date = new DateTime($end_date);
-        return self::GetBillingCycle(new DateTime($start_date), $input_date, new DateTime($end_date->modify("+1 year")->format("Y-m-d")));
+        return self::GetBillingCycle($input_date, new DateTime($start_date), new DateTime($end_date->modify("+1 year")->format("Y-m-d")));
     }
 }

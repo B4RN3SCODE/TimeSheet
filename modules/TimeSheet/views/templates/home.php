@@ -49,7 +49,7 @@ $MyProjects = array();
                   <div class="col-sm-6">
                     <select name="BillingPeriod" class="form-control">
                       <?php foreach($TPLDATA["BillingPeriod"] as $BillingPeriod) { ?>
-                      <option value="<?php echo $BillingPeriod["value"]; ?>"><?php echo $BillingPeriod["label"]; ?></option>
+                      <option value="<?php echo $BillingPeriod["value"]; ?>"<?php echo ($BillingPeriod["label"] == "Current Cycle") ? " selected" : ""; ?>><?php echo $BillingPeriod["label"]; ?></option>
                       <? } ?>
                     </select>
                   </div>

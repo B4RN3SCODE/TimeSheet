@@ -15,6 +15,7 @@ class TimeSheetPeriodArray extends ArrayClass {
 
 	function load() {
 		$strSQL = $this->db->SStatement(array(), self::getClass());
+		$strSQL .= " ORDER BY CycleStart DESC";
 		$this->db->SetQueryStmt($strSQL);
 		if($this->db->Query()) {
 			foreach ($this->db->GetAll() as $row) {
