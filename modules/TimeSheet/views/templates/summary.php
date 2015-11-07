@@ -3,7 +3,7 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">TimeSheet Summary</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body table-responsive">
 			<table class="table table-condensed table-striped">
 				<thead>
 					<tr>
@@ -61,7 +61,7 @@
 							<div class="collapse" id="<?php echo "p{$PeriodId}c{$ClientId}"; ?>">
 								<?php foreach($Client["Project"] as $ProjectId => $Project) { ?>
 									<a href="#<?php echo "p{$PeriodId}p{$ProjectId}"; ?>" class="project list-group-item" data-toggle="collapse"><?php echo $Project["Name"]; ?></a>
-									<div class="collapse" id="<?php echo "p{$PeriodId}p{$ProjectId}"; ?>" class="table-responsive">
+									<div id="<?php echo "p{$PeriodId}p{$ProjectId}"; ?>" class="collapse table-responsive">
 										<table class="table table-condensed table-striped table-bordered">
 											<thead>
 											<tr>

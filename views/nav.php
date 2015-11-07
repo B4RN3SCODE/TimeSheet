@@ -1,3 +1,4 @@
+<?php $GLOBALS["APP"]["MSG"]["INFO"][] = "Create TimeSheet/Admin page to create .xls"; ?>
   <nav class="navbar navbar-default">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
