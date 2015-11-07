@@ -35,7 +35,7 @@ class base
                 $TimeSheetPeriod->setCycleStart($start_date);
                 $TimeSheetPeriod->setCycleEnd($end_date);
                 $TimeSheetPeriod->save();
-                return array("StartDate"=>$start_date,"EndDate"=>$end_date);
+                return array("StartDate"=>$start_date,"EndDate"=>$end_date,"Period"=>$TimeSheetPeriod->getId());
             }
         }
         $end_date = new DateTime($end_date);

@@ -47,11 +47,21 @@ class TimeSheetController extends TSController {
         $columns = array("EntryDate","Hours","Travel","Description","Billable");
         $ValidEntries = 0;
         for($index = 0; $index < count($EntryDate); $index++) {
+            // Make sure we have valid input
             if($Hours[$index] < 0 || $Travel[$index] < 0) {
                 $_POST["Error"][$index] = true;
                 $GLOBALS["APP"]["MSG"]["ERROR"] = "You can not enter negative hours or travel time.";
                 continue;
             }
+            // Check for a valid date.
+            try {
+                $tmpDate = new DateTime($EntryDate[$index]);
+            } catch(Exception $ex) {
+                $_POST["Error"][$index] = true;
+                $GLOBALS["APP"]["MSG"]["ERROR"] = "Please enter a valid date, ex: 12/25/2015";
+                continue;
+            }
+            // Enter the data into a new LineItem object
             $LineItem = new LineItem();
             $LineItem->setUserId($this->User->getId());
             $LineItem->setClientId($client);
@@ -61,6 +71,7 @@ class TimeSheetController extends TSController {
             $LineItem->setHours($Hours[$index]);
             $LineItem->setTravel($Travel[$index]);
             $LineItem->setBillable(isset($_POST["Billable"][$index]) ? 1 : 0);
+            // Try to save the entry
             if($LineItem->save()) {
                 $ValidEntries++;
                 $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Successfully added $ValidEntries entries";
@@ -68,7 +79,7 @@ class TimeSheetController extends TSController {
                     unset($_POST[$key][$index]);
             } else {
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"] = "Make sure you have filled out all fields.<br />" . $LineItem->GetDBError();
+                $GLOBALS["APP"]["MSG"]["ERROR"] = "Make sure you have filled out all fields correctly.<br />" . $LineItem->GetDBError();
             }
             unset($LineItem);
         }

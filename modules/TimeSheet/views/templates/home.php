@@ -5,11 +5,6 @@ $MyProjects = array();
 //print_r($_POST);
 //echo "</pre>";
 ?>
-      <div class="col-md-12">
-        <div class="alert alert-warning">
-          <strong>TODO:&nbsp;</strong>When adding entries, for each one check that there is a valid timesheet period in the TimeSheetPeriod table. If there is not then make one.
-        </div>
-      </div>
       <div class="col-md-9">
         <div class="row">
           <div class="col-xs-12">
