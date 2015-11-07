@@ -21,7 +21,7 @@ class TimeSheetPeriodArray extends ArrayClass {
 				$this->_arrObjects[$row["id"]] = new TimeSheetPeriod();
 				$this->_arrObjects[$row["id"]]->setVarsFromRow($row);
 			}
-			return true;
+			return $this;
 		} else {
 			return false;
 		}

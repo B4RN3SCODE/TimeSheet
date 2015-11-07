@@ -121,8 +121,8 @@ function LoadSelect(form_name,select_name,data) {
 function ReloadLineEntries(id) {
     var data = {
         ProjectId: $('form[name="timesheet"] select[name="project"]').val(),
-        BillingPeriod: $('select[name="BillingPeriod"]').val()
-    }
+        PeriodId: (id == undefined) ? $('select[name="BillingPeriod"]').val() : id
+    };
     $('#existing-entries').load(urlPrefix + root_dir + 'Ajax/LineItemTable',data);
 }
 function RemoveLineEntryFromProject(id,row) {
