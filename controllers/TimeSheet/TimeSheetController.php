@@ -52,17 +52,17 @@ class TimeSheetController extends TSController {
             if(empty($Description[$index]) || strlen(trim($Description[$index])) < 1) {
                 $_POST["Error"]["Description"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"][] = "You must enter a description of the task.";
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Entry " . ($index + 1) . ": You must enter a description of the task.";
             }
             if($Hours[$index] < 0 || !is_numeric($Hours[$index])) {
                 $_POST["Error"]["Hours"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a positive numeric value for Hours.";
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Entry " . ($index + 1) . ": Please enter a positive numeric value for Hours.";
             }
             if($Travel[$index] < 0 || !is_numeric($Travel[$index])) {
                 $_POST["Error"]["Travel"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a positive numeric value for Travel.";
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Entry " . ($index + 1) . ": Please enter a positive numeric value for Travel.";
             }
             // Check for a valid date.
             try {
@@ -70,7 +70,7 @@ class TimeSheetController extends TSController {
             } catch(Exception $ex) {
                 $_POST["Error"]["EntryDate"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a valid date. Example: " . date("m/d/Y",time());
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Entry " . ($index + 1) . ": Please enter a valid date. Example: " . date("m/d/Y",time());
             } finally {
                 unset($tmpDate);
             }
