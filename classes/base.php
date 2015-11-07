@@ -21,7 +21,7 @@ class base
         return array_reverse($entries);
     }
 
-    static function GetBillingCycle(DateTime $start_date = null, $input_date = null, DateTime $end_date = null) {
+    static function GetBillingCycle($input_date = null, DateTime $start_date = null, DateTime $end_date = null) {
         $start_date = ($start_date == null) ? $GLOBALS["STARTDATE"] : $start_date;
         $input_date = ($input_date == null) ? date("Y-m-d") : $input_date;
         $end_date = ($end_date == null) ? $GLOBALS["ENDDATE"] : $end_date;

@@ -185,6 +185,7 @@ class LineItem extends BaseDB {
 	public function save() {
 		if($this->_UserId != $_SESSION["User"]->getId()) return false;
 		if(trim($this->_Description) == "" || empty($this->_EntryDate) || !is_numeric($this->_Hours)) return false;
+		base::GetBillingCycle($this->_EntryDate);
 		if($this->_id) {
 			return self::update();
 		} else {

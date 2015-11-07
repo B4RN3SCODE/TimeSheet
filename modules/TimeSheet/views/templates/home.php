@@ -2,7 +2,7 @@
 $MyClients = ($TPLDATA["MyClients"] == false) ? array() : $TPLDATA["MyClients"];
 $MyProjects = array();
 //echo "<pre>";
-//print_r($_POST);
+//print_r($TPLDATA["BillingPeriod"]);
 //echo "</pre>";
 ?>
       <div class="col-md-9">
@@ -48,8 +48,8 @@ $MyProjects = array();
                   <div class="col-sm-6"><h3 class="panel-title">Existing Line Items</h3></div>
                   <div class="col-sm-6">
                     <select name="BillingPeriod" class="form-control">
-                      <?php foreach($TPLDATA["BillingPeriod"] as $value => $label) { ?>
-                      <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                      <?php foreach($TPLDATA["BillingPeriod"] as $BillingPeriod) { ?>
+                      <option value="<?php echo $BillingPeriod["value"]; ?>"><?php echo $BillingPeriod["label"]; ?></option>
                       <? } ?>
                     </select>
                   </div>

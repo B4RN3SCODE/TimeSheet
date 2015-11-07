@@ -45,42 +45,8 @@ class home extends TSView
             $label = ($StartDate == $_SESSION["CurrentBillingPeriod"]["StartDate"])
               ? "Current Cycle"
               :(new DateTime($StartDate))->format("m/d/Y") . " to " . (new DateTime($EndDate))->format("m/d/Y");
-            $this->_tplData["BillingPeriod"] = array($TimeSheetPeriod->getId() => $label);
+            $this->_tplData["BillingPeriod"][] = array("value"=>$TimeSheetPeriod->getId(), "label" => $label);
         }
         $vwData = $this->LoadView();
     }
 }
-
-function bs() {
-    $BillingPeriod = array();
-    $TimeSheetPeriodArray = new TimeSheetPeriodArray();
-    $TimeSheetPeriodArray->load();
-    foreach($TimeSheetPeriodArray as $TimeSheetPeriod) {
-        $StartDate = $TimeSheetPeriod->getCycleStart();
-        $EndDate = $TimeSheetPeriod->getCycleEnd();
-        $value = strtotime($StartDate) . "-" . strtotime($EndDate);
-        $label = ($StartDate == $_SESSION["CurrentBillingPeriod"]["StartDate"])
-          ? "Current Cycle"
-          :(new DateTime($StartDate))->format("m/d/Y") . " to " . (new DateTime($EndDate))->format("m/d/Y");
-        $BillingPeriod[] = array("value"=>$value,"label"=>$label);
-    }
-}/*
-                      $start_date = $_SESSION["CurrentBillingPeriod"]["StartDate"];
-                      $end_date = $_SESSION["CurrentBillingPeriod"]["EndDate"];
-                      ?>
-<option value="<?php echo strtotime($start_date) . "-" . strtotime($end_date);?>">Current Cycle</option>
-<?php
-$previousArr = array();
-$new_start_date = date_sub(new DateTime($start_date),new DateInterval("P16W"))->format("Y-m-d");
-$daterange = new DatePeriod(new DateTime($new_start_date), new DateInterval('P2W'), new DateTime($start_date));
-foreach($daterange as $date) {
-    $end_date = clone($date);
-    $end_date = $end_date->modify("+13 days")->format("m/d/Y");
-    $date = $date->format("m/d/Y");
-    $previousArr[] = array("value"=>strtotime($date) . "-" . strtotime($end_date),"label"=>$date . " to " . $end_date);
-}
-$previousArr = array_reverse($previousArr);
-foreach($previousArr as $option) { ?>
-    <option value="<?php echo $option["value"]; ?>"><?php echo $option["label"]; ?></option><?
-} ?>
-} }*/
