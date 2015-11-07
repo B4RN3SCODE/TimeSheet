@@ -1,3 +1,32 @@
+.btn-secondary {
+  color: #fff;
+  background-color: #2c3692;
+  border-color: #262f7e; }
+  .btn-secondary:focus, .btn-secondary.focus {
+    color: #fff;
+    background-color: #20286b;
+      background-color-border-color: #090b1c; }
+  .btn-secondary:hover {
+    color: #fff;
+    background-color: #20286b;
+      background-color-border-color: #181d4f; }
+  .btn-secondary:active, .btn-secondary.active, .open > .btn-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: #20286b;
+      background-color-border-color: #181d4f; }
+    .btn-secondary:active:hover, .btn-secondary:active:focus, .btn-secondary:active.focus, .btn-secondary.active:hover, .btn-secondary.active:focus, .btn-secondary.active.focus, .open > .btn-secondary.dropdown-toggle:hover, .open > .btn-secondary.dropdown-toggle:focus, .open > .btn-secondary.dropdown-toggle.focus {
+      color: #fff;
+      background-color: #181d4f;
+        background-color-border-color: #090b1c; }
+  .btn-secondary:active, .btn-secondary.active, .open > .btn-secondary.dropdown-toggle {
+    background-image: none; }
+  .btn-secondary.disabled, .btn-secondary.disabled:hover, .btn-secondary.disabled:focus, .btn-secondary.disabled.focus, .btn-secondary.disabled:active, .btn-secondary.disabled.active, .btn-secondary[disabled], .btn-secondary[disabled]:hover, .btn-secondary[disabled]:focus, .btn-secondary[disabled].focus, .btn-secondary[disabled]:active, .btn-secondary[disabled].active, fieldset[disabled] .btn-secondary, fieldset[disabled] .btn-secondary:hover, fieldset[disabled] .btn-secondary:focus, fieldset[disabled] .btn-secondary.focus, fieldset[disabled] .btn-secondary:active, fieldset[disabled] .btn-secondary.active {
+    background-color: #2c3692;
+      background-color-border-color: #262f7e; }
+  .btn-secondary .badge {
+    color: #2c3692;
+    background-color: #fff; }
+
 #inner-panel {
   border: 1px solid #ddd;
   border-top: none; }
@@ -71,6 +100,19 @@ form[name="timesheet"] table input[type="checkbox"] {
 
 #TimeSheetSummary table.table td {
   vertical-align: middle; }
+
+#DetailedSummary .list-group.panel table.table {
+  margin-bottom: 0; }
+#DetailedSummary .period {
+  background-color: #d9edf7;
+  font-color: #31708f;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center; }
+#DetailedSummary .client {
+  font-weight: bold; }
+#DetailedSummary .project {
+  padding-left: 30px; }
 
 /* Signin */
 .signin {

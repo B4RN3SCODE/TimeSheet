@@ -2,3 +2,6 @@ node_modules/
 *.map
 test.php
 ViewsBackup/
+/public/style/bootstrap.css.map
+/public/style/bootstrap-scss
+/public/style/style.css.map
