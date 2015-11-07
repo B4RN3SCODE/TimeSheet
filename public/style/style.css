@@ -106,6 +106,10 @@ form[name="timesheet"] table input[type="checkbox"] {
 .navbar-brand {
   padding-left: 15px; }
 
+.alert ul {
+  margin-bottom: 0;
+  padding-left: 15px; }
+
 footer {
   position: absolute;
   bottom: 0;

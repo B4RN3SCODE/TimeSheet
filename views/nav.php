@@ -32,9 +32,11 @@
       <div class="col-md-12">
         <div class="alert alert-danger alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <ul><?php foreach($GLOBALS["APP"]["MSG"]["ERROR"] as $error) { ?>
-            <li><?php echo $error; ?></li>
-          <? } ?></ul>
+          <label>
+            <ul class="list-unstyled"><?php foreach($GLOBALS["APP"]["MSG"]["ERROR"] as $error) { ?>
+                <li><?php echo $error; ?></li>
+            <? } ?></ul>
+          </label>
         </div>
       </div>
       <? } ?>
@@ -42,9 +44,11 @@
       <div class="col-md-12">
         <div class="alert alert-info alert-dismissible text-center" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <ul><?php foreach($GLOBALS["APP"]["MSG"]["INFO"] as $info) { ?>
+          <label>
+            <ul class="list-unstyled"><?php foreach($GLOBALS["APP"]["MSG"]["INFO"] as $info) { ?>
               <li><?php echo $info; ?></li>
             <? } ?></ul>
+          </label>
         </div>
       </div>
       <? } ?>
@@ -52,9 +56,11 @@
       <div class="col-md-12">
         <div class="alert alert-success alert-dismissible text-center" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <ul><?php foreach($GLOBALS["APP"]["MSG"]["SUCCESS"] as $success) { ?>
+          <label>
+            <ul class="list-unstyled"><?php foreach($GLOBALS["APP"]["MSG"]["SUCCESS"] as $success) { ?>
               <li><?php echo $success; ?></li>
             <? } ?></ul>
+          </label>
         </div>
       </div>
       <? } ?>
