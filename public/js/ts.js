@@ -150,7 +150,6 @@ function RemoveProjectFromMyList(ProjectId) {
             var id = $(client).attr('id');
             $(list_item).parent('.list-group').remove();
             $('[href="#' + id + '"]').children('.badge').html($(client[0]).children('.list-group').length);
-            alert(data.Status);
         },
         error: function( xhr, status, errorThrown ) {
             Error_Output(xhr, status, errorThrown);
@@ -168,6 +167,27 @@ function ShowSelectedClientsProjectList(ClientName) {
         }
     });
     $('#client-list .panel-title a.list-group-item:visible').click();
+}
+function ToggleSubmit(PeriodId,target) {
+    var url = urlPrefix + root_dir + 'Ajax/Index/ToggleSubmit';
+    var data = { PeriodId: PeriodId };
+    $.ajax({
+        url: url, data: data, type: "POST", dataType: "json",
+        success: function(data) {
+            if(data.Status == "Success") {
+                if($(target).html() == "Submit") {
+                    $(target).html("Un-Submit");
+                } else {
+                    $(target).html("Submit");
+                }
+            } else {
+                alert("Sorry, something went wrong. Please try again.");
+            }
+        },
+        error: function( xhr, status, errorThrown ) {
+            Error_Output(xhr, status, errorThrown);
+        }
+    })
 }
 function UpdateLineItem(event) {
     event.preventDefault();
@@ -249,6 +269,13 @@ function initialize() {
             } else {
                 $(button).attr('disabled', 'disabled');
             }
+        });
+    } else if(path.indexOf("/timesheet/summary") >= 0) {
+        $('button[data-action]').on('click', function(event) {
+            event.preventDefault;
+            var PeriodId = $(this).parents('tr').attr('data-period');
+            ToggleSubmit(PeriodId,event.target);
+
         });
     }
     $('form[name="timesheet-settings"] select[name="default-client"]').on('change', function (event) {

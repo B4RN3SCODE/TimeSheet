@@ -49,7 +49,7 @@ class LineItemArray extends ArrayClass {
 		if(!isset($TimeSheetPeriod)) return false;
 		$UserId = ($UserId == null) ? $_SESSION["User"]->getId() : $UserId;
 		$TimeSheetPeriodId = $TimeSheetPeriod->getId();
-		$strSQL = "SELECT CycleStart, CycleEnd, Processed, Billable, Total, Submitted, PeriodId FROM
+		$strSQL = "SELECT CycleStart, CycleEnd, Processed, Billable, Total, Submitted, id AS PeriodId FROM
 			(SELECT SUM(Hours) AS Billable, TP.*, TS.*,
 				(CASE WHEN COUNT(TS.PeriodId) = 0 THEN FALSE ELSE TRUE END) AS Submitted
 			 FROM TimeSheetPeriod TP LEFT OUTER JOIN

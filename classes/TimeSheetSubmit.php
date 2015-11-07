@@ -50,7 +50,7 @@ class TimeSheetSubmit extends BaseDB {
 	}
 
 	public function delete() {
-		if($this->_id) {
+		if($this->_PeriodId && $this->_UserId) {
 			$strSQL = "DELETE FROM " . DB_NAME . "." . get_class($this) . "
 				WHERE UserId = $this->_UserId AND PeriodId = $this->_PeriodId";
 			$this->db->setQueryStmt($strSQL);
@@ -88,6 +88,24 @@ class TimeSheetSubmit extends BaseDB {
 				return true;
 			}
 			return false;
+		} else {
+			return false;
+		}
+	}
+
+	public function ToggleSubmit($PeriodId) {
+		if(!isset($PeriodId)) return false;
+		$UserId = $_SESSION["User"]->getId();
+		$strSQL = "SELECT * FROM TimeSheetSubmit WHERE UserId = $UserId AND PeriodId = $PeriodId;";
+		$this->db->setQueryStmt($strSQL);
+		if($this->db->Query()) {
+			foreach ($this->db->GetAll() as $row) {
+				$this->setVarsFromRow($row);
+				$this->delete();
+				return true;
+			}
+			$this->setVarsFromRow(array("UserId" => $UserId, "PeriodId" => $PeriodId));
+			return $this->save();
 		} else {
 			return false;
 		}

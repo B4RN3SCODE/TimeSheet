@@ -47,6 +47,16 @@ class AjaxController extends TSController
 		}
 	}
 
+	public function ToggleSubmit() {
+		if(!isset($_POST["PeriodId"])) die('No PeriodId');
+		$TimeSheetSubmit = new TimeSheetSubmit();
+		if($TimeSheetSubmit->ToggleSubmit($_POST["PeriodId"])) {
+			$this->EncodeAndSendJSON(array("Status" => "Success"));
+		} else {
+			$this->EncodeAndSendJSON(array("Status" => "Failure"));
+		}
+	}
+
 	public function GetLineEntry() {
 		if(!isset($_POST["LineEntryId"]) || empty($_POST["LineEntryId"])) die();
 		$LineItem = new LineItem($_POST["LineEntryId"]);

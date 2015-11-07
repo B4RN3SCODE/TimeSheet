@@ -48,20 +48,11 @@
 						<td><?php echo (new DateTime($TimeSheet["CycleEnd"]))->format("m/d/Y"); ?></td>
 						<td><?php echo $TimeSheet["Total"]; ?></td>
 						<td><?php echo $TimeSheet["Billable"]; ?></td><?php
-						// If processed then no button
-						// Else
-						//	If Submitted then Unsubmit button
-						// 	Else submit button
 						if($TimeSheet["Processed"] || $TimeSheet["Total"] == 0) {
 							echo "<td></td>";
 						} else {
-							if($TimeSheet["Submitted"]) {
-								echo "<td><button type=\"button\" class=\"btn btn-secondary\">Un-Submit</button></td>";
-							} else {
-								if($TimeSheet["Total"] > 0) {
-									echo "<td><button type=\"button\" class=\"btn btn-secondary\">Submit</button></td>";
-								}
-							}
+							$text = $TimeSheet["Submitted"] ? "Un-Submit" : "Submit";
+							echo "<td><button type=\"button\" class=\"btn btn-secondary\" data-action=\"toggle-submit\">$text</button></td>";
 						}?>
 					</tr>
 				<? } ?>
