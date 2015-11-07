@@ -47,6 +47,11 @@ class TimeSheetController extends TSController {
         $columns = array("EntryDate","Hours","Travel","Description","Billable");
         $ValidEntries = 0;
         for($index = 0; $index < count($EntryDate); $index++) {
+            if($Hours[$index] < 0 || $Travel[$index] < 0) {
+                $_POST["Error"][$index] = true;
+                $GLOBALS["APP"]["MSG"]["ERROR"] = "You can not enter negative hours or travel time.";
+                continue;
+            }
             $LineItem = new LineItem();
             $LineItem->setUserId($this->User->getId());
             $LineItem->setClientId($client);
