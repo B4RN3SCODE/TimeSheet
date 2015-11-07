@@ -26,7 +26,7 @@ class TimeSheetController extends TSController {
                 $Client->$func($val);
             }
             if($Client->save()) {
-                $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project added.";
+                $GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Project added.";
                 unset($_POST);
             } else {
                 $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong while trying to add a new client. Please try again.";
@@ -88,7 +88,7 @@ class TimeSheetController extends TSController {
             // Try to save the entry
             if($LineItem->save()) {
                 $ValidEntries++;
-                $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Successfully added $ValidEntries entries";
+                $GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Successfully added $ValidEntries entries";
                 foreach($columns as $key)
                     unset($_POST[$key][$index]);
             } else {
@@ -116,7 +116,7 @@ class TimeSheetController extends TSController {
         $Project->setDateCreated(time());
         $Project->setRate(trim($_POST["rate"]));
         if($Project->save()) {
-            $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project added.";
+            $GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Project added.";
         } else {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to create new project.<br />" . $Project->GetDBError();
         }
@@ -142,7 +142,7 @@ class TimeSheetController extends TSController {
         $Project = new Project($_POST["id"]);
         $Project->setActive(false);
         if($Project->save()) {
-            $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project removed. If this was an accident contact an administrator to restore it.";
+            $GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Project removed. If this was an accident contact an administrator to restore it.";
         } else {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
         }
@@ -169,7 +169,7 @@ class TimeSheetController extends TSController {
             $Client->$func($val);
         }
         if($Client->save()) {
-            $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Client updated.";
+            $GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Client updated.";
         } else {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update client.<br />" . $Client->GetDBError();
         }
@@ -192,7 +192,7 @@ class TimeSheetController extends TSController {
         $Project->setInternalReference($InternalReference);
         $Project->setCustomerReference($CustomerReference);
         if($Project->save()) {
-            $GLOBALS["APP"]["MSG"]["SUCCESS"] = "Project updated.";
+            $GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Project updated.";
         } else {
             $GLOBALS["APP"]["MSG"]["ERROR"][] = "Something went wrong. Unable to update project.<br />" . $Project->GetDBError();
         }

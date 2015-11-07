@@ -120,7 +120,7 @@ class UserController extends TSController {
 			$newpassword = password_hash($newpassword, PASSWORD_DEFAULT);
 			$this->User->setPassword($newpassword);
 			if($this->User->save()) {
-				$GLOBALS["APP"]["MSG"]["SUCCESS"] = "Password changed successfully.";
+				$GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Password changed successfully.";
 				return $this->Redirect("User","Edit");
 			} else {
 				$GLOBALS["APP"]["MSG"]["ERROR"][] = "There was a problem changing your password, please try again.";
@@ -149,7 +149,7 @@ class UserController extends TSController {
 						$User->setEmail(trim($_POST["email"]));
 						$User->setPassword(password_hash($_POST["password"],PASSWORD_DEFAULT));
 						if($User->save()) {
-							$GLOBALS["APP"]["MSG"]["INFO"] = "User account created successfully.";
+							$GLOBALS["APP"]["MSG"]["INFO"][] = "User account created successfully.";
 						} else {
 							$GLOBALS["APP"]["MSG"]["ERROR"][] = "There was a problem creating a new user.<br />" . $this->User->GetDBError();
 						}
@@ -174,7 +174,7 @@ class UserController extends TSController {
 		$this->User->setEmail($_POST["email"]);
 		$this->User->setPhone($_POST["phone"]);
 		if($this->User->save()) {
-			$GLOBALS["APP"]["MSG"]["SUCCESS"] = "Your profile information has been updated.";
+			$GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Your profile information has been updated.";
 		} else {
 			$GLOBALS["APP"]["MSG"]["ERROR"][] = "There was a problem updating your profile.<br />" . $this->User->GetDBError();
 		}
@@ -194,7 +194,7 @@ class UserController extends TSController {
 		$TimeSheetSettings->setDefaultClient($_POST["default-client"]);
 		$TimeSheetSettings->setDefaultProject($_POST["default-project"]);
 		if($TimeSheetSettings->save()) {
-			$GLOBALS["APP"]["MSG"]["SUCCESS"] = "Your settings updated.";
+			$GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Your settings updated.";
 		} else {
 			$GLOBALS["APP"]["MSG"]["ERROR"][] = "There was a problem updating your settings.<br />" . $TimeSheetSettings->GetDBError();
 		}
