@@ -20,13 +20,16 @@
 						<td><?php echo (new DateTime($TimeSheet["CycleStart"]))->format("m/d/Y"); ?></td>
 						<td><?php echo (new DateTime($TimeSheet["CycleEnd"]))->format("m/d/Y"); ?></td>
 						<td><?php echo $TimeSheet["Total"]; ?></td>
-						<td><?php echo $TimeSheet["Billable"]; ?></td><?php
-						if($TimeSheet["Processed"] || $TimeSheet["Total"] == 0) {
-							echo "<td><label><em>Processed</em></label></td>";
+						<td><?php echo $TimeSheet["Billable"]; ?></td>
+						<td><?php
+						if($TimeSheet["Processed"]) {
+							echo "<label><em>Processed</em></label>";
+						} else if($TimeSheet["Total"] == 0) {
+							echo "<label><em>No time recorded</em></label>";
 						} else {
 							$text = $TimeSheet["Submitted"] ? "Un-Submit" : "Submit";
-							echo "<td><button type=\"button\" class=\"btn btn-secondary\" data-action=\"toggle-submit\">$text</button></td>";
-						}?>
+							echo "<button type=\"button\" class=\"btn btn-secondary\" data-action=\"toggle-submit\">$text</button>";
+						}?></td>
 					</tr>
 				<? } ?>
 				</tbody>
