@@ -54,7 +54,7 @@ class TimeSheetController extends TSController {
                 $_POST["Error"][$index] = true;
                 $GLOBALS["APP"]["MSG"]["ERROR"][] = "You must enter a description of the task.";
             }
-            if($Hours[$index] < 0 || !is_numberic($Hours[$index])) {
+            if($Hours[$index] < 0 || !is_numeric($Hours[$index])) {
                 $_POST["Error"]["Hours"][$index] = true;
                 $_POST["Error"][$index] = true;
                 $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a positive numeric value for Hours.";
