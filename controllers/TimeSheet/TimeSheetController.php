@@ -54,15 +54,15 @@ class TimeSheetController extends TSController {
                 $_POST["Error"][$index] = true;
                 $GLOBALS["APP"]["MSG"]["ERROR"][] = "You must enter a description of the task.";
             }
-            if($Hours[$index] < 0 ) {
+            if($Hours[$index] < 0 || !is_numberic($Hours[$index])) {
                 $_POST["Error"]["Hours"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"][] = "You can not enter negative hours.";
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a positive numeric value for Hours.";
             }
-            if($Travel[$index] < 0 ) {
+            if($Travel[$index] < 0 || !is_numeric($Travel[$index])) {
                 $_POST["Error"]["Travel"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"][] = "You can not enter negative travel distance.";
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a positive numeric value for Travel.";
             }
             // Check for a valid date.
             try {
@@ -70,7 +70,7 @@ class TimeSheetController extends TSController {
             } catch(Exception $ex) {
                 $_POST["Error"]["EntryDate"][$index] = true;
                 $_POST["Error"][$index] = true;
-                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a valid date, ex: 12/25/2015";
+                $GLOBALS["APP"]["MSG"]["ERROR"][] = "Please enter a valid date. Example: " . date("m/d/Y",time());
             } finally {
                 unset($tmpDate);
             }
