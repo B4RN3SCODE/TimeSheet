@@ -73,6 +73,10 @@ class User extends BaseDB {
     public function setOnline($value) { $this->_Online = $value; }
 
     public function __construct($id=null) {
+        if(!isset($GLOBALS["APP"]["INSTANCE"]->_dbAdapter)) {
+            $GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
+            $GLOBALS["APP"]["INSTANCE"]->_dbAdapter->Link();
+        }
         $this->db = $GLOBALS["APP"]["INSTANCE"]->_dbAdapter;
         $this->db->setTBL(get_class($this));
         if($id) {
