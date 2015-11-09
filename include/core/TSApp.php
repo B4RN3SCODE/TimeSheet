@@ -111,6 +111,8 @@ class TSApp {
 			die("Cant Run Right Now.... sorry dude.");
 		}
 
+		// lets the app access these functions later
+		$GLOBALS["APP"]["INSTANCE"] = $this;
 	}
 
 
@@ -159,8 +161,6 @@ class TSApp {
 			var_dump($this);
 			echo "--->";
 		}
-		// lets the app access these functions later
-		$GLOBALS["APP"]["INSTANCE"] = $this;
 		// run application
 		$this->Run();
 
