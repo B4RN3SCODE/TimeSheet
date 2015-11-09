@@ -18,7 +18,7 @@ var debug = true;
 
 function AddProjectToMyList(ProjectId) {
     Debug_Print("AddProjectToMyList(" + ProjectId + ")")
-    var url = urlPrefix + root_dir + 'TimeSheet/Admin/AddProjectToMyList';
+    var url = urlPrefix + root_dir + 'TimeSheet/Database/AddProjectToMyList';
     var data = { ProjectId: ProjectId};
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
@@ -45,7 +45,7 @@ function Error_Output(xhr, status, errorThrown) {
 }
 function GetClientById(form_name,ClientId) {
     Debug_Print("GetClientById(" + ClientId + ")")
-    var url = urlPrefix + root_dir + 'TimeSheet/Admin/GetClientById';
+    var url = urlPrefix + root_dir + 'TimeSheet/Database/GetClientById';
     var data = { ClientId: ClientId};
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
@@ -77,7 +77,7 @@ function GetLineItemById(row) {
 }
 function GetProjectById(form_name,ProjectId) {
     Debug_Print("GetProjectById(" + ProjectId + ")")
-    var url = urlPrefix + root_dir + 'TimeSheet/Admin/GetProjectById';
+    var url = urlPrefix + root_dir + 'TimeSheet/Database/GetProjectById';
     var data = { ProjectId: ProjectId};
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
@@ -140,7 +140,7 @@ function RemoveLineEntryFromProject(id,row) {
 }
 function RemoveProjectFromMyList(ProjectId) {
     Debug_Print("RemoveProjectFromMyList(" + ProjectId + ")");
-    var url = urlPrefix + root_dir + 'TimeSheet/Admin/RemoveProjectFromMyList';
+    var url = urlPrefix + root_dir + 'TimeSheet/Database/RemoveProjectFromMyList';
     var data = { ProjectId: ProjectId};
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
@@ -213,7 +213,7 @@ function UpdateLineItem(event) {
 }
 function initialize() {
     var path = window.location.pathname.toLowerCase();
-    if(path.indexOf("/timesheet/admin") >= 0) {
+    if(path.indexOf("/timesheet/database") >= 0) {
         $('[id^=client] [data-edit-id]').on('click', function () {
             GetProjectById('editproject', $(this).attr('data-edit-id'));
             $('#modal-editproject').modal('show');

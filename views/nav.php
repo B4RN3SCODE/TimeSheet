@@ -1,4 +1,6 @@
-<?php $GLOBALS["APP"]["MSG"]["INFO"][] = "Create TimeSheet/Admin page to create .xls"; ?>
+<?php
+$GLOBALS["APP"]["MSG"]["ERROR"][] = "Move all ajax targets to AJAX/INDEX/{action}";
+$GLOBALS["APP"]["MSG"]["ERROR"][] = "Create TimeSheet/Admin page to create .xls"; ?>
   <nav class="navbar navbar-default">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
