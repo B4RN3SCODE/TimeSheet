@@ -164,7 +164,8 @@ $table[$objPHPExcel->getActiveSheetIndex()]["end"][] = PHPExcel_Cell::stringFrom
 foreach($table as $sheetIndex => $data) {
 	for($i = 0; $i < count($data["start"]); $i++) {
 		$CellCoordinate = $data["start"][$i] . ":" . $data["end"][$i];
-		$objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($CellCoordinate)->applyFromArray($styles["border-thin"]);
+		$objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($CellCoordinate)->applyFromArray($styles["border"]);
+//		$objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($CellCoordinate)->applyFromArray($styles["border-inside"]);
 	}
 }
 
