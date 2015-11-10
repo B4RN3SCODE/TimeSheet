@@ -1,3 +1,7 @@
+/classes/PHPExcel/Chart/Renderer
+/classes/PHPExcel/Shared
+/classes/PHPExcel/locale
+/classes/PHPExcel/CachedObjectStorage
 *.map
 test.php
 /public/style/bootstrap.css.map
