@@ -5,7 +5,7 @@
       <h3 class="panel-title">Please sign in</h3>
     </div>
     <div class="panel-body">
-      <form action="/User/Index/Login/" method="POST">
+      <form action="<?php echo SUBDIR; ?>/User/Index/Login/" method="POST">
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="email" id="inputEmail" class="form-control input-lg" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>

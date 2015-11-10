@@ -1,7 +1,3 @@
-<?php
-$MyClients = ($TPLDATA["MyClients"] == false) ? array() : $TPLDATA["MyClients"];
-$MyProjects = array();
-?>
 <div id="edit-account">
 	<div id="user-edit" class="col-md-6">
 		<div class="panel panel-default">
@@ -35,37 +31,6 @@ $MyProjects = array();
 					<input type="submit" class="btn btn-secondary pull-right" value="Save Changes" />
 				</form>
 				<!--            <div class="row"><hr></div>-->
-			</div>
-		</div>
-	</div>
-	<div id="timesheet-edit" class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Timesheet Settings</h3>
-			</div>
-			<div class="panel-body">
-				<form name="timesheet-settings" action="/User/Edit/UpdateDefault" method="post">
-					<input type="hidden" name="form" value="timesheet-settings">
-					<div class="form-group">
-						<label for="default-client">Default Client</label>
-						<select name="default-client" class="form-control">
-							<option value="0">-- Select Client --</option>
-							<?php foreach($MyClients as $cid => $client) { ?>
-								<option value="<?php echo $cid ?>"<?php if($client["Default"] == true) { $MyProjects = $client["Projects"]; echo " selected"; }?>><?php echo $client["Name"]; ?></option>
-							<?php } ?>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="default-project">Default Project</label>
-						<select name="default-project" class="form-control">
-							<option value="0" selected>-- Select Project --</option>
-							<?php foreach($MyProjects as $pid => $project) { ?>
-								<option value="<?php echo $pid ?>"<?php if($project["Default"] == true) echo " selected";?>><?php echo $project["Name"] ?></option>
-							<?php } ?>
-						</select>
-					</div>
-					<input type="submit" class="btn btn-secondary pull-right" value="Save Changes" />
-				</form>
 			</div>
 		</div>
 	</div>

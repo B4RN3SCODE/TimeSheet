@@ -50,7 +50,7 @@ class TSApp {
 	public static $DEFAULT_CONFIG_MAP = array(
 		"module"	=>	array(
 					"urii"		=>	0,
-					"default"	=>	"timesheet",
+					"default"	=>	"app",
 				),
 		"view"		=>	array(
 					"urii"		=>	1,
@@ -111,8 +111,6 @@ class TSApp {
 			die("Cant Run Right Now.... sorry dude.");
 		}
 
-		// lets the app access these functions later
-		$GLOBALS["APP"]["INSTANCE"] = $this;
 	}
 
 
@@ -126,18 +124,18 @@ class TSApp {
 
 		// find the module, instantiate a controller
 		// based on result
-		$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"]);
+		$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"] + (strlen(SUBDIR) > 0));
 		if($module === false)
 			$module = $this->_defaultModule;
 		$this->_requested["Module"] = $module;
 
 		// get the view and action if there is one
-		$view = $this->Isolate(self::$DEFAULT_CONFIG_MAP["view"]["urii"]);
+		$view = $this->Isolate(self::$DEFAULT_CONFIG_MAP["view"]["urii"] + (strlen(SUBDIR) > 0));
 		if($view === false)
 			$view = $this->_defaultView;
 		$this->_requested["View"] = ($view == "index") ? "Home" : $view;
 
-		$action = $this->Isolate(self::$DEFAULT_CONFIG_MAP["action"]["urii"]);
+		$action = $this->Isolate(self::$DEFAULT_CONFIG_MAP["action"]["urii"] + (strlen(SUBDIR) > 0));
 		if($action === false)
 			$action = $this->_defaultAction;
 		$this->_requested["Action"] = $action;
@@ -161,6 +159,8 @@ class TSApp {
 			var_dump($this);
 			echo "--->";
 		}
+		// lets the app access these functions later
+		$GLOBALS["APP"]["INSTANCE"] = $this;
 		// run application
 		$this->Run();
 
@@ -262,31 +262,14 @@ class TSApp {
 	 **********************************************/
 	public function SessionActivate() {
 		if(isset($_SESSION["PHPSESSID"]) && $_SESSION["PHPSESSID"] == true && isset($_COOKIE["PHPSESSID"]) && !(is_null(session_id()))) {
-			SessionBillingCycle();
 			return false;
 		}
 
 		if(isset($_SESSION["PHPSESSID"])) unset($_SESSION["PHPSESSID"]);
 		session_start();
-		$this->SessionBillingCycle();
 		$_SESSION["PHPSESSID"] = true;
 		if(isset($_SESSION["User"])) { $_SESSION["User"]->setDB($this->_dbAdapter); }
 		return true;
-	}
-
-	/*********************************************
-	 * Set up our billing cycle information
-	 ********************************************/
-	private function SessionBillingCycle() {
-		if(!isset($_SESSION["CurrentDay"]) || empty($_SESSION["CurrentDay"]) || strtotime($_SESSION["CurrentDay"]) != strtotime(date("Y-m-d"))) {
-			$_SESSION["CurrentDay"] = date("Y-m-d");
-			unset($_SESSION["CurrentBillingPeriod"]);
-		}
-		if(!isset($_SESSION["CurrentBillingPeriod"]) || empty($_SESSION["CurrentBillingPeriod"])) {
-			$_SESSION["CurrentBillingPeriod"] = base::GetBillingCycle();
-			$days_left = date_diff(new DateTime($_SESSION["CurrentDay"]),new DateTime($_SESSION["CurrentBillingPeriod"]["EndDate"]))->days;
-			$_SESSION["CurrentBillingPeriod"]["DaysLeft"] = $days_left;
-		}
 	}
 
 	/*********************************************

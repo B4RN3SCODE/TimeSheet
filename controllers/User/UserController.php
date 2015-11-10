@@ -99,6 +99,7 @@ class UserController extends TSController {
 			$this->User->setOnline(0);
 			$this->User->save();
 		}
+		unset($_SESSION["APP"]);
 		$GLOBALS["APP"]["INSTANCE"]->SessionTerminate();
 		$GLOBALS["APP"]["MSG"]["ERROR"][] = "You have been logged out!";
 		$this->Redirect("user","login");
@@ -179,37 +180,6 @@ class UserController extends TSController {
 			$GLOBALS["APP"]["MSG"]["ERROR"][] = "There was a problem updating your profile.<br />" . $this->User->GetDBError();
 		}
 		$this->Redirect("user","edit");
-	}
-
-	public function UpdateDefault() {
-		if(!isset($_POST["default-client"])) {
-			$GLOBALS["APP"]["MSG"]["ERROR"][] = "<strong>Uh oh! </strong>There was a problem updating your settings. Please try again.";
-			return $this->Redirect("user","edit");
-		}
-		if(!isset($_POST["default-project"])) {
-			$_POST["default-project"] = 0;
-		}
-		$TimeSheetSettings = new TimeSheetSettings($this->User->getId());
-		$TimeSheetSettings->setUserId($this->User->getId());
-		$TimeSheetSettings->setDefaultClient($_POST["default-client"]);
-		$TimeSheetSettings->setDefaultProject($_POST["default-project"]);
-		if($TimeSheetSettings->save()) {
-			$GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Your settings updated.";
-		} else {
-			$GLOBALS["APP"]["MSG"]["ERROR"][] = "There was a problem updating your settings.<br />" . $TimeSheetSettings->GetDBError();
-		}
-		return $this->Redirect("user","edit");
-	}
-
-	public function GetProjectsByClient() {
-		$ReturnArray = array();
-		if(isset($_POST["ClientId"]) && $_POST["ClientId"] != 0) {
-			$ProjectArray = new ProjectArray();
-			foreach ($ProjectArray->LoadProjectsByClientId($_POST["ClientId"]) as $id => $values) {
-				$ReturnArray[$id] = $values["Name"];
-			}
-		}
-		$this->EncodeAndSendJSON($ReturnArray);
 	}
 }
 ?>

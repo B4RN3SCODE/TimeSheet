@@ -1,7 +1,4 @@
-<?php
-$GLOBALS["APP"]["MSG"]["ERROR"][] = "Move all ajax targets to AJAX/INDEX/{action}";
-$GLOBALS["APP"]["MSG"]["ERROR"][] = "Create TimeSheet/Admin page to create .xls"; ?>
-  <nav class="navbar navbar-default">
+	<nav class="navbar navbar-default">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -11,22 +8,22 @@ $GLOBALS["APP"]["MSG"]["ERROR"][] = "Create TimeSheet/Admin page to create .xls"
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Arbor Solutions</a>
+        <a class="navbar-brand" href="#">Big O' Cafe</a>
 
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <?php module_menu(array($GLOBALS["APP"]["INSTANCE"]->GetController()->GetModule() => array_keys(array_flip($GLOBALS["APP"]["MODULE_MAP"])))); ?>
-        </ul>
-        <ul class="nav navbar-nav">
-          <?php nav_menu($GLOBALS["APP"]["NAVIGATION"][strtolower($GLOBALS["APP"]["INSTANCE"]->_controller->GetModule())]); ?>
-        </ul>
+<!--        <ul class="nav navbar-nav">-->
+<!--          --><?php //module_menu(array($GLOBALS["APP"]["INSTANCE"]->GetController()->GetModule() => array_keys(array_flip($GLOBALS["APP"]["MODULE_MAP"])))); ?>
+<!--        </ul>-->
+<!--        <ul class="nav navbar-nav">-->
+<!--          --><?php //nav_menu($GLOBALS["APP"]["NAVIGATION"][strtolower($GLOBALS["APP"]["INSTANCE"]->_controller->GetModule())]); ?>
+<!--        </ul>-->
         <ul class="nav navbar-nav navbar-right">
           <?php user_options_menu(); ?>
         </ul>
-      </div><!-- /.navbar-collapse -->
+      </div>
     </div><!-- /.container-fluid -->
   </nav>
   <div class="container">

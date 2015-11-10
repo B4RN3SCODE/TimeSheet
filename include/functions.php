@@ -29,7 +29,7 @@ function nav_menu($pages,$return=false,$module=null) {
       $menu_item .= '  </ul>';
       $menu_item .= '</li>';
     } else {
-      $menu_item = "<li$class><a href=\"/$module/$name\">$title$sr</a></li>";
+      $menu_item = "<li$class><a href=\"" . SUBDIR . "/$module/$name\">$title$sr</a></li>";
     }
     $menu .= $menu_item;
   }
@@ -60,7 +60,7 @@ function module_menu($pages,$return=false) {
       $menu_item .= '  </ul>';
       $menu_item .= '</li>';
     } else {
-      $menu_item = "<li$class><a href=\"/$name\">" . ucfirst($name) . "$sr</a></li>";
+      $menu_item = "<li$class><a href=\"" . SUBDIR . "/$name\">" . ucfirst($name) . "$sr</a></li>";
     }
     $menu .= $menu_item;
   }
@@ -73,7 +73,8 @@ function module_menu($pages,$return=false) {
 
 function user_options_menu() {
   if(is_logged_in()) {
-    nav_menu(array("Account" => array("Edit Account" => "Edit", "Logout" => "Logout")),false,"User");
+    nav_menu(array("Logout" => "Logout"),false,"User");
+//    nav_menu(array("Account" => array("Edit Account" => "Edit", "Logout" => "Logout")),false,"User");
   } else {
     nav_menu(array("Login"=>"Login"),false,"User");
   }

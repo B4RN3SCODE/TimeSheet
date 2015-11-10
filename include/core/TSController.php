@@ -88,6 +88,7 @@ class TSController {
 		} else {
 			$this->_viewProcessor->SetUp(); // not sure what this should do yet... maybe look for extra js files to include or something
 			$this->{$this->_action}();
+			$this->index();
 			// end output buffering shit in the view
 		}
 	}

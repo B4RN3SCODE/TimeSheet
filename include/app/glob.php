@@ -9,8 +9,7 @@
  * @contact			cschaefer@arbsol.com
  * @version			1.0
  *******************************************/
-$GLOBALS["STARTDATE"] = new DateTime("2015-04-06");
-$GLOBALS["ENDDATE"] = new DateTime();
+
 $GLOBALS["APP"] = array(
 	"INSTANCE"	=>	null,
 	"FORCE_LOGIN"	=>	null,
@@ -21,11 +20,10 @@ $GLOBALS["APP"] = array(
   ),
 	"MODULE_MAP"	=>	array(
 		"ajax" => "Ajax",
-		"timesheet"	=>	"TimeSheet",
+		"app" => "App",
 		"user"		=>	"User",
 	),
 	"NAVIGATION"	=>	array(
-		"timesheet"	=>	array("Home"=>"Home","Database"=>"Database","Summary"=>"Summary"),
 		"user"		=>	array("Home"=>"Home","Admin"=>"Admin"),
 	),
 );
