@@ -72,6 +72,8 @@ class User extends BaseDB {
     public function setRestriction($value) { $this->_Restriction = $value; }
     public function setOnline($value) { $this->_Online = $value; }
 
+    public function GetName() { return $this->_FirstName . " " . $this->_LastName; }
+
     public function __construct($id=null) {
         if(!isset($GLOBALS["APP"]["INSTANCE"]->_dbAdapter)) {
             $GLOBALS["APP"]["INSTANCE"]->_dbAdapter = new DBCon();
