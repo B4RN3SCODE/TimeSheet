@@ -37,6 +37,33 @@ class AjaxController extends TSController
 		$this->Redirect("ajax","lineitemtable");
 	}
 
+	public function GetClientById() {
+		if(!isset($_POST["ClientId"]) || empty($_POST["ClientId"])) {
+			die();
+		}
+		$Client = new Client($_POST["ClientId"]);
+		$this->EncodeAndSendJSON($Client->toArray());
+	}
+
+	public function GetProjectById() {
+		if(!isset($_POST["ProjectId"]) || empty($_POST["ProjectId"])) {
+			die();
+		}
+		$Project = new Project($_POST["ProjectId"]);
+		$this->EncodeAndSendJSON($Project->toArray());
+	}
+
+	public function GetProjectsByClient() {
+		$ReturnArray = array();
+		if(isset($_POST["ClientId"]) && $_POST["ClientId"] != 0) {
+			$ProjectArray = new ProjectArray();
+			foreach ($ProjectArray->LoadProjectsByClientId($_POST["ClientId"]) as $id => $values) {
+				$ReturnArray[$id] = $values["Name"];
+			}
+		}
+		$this->EncodeAndSendJSON($ReturnArray);
+	}
+
 	public function RemoveLineEntry() {
 		if(!isset($_POST["LineEntryId"]) || empty($_POST["LineEntryId"])) die();
 		$LineItem = new LineItem($_POST["LineEntryId"]);

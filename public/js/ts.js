@@ -45,7 +45,7 @@ function Error_Output(xhr, status, errorThrown) {
 }
 function GetClientById(form_name,ClientId) {
     Debug_Print("GetClientById(" + ClientId + ")")
-    var url = urlPrefix + root_dir + 'TimeSheet/Database/GetClientById';
+    var url = urlPrefix + root_dir + 'Ajax/Index/GetClientById';
     var data = { ClientId: ClientId};
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
@@ -77,7 +77,7 @@ function GetLineItemById(row) {
 }
 function GetProjectById(form_name,ProjectId) {
     Debug_Print("GetProjectById(" + ProjectId + ")")
-    var url = urlPrefix + root_dir + 'TimeSheet/Database/GetProjectById';
+    var url = urlPrefix + root_dir + 'Ajax/Index/GetProjectById';
     var data = { ProjectId: ProjectId};
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
@@ -93,7 +93,7 @@ function GetProjectById(form_name,ProjectId) {
 }
 function GetProjectsByClient(form_name,select_name,ClientId) {
     Debug_Print("GetProjectsByClient(" + form_name + "," + select_name + "," + ClientId + ")")
-    var url = urlPrefix + root_dir + 'User/Home/GetProjectsByClient';
+    var url = urlPrefix + root_dir + 'Ajax/Index/GetProjectsByClient';
     var data = { ClientId: ClientId };
     $.ajax({
         url: url, data: data, type: "POST", dataType: "json",

@@ -57,10 +57,10 @@
 						?></a>
 					<div class="collapse" id="period<?php echo $PeriodId; ?>">
 						<?php foreach($Period["Client"] as $ClientId => $Client) { ?>
-							<a href="#<?php echo "p{$PeriodId}c{$ClientId}"; ?>" class="client list-group-item" data-toggle="collapse"><?php echo $Client["Name"]; ?></a>
+							<a href="#<?php echo "p{$PeriodId}c{$ClientId}"; ?>" class="client list-group-item list-group-item-warning" data-toggle="collapse"><?php echo $Client["Name"]; ?></a>
 							<div class="collapse" id="<?php echo "p{$PeriodId}c{$ClientId}"; ?>">
 								<?php foreach($Client["Project"] as $ProjectId => $Project) { ?>
-									<a href="#<?php echo "p{$PeriodId}p{$ProjectId}"; ?>" class="project list-group-item" data-toggle="collapse"><?php echo $Project["Name"]; ?></a>
+									<a href="#<?php echo "p{$PeriodId}p{$ProjectId}"; ?>" class="project list-group-item list-group-item-text" data-toggle="collapse"><?php echo $Project["Name"]; ?></a>
 									<div id="<?php echo "p{$PeriodId}p{$ProjectId}"; ?>" class="collapse table-responsive">
 										<table class="table table-condensed table-striped table-bordered">
 											<thead>
