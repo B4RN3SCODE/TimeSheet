@@ -20,7 +20,7 @@ $styles = array(
 		'italic' => true, 'color' => array('rgb' => '000000'), 'size' => 11, 'name' => 'Verdana'
 		)
 	),
-	"border" => array(
+	"table" => array(
 		'borders' => array(
 			'inside' => array(
 				'style' => PHPExcel_Style_Border::BORDER_MEDIUM,

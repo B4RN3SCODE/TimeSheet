@@ -149,14 +149,12 @@ $from = $offset + 1;
 $to = $offset + $project_count;
 
 $col = 1;
+
 $Sheets["Totals"]->setCellValueByColumnAndRow($col++,++$row,"Totals");
+$Sheets["Totals"]->mergeCellsByColumnAndRow($col - 1, $row,$col, $row);
 
 $Sheets["Totals"]->setCellValueByColumnAndRow(++$col,$row,"=SUM(D$from:D$to)");
 $Sheets["Totals"]->setCellValueByColumnAndRow(++$col,$row,"=SUM(E$from:E$to)");
-
-//$Sheets["Totals"]->setCellValue("B" . ($offset + $project_count + 1),"Totals");
-//$Sheets["Totals"]->setCellValue("D" . ($offset + $project_count + 1),"=SUM(C$from:C$to)");
-//$Sheets["Totals"]->setCellValue("E" . ($offset + $project_count + 1),"=SUM(D$from:D$to)");
 
 $table[$objPHPExcel->getActiveSheetIndex()]["end"][] = PHPExcel_Cell::stringFromColumnIndex($col) . $row;
 
@@ -164,8 +162,7 @@ $table[$objPHPExcel->getActiveSheetIndex()]["end"][] = PHPExcel_Cell::stringFrom
 foreach($table as $sheetIndex => $data) {
 	for($i = 0; $i < count($data["start"]); $i++) {
 		$CellCoordinate = $data["start"][$i] . ":" . $data["end"][$i];
-		$objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($CellCoordinate)->applyFromArray($styles["border"]);
-//		$objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($CellCoordinate)->applyFromArray($styles["border-inside"]);
+		$objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($CellCoordinate)->applyFromArray($styles["table"]);
 	}
 }
 
@@ -187,11 +184,8 @@ header("Content-Type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=\"$file.xlsx\"");
 header("Cache-Control: max-age=0");
 
-$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
-$objWriter->save("php://output");
+PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007")->save("php://output");
 
 die();
 $file = outdir . time() . ".xlsx";
-echo $file;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007')->save($file);
+PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007')->save($file);
