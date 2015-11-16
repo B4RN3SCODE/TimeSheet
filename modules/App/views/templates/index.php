@@ -1,5 +1,4 @@
-<!--<pre>--><?//print_r($TPLDATA); ?><!--</pre>-->
-<?php $submitOrder = false; ?>
+<?php $submitOrder = false; $total = 0; ?>
 <div class="col-sm-6">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -51,11 +50,12 @@
 						<label>Customer #<?php echo $customer->GetId(); ?></label>
 					</div>
 					<?php foreach($customer->GetItemList() as $item) {
-						if(count($item) > 0 && !$submitOrder) $submitOrder = true;?>
+						if(count($item) > 0 && !$submitOrder) $submitOrder = true;
+						$total += $item->GetPrice(); ?>
 						<div class="list-group-item list-group-item-warning" data-customer-id="<?php echo $customer->GetId();?>" data-item-id="<?php echo $item->GetId();?>">
 							<span class="glyphicon glyphicon-info-sign pull-right"></span>
 							<span class="glyphicon glyphicon-edit pull-right">&nbsp;</span>
-							<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<label class="item-name"><?php echo $item->GetName(); if(!empty($item->GetCustom())) echo " - " . $item->GetCustom(); ?></label>
+							<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<label class="item-name"><?php echo $item->GetName() . " [$" . $item->GetPrice() . "]"; if(!empty($item->GetCustom())) echo " - " . $item->GetCustom(); ?></label>
 						</div>
 					<? } ?>
 				<? } ?>
@@ -65,6 +65,8 @@
 			<form action="<?php echo SUBDIR; ?>/App/Index/SubmitOrder" method="post">
 				<input type="hidden" name="valid" value="true" />
 				<button type="submit" class="btn btn-primary btn-block">Submit Order To Kitchen</button>
+				<br />
+				<h3>Total:&nbsp;$<?php echo $total; ?></h3>
 			</form>
 			<? } ?>
 			<? } else { ?>
