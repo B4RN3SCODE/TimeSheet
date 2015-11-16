@@ -103,6 +103,10 @@ class AppController extends TSController {
 		} else {
 			$count = 1;
 		}
+		if($_POST["customers"] < 1) {
+			$GLOBALS["APP"]["MSG"]["ERROR"] = "How can you have negative customers?";
+			return $this->index();
+		}
 		for($index = 0; $index < $count; $index++) {
 			$Customer = new Customer();
 			$Customer->SetId($index + 1);
