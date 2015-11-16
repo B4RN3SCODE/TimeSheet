@@ -103,7 +103,7 @@ class AppController extends TSController {
 		} else {
 			$count = 1;
 		}
-		if($_POST["customers"] < 1) {
+		if($_POST["customers"] < 0) {
 			$GLOBALS["APP"]["MSG"]["ERROR"][] = "How can you have negative customers?";
 			return $this->index();
 		}
