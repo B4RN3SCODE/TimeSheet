@@ -69,6 +69,7 @@ function GetLineItemById(row) {
             $.each(data, function(key, value) {
                 $('form[name="editlineitem"] input[name="' + key + '"]').val(value);
             });
+            $('#modal-editlineitem').modal('show');
         },
         error: function( xhr, status, errorThrown ) {
             Error_Output(xhr, status, errorThrown);

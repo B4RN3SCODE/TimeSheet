@@ -33,12 +33,12 @@
 						</tbody>
 					</table>
 <script>
-	$('[id^=listitem] button span.glyphicon-remove').on('click',function(event) {
+	$('[id^=listitem] td button[title="Remove"]').on('click',function(event) {
 		var row = $(this).parents('tr');
 		var id = $(row).attr('id').substr('listitem-'.length);
 		RemoveLineEntryFromProject(id,row);
 	});
-	$('[id^=listitem] button span.glyphicon-pencil').on('click',function(event) {
+	$('[id^=listitem] td button[title="Edit"]').on('click',function(event) {
 		var row = $(this).parents('tr');
 		GetLineItemById(row);
 		$('#modal-editlineitem').modal('show');
