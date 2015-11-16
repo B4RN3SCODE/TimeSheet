@@ -55,7 +55,7 @@
 						<div class="list-group-item list-group-item-warning" data-customer-id="<?php echo $customer->GetId();?>" data-item-id="<?php echo $item->GetId();?>">
 							<span class="glyphicon glyphicon-info-sign pull-right"></span>
 							<span class="glyphicon glyphicon-edit pull-right">&nbsp;</span>
-							<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<label class="item-name"><?php echo $item->GetName() . " [$" . $item->GetPrice() . "]"; if(!empty($item->GetCustom())) echo " - " . $item->GetCustom(); ?></label>
+							<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<label class="item-name"><?php echo $item->GetName() . " <span class=\"price\">[$" . $item->GetPrice() . "]</span>"; if(!empty($item->GetCustom())) echo " - " . $item->GetCustom(); ?></label>
 						</div>
 					<? } ?>
 				<? } ?>
@@ -66,7 +66,7 @@
 				<input type="hidden" name="valid" value="true" />
 				<button type="submit" class="btn btn-primary btn-block">Submit Order To Kitchen</button>
 				<br />
-				<h3>Total:&nbsp;$<?php echo $total; ?></h3>
+				<h3>Total:&nbsp;<span class="price">$<?php echo $total; ?></span></h3>
 			</form>
 			<? } ?>
 			<? } else { ?>
