@@ -49,7 +49,18 @@ $(document).ready(function() {
     });
     $('#NewOrder').on('click',function(event) {
         $('#NewOrderModal').modal('show');
-    })
+    });
+    $('.glyphicon-edit').on('click', function(event) {
+        var item = $(this).parent();
+        var CustomerId = $(item).data('customerId');
+        var ItemId = $(item).data('itemId');
+        $('form[name="CustomOrder"] input[name="CustomerId"]').val(CustomerId);
+        $('form[name="CustomOrder"] input[name="ItemId"]').val(ItemId);
+       $('#CustomOrder').modal('show');
+    });
+    $('.glyphicon-info-sign').on('click', function(event) {
+        $("#ItemInfo").modal('show');
+    });
 });
 
 function validate(form) {

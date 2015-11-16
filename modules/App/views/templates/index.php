@@ -55,7 +55,7 @@
 						<div class="list-group-item list-group-item-warning" data-customer-id="<?php echo $customer->GetId();?>" data-item-id="<?php echo $item->GetId();?>">
 							<span class="glyphicon glyphicon-info-sign pull-right"></span>
 							<span class="glyphicon glyphicon-edit pull-right">&nbsp;</span>
-							<label class="item-name"><?php echo $item->GetName(); ?></label>&nbsp;<span class="glyphicon glyphicon-remove-circle"></span>
+							<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<label class="item-name"><?php echo $item->GetName(); if(!empty($item->GetCustom())) echo " - " . $item->GetCustom(); ?></label>
 						</div>
 					<? } ?>
 				<? } ?>
@@ -75,4 +75,6 @@
 </div>
 <?php include_once "views/modals/Menu.php";
 include_once "views/modals/RemoveItem.php";
-include_once "views/modals/NewOrder.php";?>
+include_once "views/modals/NewOrder.php";
+include_once "views/modals/CustomOrder.php";
+include_once "views/modals/ItemInfo.php"; ?>

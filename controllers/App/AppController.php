@@ -80,6 +80,18 @@ class AppController extends TSController {
 			}
 		}
 	}
+	public function CustomOrder() {
+		foreach($_POST as $key => $value) $$key = $value;
+		foreach($this->Current->GetCustomerList() as $Customer) {
+			if ($Customer->GetId() == $CustomerId) {
+				foreach($Customer->GetItemList() as $Item) {
+					if($Item->GetId() == $ItemId) {
+						$Item->SetCustom($customized);
+					}
+				}
+			}
+		}
+	}
 	public function NewOrder() {
 		$Order = new Order();
 		$Order->SetId(time());

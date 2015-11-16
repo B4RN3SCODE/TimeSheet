@@ -14,7 +14,7 @@
 define("STR_EMP", "");
 
 /**		DB		**/
-define("DB_HOST", "bctimesheet.db");
+define("DB_HOST", "localhost");
 define("DB_USER", "tsuser");
 define("DB_PASS", "12wsxcWSXC21");
 define("DB_NAME", "TimeSheet");
