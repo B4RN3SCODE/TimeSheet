@@ -5,7 +5,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Delete Project</h4>
 			</div>
-			<form name="delproject" action="/TimeSheet/Admin/DeleteProject" method="post"><!--onsubmit="return false;">-->
+			<form name="delproject" action="/TimeSheet/Database/DeleteProject" method="post"><!--onsubmit="return false;">-->
 				<input type="hidden" name="id" value="" />
 				<div class="modal-body">
 					<p>Are you sure you want to delete this project?</p>

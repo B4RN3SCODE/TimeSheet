@@ -4,7 +4,7 @@
 			<h3 class="panel-title">Create New User</h3>
 		</div>
 		<div class="panel-body">
-			<form name="user-settings" action="/User/Admin/AddUser" method="post">
+			<form name="user-settings" action="/User/Database/AddUser" method="post">
 				<input type="hidden" name="form" value="new-user">
 				<div class="row">
 					<div class="form-group col-sm-6">

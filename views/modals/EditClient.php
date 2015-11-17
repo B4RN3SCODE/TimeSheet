@@ -5,7 +5,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Edit Client</h4>
 			</div>
-			<form name="editclient" action="/TimeSheet/Admin/UpdateClient" method="post"><!--onsubmit="return false;">-->
+			<form name="editclient" action="/TimeSheet/Database/UpdateClient" method="post"><!--onsubmit="return false;">-->
 				<input type="hidden" name="id" value="" />
 				<div class="modal-body">
 					<div class="form-group">

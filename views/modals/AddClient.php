@@ -13,7 +13,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Add a new client</h4>
 			</div>
-			<form name="newclient" action="/TimeSheet/Admin/AddClient" method="post"><!--onsubmit="return false;">-->
+			<form name="newclient" action="/TimeSheet/Database/AddClient" method="post"><!--onsubmit="return false;">-->
 				<input type="hidden" name="id" value="" />
 				<div class="modal-body">
 					<div class="form-group">

@@ -5,7 +5,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Edit Project</h4>
 			</div>
-			<form name="editproject" action="/TimeSheet/Admin/UpdateProject" method="post"><!--onsubmit="return false;">-->
+			<form name="editproject" action="/TimeSheet/Database/UpdateProject" method="post"><!--onsubmit="return false;">-->
 				<input type="hidden" name="id" value="" />
 				<div class="modal-body">
 					<div class="form-group">
