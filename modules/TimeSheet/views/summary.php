@@ -18,7 +18,8 @@ class summary extends TSView {
 		$this->_viewTpl = "summary";
 
 		foreach((new TimeSheetPeriodArray())->load()->getArray() as $TimeSheetPeriod) {
-			$TimeSheetArray[] = (new LineItemArray())->LoadLineItemTotals($TimeSheetPeriod);
+			$LineItemTotals = (new LineItemArray())->LoadLineItemTotals($TimeSheetPeriod);
+			if(!empty($LineItemTotals["Total"])) $TimeSheetArray[] = $LineItemTotals;
 		}
 
 		$this->_tplData["TimeSheets"] = $TimeSheetArray;
