@@ -17,7 +17,7 @@
 							</a>
 							</div><?
 						}}?>
-					<form name="add-project" action="/TimeSheet/Admin/AddProject" method="post" onsubmit="return AddProject(this);">
+					<form name="add-project" action="/TimeSheet/Database/AddProject" method="post" onsubmit="return AddProject(this);">
 						<input type="hidden" name="clientId" value="<?php echo $cid; ?>" />
 						<div class="list-group">
 							<a class="list-group-item">
