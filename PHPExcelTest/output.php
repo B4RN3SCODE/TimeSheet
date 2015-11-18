@@ -45,8 +45,8 @@ $Totals = array();
 $TSApp = new TSApp();
 $TSApp->SessionActivate();
 
-$User = new User(2);
-$data = $User->LoadAllEntriesByPeriod(1,2);
+$User = $_SESSION["User"];
+$data = $User->LoadAllEntriesByPeriod(9,$User->getId());
 $objPHPExcel = new PHPExcel();
 $objPHPExcel->createSheet(1);
 
