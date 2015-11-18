@@ -46,7 +46,8 @@ $TSApp = new TSApp();
 $TSApp->SessionActivate();
 
 $User = $_SESSION["User"];
-$data = $User->LoadAllEntriesByPeriod(9,$User->getId());
+$_SESSION["CurrentBillingPeriod"] = base::GetBillingCycle();
+$data = $User->LoadAllEntriesByPeriod($_SESSION["CurrentBillingPeriod"]["Period"],$User->getId());
 $objPHPExcel = new PHPExcel();
 $objPHPExcel->createSheet(1);
 

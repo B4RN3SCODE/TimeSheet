@@ -109,5 +109,16 @@ class TimeSheetPeriod extends BaseDB {
 		$this->db = $db;
 	}
 
+	public function LoadByCycleStart($StartDate) {
+		if (!$StartDate) return false;
+		$strSQL = $this->db->SStatement(array(), get_class($this), array("CycleStart" => $StartDate));
+		$this->db->setQueryStmt($strSQL);
+		if ($this->db->Query()) {
+			$this->setVarsFromRow($this->db->getRow());
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 ?>
