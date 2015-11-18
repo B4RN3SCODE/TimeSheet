@@ -415,6 +415,10 @@ class DBCon {
         if(!isset($intoTbl) || empty($intoTbl) || !isset($valsArr) || count($valsArr) < 1)
             return false;
 
+        foreach($valsArr as $key => $value) {
+            $valsArr[$key] = $this->LinkRef->real_escape_string($value);
+        }
+
         // begin statement
         $str = "INSERT INTO ${intoTbl}";
 
