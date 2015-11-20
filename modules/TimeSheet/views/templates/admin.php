@@ -9,7 +9,7 @@ $Periods = $TPLDATA["Periods"];
 				<h3 class="panel-title">User and Period</h3>
 			</div>
 			<div class="panel-body">
-				<form name="UserAndPeriod" method="get">
+				<form name="UserAndPeriod" method="post" action="/services/UserCycle.php">
 				<div class="row">
 					<div class="col-sm-6">
 						<label for="uid">User</label>

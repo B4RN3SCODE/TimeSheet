@@ -23,7 +23,7 @@ function AddProjectToMyList(ProjectId) {
     jQuery.ajax({
         url: url, data: data, type: "POST", dataType: "json",
         success: function(data) {
-            alert(data.Status);
+            Notify(data.Status);
         },
         error: function( xhr, status, errorThrown ) {
             Error_Output(xhr, status, errorThrown);
@@ -37,7 +37,7 @@ function Debug_Print(text) {
 }
 function Error_Output(xhr, status, errorThrown) {
     if(debug) {
-        alert( "Sorry, there was a problem!" );
+        Notify( "Sorry, there was a problem!" );
         console.log( "Error: " + errorThrown );
         console.log( "Status: " + status );
         console.dir( xhr );
@@ -119,6 +119,14 @@ function LoadSelect(form_name,select_name,data) {
         $('form[name="' + form_name + '"] select[name="' + select_name + '"] option')[1].selected = true;
     }
 }
+function Notify(message,closeAction) {
+    $('#modal-notify #notify-message').html(message);
+    $('#modal-notify #exit').off();
+    if(typeof(closeAction) == "function") {
+        $('#modal-notify #exit').on('click', closeAction);
+    }
+    $('#modal-notify').modal('show');
+}
 function ReloadLineEntries(id) {
     var data = {
         ProjectId: $('form[name="timesheet"] select[name="project"]').val(),
@@ -182,7 +190,7 @@ function ToggleSubmit(PeriodId,target) {
                     $(target).html("Submit");
                 }
             } else {
-                alert("Sorry, something went wrong. Please try again.");
+                Notify("Sorry, something went wrong. Please try again.");
             }
         },
         error: function( xhr, status, errorThrown ) {
@@ -281,10 +289,25 @@ function initialize() {
     } else if(path.indexOf("/timesheet/admin") >= 0) {
         $('form[name="UserAndPeriod"]').on('submit', function(event) {
             if(this.uid.value < 0 || this.pid.value < 0) {
-                alert('Please select both user and period.');
-                event.preventDefault();
+                Notify('Please select both user and period.');
+                return false;
             }
-            this.action = "/services/UserCycle.php";
+            $.ajax({
+                async: false,
+                url: "/Ajax/Index/GetLineItemCount",
+                data: $(this).serialize(),
+                dataType: "html",
+                success: function(event, data) {
+                    if(parseInt(data) == 0) {
+                        var name = this.uid[this.uid.selectedIndex].text;
+                        Notify(name + ' does not have any line entries for the selected cycle.');
+                        event.preventDefault();
+                    }
+                }.bind(this,event),
+                error: function( xhr, status, errorThrown ) {
+                    Error_Output(xhr, status, errorThrown);
+                }
+            });
         });
     }
     $('form[name="timesheet-settings"] select[name="default-client"]').on('change', function (event) {

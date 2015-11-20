@@ -42,7 +42,7 @@ function ApplyStyle(PHPExcel_Worksheet $sheet, $colStartChar, $colEndChar = null
 $TSApp = new TSApp();
 $TSApp->SessionActivate();
 
-foreach($_GET as $key => $value)
+foreach($_REQUEST as $key => $value)
 	$$key = $value;
 $User = $_SESSION["User"];
 

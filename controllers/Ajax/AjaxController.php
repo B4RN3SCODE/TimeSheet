@@ -45,6 +45,10 @@ class AjaxController extends TSController
 		$this->EncodeAndSendJSON($Client->toArray());
 	}
 
+	public function GetLineItemCount() {
+		echo count((new User())->LoadAllEntriesByPeriod($_GET["pid"],$_GET["uid"]));
+	}
+
 	public function GetProjectById() {
 		if(!isset($_POST["ProjectId"]) || empty($_POST["ProjectId"])) {
 			die();
