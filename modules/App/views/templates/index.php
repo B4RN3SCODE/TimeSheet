@@ -17,15 +17,9 @@
 						<span class="glyphicon glyphicon-unchecked pull-right" onclick="$(this).parent().submit();"></span>
 					</form>
 					<? } else if($Order->GetStatus() == "Cooking") { ?>
-					<form action="<?php echo SUBDIR; ?>/App/Index/SetDelivered" method="post">
-						<input type="hidden" name="OrderId" value="<?php echo $Order->GetId(); ?>" />
-						<span class="glyphicon glyphicon-record pull-right" onclick="$(this).parent().submit();"></span>
-					</form>
+						<span class="glyphicon glyphicon-record pull-right"></span>
 					<? } else if($Order->GetStatus() == "Delivered") { ?>
-						<form action="<?php echo SUBDIR; ?>/App/Index/SetDelivered" method="post">
-							<input type="hidden" name="OrderId" value="<?php echo $Order->GetId(); ?>" />
-							<span class="glyphicon glyphicon-ok-sign pull-right" onclick="$(this).parent().submit();"></span>
-						</form>
+						<span class="glyphicon glyphicon-ok-sign pull-right"></span>
 					<? } ?>
 					<span class="rate pull-right">$<?php echo $Order->GetTotal(); ?></span>
 					<label>Table #<?php echo $Order->GetTable() . " - " . $Order->GetStatus(); ?></label>
@@ -66,7 +60,7 @@
 				<input type="hidden" name="valid" value="true" />
 				<button type="submit" class="btn btn-primary btn-block">Submit Order To Kitchen</button>
 				<br />
-				<h3>Total:&nbsp;<span class="price">$<?php echo $total; ?></span></h3>
+				<h3>Subtotal:&nbsp;<span class="price">$<?php echo $total; ?></span></h3>
 			</form>
 			<? } ?>
 			<? } else { ?>

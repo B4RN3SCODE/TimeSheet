@@ -6,7 +6,18 @@
 				<h4 class="modal-title">Item Information</h4>
 			</div>
 			<div class="modal-body">
-				<label>Here is where each item's nutritional and ingredient information will be located.</label>
+				<table class="table table-condensed table-striped">
+					<tbody>
+					<tr>
+						<td><label>Ingredients</label></td>
+						<td>Fish Oil, Corn Products, Flour, Spaghetti Sauce, Basil</td>
+					</tr>
+					<tr>
+						<td><label>Calories</label></td>
+						<td>640</td>
+					</tr>
+					</tbody>
+				</table>
 			</div>
 			<div class="modal-footer">
 				<button id="cancel" type="button" class="btn btn-block btn-danger pull-left" data-dismiss="modal" aria-label="Close">Ok</button>
