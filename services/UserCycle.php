@@ -50,11 +50,14 @@ if(!isset($pid) || empty($pid) || !is_numeric($pid))
 	die("Please provide appropriate inputs.");
 if(!isset($User) || empty($User->getId()))
 	die("Please login");
+if(!isset($uid) || empty($uid))
+	$uid = $User->getId();
+
 
 $FormatCells = array("Hours" => array(), "Travel" => array());
 $Totals = array();
 
-$data = $User->LoadAllEntriesByPeriod($pid,$User->getId());
+$data = $User->LoadAllEntriesByPeriod($pid,$uid);
 $objPHPExcel = new PHPExcel();
 $objPHPExcel->createSheet(1);
 

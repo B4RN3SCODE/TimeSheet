@@ -278,6 +278,14 @@ function initialize() {
             ToggleSubmit(PeriodId,event.target);
 
         });
+    } else if(path.indexOf("/timesheet/admin") >= 0) {
+        $('form[name="UserAndPeriod"]').on('submit', function(event) {
+            if(this.uid.value < 0 || this.pid.value < 0) {
+                alert('Please select both user and period.');
+                event.preventDefault();
+            }
+            this.action = "/services/UserCycle.php";
+        });
     }
     $('form[name="timesheet-settings"] select[name="default-client"]').on('change', function (event) {
         $('form[name="timesheet-settings"] select[name="default-project"] option:not(:first)').remove();

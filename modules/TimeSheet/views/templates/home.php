@@ -1,6 +1,9 @@
 <?php
 $MyClients = ($TPLDATA["MyClients"] == false) ? array() : $TPLDATA["MyClients"];
 $MyProjects = array();
+//echo "<pre>";
+//print_r($TPLDATA["BillingPeriod"]);
+//echo "</pre>";
 ?>
       <div class="col-md-9">
         <div class="row">
@@ -77,19 +80,3 @@ $MyProjects = array();
       $('.datepicker').datepicker();
     </script>
 <?php include_once "views/modals/EditLineItem.php"; ?>
-<table class="table">
-  <thead>
-  <tr><th>Start</th><th>End</th></tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>Monday</td><td>[11/16/2015]</td>
-  </tr>
-  <tr>
-    <td>Sunday</td><td>[11/29/2015]</td>
-  </tr>
-  </tbody>
-</table>
-<label>Monday [11/16/2015]</label><br>to<br>
-<label>Sunday [11/29/2015]</label><br>
-<label>9 days left</label>

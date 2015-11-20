@@ -53,6 +53,20 @@ class TimeSheetPeriodArray extends ArrayClass {
 			return array(array("value"=>$_SESSION["CurrentBillingPeriod"]["Period"],"label"=>"Current Cycle"));
 		}
 	}
+
+	function GetLoadedCycles() {
+		$retArray = array();
+		$Periods = $this->_arrObjects;
+		foreach($Periods as $Period) {
+			$StartDate = $Period->getCycleStart();
+			$EndDate = $Period->getCycleEnd();
+			$label = ($StartDate == $_SESSION["CurrentBillingPeriod"]["StartDate"])
+					? "Current Cycle"
+					:(new DateTime($StartDate))->format("m/d/Y") . " to " . (new DateTime($EndDate))->format("m/d/Y");
+			$retArray[] = array("value"=>$Period->getId(),"label"=>$label);
+		}
+		return $retArray;
+	}
 }
 
 class TimeSheetPeriod extends BaseDB {
