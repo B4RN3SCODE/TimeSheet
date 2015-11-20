@@ -82,7 +82,7 @@ class TSView {
 		} else {
 
 			if(!isset($this->_pageTitle) || !TSApp::StringHasValue($this->_pageTitle))
-				$this->_pageTitle = "TimeSheet Management Software | Presented by Arbor Solutions, INC.";
+				$this->_pageTitle = "Big O' Cafe";
 
 
 			$PAGETITLE = $this->_pageTitle;
