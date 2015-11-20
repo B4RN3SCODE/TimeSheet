@@ -31,7 +31,7 @@
 							$text = $TimeSheet["Submitted"] ? "Un-Submit" : "Submit";
 							echo "<button type=\"button\" class=\"btn btn-secondary\" data-action=\"toggle-submit\">$text</button>";
 						}?></td>
-						<td><a href="/PHPExcelTest/UserCycle.php?pid=<?php echo $TimeSheet["PeriodId"]; ?>" class="btn btn-primary">Download</a></td>
+						<td><a href="/services/UserCycle.php?pid=<?php echo $TimeSheet["PeriodId"]; ?>" class="btn btn-primary">Download</a></td>
 					</tr>
 				<? } ?>
 				</tbody>

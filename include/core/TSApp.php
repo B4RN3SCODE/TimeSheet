@@ -124,6 +124,10 @@ class TSApp {
 			// TODO handle
 		}
 
+		if(strpos($_SERVER['REQUEST_URI'],"?")) {
+			$_SERVER['REQUEST_URI'] = substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],"?"));
+		}
+
 		// find the module, instantiate a controller
 		// based on result
 		$module = $this->Isolate(self::$DEFAULT_CONFIG_MAP["module"]["urii"]);
