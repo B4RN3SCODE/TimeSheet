@@ -5,8 +5,20 @@ include_once "include/app/glob.php";
 include_once "include/functions.php";
 include_once "include/app/initialize.php";
 include_once "PHPExcelTest/Styles.php";
-define("outdir",dirname(__FILE__) . "/../tmp/");
+//function rrmdir($dir) {
+//	if (is_dir($dir)) {
+//		$objects = scandir($dir);
+//		foreach ($objects as $object) {
+//			if ($object != "." && $object != "..") {
+//				if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+//			}
+//		}
+//		reset($objects);
+//		rmdir($dir);
+//	}
+//}
 
+define("outdir",getcwd() . "/tmp/");
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
@@ -190,7 +202,7 @@ foreach($Sheets as $Name => $sheet) {
 
 $objPHPExcel->setActiveSheetIndex(0);
 
-$file = time();
+$file = "$pid-$uid" . $User->getFirstName() . $User->getLastName();
 
 header("Content-Type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=\"$file.xlsx\"");
@@ -199,5 +211,7 @@ header("Cache-Control: max-age=0");
 PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007")->save("php://output");
 
 die();
-$file = outdir . time() . ".xlsx";
-PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007')->save($file);
+
+$file = outdir . "p$pid" . $User->getFirstName() . $User->getLastName();
+PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007')->save("$file.xlsx");
+chmod("$file.xlsx", 0666);
