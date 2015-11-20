@@ -50,9 +50,10 @@ if(!isset($pid) || empty($pid) || !is_numeric($pid))
 	die("Please provide appropriate inputs.");
 if(!isset($User) || empty($User->getId()))
 	die("Please login");
-if(!isset($uid) || empty($uid))
+if(!isset($uid) || empty($uid)) {
 	$uid = $User->getId();
-
+}
+$User = new User($uid);
 
 $FormatCells = array("Hours" => array(), "Travel" => array());
 $Totals = array();
