@@ -98,8 +98,10 @@ form[name="timesheet"] table input[type="checkbox"] {
 #ActiveProjects ul li[data-pid] {
   cursor: pointer; }
 
-#TimeSheetSummary table.table td {
-  vertical-align: middle; }
+#TimeSheetSummary table.table {
+  table-layout: fixed; }
+  #TimeSheetSummary table.table td {
+    vertical-align: middle; }
 
 #DetailedSummary .list-group.panel table.table {
   margin-bottom: 0; }

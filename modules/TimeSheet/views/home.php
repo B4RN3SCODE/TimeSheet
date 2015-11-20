@@ -39,14 +39,15 @@ class home extends TSView
         $this->_tplData["LineItems"] = $LineItems->LoadLineItems($project);
         $this->_tplData["ActiveProject"] = $Projects->LoadActiveProjects();
         $this->_tplData["Submitted"] = TimeSheetSubmit::Submitted($_SESSION["User"]->getId(),$_SESSION["CurrentBillingPeriod"]["StartDate"],$_SESSION["CurrentBillingPeriod"]["EndDate"]);
-        foreach((new TimeSheetPeriodArray())->load()->getArray() as $TimeSheetPeriod) {
-            $StartDate = $TimeSheetPeriod->getCycleStart();
-            $EndDate = $TimeSheetPeriod->getCycleEnd();
-            $label = ($StartDate == $_SESSION["CurrentBillingPeriod"]["StartDate"])
-              ? "Current Cycle"
-              :(new DateTime($StartDate))->format("m/d/Y") . " to " . (new DateTime($EndDate))->format("m/d/Y");
-            $this->_tplData["BillingPeriod"][] = array("value"=>$TimeSheetPeriod->getId(), "label" => $label);
-        }
+//        foreach((new TimeSheetPeriodArray())->load()->getArray() as $TimeSheetPeriod) {
+//            $StartDate = $TimeSheetPeriod->getCycleStart();
+//            $EndDate = $TimeSheetPeriod->getCycleEnd();
+//            $label = ($StartDate == $_SESSION["CurrentBillingPeriod"]["StartDate"])
+//              ? "Current Cycle"
+//              :(new DateTime($StartDate))->format("m/d/Y") . " to " . (new DateTime($EndDate))->format("m/d/Y");
+//            $this->_tplData["BillingPeriod"][] = array("value"=>$TimeSheetPeriod->getId(), "label" => $label);
+//        }
+        $this->_tplData["BillingPeriod"] = (new TimeSheetPeriodArray())->LoadByUserAndProject($_SESSION["User"]->getId(),$project);
         $vwData = $this->LoadView();
     }
 }

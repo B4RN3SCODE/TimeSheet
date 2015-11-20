@@ -27,6 +27,32 @@ class TimeSheetPeriodArray extends ArrayClass {
 			return false;
 		}
 	}
+
+	function LoadByUserAndProject($UserId,$ProjectId) {
+		$retArray = array();
+		$strSQL = "SELECT DISTINCT TP.id, TP.CycleStart, TP.CycleEnd
+			FROM LineItem AS LI
+				INNER JOIN TimeSheetPeriod AS TP
+					ON LI.EntryDate BETWEEN TP.CycleStart AND TP.CycleEnd
+			WHERE LI.UserId = $UserId AND LI.ProjectId = $ProjectId
+			ORDER BY CycleStart DESC;";
+		$this->db->SetQueryStmt($strSQL);
+		if($this->db->Query()) {
+			foreach ($this->db->GetAll() as $row) {
+				$StartDate = $row["CycleStart"];
+				$EndDate = $row["CycleEnd"];
+				$label = ($StartDate == $_SESSION["CurrentBillingPeriod"]["StartDate"])
+						? "Current Cycle"
+						:(new DateTime($StartDate))->format("m/d/Y") . " to " . (new DateTime($EndDate))->format("m/d/Y");
+				$retArray[] = array("value"=>$row["id"], "label" => $label);
+			}
+		}
+		if(count($retArray) > 0) {
+			return $retArray;
+		} else {
+			return array(array("value"=>$_SESSION["CurrentBillingPeriod"]["Period"],"label"=>"Current Cycle"));
+		}
+	}
 }
 
 class TimeSheetPeriod extends BaseDB {
