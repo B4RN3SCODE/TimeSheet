@@ -40,4 +40,32 @@ $Periods = $TPLDATA["Periods"];
 			</div>
 		</div>
 	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">All Users For Period</h3>
+			</div>
+			<div class="panel-body">
+				<form name="AllUsersForPeriod" method="post" action="/services/AllUsersForPeriod.php">
+					<div class="row">
+						<div class="col-sm-12">
+							<label for="pid">Period</label>
+							<select name="pid" class="form-control">
+								<option value="-1">-- Select --</option>
+								<?php foreach($Periods as $tmpPeriod) { ?>
+									<option value="<?php echo $tmpPeriod["value"];?>"><?php echo $tmpPeriod["label"]; ?></option>
+								<? } ?>
+							</select>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-sm-12">
+							<button type="submit" id="DLAllUsersForPeriod" class="btn btn-secondary btn-block">Download Zip</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
