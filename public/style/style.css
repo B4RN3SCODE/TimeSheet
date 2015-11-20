@@ -113,6 +113,8 @@ form[name="timesheet"] table input[type="checkbox"] {
   font-weight: bold; }
 #DetailedSummary .project {
   padding-left: 30px; }
+#DetailedSummary table thead th:first-child, #DetailedSummary table thead th:nth-child(n+3) {
+  width: 1%; }
 
 /* Signin */
 .signin {
