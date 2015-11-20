@@ -1,0 +1,57 @@
+#inner-panel
+  border: 1px solid $table-border-color
+  border-top: none
+
+  #client-list,#my-client-list
+    .panel
+      border: none
+      & + .panel
+        margin-top: 0px
+      &:first-child
+        .panel-title
+          .list-group-item
+            &:first-child
+              border-top-width: 1px
+              border-top-left-radius: $list-group-border-radius
+              border-top-right-radius: $list-group-border-radius
+      &:last-child
+        .panel-title
+          .list-group-item
+            &:last-child
+              border-bottom-width: 1px
+              border-bottom-left-radius: $list-group-border-radius
+              border-bottom-right-radius: $list-group-border-radius
+            &[aria-expanded="true"]
+              border-radius: 0px
+      .panel-title
+        .list-group-item
+          border-top-left-radius: 0px
+          border-top-right-radius: 0px
+          border-bottom-left-radius: 0px
+          border-bottom-right-radius: 0px
+          border-top-width: 0px
+      .panel-collapse
+        .list-group
+          border-color: #dddddd
+          &:last-child
+            margin-bottom: 0
+            .list-group-item:last-child
+              border-bottom: 1px solid $list-group-border
+              border-bottom-left-radius: $list-group-border-radius
+              border-bottom-right-radius: $list-group-border-radius
+          .list-group-item
+            border-width: 0px 1px 1px 1px
+            border-radius: 0px
+            .rate
+              float: right
+[data-edit-client],[data-del-id],[data-edit-id],[data-addtomylist],[data-rem-mylist]
+  opacity: 0.5
+  &:hover
+    opacity: 1.0
+    cursor: pointer
+[data-edit-client]
+  padding-left: .3em
+[data-del-id],[data-rem-mylist]
+  color: #f00
+  padding-right: .3em
+  padding-top: .1em
