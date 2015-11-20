@@ -6,7 +6,7 @@ $Periods = $TPLDATA["Periods"];
 	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">User and Period</h3>
+				<h3 class="panel-title">Individual User and Period</h3>
 			</div>
 			<div class="panel-body">
 				<form name="UserAndPeriod" method="post" action="/services/UserCycle.php">
