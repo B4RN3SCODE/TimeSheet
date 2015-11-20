@@ -434,13 +434,21 @@ class DBCon {
         foreach($valsArr as $TBLCOL => $INVAL) {
             $tblColmnLst[] = $TBLCOL;
 
-            // determine type of data
-            if(gettype($INVAL) == "NULL" || strtoupper($INVAL) == "NULL" || (empty($INVAL) && gettype($INVAL) == "string"))
-                $valLst[] = "NULL";
-            elseif($INVAL == false)
-                $valLst[] = 0;
-            else
-                $valLst[] = (gettype($INVAL) == "string" && $INVAL != "?") ? "'${INVAL}'" : "${INVAL}";
+            if(isset($INVAL)) {
+                $INVAL = trim($INVAL);
+                if(gettype($INVAL) == "string") {
+                    $valLst[] = "'$INVAL'";
+                } else {
+                    $valLst[] = "$INVAL";
+                }
+            }
+//            // determine type of data
+//            if(gettype($INVAL) == "NULL" || strtoupper($INVAL) == "NULL" || (empty($INVAL) && gettype($INVAL) == "string"))
+//                $valLst[] = "NULL";
+//            elseif($INVAL == false)
+//                $valLst[] = 0;
+//            else
+//                $valLst[] = (gettype($INVAL) == "string" && $INVAL != "?") ? "'${INVAL}'" : "${INVAL}";
         } //end foreach
 
         $tmpA = "(" . implode(", ", $tblColmnLst) . ")";

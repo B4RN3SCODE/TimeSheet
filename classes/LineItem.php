@@ -136,8 +136,8 @@ class LineItem extends BaseDB {
 	public function setProjectId($value) { $this->_ProjectId = $value; }
 	public function setDescription($value) { $this->_Description = $value; }
 	public function setEntryDate($value) { if($value != "") { $this->_EntryDate = date('Y-m-d', strtotime(str_replace('-', '/', $value))); }}
-	public function setHours($value) { $this->_Hours = floatval($value); }
-	public function setTravel($value) { $this->_Travel = floatval($value); }
+	public function setHours($value) { $this->_Hours = doubleval($value); }
+	public function setTravel($value) { $this->_Travel = doubleval($value); }
 	public function setBillable($value) { $this->_Billable = $value; }
 
 	public function __construct($id=null) {

@@ -84,7 +84,7 @@ class TimeSheetController extends TSController {
             $LineItem->setEntryDate($EntryDate[$index]);
             $LineItem->setHours($Hours[$index]);
             $LineItem->setTravel($Travel[$index]);
-            $LineItem->setBillable(isset($_POST["Billable"][$index]) ? 1 : 0);
+            $LineItem->setBillable(isset($_POST["Billable"][$index]) ? true : false);
             // Try to save the entry
             if($LineItem->save()) {
                 $ValidEntries++;
