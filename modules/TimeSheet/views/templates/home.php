@@ -57,11 +57,9 @@ $MyProjects = array();
               </div>
               <div class="panel-body">
                 <div class="row">
-                  <form name="timesheet" action="" method="post">
-                    <div id="existing-entries" class="col-md-12 table-responsive" style="display: block;">
-                      <?php include_once "modules/TimeSheet/views/templates/home/existing-entries.php"; ?>
-                    </div>
-                  </form>
+                  <div id="existing-entries" class="col-md-12 table-responsive" style="display: block;">
+                    <?php include_once "modules/TimeSheet/views/templates/home/existing-entries.php"; ?>
+                  </div>
                 </div>
               </div>
             </div>
