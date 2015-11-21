@@ -1,20 +1,17 @@
 <?php
-/* FOR DEBUG PURPOSES... comment out when ready */
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-ini_set("log_errors", 1);
-ini_set("ignore_repeated_errors", 0);
-ini_set("track_errors", 1);
-ini_set("html_errors", 1);
-/* END DEBUG SHIT */
+/**
+ * Front to the WordPress application. This file doesn't do anything, but loads
+ * wp-blog-header.php which does and tells WordPress to load the theme.
+ *
+ * @package WordPress
+ */
 
-/**********************************
- * only entry point for application
- *********************************/
-include_once("include/app/initialize.php");
-$app = new TSApp(array(),3600,false);
-$app->SessionActivate();
-$app->Boot();
+/**
+ * Tells WordPress to load the WordPress theme and output it.
+ *
+ * @var bool
+ */
+define('WP_USE_THEMES', true);
 
-?>
+/** Loads the WordPress Environment and Template */
+require( dirname( __FILE__ ) . '/wp-blog-header.php' );
