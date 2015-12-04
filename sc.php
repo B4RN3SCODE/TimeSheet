@@ -13,12 +13,12 @@
 
 		<!--		SNAKE CHARMER CSS AND JS		-->
 		<link href="//www.barnescode.com/sc/style.css" rel="stylesheet">
-		<script src="//maxcdn.bootstrapcdn.com/sc/sc.js"></script>
+		<script src="//www.barnescode.com/sc/sc.js"></script>
 		<!--		SNAKE CHARMER CSS AND JS		-->
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<script src="//maxcdn.bootstrapcdn.com/sc/bootstrap.min.js"></script>
+		<script src="//www.barnescode.com/sc/bootstrap.min.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
