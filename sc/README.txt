@@ -13,14 +13,10 @@ soliciting information
 Author:		Tyler J Barnes
 Contact:	b4rn3scode@gmail.com
 Version:	1.0
+License:	www.barnescode.com/sc/LICENSE.txt
 
 
-License:
-
-
-
-
-
+##############################################
 Framework:
 
 
