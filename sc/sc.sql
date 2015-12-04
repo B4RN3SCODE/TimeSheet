@@ -124,13 +124,13 @@ PRIMARY KEY (Id) ) ENGINE = InnoDB;
 /* end Link table */
 
 
-/* UserAction table */
-CREATE TABLE UserAction ( Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+/* Action table */
+CREATE TABLE Action ( Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 Name VARCHAR(20) NOT NULL,
 Description VARCHAR(200) NULL DEFAULT NULL,
 PRIMARY KEY (Id),
 UNIQUE Name (Name) ) ENGINE = InnoDB;
-/* end UserAction table */
+/* end Action table */
 
 
 /* PageEvent table */
@@ -149,12 +149,12 @@ PRIMARY KEY (Id) ) ENGINE = InnoDB;
 /* end EventNotification table */
 
 
-/* EventUserAction table */
-CREATE TABLE EventUserAction ( Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+/* EventAction table */
+CREATE TABLE EventAction ( Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 EventId INT UNSIGNED NOT NULL DEFAULT '0',
-UserActionId INT UNSIGNED NOT NULL DEFAULT '0',
+ActionId INT UNSIGNED NOT NULL DEFAULT '0',
 PRIMARY KEY (Id) ) ENGINE = InnoDB;
-/* end EventUserAction table */
+/* end EventAction table */
 
 
 /* NotificationLink table */
