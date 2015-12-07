@@ -30,6 +30,10 @@ var SC = function(autoRender,config) {
 	this._themeData = {};
 	// notification data
 	this._notificationData = {};
+	// default getThemeUri
+	this._defaultGetThemeUri = 'http://www.barnescode.com/sc/include/getTheme.php';
+	// default getNotifDataUri
+	this._defaultGetNotifDataUri = 'http://www.barnescode.com/sc/include/getNotifData.php';
 
 
 	/*
@@ -129,6 +133,12 @@ var SC = function(autoRender,config) {
 	 * @return void
 	 */
 	this.getThemeData = function() {
+		if(!this._config.getThemeUri || typeof this._config.getThemeUri == 'undefined') {
+			this._config.getThemeUri = this._defaultGetThemeUri;
+		}
+		var me = this;
+		this.ajax(this._confif.getThemeUri,{theme:this._confif.themeId,license:this._confif.license},function() { console.log('err'); }, function(d) { me.setUpTheme(d); });
+
 	};
 
 
@@ -151,7 +161,8 @@ var SC = function(autoRender,config) {
 	 *
 	 * @return void
 	 */
-	this.setUpTheme = function() {
+	this.setUpTheme = function(d) {
+		console.log(d);
 	};
 
 
@@ -162,7 +173,8 @@ var SC = function(autoRender,config) {
 	 *
 	 * @return void
 	 */
-	this.setUpEvents = function() {
+	this.setUpEvents = function(d) {
+		console.log(d);
 	};
 
 
