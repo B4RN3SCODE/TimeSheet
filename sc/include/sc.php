@@ -75,13 +75,15 @@ $_SKIN_ = array(
 	"attributes"	=>	$tmp_attr,
 );
 
+// clean up
 unset($tmp_attr, $tmp_skin);
-var_dump($tmp_attr, $tmp_skin);
 
-echo "<html><body><pre><code>";
-var_dump($_SKIN_);
-echo "</code></pre></body></html>";
+// echo the results
+echo "<html><body><pre><code>"; // TODO DELETE
+echo json_encode($_SKIN_, JSON_NUMERIC_CHECK);
+echo "</code></pre></body></html>";// TODO DELETE
 
+exit;
 
 function getThemeSkin(DBCon $db, $lic = "", $thm = 0) {
 
