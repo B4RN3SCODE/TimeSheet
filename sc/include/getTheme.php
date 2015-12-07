@@ -68,6 +68,8 @@ $_SKIN_ = array(
 // clean up
 unset($tmp_attr, $tmp_skin, $elm_ids);
 
+header("Content-Type: application/json");
+
 // echo the results
 echo json_encode($_SKIN_, JSON_NUMERIC_CHECK);
 // bye bye

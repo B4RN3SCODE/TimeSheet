@@ -105,6 +105,7 @@ if($has_notifications) {
 // clean up unused shit
 unset($tmp_page_event_data, $tmp_actions, $tmp_notifications, $tmp_links, $has_notifications, $tmp_nids);
 
+header("Content-Type: application/json");
 
 // echo the results
 echo json_encode($_DATA_, JSON_NUMERIC_CHECK);
