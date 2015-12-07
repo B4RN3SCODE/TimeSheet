@@ -4,17 +4,8 @@ include("glob.php");
 include("DBCon.php");
 
 /************************************************************
- * SnakeCharmer AJAX / API handler
- * Right now this is very basic shit so I can get a widget
- * rendered correctly and go from there...
- *
- * This script will eventually be broken into 2 parts
- *  - getting themes and notification elements to render
- *  - getting event, page, notification data to execute
- *
- * Right now, both processes will be included here for
- * development.
- *
+ * getTheme
+ * Gets theme data
  *
  * EXPECTS:
  *  - license (string license number)
@@ -22,10 +13,9 @@ include("DBCon.php");
  *
  * @author			Tyler J Barnes
  * @contact			b4rn3scode@gmail.com
- * @version			0.0.0.0.1
+ * @version			0.0.0.0.1 (not even tested yet)
  * @doc				TBD
  *************************************************************/
-
 /*
  * TODO
  * 		add a check that verifies the license number to the
@@ -146,13 +136,6 @@ function getElmAttributes(DBCon $db, array $elmIds = array("0")) {
 	$db->Query();
 	return $db->GetAll();
 }
-
-
-/*********		GETTING THE DATA		*****************/
-
-
-/*********		END GETTING THE DATA		*****************/
-
 
 /*
  * end_proc
