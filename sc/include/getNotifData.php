@@ -146,6 +146,7 @@ function getPageEventData(DBCon $db, $lic = "", $pg = "") {
 		ON e.AccId = a.Id
 		WHERE p.Uri = '{$pg}' AND a.License = '{$lic}'";
 
+	die($sql);
 	$db->setQueryStmt($sql);
 	if(!$db->Query()) {
 		// TODO HANDLE ERROR
