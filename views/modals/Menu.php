@@ -12,36 +12,47 @@ $Menu = $TPLDATA["MENU"];
 			<input type="hidden" name="OrderId" value="" />
 			<input type="hidden" name="CustomerId" value="" />
 			<div class="modal-body">
-				<div class="list-group">
-					<?php
-					foreach($Menu as $Item => $SubItem) { ?>
-					<div class="list-group-item list-group-item-heading" <?php if(is_array($SubItem)) { ?>data-toggle="collapse" href="#<?php echo $Item; ?>"<?php }?>><?php echo $Item; ?></div>
-						<div class="collapse" id="<?php echo $Item; ?>">
-							<div class="list-group">
-							<?php foreach($SubItem as $SubItem2 => $SubItemGroup) {
-								if(is_array($SubItemGroup)) {?>
-									<div class="list-group-item list-group-item-info" <?php if(is_array($SubItemGroup)) { ?>data-toggle="collapse" href="#<?php echo $SubItem2; ?>"<?php }?>><?php echo $SubItem2; ?></div>
-									<div class="collapse" id="<?php echo $SubItem2; ?>">
-										<div class="list-group">
-										<?php foreach($SubItemGroup as $SubItem3 => $SubGroup3) { ?>
-											<div class="list-group-item list-group-item-warning"><?php echo $SubItem3; ?>
-												<span class="glyphicon glyphicon-plus-sign pull-right"></span>
-												<span class="rate pull-right"><?php echo $SubGroup3; ?></span>
-											</div>
-										<? } ?>
-										</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="list-group">
+							<?php
+							foreach($Menu as $Item => $SubItem) { ?>
+								<div class="list-group-item list-group-item-heading" <?php if(is_array($SubItem)) { ?>data-toggle="collapse" href="#<?php echo $Item; ?>"<?php }?>><?php echo $Item; ?></div>
+								<div class="collapse" id="<?php echo $Item; ?>">
+									<div class="list-group">
+										<?php foreach($SubItem as $SubItem2 => $SubItemGroup) {
+											if(is_array($SubItemGroup)) {?>
+												<div class="list-group-item list-group-item-info" <?php if(is_array($SubItemGroup)) { ?>data-toggle="collapse" href="#<?php echo $SubItem2; ?>"<?php }?>><?php echo $SubItem2; ?></div>
+												<div class="collapse" id="<?php echo $SubItem2; ?>">
+													<div class="list-group">
+														<?php foreach($SubItemGroup as $SubItem3 => $SubGroup3) { ?>
+															<div class="list-group-item list-group-item-warning"><?php echo $SubItem3; ?>
+																<span class="glyphicon glyphicon-plus-sign pull-right"></span>
+																<span class="rate pull-right"><?php echo $SubGroup3; ?></span>
+															</div>
+														<? } ?>
+													</div>
+												</div>
+											<? } else { ?>
+												<div class="list-group-item list-group-item-info"><?php echo $SubItem2; ?>
+													<span class="glyphicon glyphicon-plus-sign pull-right"></span>
+													<span class="rate pull-right"><?php echo $SubItemGroup; ?></span>
+												</div>
+											<? }
+										} ?>
 									</div>
-								<? } else { ?>
-									<div class="list-group-item list-group-item-info"><?php echo $SubItem2; ?>
-										<span class="glyphicon glyphicon-plus-sign pull-right"></span>
-										<span class="rate pull-right"><?php echo $SubItemGroup; ?></span>
-									</div>
-							<? }
-							} ?>
-							</div>
+								</div>
+							<? } ?>
 						</div>
-				<? } ?>
+					</div>
+					<div class="col-sm-6">
+						<div id="ItemsToAddToCustomer">
+							<h3>Current Items To Add</h3>
+							<div id="TheItems"></div>
+						</div>
+					</div>
 				</div>
+
 			</div>
 		<div class="modal-footer">
 			<div class="row">

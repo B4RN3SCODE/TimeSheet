@@ -25,7 +25,11 @@ $(document).ready(function() {
             name: 'price[]',
             value: price
         }).appendTo('form');
-        alert("Item added!");
+        //alert("Item added!");
+        $('#TheItems').append('<div><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<strong>' + item + '</strong> - <span class="price">' + price + '</span><br /></div>');
+        $('#TheItems .glyphicon-remove-circle').off().on('click', function(event) {
+            $(this).parent('div').remove();
+        });
     });
     $('#Menu').on('hide.bs.modal', function (event) {
         if($('form[name="AddItems"] input[name="item[]"]').length == 0 || confirm('Cancel add items to customer?')) {
