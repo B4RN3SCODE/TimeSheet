@@ -75,6 +75,9 @@ $_SKIN_ = array(
 	"attributes"	=>	$tmp_attr,
 );
 
+unset($tmp_attr, $tmp_skin);
+var_dump($tmp_attr, $tmp_skin);
+
 echo "<html><body><pre><code>";
 var_dump($_SKIN_);
 echo "</code></pre></body></html>";
