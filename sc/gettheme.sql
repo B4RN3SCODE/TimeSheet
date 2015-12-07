@@ -1,6 +1,7 @@
 USE SnakeCharmer;
 
 /* Passed to API 1) License | 2) Theme Id */
+/*
 SELECT
 	ne.Id AS ElmRecordId, ne.Name AS ElmName, ne.ElmId, ne.Height AS ElmH, ne.Width AS ElmW, ne.Style AS ElmStyle, ne.DisplayOrder AS ElmDO, ne.InnerHtml AS ElmInnerHtml, ne.DisplayNotifCount AS ElmShowCount,
 	ns.ThemeId AS ThemeId,
@@ -23,7 +24,7 @@ FROM NotificationElm AS ne
 
 WHERE ns.ThemeId = 1 AND a.License = 'xkH4edko9Kl3'
 ;
-
+*/
 
 /*
 SELECT
