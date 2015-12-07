@@ -223,7 +223,7 @@ function getNotificationLinks(DBCon $db, $lic = "", array $nids = array("0")) {
 	$lic = $db->EscapeQueryStmt($lic);
 	$str = implode(",", $nids);
 
-	$sql = "SELECT l.Uri AS LinkUri, nl.NotificationId AS NID FROM Link AS l INNER JOIN Account AS a ON l.AccId = a.Id INNER JOIN NotificationLink AS nl ON l.Id = nl.LinkId WHERE a.Active = 1 AND a.Del <> 1 AND l.Active = 1 AND l.Del <> 1 a.License = '{$lic}' AND nl.NotificationId IN ({$str});";
+	$sql = "SELECT l.Uri AS LinkUri, nl.NotificationId AS NID FROM Link AS l INNER JOIN Account AS a ON l.AccId = a.Id INNER JOIN NotificationLink AS nl ON l.Id = nl.LinkId WHERE a.Active = 1 AND a.Del <> 1 AND l.Active = 1 AND l.Del <> 1 AND a.License = '{$lic}' AND nl.NotificationId IN ({$str});";
 
 	$db->setQueryStmt($sql);
 	if(!$db->Query()) {
