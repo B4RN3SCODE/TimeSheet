@@ -22,7 +22,7 @@ var SC = function(config) {
 	// config
 	this._config = (!!config && (typeof config).toLowerCase() == 'object') ? config : undefined;
 	// jQuery
-	this._$ = ('undefined'==typeof jQuery || 'undefined' == $) undefined : $;
+	this._$ = ('undefined'==typeof jQuery || 'undefined' == $) ? undefined : $;
 
 
 
