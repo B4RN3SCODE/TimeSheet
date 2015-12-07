@@ -141,5 +141,30 @@ var SC = function(autoRender,config) {
 	 */
 	this.getNotifData = function() {
 	};
+
+
+
+	/*
+	 * setUpTheme
+	 * sets the theme up and renders the
+	 * defined elements
+	 *
+	 * @return void
+	 */
+	this.setUpTheme = function() {
+	};
+
+
+
+	/*
+	 * setUpEvents
+	 * sets up events and the notifications to be displayed
+	 *
+	 * @return void
+	 */
+	this.setUpEvents = function() {
+	};
+
+
 };
 // END SC

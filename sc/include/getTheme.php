@@ -51,11 +51,20 @@ $elm_ids = array();
 // get the skin data
 $tmp_skin = getThemeSkin($db, $_LICENSE_, $_THEME_);
 
+$has_data = false;
+
 foreach($tmp_skin as $idx => $elm_data) {
+
+	$has_data = true;
+
 	$elm_ids[] = (int)$elm_data["ElmRecordId"];
 	unset($elm_data);
+
 }
 
+if(!$has_data) {
+	end_proc("No Data");
+}
 
 // get attributes
 $tmp_attr = getElmAttributes($db, $elm_ids);
