@@ -144,7 +144,7 @@ function getPageEventData(DBCon $db, $lic = "", $pg = "") {
 		ON pe.PageId = p.Id
 		INNER JOIN Account AS a
 		ON e.AccId = a.Id
-		WHERE p.Uri = '{$pg}' AND a.License = '{$lic}'";
+		WHERE e.Active = 1 AND e.Del <> 1 AND et.Del <> 1 AND p.Active = 1 AND p.Del <> 1 AND a.Active = 1 AND a.Del <> 1 AND p.Uri = '{$pg}' AND a.License = '{$lic}'";
 
 	$db->setQueryStmt($sql);
 	if(!$db->Query()) {
@@ -167,7 +167,7 @@ function getPageEventData(DBCon $db, $lic = "", $pg = "") {
 function getEventActions(DBCon $db, array $eIds = array("0")) {
 	$str = implode(",",$eIds);
 
-	$sql = "SELECT a.Name AS EAction, ea.EventId AS EID FROM Action AS a INNER JOIN EventAction AS ea ON a.Id = ea.ActionId WHERE ea.EventId IN ({$str});";
+	$sql = "SELECT a.Name AS EAction, ea.EventId AS EID FROM Action AS a INNER JOIN EventAction AS ea ON a.Id = ea.ActionId WHERE a.Del <> 1 AND ea.EventId IN ({$str});";
 	$db->setQueryStmt($sql);
 	$db->Query();
 	return $db->GetAll();
@@ -197,7 +197,7 @@ function getNotifications(DBCon $db, $lic = "", array $eIds = array("0")) {
 		ON en.EventId = e.Id
 		INNER JOIN Account AS a
 		ON e.AccId = a.Id
-		WHERE n.Active = 1 AND n.Del <> 1 AND a.License = '{$lic}' AND e.Id IN ({$str})";
+		WHERE n.Active = 1 AND n.Del <> 1 AND e.Active = 1 AND e.Del <> 1 AND a.Active = 1 AND a.Del <> 1 AND a.License = '{$lic}' AND e.Id IN ({$str})";
 
 	$db->setQueryStmt($sql);
 	if(!$db->Query()) {
@@ -223,7 +223,7 @@ function getNotificationLinks(DBCon $db, $lic = "", array $nids = array("0")) {
 	$lic = $db->EscapeQueryStmt($lic);
 	$str = implode(",", $nids);
 
-	$sql = "SELECT l.Uri AS LinkUri, nl.NotificationId AS NID FROM Link AS l INNER JOIN Account AS a ON l.AccId = a.Id INNER JOIN NotificationLink AS nl ON l.Id = nl.LinkId WHERE a.License = '{$lic}' AND nl.NotificationId IN ({$str});";
+	$sql = "SELECT l.Uri AS LinkUri, nl.NotificationId AS NID FROM Link AS l INNER JOIN Account AS a ON l.AccId = a.Id INNER JOIN NotificationLink AS nl ON l.Id = nl.LinkId WHERE a.Active = 1 AND a.Del <> 1 AND l.Active = 1 AND l.Del <> 1 a.License = '{$lic}' AND nl.NotificationId IN ({$str});";
 
 	$db->setQueryStmt($sql);
 	if(!$db->Query()) {

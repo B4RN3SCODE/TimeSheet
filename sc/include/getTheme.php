@@ -106,7 +106,7 @@ function getThemeSkin(DBCon $db, $lic = "", $thm = 0) {
 			ON ne.AccId = a.Id
 			INNER JOIN Theme AS t
 			ON a.Id = t.AccId
-			WHERE ns.ThemeId = {$thm} AND a.License = '{$lic}'
+			WHERE ne.Active = 1 AND ne.Del <> 1 AND net.Del <> 1 AND a.Active = 1 AND a.Del <> 1 AND ns.ThemeId = {$thm} AND a.License = '{$lic}'
 			ORDER BY ne.DisplayOrder;";
 
 	$db->setQueryStmt($sql);
@@ -130,7 +130,7 @@ function getThemeSkin(DBCon $db, $lic = "", $thm = 0) {
 function getElmAttributes(DBCon $db, array $elmIds = array("0")) {
 	$str = implode(",",$elmIds);
 
-	$sql = "SELECT nea.NotificationElmId AS ElmRecordId, nea.Attribute AS ElmAttribute, nea.Value AS ElmAttributeValue FROM NotificationElmAttribute AS nea WHERE nea.NotificationElmId IN ({$str});";
+	$sql = "SELECT nea.NotificationElmId AS ElmRecordId, nea.Attribute AS ElmAttribute, nea.Value AS ElmAttributeValue FROM NotificationElmAttribute AS nea WHERE nea.Active = 1 AND nea.Del <> 1 AND nea.NotificationElmId IN ({$str});";
 
 	$db->setQueryStmt($sql);
 	$db->Query();
