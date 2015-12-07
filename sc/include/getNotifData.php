@@ -167,7 +167,7 @@ function getPageEventData(DBCon $db, $lic = "", $pg = "") {
 function getEventActions(DBCon $db, array $eIds = array("0")) {
 	$str = implode(",",$eIds);
 
-	$sql = "SELECT a.Name AS EAction FROM Action AS a INNER JOIN EventAction AS ea ON a.Id = ea.ActionId WHERE ea.EventId IN ({$str});";
+	$sql = "SELECT a.Name AS EAction, ea.EventId AS EID FROM Action AS a INNER JOIN EventAction AS ea ON a.Id = ea.ActionId WHERE ea.EventId IN ({$str});";
 	$db->setQueryStmt($sql);
 	$db->Query();
 	return $db->GetAll();
@@ -223,7 +223,7 @@ function getNotificationLinks(DBCon $db, $lic = "", array $nids = array("0")) {
 	$lic = $db->EscapeQueryStmt($lic);
 	$str = implode(",", $nids);
 
-	$sql = "SELECT l.Uri AS LinkUri FROM Link AS l INNER JOIN Account AS a ON l.AccId = a.Id INNER JOIN NotificationLink AS nl ON l.Id = nl.LinkId WHERE a.License = '{$lic}' AND nl.NotificationId IN ({$str});";
+	$sql = "SELECT l.Uri AS LinkUri, nl.NotificationId AS NID FROM Link AS l INNER JOIN Account AS a ON l.AccId = a.Id INNER JOIN NotificationLink AS nl ON l.Id = nl.LinkId WHERE a.License = '{$lic}' AND nl.NotificationId IN ({$str});";
 
 	$db->setQueryStmt($sql);
 	if(!$db->Query()) {
