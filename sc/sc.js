@@ -13,9 +13,23 @@
 
 /*
  * main object
+ *
+ * @param config object with config values
  * @return void
  */
-var SC = function() {
+var SC = function(config) {
 
+	// config
+	this._config = (!!config && (typeof config).toLowerCase() == 'object') ? config : undefined;
+
+	this.ini = function() {
+	};
+
+	this.getDefaultConfig = function() {
+		var loc = window.location;
+		return {
+			pageUri: loc.protocol+'//'+loc.hostname+loc.pathname,
+		}
+	};
 };
 // END SC
