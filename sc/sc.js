@@ -137,7 +137,7 @@ var SC = function(autoRender,config) {
 			this._config.getThemeUri = this._defaultGetThemeUri;
 		}
 		var me = this;
-		this.ajax(this._config.getThemeUri,{theme:this._config.themeId,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpTheme(d); });
+		this.ajax(this._config.getThemeUri,{theme:this._config.themeId,license:this._config.license},'POST',function() { console.log('err'); }, function(d) { me.setUpTheme(d); });
 
 	};
 
