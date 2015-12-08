@@ -149,18 +149,6 @@ var SC = function(autoRender,config) {
 		t = (!t || t == null || t == undefined || typeof t == 'undefined') ? 'POST' : t;
 		s = (!s || s == null || s == undefined || typeof s == 'undefined') ? this.defaultAjaxSuccCb : s;
 
-		console.log(u,d,t,e,s,has_data,has_succ_func);
-		return false;
-		/*var u = (!!args[0] && args[0].replace(/\ /g,'').length > 0) ? args[0] : undefined;
-		if('undefined'==typeof u) {
-			console.error('Invalid ajax url');
-			return false;
-		}
-		var d = (args[1] && (typeof args[1]).toLowerCase() ==
-		var t = (type.toUpperCase() == 'POST' || type.toUpperCase() == 'GET') ? type.toUpperCase() : 'POST';
-		var e = err;
-		var s = succ;
-
 		this._$.ajaxSetup({
 			cache: false,
 			headers: {
@@ -171,7 +159,7 @@ var SC = function(autoRender,config) {
 			url: u, data: d, type: t, error: e,	success: function(d) { s(d); }
 		});
 
-		return true;*/
+		return true;
 	};
 
 
