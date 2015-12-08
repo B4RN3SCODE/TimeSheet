@@ -210,38 +210,33 @@ var SC = function(autoRender,config) {
 	this.setUpTheme = function(d) {
 		this._themeData = d;
 		var tmpstr = '';
+		var outter_class = 'chatbox', set_inner_html = true;
+
 		for(var x in this._themeData.elements) {
 			var tmp = this._themeData.elements[x];
 
 			if(tmp.ElmTag == 'img') { // NOTE could add more elm types in this condition
+				outter_class = 'icon';
+				set_inner_html = false;
 
-				this._widget.append($('<div></div>').addClass('icon').attr('id', 'icon_'+x.toString()));
-				if(tmp.ElmUseCloseTag == 1) {
-					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'"></'+tmp.ElmTag+'>';
-				} else {
-					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'" />';
-				}
-				this._widget.find('#icon_'+x.toString()).append(tmpstr);console.log(tmpstr);
-				/* TODO
-				 * 		add in style, height, width shit here
-				 */
-				if(tmp.ElmShowCount > 0) {
-					this._widget.find('#icon_'+x.toString()).append($('<div class="notification"><small>0</small></div>'));
-				}
+			}
 
-			} // end image, icon whatever else we may add later idk
+			this._widget.append($('<div></div>').addClass(outter_class).attr('id', outter_class+'_'+x.toString()));
+			if(tmp.ElmUseCloseTag == 1) {
+				tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'"></'+tmp.ElmTag+'>';
+			} else {
+				tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'" />';
+			}
+			this._widget.find('#'+outter_class+'_'+x.toString()).append(tmpstr);
+			/* TODO
+			 * 		add in style, height, width shit here
+			 */
+			if(tmp.ElmShowCount > 0) {
+				this._widget.find('#icon_'+x.toString()).append($('<div class="notification"><small>0</small></div>'));
+			}
 
-			else { // text items or whatever
-
-				this._widget.append($('<div></div>').addClass('chatbox').attr('id', 'chatbox_'+x.toString()));
-				if(tmp.ElmUseCloseTag == 1) {
-					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'"></'+tmp.ElmTag+'>';
-				} else {
-					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'" />';
-				}
-				this._widget.find('#chatbox_'+x.toString()).append(tmpstr); console.log(tmpstr);
+			if(set_inner_html) {
 				this._widget.find(tmp.ElmId).html((tmp.ElmInnerHtml===null)?'':tmp.ElmInnerHtml);
-
 			}
 
 			// ADD ATTRIBUTES
@@ -255,8 +250,7 @@ var SC = function(autoRender,config) {
 			// END ATTRIBUTES
 		}
 		// clean up
-		delete this._themeData.attributes;
-		console.log(this._widget);
+		delete this._themeData;
 	};
 
 
