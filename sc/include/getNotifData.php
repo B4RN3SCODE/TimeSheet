@@ -22,7 +22,7 @@ include("DBCon.php");
  * 		add a check that verifies the license number to the
  * 		registered domain for the account....
  */
-var_dump($_REQUEST);
+var_dump($_SERVER);
 exit;
 
 // license number
