@@ -135,7 +135,7 @@ function validLicense(DBCon $db, $lic, $dom) {
 	$lic = $db->EscapeQueryStmt($lic);
 	$dom = $db->EscapeQueryStmt($dom);
 
-	$db->setQueryStmt("SELECT COUNT(*) AS tot FROM Account WHERE Domain = '{$dom}' AND License = '{$lic}'";
+	$db->setQueryStmt("SELECT COUNT(*) AS tot FROM Account WHERE Domain = '{$dom}' AND License = '{$lic}'");
 	$db->Query();
 	$isValid = $db->GetRow();
 	return (intval($isValid["tot"]) > 0);
