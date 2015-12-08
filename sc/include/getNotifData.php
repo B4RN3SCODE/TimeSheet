@@ -39,10 +39,6 @@ $_LICENSE_ = (isset($_REQUEST["license"]) && !empty($_REQUEST["license"]) && str
 $_PAGE_ = (isset($_REQUEST["page"]) && !empty($_REQUEST["page"]) && strlen($_REQUEST["page"]) > 0) ? $_REQUEST["page"] : STR_EMP;
 
 
-if(!validLicense($db, $_LICENSE_, $_ORIGIN_)) {
-	end_proc("Invalid Request");
-}
-
 if(empty($_LICENSE_) || $_LICENSE_ == STR_EMP) {
 	end_proc("Bad License");
 }
@@ -55,6 +51,10 @@ if(empty($_PAGE_) || $_PAGE_ == STR_EMP) {
 $db = new DBCon();
 if(!$db->Link()) {
 	end_proc("Failed to connect to database");
+}
+
+if(!validLicense($db, $_LICENSE_, $_ORIGIN_)) {
+	end_proc("Invalid Request");
 }
 
 

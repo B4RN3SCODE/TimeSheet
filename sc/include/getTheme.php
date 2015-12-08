@@ -38,9 +38,6 @@ $_THEME_ = (isset($_REQUEST["theme"]) && is_numeric($_REQUEST["theme"])) ? $_REQ
 // license number
 $_LICENSE_ = (isset($_REQUEST["license"]) && !empty($_REQUEST["license"]) && strlen($_REQUEST["license"]) > 0) ? $_REQUEST["license"] : STR_EMP;
 
-if(!validLicense($db, $_LICENSE_, $_ORIGIN_)) {
-	end_proc("Invalid Request");
-}
 
 if($_THEME_ < 1) {
 	end_proc("Bad Theme Id");
@@ -55,6 +52,12 @@ $db = new DBCon();
 if(!$db->Link()) {
 	end_proc("Failed to connect to database");
 }
+
+
+if(!validLicense($db, $_LICENSE_, $_ORIGIN_)) {
+	end_proc("Invalid Request");
+}
+
 
 // skin data (theme to load)
 $_SKIN_ = array();
