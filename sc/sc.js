@@ -83,7 +83,7 @@ var SC = function(autoRender,config) {
 	 */
 	this.getDefaultConfig = function() {
 		return {
-			pageUri: loc.protocol+'//'+loc.hostname+loc.pathname,
+			pageUri: window.location.protocol+'//'+window.location.hostname+window.location.pathname,
 			license: '',
 			themeId: 0,
 		}
