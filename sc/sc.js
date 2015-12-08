@@ -108,7 +108,7 @@ var SC = function(autoRender,config) {
 	 * @return true if successful
 	 */
 	this.ajax = function() {
-		var args = arguments, u, d, t, e, s, has_data = false, has_succ_func = false;
+		var args = arguments, u, d, t, e, s, has_data = false;
 
 		if(args.length < 2) {
 			console.error('Invalid arguments passed to ajax function. Required: target_url, data_to_send');
@@ -129,9 +129,8 @@ var SC = function(autoRender,config) {
 
 
 			} else if('function' == (typeof args[i]).toLowerCase()) {
-				has_succ_func = true;
-				s = (this.getParamNames(args[i]).length > 0) ? function(d) { args[i](d); } : function() { args[i](); };
 
+				s = args[i];
 
 			} else if('string' == (typeof args[i]).toLowerCase()) {
 
@@ -175,7 +174,7 @@ var SC = function(autoRender,config) {
 			this._config.getThemeUri = this._defaultGetThemeUri;
 		}
 		var me = this;
-		this.ajax(this._config.getThemeUri,{theme:this._config.themeId,license:this._config.license},'POST',function() { console.log('err'); }, function(d) { me.setUpTheme(d); });
+		this.ajax(this._config.getThemeUri,{theme:this._config.themeId,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpTheme(d); });
 
 	};
 
@@ -188,6 +187,11 @@ var SC = function(autoRender,config) {
 	 * @reutn void
 	 */
 	this.getNotifData = function() {
+		if(!this._config.getNotifDataUri || typeof this._config.getNotifDataUri == 'undefined') {
+			this._config.getNotifDataUri = this._defaultGetNotifDataUri;
+		}
+		var me = this;
+		this.ajax(this._config.getNotifDataUri,{theme:this._config.themeId,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpEvents(d); });
 	};
 
 
