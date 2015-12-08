@@ -43,6 +43,7 @@ var SC = function(autoRender,config) {
 	 * @return false if failure
 	 */
 	this.ini = function() {
+		var loc = window.location;
 
 		// make sure jQuery is loaded
 		if(this._$ == -1 || typeof this._$ == 'undefined') {
@@ -51,7 +52,7 @@ var SC = function(autoRender,config) {
 		}
 
 		// mandatory config vars
-		var conf = ['pageUri','license','themeId'];
+		var conf = ['license','themeId'];
 		// make sure all config is correct
 		for(var i in conf) {
 			if(!(conf[i] in this._config)) {
@@ -60,9 +61,12 @@ var SC = function(autoRender,config) {
 				break;
 			}
 		}
+
 		// set default config if undefined
 		if(typeof this._config == 'undefined') {
 			this._config = this.getDefaultConfig();
+		} else {
+			this._config.pageUri = loc.protocol+'//'+loc.hostname+loc.pathname;
 		}
 
 
@@ -78,12 +82,10 @@ var SC = function(autoRender,config) {
 	 * @return object of config vars and values
 	 */
 	this.getDefaultConfig = function() {
-		var loc = window.location;
 		return {
 			pageUri: loc.protocol+'//'+loc.hostname+loc.pathname,
 			license: '',
 			themeId: 0,
-
 		}
 	};
 
