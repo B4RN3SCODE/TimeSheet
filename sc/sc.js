@@ -92,21 +92,46 @@ var SC = function(autoRender,config) {
 	/*
 	 * ajax
 	 * ajax functionality for the app
+	 * feel free to pass these parameters to the function
+	 * in any manner you want to... any order.  the logic
+	 * will figure out what each parameter is.
+	 *
+	 * error callback function is not to be passed because
+	 * the framework will automatically handle an ajax error
+	 * only a success function is available to be overwritten,
+	 * otherwise the default ajax callback will be used
 	 *
 	 * @param url string target url
 	 * @param data object of data to send
-	 * @param type string type of request default POST
-	 * @param err function to execute on error
+	 * @param type string type of request default POST *NOT REQUIRED*
 	 * @param succ function to exectue on success
 	 * @return true if successful
-	 */
-	this.ajax = function(url, data, type, err, succ) {
-		var u = (!!url && url.replace(/\ /g,'').length > 0) ? url : undefined;
+	 *
+	this.ajax = function() {
+		var args = arguments, u, d, t, e, s, has_data = false, has_succ_func = false;
+		if(args.length < 2) {
+			console.error('Invalid arguments passed to ajax function. Required: target_url, data_to_send');
+			return false;
+		}
+
+		for(var i in args) {
+			if('object' == (typeof args[i]).toLowerCase()) {
+				for(var p in args[i]) {
+					has_data = true;
+					break;
+				}
+				d = args[i];
+				if(!has_data) {
+					console.warn('No data passed to SC.ajax function [empty object]. Sending request with no data');
+				}
+			} else if('function' == (typeof args[i]).toLowerCase()) {
+				has_succ
+		var u = (!!args[0] && args[0].replace(/\ /g,'').length > 0) ? args[0] : undefined;
 		if('undefined'==typeof u) {
 			console.error('Invalid ajax url');
 			return false;
 		}
-		var d = data;
+		var d = (args[1] && (typeof args[1]).toLowerCase() ==
 		var t = (type.toUpperCase() == 'POST' || type.toUpperCase() == 'GET') ? type.toUpperCase() : 'POST';
 		var e = err;
 		var s = succ;
@@ -175,6 +200,49 @@ var SC = function(autoRender,config) {
 	 */
 	this.setUpEvents = function(d) {
 		console.log(d);
+	};
+
+
+
+	/*
+	 * defaultAjaxSuccCb
+	 * decides what to do by default with ajax data
+	 * on success
+	 *
+	 * @param d data from ajax handler
+	 * @return void
+	 */
+	this.defaultAjaxSuccCb = function(d) {
+		console.log(d);
+	};
+
+
+	/*
+	 * defaultAjaxErrCb
+	 * default ajax error callback
+	 *
+	 * @return void
+	 */
+	this.defaultAjaxErrCb = function() {
+	};
+
+
+
+	/*
+	 * getParamNames
+	 * gets parameters for a given function
+	 *
+	 * @param func function to get the param of
+	 * @return array of functions
+	 */
+	this.getParamNames = function(func) {
+		var comment_regx = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+		var args_regx = /([^\s,]+)/g;
+
+		var funcStr = func.toString().replace(comment_regx, '');
+		var result = funcStr.slice(funcStr.indexOf('(')+1, funcStr.indexOf(')')).match(args_regx);
+
+		return (result === null) ? [] : result;
 	};
 
 
