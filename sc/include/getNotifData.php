@@ -24,7 +24,7 @@ include("DBCon.php");
  */
 
 // request origin -- url components for validation
-$_ORIGIN_ = array();
+$_ORIGIN_ = STR_EMP;
 if(isset($_SERVER["HTTP_ORIGIN"]) && validUrl($_SERVER["HTTP_ORIGIN"])) {
 	$_ORIGIN_ = getDomain($_SERVER["HTTP_ORIGIN"]);
 } elseif(isset($_SERVER["HTTP_HOST"]) && validUrl($_SERVER["HTTP_HOST"])) {
@@ -32,11 +32,16 @@ if(isset($_SERVER["HTTP_ORIGIN"]) && validUrl($_SERVER["HTTP_ORIGIN"])) {
 } elseif(isset($_SERVER["HTTP_REFERER"]) && validUrl($_SERVER["HTTP_REFERER"])) {
 	$_ORIGIN_ = getDomain($_SERVER["HTTP_REFERER"]);
 }
-die($_ORIGIN_);
+
 // license number
 $_LICENSE_ = (isset($_REQUEST["license"]) && !empty($_REQUEST["license"]) && strlen($_REQUEST["license"]) > 0) ? $_REQUEST["license"] : STR_EMP;
 // page uri
 $_PAGE_ = (isset($_REQUEST["page"]) && !empty($_REQUEST["page"]) && strlen($_REQUEST["page"]) > 0) ? $_REQUEST["page"] : STR_EMP;
+
+
+if(!validLicense($db, $_LICENSE_, $_ORIGIN_)) {
+	end_proc("Invalid Request");
+}
 
 if(empty($_LICENSE_) || $_LICENSE_ == STR_EMP) {
 	end_proc("Bad License");
