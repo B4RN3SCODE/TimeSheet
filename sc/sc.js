@@ -147,6 +147,8 @@ var SC = function(autoRender,config) {
 
 		e = this.defaultAjaxErrCb;
 		t = (!t || t == null || t == undefined || typeof t == 'undefined') ? 'POST' : t;
+		s = (!s || s == null || s == undefined || typeof s == 'undefined') ? this.defaultAjaxSuccCb : s;
+
 		console.log(u,d,t,e,s,has_data,has_succ_func);
 		return false;
 		/*var u = (!!args[0] && args[0].replace(/\ /g,'').length > 0) ? args[0] : undefined;
