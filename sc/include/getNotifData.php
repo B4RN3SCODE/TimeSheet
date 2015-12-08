@@ -26,14 +26,13 @@ include("DBCon.php");
 // request origin -- url components for validation
 $_ORIGIN_ = array();
 if(isset($_SERVER["HTTP_ORIGIN"]) && validUrl($_SERVER["HTTP_ORIGIN"])) {
-	$_ORIGIN_ = parse_url($_SERVER["HTTP_ORIGIN"]);
+	$_ORIGIN_ = getDomain($_SERVER["HTTP_ORIGIN"]);
 } elseif(isset($_SERVER["HTTP_HOST"]) && validUrl($_SERVER["HTTP_HOST"])) {
-	$_ORIGIN_ = parse_url($_SERVER["HTTP_HOST"]);
+	$_ORIGIN_ = getDomain($_SERVER["HTTP_HOST"]);
 } elseif(isset($_SERVER["HTTP_REFERER"]) && validUrl($_SERVER["HTTP_REFERER"])) {
-	$_ORIGIN_ = parse_url($_SERVER["HTTP_REFERER"]);
+	$_ORIGIN_ = getDomain($_SERVER["HTTP_REFERER"]);
 }
-var_dump($_ORIGIN_);
-exit;
+die($_ORIGIN_);
 // license number
 $_LICENSE_ = (isset($_REQUEST["license"]) && !empty($_REQUEST["license"]) && strlen($_REQUEST["license"]) > 0) ? $_REQUEST["license"] : STR_EMP;
 // page uri
@@ -271,6 +270,17 @@ function validUrl($str = STR_EMP) {
 }
 
 
+/*
+ * getDomain
+ * gets the domain
+ *
+ * @param url to get domain from
+ * @return string domain
+ */
+function getDomain($url = STR_EMP) {
+	preg_match("/[a-z0-9\-]{1,63}\.[a-z\.]{2,6}$/", parse_url($url, PHP_URL_HOST), $_domain_tld);
+	return $_domain_tld[0];
+}
 
 
 /*
