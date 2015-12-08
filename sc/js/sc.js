@@ -252,10 +252,10 @@ var SC = function(autoRender,config) {
 					//this._themeData.attributes.splice(y,1); // remove from array so we are eliminating attribes as we use them
 				}
 			}
-			// clean up
-			delete this._themeData.attributes;
 			// END ATTRIBUTES
 		}
+		// clean up
+		delete this._themeData.attributes;
 		console.log(this._widget);
 	};
 
