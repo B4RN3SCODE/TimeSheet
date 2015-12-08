@@ -228,9 +228,9 @@ var SC = function(autoRender,config) {
 
 			else { // text items or whatever
 
-				this._widget.append($('<div></div>').addClass('chatbox').attr('id', 'chatbox_'+x.toString()));
-				this._widget.find('#chatbox_'+x.toString()).append($('<'+tmp.ElmTag+' id="'+tmp.ElmId+'"'+(tmp.ElmUseCloseTag > 0)?'></'+tmp.ElmTag+'>':' />'));
-				this._widget.find('#chatbox_'+x.toString()).html((tmp.ElmInnerHtml===null)?'':tmp.ElmInnerHtml);
+				this._widget.append($('<div></div>').addClass('chatbox').attr('id', 'chatbox_'+x.toString())); console.log(1);
+				this._widget.find('#chatbox_'+x.toString()).append($('<'+tmp.ElmTag+' id="'+tmp.ElmId+'"'+(tmp.ElmUseCloseTag > 0)?'></'+tmp.ElmTag+'>':' />'));console.log(2);
+				this._widget.find('#chatbox_'+x.toString()).html((tmp.ElmInnerHtml===null)?'':tmp.ElmInnerHtml);console.log(3);
 
 			}
 
