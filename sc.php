@@ -59,7 +59,7 @@
 						<div class="panel-body">
 							<form action="#" method="POST">
 								<label for="inputEmail" class="sr-only">Email address</label>
-								<input type="email" name="email" id="txtEmail" class="form-control input-lg" placeholder="Email address" required autofocus>
+								<input type="email" name="email" id="txtEmail" class="form-control input-lg" placeholder="Email address" required>
 								<label for="inputPassword" class="sr-only">Password</label>
 								<input type="password" name="password" id="txtPassword" class="form-control input-lg" placeholder="Password" required>
 								<div class="checkbox">

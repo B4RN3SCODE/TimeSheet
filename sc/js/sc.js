@@ -30,6 +30,8 @@ var SC = function(autoRender,config) {
 	this._themeData = {};
 	// notification data
 	this._notificationData = {};
+	// html for widget
+	this._widget = $('<div id="SCWidget" class="sc_main"></div>');
 	// default getThemeUri
 	this._defaultGetThemeUri = 'http://www.barnescode.com/sc/include/getTheme.php';
 	// default getNotifDataUri
@@ -206,7 +208,46 @@ var SC = function(autoRender,config) {
 	 * @return void
 	 */
 	this.setUpTheme = function(d) {
-		console.log(d);
+		this._themeData = d;
+
+		for(var x in this._themeData.elements) {
+			var tmp = this._themeData.elements[x];
+
+			if(tmp.ElmTag == 'img') { // NOTE could add more elm types in this condition
+
+				this._widget.append($('<div></div>').addClass('icon').attr('id', 'icon_'+x.toString()));
+				this._widget.find('#icon_'+x.toString()).append($('<'+tmp.ElmTag+' id="'+tmp.ElmId+'"'+(tmp.ElmUseCloseTag > 0)?'></'+tmp.ElmTag+'>':' />'));
+				/* TODO
+				 * 		add in style, height, width shit here
+				 */
+				if(tmp.ElmShowCount > 0) {
+					this._widget.find('#icon_'+x.toString()).append($('<div class="notification"><small>0</small></div>'));
+				}
+
+			} // end image, icon whatever else we may add later idk
+
+			else { // text items or whatever
+
+				this._widget.append($('<div></div>').addClass('chatbox').attr('id', 'chatbox_'+x.toString()));
+				this._widget.find('#chatbox_'+x.toString()).append($('<'+tmp.ElmTag+' id="'+tmp.ElmId+'"'+(tmp.ElmUseCloseTag > 0)?'></'+tmp.ElmTag+'>':' />'));
+				this._widget.find('#chatbox_'+x.toString()).html((tmp.ElmInnerHtml===null)?'':tmp.ElmInnerHtml);
+
+			}
+
+			// ADD ATTRIBUTES
+			for(var y in this._themeData.attributes) {
+				var ytmp = this._themeData.attributes[y];
+				if(ytmp.ElmRecordId == tmp.ElmRecordId) {
+					this._widget.find('#'+tmp.ElmId).attr(ytmp.ElmAttribute,ytmp.ElmAttributeValue);
+					//this._themeData.attributes.splice(y,1); // remove from array so we are eliminating attribes as we use them
+				}
+			}
+			// clean up
+			delete this._themeData.attributes;
+			// END ATTRIBUTES
+			console.log(this._widget);
+			return false;
+		}
 	};
 
 
@@ -220,6 +261,16 @@ var SC = function(autoRender,config) {
 	this.setUpEvents = function(d) {
 		console.log(d);
 	};
+
+
+
+	/*
+	 * renderWidget
+	 * renders the widgeth
+	 */
+	this.renderWidget = function() {
+	};
+
 
 
 
