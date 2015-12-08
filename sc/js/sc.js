@@ -229,7 +229,7 @@ var SC = function(autoRender,config) {
 			else { // text items or whatever
 
 				this._widget.append($('<div></div>').addClass('chatbox').attr('id', 'chatbox_'+x.toString()));
-				this._widget.find('#chatbox_'+x.toString()).append('<'+tmp.ElmTag+' id="'+tmp.ElmId+'"'+(tmp.ElmUseCloseTag > 0)?'</'+tmp.ElmTag+'>':' />');
+				this._widget.find('#chatbox_'+x.toString()).append('<'+tmp.ElmTag+' id="'+tmp.ElmId+'"'+(tmp.ElmUseCloseTag > 0)?'></'+tmp.ElmTag+'>':' />');
 				this._widget.find(tmp.ElmId).html((tmp.ElmInnerHtml===null)?'':tmp.ElmInnerHtml);
 
 			}
@@ -245,9 +245,8 @@ var SC = function(autoRender,config) {
 			// clean up
 			delete this._themeData.attributes;
 			// END ATTRIBUTES
-			console.log(this._widget);
-			return false;
 		}
+		console.log(this._widget);
 	};
 
 
