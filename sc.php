@@ -6,19 +6,19 @@
 		<title>Snake Charmer Testing Page</title>
 		<link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700' rel='stylesheet' type='text/css'>
-		<link href="//www.barnescode.com/sc/bootstrap.min.css" rel="stylesheet">
+		<link href="//www.barnescode.com/sc/css/bootstrap.min.css" rel="stylesheet">
 		<link href="//www.barnescode.com/public/style/style.css" rel="stylesheet">
 		<link href="//www.barnescode.com/public/style/main.css" rel="stylesheet">
 
 
 		<!--		SNAKE CHARMER CSS AND JS		-->
-		<link href="//www.barnescode.com/sc/style.css" rel="stylesheet">
-		<script src="//www.barnescode.com/sc/sc.js"></script>
+		<link href="//www.barnescode.com/sc/css/style.css" rel="stylesheet">
+		<script src="//www.barnescode.com/sc/js/sc.js"></script>
 		<!--		SNAKE CHARMER CSS AND JS		-->
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<script src="//www.barnescode.com/sc/bootstrap.min.js"></script>
+		<script src="//www.barnescode.com/sc/js/bootstrap.min.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -74,8 +74,15 @@
 		</div>
 
 		<!--		SNAKE CHARMER SECTION BEGIN		-->
-		<div id="SCWidget" class="">
-			<!-- SNAKE CHARMER SHIT -->
+		<div id="SCWidget" class="sc_main">
+		  <div class="chatbox">
+			<p>Hi there! Have any questions we could help out with?</p>
+			<div class="closer"><i class="fa fa-close"></i></div>
+		  </div>
+		  <div class="icon">
+			<img src="https://scontent-lax3-1.xx.fbcdn.net/hprofile-xpf1/v/t1.0-1/p160x160/12191926_10101837650884937_3818581403182139697_n.jpg?oh=eaea8f7d9de03df52a540adfd700025b&oe=56DD606B">
+			<div class="notification"> <small>1</small> </div>
+		  </div>
 		</div>
 		<!--		SNAKE CHARMER SECTION END		-->
 
