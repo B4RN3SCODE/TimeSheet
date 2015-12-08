@@ -22,9 +22,18 @@ include("DBCon.php");
  * 		add a check that verifies the license number to the
  * 		registered domain for the account....
  */
-var_dump($_SERVER);
-exit;
 
+// request origin -- url components for validation
+$_ORIGIN_ = array();
+if(isset($_SERVER["HTTP_ORIGIN"]) && validUrl($_SERVER["HTTP_ORIGIN"])) {
+	$_ORIGIN_ = parse_url($_SERVER["HTTP_ORIGIN"]);
+} elseif(isset($_SERVER["HTTP_HOST"]) && validUrl($_SERVER["HTTP_HOST"])) {
+	$_ORIGIN_ = parse_url($_SERVER["HTTP_HOST"]);
+} elseif(isset($_SERVER["HTTP_REFERER"]) && validUrl($_SERVER["HTTP_REFERER"])) {
+	$_ORIGIN_ = parse_url($_SERVER["HTTP_REFERER"]);
+}
+var_dump($_ORIGIN_);
+exit;
 // license number
 $_LICENSE_ = (isset($_REQUEST["license"]) && !empty($_REQUEST["license"]) && strlen($_REQUEST["license"]) > 0) ? $_REQUEST["license"] : STR_EMP;
 // page uri
@@ -120,6 +129,17 @@ exit;
 /////////////// functions ////////////////////////////////////
 //////////////////////////////////////////////////////////////
 
+
+function validLicense(DBCon $db, $lic, $dom) {
+
+	$lic = $db->EscapeQueryStmt($lic);
+	$dom = $db->EscapeQueryStmt($dom);
+
+	$db->setQueryStmt("SELECT COUNT(*) AS tot FROM Account WHERE Domain = '{$dom}' AND License = '{$lic}'";
+	$db->Query();
+	$isValid = $db->GetRow();
+	return (intval($isValid["tot"]) > 0);
+}
 
 /*
  * getThemeSkin
@@ -235,6 +255,21 @@ function getNotificationLinks(DBCon $db, $lic = "", array $nids = array("0")) {
 	}
 	return $db->GetAll();
 }
+
+
+
+/*
+ * validUrl
+ * checks that param is valid url
+ *
+ * @param str: url
+ * @return true if valid
+ */
+function validUrl($str = STR_EMP) {
+	$str = trim(preg_replace("~http\:\/\/|https\:\/\/|www\.~", "", $str));
+	return preg_match("~[-a-zA-Z0-9\:\%\.\_\+\~\#\=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9\:\%\_\+\.\~\#\?\&\/\/\=]*)~", $str);
+}
+
 
 
 

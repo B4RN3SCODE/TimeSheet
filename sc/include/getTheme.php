@@ -22,6 +22,16 @@ include("DBCon.php");
  * 		registered domain for the account....
  */
 
+// request origin -- url components for validation
+$_ORIGIN_ = array();
+if(isset($_SERVER["HTTP_ORIGIN"]) && validUrl($_SERVER["HTTP_ORIGIN"])) {
+	$_ORIGIN_ = $_SERVER["HTTP_ORIGIN"];
+} elseif(isset($_SERVER["HTTP_HOST"]) && validUrl($_SERVER["HTTP_HOST"])) {
+	$_ORIGIN_ = $_SERVER["HTTP_HOST"];
+} elseif(isset($_SERVER["HTTP_REFERER"]) && validUrl($_SERVER["HTTP_REFERER"])) {
+	$_ORIGIN_ = $_SERVER["HTTP_REFERER"];
+}
+
 
 // theme id
 $_THEME_ = (isset($_REQUEST["theme"]) && is_numeric($_REQUEST["theme"])) ? $_REQUEST["theme"] : 0;
@@ -147,6 +157,23 @@ function getElmAttributes(DBCon $db, array $elmIds = array("0")) {
 	$db->Query();
 	return $db->GetAll();
 }
+
+
+
+/*
+ * validUrl
+ * checks that param is valid url
+ *
+ * @param str: url
+ * @return true if valid
+ */
+function validUrl($str = STR_EMP) {
+	$str = trim(preg_replace("~http\:\/\/|https\:\/\/|www\.~", "", $str));
+	return preg_match("~[-a-zA-Z0-9\:\%\.\_\+\~\#\=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9\:\%\_\+\.\~\#\?\&\/\/\=]*)~", $str);
+}
+
+
+
 
 /*
  * end_proc
