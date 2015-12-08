@@ -313,7 +313,7 @@ var SC = function(config) {
 
 						// validate notification
 						if(this._notificationData.links[n].NID == this._notificationData.notifications[j].NID) {
-							this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUrl);
+							this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUri);
 						}
 
 					} // END for loop for links
@@ -333,7 +333,7 @@ var SC = function(config) {
 
 			console.log(notification_list, tmp, me); // debug
 
-			this._$(identifiers[tmp.EIdentifier]+emp.EAttrVal).on(action_str, function() {
+			this._$(identifiers[tmp.EIdentifier]+tmp.EAttrVal).on(action_str, function() {
 				me.triggerEvent(tmp.EID, notification_list);
 			});
 
