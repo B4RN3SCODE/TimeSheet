@@ -209,20 +209,19 @@ var SC = function(autoRender,config) {
 	 */
 	this.setUpTheme = function(d) {
 		this._themeData = d;
-
+		var tmpstr = '';
 		for(var x in this._themeData.elements) {
 			var tmp = this._themeData.elements[x];
 
 			if(tmp.ElmTag == 'img') { // NOTE could add more elm types in this condition
 
 				this._widget.append($('<div></div>').addClass('icon').attr('id', 'icon_'+x.toString()));
-				var tmpstr = '';
 				if(tmp.ElmUseCloseTag == 1) {
-					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'"></'+tmp.ElmTag+'>'; console.log(tmpstr);
+					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'"></'+tmp.ElmTag+'>';
 				} else {
-					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'" />'; console.log(tmpstr);
+					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'" />';
 				}
-				this._widget.find('#icon_'+x.toString()).append(tmpstr);
+				this._widget.find('#icon_'+x.toString()).append(tmpstr);console.log(tmpstr);
 				/* TODO
 				 * 		add in style, height, width shit here
 				 */
@@ -235,7 +234,12 @@ var SC = function(autoRender,config) {
 			else { // text items or whatever
 
 				this._widget.append($('<div></div>').addClass('chatbox').attr('id', 'chatbox_'+x.toString()));
-				this._widget.find('#chatbox_'+x.toString()).append('<'+tmp.ElmTag+' id="'+tmp.ElmId+'"'+(tmp.ElmUseCloseTag == 1)?'></'+tmp.ElmTag+'>':' />');
+				if(tmp.ElmUseCloseTag == 1) {
+					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'"></'+tmp.ElmTag+'>';
+				} else {
+					tmpstr = '<'+tmp.ElmTag+' id="'+tmp.ElmId+'" />';
+				}
+				this._widget.find('#chatbox_'+x.toString()).append(tmpstr); console.log(tmpstr);
 				this._widget.find(tmp.ElmId).html((tmp.ElmInnerHtml===null)?'':tmp.ElmInnerHtml);
 
 			}
