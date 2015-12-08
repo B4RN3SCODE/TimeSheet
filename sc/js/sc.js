@@ -195,7 +195,7 @@ var SC = function(autoRender,config) {
 			this._config.getNotifDataUri = this._defaultGetNotifDataUri;
 		}
 		var me = this;
-		this.ajax(this._config.getNotifDataUri,{theme:this._config.themeId,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpEvents(d); });
+		this.ajax(this._config.getNotifDataUri,{page:this._config.pageUri,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpEvents(d); });
 	};
 
 
@@ -250,7 +250,7 @@ var SC = function(autoRender,config) {
 			// END ATTRIBUTES
 		}
 		// clean up
-		delete this._themeData;
+		delete this._themeData.attributes;
 	};
 
 
