@@ -14,14 +14,11 @@
 /*
  * main object
  *
- * @param autoRender boolean should the widget render automatically
  * @param config object with config values
  * @return void
  */
-var SC = function(autoRender,config) {
+var SC = function(config) {
 
-	// autoRender
-	this._autoRender = (autoRender===true);
 	// config
 	this._config = (!!config && (typeof config).toLowerCase() == 'object') ? config : undefined;
 	// jQuery
@@ -209,11 +206,10 @@ var SC = function(autoRender,config) {
 	 */
 	this.setUpTheme = function(d) {
 		this._themeData = d;
-		var tmpstr = '';
-		var outter_class = 'chatbox', set_inner_html = true;
+		var tmpstr = '', tmp, outter_class = 'chatbox', set_inner_html = true;
 
 		for(var x in this._themeData.elements) {
-			var tmp = this._themeData.elements[x];
+			 tmp = this._themeData.elements[x];
 
 			if(tmp.ElmTag == 'img') { // NOTE could add more elm types in this condition
 				outter_class = 'icon';
@@ -262,7 +258,86 @@ var SC = function(autoRender,config) {
 	 * @return void
 	 */
 	this.setUpEvents = function(d) {
-		console.log(d);
+		/* TODO add in page verification */
+		this._notificationData = d;
+		// reference for callback function when triggering event
+		var me = this;
+
+		// identifiers
+		var identifiers = {
+			id: '#',
+			class: '.',
+			tag: '',
+		}
+		// tmp object
+		var tmp;
+		// action list
+		var action_list = [];
+		// join string of action list
+		var action_str = '';
+		// notification list
+		var notification_list = [];
+
+		// iterate through all events to set everything up
+		for(var x in this._notificationData.page_event) {
+			tmp = this._notificationData.page_event[x];
+
+			var splices = []; // so we can eliminate actions for the next iteration
+			// iterate through actions see if they are for this event
+			for(var y in this._notificationData.actions) {
+				// check event IDs
+				if(this._notificationData.actions[y].EID == tmp.EID) {
+					action_list.push(this._notificationData.actions[y].EAction);
+					splices.push(y);
+				}
+			}
+			// remove the actions we are using already
+			for(var i in splices) {
+				this._notificationData.actions.splice(splices[i],1);
+			}
+			// clecn this array
+			splices = undefined;
+
+			action_str = action_list.join();
+
+			// iterate through notifications and find their links
+			for(var j in this._notificationData.notifications) {
+				this._notificationData.notifications[j].links = []; // will need to add links to appropriate notif
+				var link_splices = []; // to clean up for the next round so it wont iterate through as many
+				// only add if event ids match
+				if(this._notificationData.notifications[j].EID == tmp.EID) {
+					// iterate through links to check for their notification id
+					for(var n in this._notificationData.links) {
+
+						link_splices.push(n);
+
+						// validate notification
+						if(this._notificationData.links[n].NID == this._notificationData.notifications[j].NID) {
+							this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUrl);
+						}
+
+					} // END for loop for links
+
+					// remove items from link array
+					for(var m in link_splices) {
+						this._notificationData.links.splice(link_splices[m],1);
+					}
+					// clean array
+					link_splices = undefined;
+
+					// push the object to the notification list to pass into event function
+					notification_list.push(this._notificationData.notifications[j]);
+				}
+
+			} // END for loop for notifications
+
+			console.log(notification_list, tmp, me); // debug
+
+			this._$(identifiers[tmp.EIdentifier]+emp.EAttrVal).on(action_str, function() {
+				me.triggerEvent(tmp.EID, notification_list);
+			});
+
+		} // END for loop for events
 	};
 
 
