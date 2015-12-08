@@ -106,7 +106,7 @@ var SC = function(autoRender,config) {
 	 * @param type string type of request default POST *NOT REQUIRED*
 	 * @param succ function to exectue on success
 	 * @return true if successful
-	 *
+	 */
 	this.ajax = function() {
 		var args = arguments, u, d, t, e, s, has_data = false, has_succ_func = false;
 		if(args.length < 2) {
@@ -125,8 +125,23 @@ var SC = function(autoRender,config) {
 					console.warn('No data passed to SC.ajax function [empty object]. Sending request with no data');
 				}
 			} else if('function' == (typeof args[i]).toLowerCase()) {
-				has_succ
-		var u = (!!args[0] && args[0].replace(/\ /g,'').length > 0) ? args[0] : undefined;
+				has_succ_func = true;
+				s = (this.getParamNames(args[i]).length > 0) ? function(d) { args[i](d); } : function() { args[i](); };
+			} else if('string' == (typeof args[i]).toLowerCase()) {
+				if(args[i].toUpperCase() == 'POST' || args[i].toUpperCase() == 'GET') {
+					t = args[i].toUpperCase();
+				} else if(this.validUrl(args[i])) {
+					u = args[i];
+				} else {
+					t = 'POST';
+				}
+			}
+		}
+
+		e = this.defaultAjaxErrCb;
+		console.log(u, d, t, e, s, has_data, has_succ_func);
+		return false;
+		/*var u = (!!args[0] && args[0].replace(/\ /g,'').length > 0) ? args[0] : undefined;
 		if('undefined'==typeof u) {
 			console.error('Invalid ajax url');
 			return false;
@@ -146,7 +161,7 @@ var SC = function(autoRender,config) {
 			url: u, data: d, type: t, error: e,	success: function(d) { s(d); }
 		});
 
-		return true;
+		return true;*/
 	};
 
 
@@ -236,14 +251,30 @@ var SC = function(autoRender,config) {
 	 * @return array of functions
 	 */
 	this.getParamNames = function(func) {
-		var comment_regx = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
-		var args_regx = /([^\s,]+)/g;
-
-		var funcStr = func.toString().replace(comment_regx, '');
-		var result = funcStr.slice(funcStr.indexOf('(')+1, funcStr.indexOf(')')).match(args_regx);
+		var regx = /([^\s,]+)/g;
+		var funcStr = func.toString().replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg,'');
+		var result = funcStr.slice(funcStr.indexOf('(')+1, funcStr.indexOf(')')).match(regx);
 
 		return (result === null) ? [] : result;
 	};
+
+
+
+	/*
+	 * validUrl
+	 * checks if param is a valid url
+	 *
+	 * @param u url to check
+	 * @return true if valid url
+	 */
+	this.validUrl = function(u) {
+		u = u.replace(/https\:\/\/|http\:\/\//g,'');
+		var regx = /[-a-zA-Z0-9\:\%\.\_\+\~\#\=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9\:\%\_\+\.\~\#\?\&\/\/\=]*)/;
+		var result = u.match(regx);
+
+		return (result != null && result.length > 0);
+	};
+
 
 
 };
