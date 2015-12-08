@@ -109,12 +109,14 @@ var SC = function(autoRender,config) {
 	 */
 	this.ajax = function() {
 		var args = arguments, u, d, t, e, s, has_data = false, has_succ_func = false;
+
 		if(args.length < 2) {
 			console.error('Invalid arguments passed to ajax function. Required: target_url, data_to_send');
 			return false;
 		}
 
 		for(var i in args) {
+
 			if('object' == (typeof args[i]).toLowerCase()) {
 				for(var p in args[i]) {
 					has_data = true;
@@ -124,22 +126,28 @@ var SC = function(autoRender,config) {
 				if(!has_data) {
 					console.warn('No data passed to SC.ajax function [empty object]. Sending request with no data');
 				}
+
+
 			} else if('function' == (typeof args[i]).toLowerCase()) {
 				has_succ_func = true;
 				s = (this.getParamNames(args[i]).length > 0) ? function(d) { args[i](d); } : function() { args[i](); };
+
+
 			} else if('string' == (typeof args[i]).toLowerCase()) {
+
 				if(args[i].toUpperCase() == 'POST' || args[i].toUpperCase() == 'GET') {
 					t = args[i].toUpperCase();
 				} else if(this.validUrl(args[i])) {
 					u = args[i];
-				} else {
-					t = 'POST';
 				}
+
+
 			}
 		}
 
 		e = this.defaultAjaxErrCb;
-		console.log(u, d, t, e, s, has_data, has_succ_func);
+		t = (!t || t == null || t == undefined || typeof t == 'undefined') ? 'POST' : t;
+		console.log(u,d,t,e,s,has_data,has_succ_func);
 		return false;
 		/*var u = (!!args[0] && args[0].replace(/\ /g,'').length > 0) ? args[0] : undefined;
 		if('undefined'==typeof u) {
