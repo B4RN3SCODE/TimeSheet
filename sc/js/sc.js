@@ -422,8 +422,66 @@ var SC = function(config) {
 			me.removeSc('widget');
 		});
 		this._$('.sc_main').on('click', function() {
+			me.removeSc('widget');
 			me.viewNotifications(eid, notifs);
 		});
+	};
+
+
+
+
+	/*
+	 * viewNotifications
+	 * opens side bar and stuff
+	 *
+	 * @param event id
+	 * @param list of notifications
+	 * @return void
+	 */
+	this.viewNotifications = function(e,n) {
+		this._sidebar.find('.bigchat .header .name').text(this._themeData.sidebar.SBTitle);
+		this._sidebar.find('.bigchat .header .time').text('just now'); // lazy as fuck right now
+
+		var ids = [];
+		var d, ts; // date object, time string
+		for(var i in n) {
+			ids.push(n[i].NID);
+			d = new Date();
+			ts = d.getHours().toString()+':'+d.getMinutes().toString();
+			this._sidebar.find('.primarychat').append(this._$('<div></div>').attr('id', 'ml'+i.toString()).addClass('message').addClass('left'));
+			this._sidebar.find('.primarychat').append(this._$('<div></div>').addClass('timestamp')).text(ts);
+			this._sidebar.find('#ml'+i.toString()).append('<div class="icon"><img src="'+this._themeData.sidebar.SBImg+'" /></div>');
+			this._sidebar.find('#ml'+i.toString()).append(this._$('<div></div>').attr('id', 'cb'+i.toString()).addClass('chatbubble'));
+
+			if(!!n[i].NTitle) {
+				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].NTitle));
+			}
+			if(!!n[i].NMedia) {
+				this._sidebar.find('#cb'+i.toString()).append(n[i].NMedia);
+			}
+			if(!!n[i].NBody) {
+				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].NBody));
+			}
+		}
+
+		if(!this.notificationSeen(ids)) {
+			console.warn('Failed to record seen notifications');
+			console.log(ids);
+		}
+
+		ids = d = ts = undefined; // clean up
+
+		var me = this;
+
+		if(!this._sidebarDisplayed) {
+			this.renderSc('sidebar');
+		}
+
+		this._$('#ChatClose').on('click', function() {
+			me.removeSc('sidebar');
+		});
+
+		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
 	};
 
 
@@ -465,59 +523,15 @@ var SC = function(config) {
 		$('#tmpScScr').remove();
 		this[dattr] = false;
 
+		// reset the shit
+		if(rend === 'widget') {
+			this._widget = (this._$ === -1) ? '': this._$('<div id="SCWidget" class="sc_main"></div>');
+		} else if(rend === 'sidebar') {
+			this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
+		}
+
 		return true;
 	}
-
-
-
-	/*
-	 * viewNotifications
-	 * opens side bar and stuff
-	 *
-	 * @param event id
-	 * @param list of notifications
-	 * @return void
-	 */
-	this.viewNotifications = function(e,n) {
-		var ids = [];
-		var d, ts; // date object, time string
-		for(var i in n) {
-			ids.push(n[i].NID);
-			d = new Date();
-			ts = d.getHours().toString()+':'+d.getMinutes().toString();
-			this._sidebar.find('.primarychat').append(this._$('<div></div>').attr('id', 'ml'+i.toString()).addClass('message').addClass('left'));
-			this._sidebar.find('.primarychat').append(this._$('<div></div>').addClass('timestamp'));
-			this._sidebar.find('#ml'+i.toString()).append('<div class="icon"><img src="'+this._themeData.sidebar.SBImg+'" /></div>');
-			this._sidebar.find('#ml'+i.toString()).append(this._$('<div></div>').attr('id', 'cb'+i.toString()).addClass('chatbubble'));
-
-			if(!!n[i].NTitle) {
-				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].NTitle));
-			}
-			if(!!n[i].NMedia) {
-				this._sidebar.find('#cb'+i.toString()).append(n[i].NMedia);
-			}
-			if(!!n[i].NBody) {
-				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].NBody));
-			}
-		}
-
-		if(!this.notificationSeen(ids)) {
-			console.warn('Failed to record seen notifications');
-			console.log(ids);
-		}
-
-		ids = d = ts = undefined; // clean up
-
-		var me = this;
-
-		this.renderSc('sidebar');
-
-		this._$('#ChatClose').on('click', function() {
-			me.removeSc('sidebar');
-		});
-
-		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
-	};
 
 
 
@@ -608,6 +622,7 @@ var SC = function(config) {
 	 * @return false if fails
 	 */
 	this.notificationSeen = function(nids) {
+		console.log(nids);
 	};
 
 
