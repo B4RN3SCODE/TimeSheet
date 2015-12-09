@@ -342,6 +342,21 @@ var SC = function(config) {
 
 
 	/*
+	 * triggerEvent
+	 * triggers event with appropriate shit
+	 *
+	 * @param eid event id int
+	 * @param notifs array of notification objects
+	 * @return void
+	 */
+	this.triggerEvent = function(eid, notifs) {
+		console.log('event');
+	};
+
+
+
+
+	/*
 	 * renderWidget
 	 * renders the widgeth
 	 */
