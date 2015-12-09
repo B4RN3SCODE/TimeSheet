@@ -309,11 +309,10 @@ var SC = function(config) {
 					// iterate through links to check for their notification id
 					for(var n in this._notificationData.links) {
 
-						link_splices.push(n);
-
 						// validate notification
 						if(this._notificationData.links[n].NID == this._notificationData.notifications[j].NID) {
 							this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUri);
+							link_splices.push(n);
 						}
 
 					} // END for loop for links
@@ -331,8 +330,7 @@ var SC = function(config) {
 
 			} // END for loop for notifications
 
-			console.log(notification_list, tmp, me); // debug
-
+			console.log(identifiers[tmp.EIdentifier]+tmp.EAttrVal);
 			this._$(identifiers[tmp.EIdentifier]+tmp.EAttrVal).on(action_str, function() {
 				me.triggerEvent(tmp.EID, notification_list);
 			});
