@@ -449,7 +449,7 @@ var SC = function(config) {
 			d = new Date();
 			ts = d.getHours().toString()+':'+d.getMinutes().toString();
 			this._sidebar.find('.primarychat').append(this._$('<div></div>').attr('id', 'ml'+i.toString()).addClass('message').addClass('left'));
-			this._sidebar.find('.primarychat').append(this._$('<div></div>').addClass('timestamp')).text(ts);
+			this._sidebar.find('.primarychat').append(this._$('<div></div>').addClass('timestamp').text(ts));
 			this._sidebar.find('#ml'+i.toString()).append('<div class="icon"><img src="'+this._themeData.sidebar.SBImg+'" /></div>');
 			this._sidebar.find('#ml'+i.toString()).append(this._$('<div></div>').attr('id', 'cb'+i.toString()).addClass('chatbubble'));
 
