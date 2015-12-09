@@ -480,7 +480,7 @@ var SC = function(config) {
 
 		if(!this.notificationSeen(e,ids)) {
 			console.warn('Failed to record seen notifications');
-			console.log(ids);
+			console.log(e,ids);
 		}
 
 		ids = d = ts = undefined; // clean up
