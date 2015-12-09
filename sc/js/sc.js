@@ -381,6 +381,7 @@ var SC = function(config) {
 
 		if(has_notifs) {
 			this._widget.find('.chatbox span,.chatbox p, .chatbox input, .chatbox label').text(notifs[0].NBody || notifs[0].NTitle || 'View message...');
+			this._widget.find('.notification span').text(notifs.length.toString());
 		}
 
 		if(!this._widgetDisplayed) {
