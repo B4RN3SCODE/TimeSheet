@@ -28,7 +28,7 @@ var SC = function(config) {
 	// notification data
 	this._notificationData = {};
 	// html for widget
-	this._widget = $('<div id="SCWidget" class="sc_main"></div>');
+	this._widget = (this._$ === -1) ? '': this._$('<div id="SCWidget" class="sc_main"></div>');
 	// tracks widget status
 	this._widgetDisplayed = false;
 	// default getThemeUri

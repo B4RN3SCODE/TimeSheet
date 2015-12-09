@@ -9,15 +9,14 @@
 		<link href="//www.barnescode.com/sc/css/bootstrap.min.css" rel="stylesheet">
 		<link href="//www.barnescode.com/public/style/style.css" rel="stylesheet">
 		<link href="//www.barnescode.com/public/style/main.css" rel="stylesheet">
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="//www.barnescode.com/sc/js/bootstrap.min.js"></script>
 
 		<!--		SNAKE CHARMER JS		-->
 		<script type="text/javascript" id="SCJS" src="//www.barnescode.com/sc/js/sc.js?license=xkH4edko9Kl3&theme=1"></script>
 		<!--		SNAKE CHARMER JS		-->
 
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<script src="//www.barnescode.com/sc/js/bootstrap.min.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
