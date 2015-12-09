@@ -523,10 +523,8 @@ var SC = function(config) {
 		$('#tmpScScr').remove();
 		this[dattr] = false;
 
-		// reset the shit
-		if(rend === 'widget') {
-			this._widget = (this._$ === -1) ? '': this._$('<div id="SCWidget" class="sc_main"></div>');
-		} else if(rend === 'sidebar') {
+		// reset the sidebar
+		if(rend === 'sidebar') {
 			this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
 		}
 
