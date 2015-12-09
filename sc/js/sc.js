@@ -113,7 +113,7 @@ var SC = function(config) {
 
 		// get src of SCJS file so we can parse for configuration
 		var tmpuri = this._$('#SCJS').attr('src');
-		var pieces = tmpuri.split('?')[0].split('&');
+		var pieces = tmpuri.split('?')[1].split('&');
 		var tmp = [];
 		for(var p in pieces) {
 			tmp = pieces[p].split('=');
@@ -565,7 +565,9 @@ var SC = function(config) {
 };
 // END SC
 // auto initialize
-if(typeof window.SC_AUTO_INIT == 'undefined' || window.SC_AUTO_INIT !== false) {
-	(window.SC = new SC()).ini();
-}
+$(document).ready(function() {
+	if(typeof window.SC_AUTO_INIT == 'undefined' || window.SC_AUTO_INIT !== false) {
+		(window.SC = new SC()).ini();
+	}
+});
 // end auto initialize
