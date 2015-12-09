@@ -192,4 +192,12 @@ ChatBubbleStyle TEXT NULL DEFAULT NULL,
 PRIMARY KEY (Id) ) ENGINE = InnoDB;
 /* end NotificationSideBar table */
 
+/* ThemeNotificationSideBar table */
+CREATE TABLE ThemeNotificationSideBar ( Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+ThemeId INT UNSIGNED NOT NULL,
+NotificationSideBarId INT UNSIGNED NOT NULL,
+PRIMARY KEY (Id) ) ENGINE = InnoDB;
+/* end ThemeNotificationSideBar */
+
+
 
