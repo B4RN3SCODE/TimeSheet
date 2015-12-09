@@ -484,7 +484,7 @@ var SC = function(config) {
 		for(var i in n) {
 			ids.push(n[i].NID);
 			d = new Date();
-			ts = d.getHours().toString()+':'+d.getMinues().toString();
+			ts = d.getHours().toString()+':'+d.getMinutes().toString();
 			this._sidebar.find('.primarychat').append(this._$('<div></div>').attr('id', 'ml'+i.toString()).addClass('message').addClass('left'));
 			this._sidebar.find('.primarychat').append(this._$('<div></div>').addClass('timestamp'));
 			this._sidebar.find('#ml'+i.toString()).append('<div class="icon"><img src="'+this._themeData.sidebar.SBImg+'" /></div>');
