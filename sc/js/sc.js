@@ -73,7 +73,7 @@ var SC = function(config) {
 
 
 		this.getThemeData();
-		this.getEventData();
+		this.getNotifData();
 
 		console.log(this);
 	};
