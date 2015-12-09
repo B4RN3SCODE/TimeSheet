@@ -298,7 +298,7 @@ var SC = function(config) {
 			// clecn this array
 			splices = undefined;
 
-			action_str = action_list.join();
+			action_str = action_list.join(', ');
 
 			// iterate through notifications and find their links
 			for(var j in this._notificationData.notifications) {
