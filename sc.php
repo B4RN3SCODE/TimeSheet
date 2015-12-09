@@ -13,7 +13,7 @@
 		<script src="//www.barnescode.com/sc/js/bootstrap.min.js"></script>
 
 		<!--		SNAKE CHARMER JS		-->
-		<script type="text/javascript" id="SCJS" src="//www.barnescode.com/sc/js/sc.js?license=xkH4edko9Kl3&theme=1"></script>
+		<script type="text/javascript" id="SCJS" src="//www.barnescode.com/sc/js/sc.js?license=xkH4edko9Kl3&themeId=1"></script>
 		<!--		SNAKE CHARMER JS		-->
 
 
