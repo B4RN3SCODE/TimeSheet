@@ -89,6 +89,7 @@ $tmp_attr = getElmAttributes($db, $elm_ids);
 $_SKIN_ = array(
 	"elements"	=>	$tmp_skin,
 	"attributes"	=>	$tmp_attr,
+	"sidebar"	=>	getSideBarData($db, $_LICENSE_, $_THEME_),
 );
 
 // clean up
@@ -177,6 +178,41 @@ function getElmAttributes(DBCon $db, array $elmIds = array("0")) {
 	$db->Query();
 	return $db->GetAll();
 }
+
+
+
+/*
+ * getSideBarData
+ * Gets side bar data
+ *
+ * @param db (DBCon) database obj to use
+ * @param license string
+ * @param theme id int
+ * @return array of the sidebar data
+ */
+function getSideBarData(DBCon $db, $lic, $thm) {
+
+	$lic = $db->EscapeQueryStmt($lic);
+	$thm = $db->EscapeQueryStmt($thm);
+
+	$sql = "SELECT
+	nsb.Title AS SBTitle, nsb.IconImg AS SBImg, nsb.HeaderStyle, nsb.MainStyle, nsb.Width AS SBWidth, nsb.ChatBubbleStyle
+		FROM NotificationSideBar AS nsb
+		INNER JOIN Account AS a
+		ON nsb.AccId = a.Id
+		INNER JOIN ThemeNotificationSideBar AS tn
+		ON nsb.Id = tn.NotificationSideBarId
+		WHERE a.License = '{$lic}' AND tn.ThemeId = {$thm}";
+
+	$db->setQueryStmt($sql);
+	if(!$db->Query()) {
+		// TODO HANDLE ERROR
+		return array();
+	}
+
+	return $db->GetRow();
+}
+
 
 
 
