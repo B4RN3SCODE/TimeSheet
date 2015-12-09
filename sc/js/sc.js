@@ -448,6 +448,16 @@ var SC = function(config) {
 			ids.push(n[i].NID);
 			d = new Date();
 			ts = d.getHours().toString()+':'+d.getMinutes().toString();
+
+			/*
+			 * TODO
+			 * 		check if any Style attributes are set in
+			 * 		SC._themeData.sidbar and use inline
+			 * 		css as STYLE attributes so users can restyle shit
+			 * 		-----do so in this mess somewhere:
+			 */
+
+
 			this._sidebar.find('.primarychat').append(this._$('<div></div>').attr('id', 'ml'+i.toString()).addClass('message').addClass('left'));
 			this._sidebar.find('.primarychat').append(this._$('<div></div>').addClass('timestamp').text(ts));
 			this._sidebar.find('#ml'+i.toString()).append('<div class="icon"><img src="'+this._themeData.sidebar.SBImg+'" /></div>');

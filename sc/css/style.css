@@ -141,6 +141,7 @@
 	color: #ccc;
 	font-size: 12px;
 	cursor: pointer;
+	color: #000;
 }
 .sc_main .bigchat .header .close:hover {
 	color: red;
