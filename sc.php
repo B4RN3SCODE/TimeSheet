@@ -72,5 +72,6 @@
 				</div>
 			</div>
 		</div>
+		<script>var a = new SC({themeId:1,license:'xkH4edko9Kl3',pageUri:'http://www.barnescode.com/sc.php'});a.ini();</script>
 	</body>
 </html>
