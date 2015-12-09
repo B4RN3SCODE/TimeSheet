@@ -13,7 +13,6 @@
 		<script src="//www.barnescode.com/sc/js/bootstrap.min.js"></script>
 
 		<!--		SNAKE CHARMER JS		-->
-		<script>window.SC_AUTO_INIT=false;</script>
 		<script type="text/javascript" id="SCJS" src="//www.barnescode.com/sc/js/sc.js?license=xkH4edko9Kl3&themeId=1"></script>
 		<!--		END SNAKE CHARMER JS		-->
 
@@ -71,5 +70,54 @@
 				</div>
 			</div>
 		</div>
+
+
+<div class="sc_main">
+  <div class="bigchat">
+  	<div class="header">
+    	<div class="name">Elias</div>
+        <div class="time">Last seen at 9:47am</div>
+        <div class="close"><i class="fa fa-close"></i></div>
+    </div>
+    <div class="primarychat">
+    	<div class="message left">
+        	<div class="icon"></div>
+            <div class="chatbubble">
+            	<p>asdfas dfsadf asdf asdf asdf asdf asdfasd fasdfasdf asdfas dfasd fasdf asdfasd fsadf sad fsdfsdf</p>
+            </div>
+        </div>
+        <div class="timestamp">
+        	12:03pm
+        </div>
+        <div class="message left">
+        	<div class="icon"></div>
+            <div class="chatbubble">
+            	<iframe width="100%" height="200px" src="https://www.youtube.com/embed/pY-q7Bed6DU?list=RDpY-q7Bed6DU" frameborder="0"></iframe>
+            </div>
+        </div>
+        <div class="timestamp">
+        	12:04pm
+        </div>
+        <div class="message right">
+        	<div class="icon"></div>
+            <div class="chatbubble">
+            	<p>asdfas dfsadf asdf asdf asdf as sad f</p>
+            </div>
+        </div>
+    </div>
+    <div class="chatfield">
+    	<textarea rows="1" placeholder="Write a reply..."></textarea>
+        <button class="chatbutton attachment" type="submit"><i class="fa fa-paperclip"></i></button>
+        <button class="chatbutton emoji" type="submit"><i class="fa fa-smile-o"></i></button>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="js/autosize.min.js"></script>
+<script>
+	autosize(document.querySelectorAll('textarea'));
+</script>
+
+
 	</body>
 </html>
