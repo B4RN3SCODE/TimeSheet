@@ -516,7 +516,7 @@ var SC = function(config) {
 			me.removeSc('sidebar');
 		});
 
-		this._$('body'.append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
+		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
 	};
 
 
