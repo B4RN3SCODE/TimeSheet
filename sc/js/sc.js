@@ -372,11 +372,7 @@ var SC = function(config) {
 
 			} // END for loop for notifications
 			console.log(tmp,identifiers[tmp.EIdentifier]+tmp.EAttrVal);
-			this._$(identifiers[tmp.EIdentifier]+tmp.EAttrVal).on(action_str, function() {
-				console.log(tmp);
-				me.triggerEvent(tmp.EID, notification_list);
-			});
-
+			this.triggerEvent(identifiers[tmp.EIdentifier]+tmp.EAttrVal,action_str,tmp.EID,notification_list);
 		} // END for loop for events
 	};
 
@@ -390,7 +386,10 @@ var SC = function(config) {
 	 * @param notifs array of notification objects
 	 * @return void
 	 */
-	this.triggerEvent = function(eid, notifs) {
+	this.triggerEvent = function(idnt, act_str, eid, notifs) {
+		this._$(idnt).on(act_str, function() {
+			console.log(eid);
+		});
 
 		// record the event triggering
 		if(!this.eventTriggered(eid)) {
