@@ -324,28 +324,28 @@ var SC = function(config) {
 		for(var x in this._notificationData.page_event) {
 			tmp = this._notificationData.page_event[x];
 
-			//var splices = []; // so we can eliminate actions for the next iteration
+			var splices = []; // so we can eliminate actions for the next iteration
 			// iterate through actions see if they are for this event
 			for(var y in this._notificationData.actions) {
 				// check event IDs
 				if(this._notificationData.actions[y].EID == tmp.EID) {
 					action_list.push(this._notificationData.actions[y].EAction);
-					//splices.push(y);
+					splices.push(y);
 				}
 			}
-			//// remove the actions we are using already
-			//for(var i in splices) {
-				//this._notificationData.actions.splice(splices[i],1);
-			//}
-			//// clecn this array
-			//splices = undefined;
+			// remove the actions we are using already
+			for(var i in splices) {
+				this._notificationData.actions.splice(splices[i],1);
+			}
+			// clecn this array
+			splices = undefined;
 
 			action_str = action_list.join(', ');
 
 			// iterate through notifications and find their links
 			for(var j in this._notificationData.notifications) {
 				this._notificationData.notifications[j].links = []; // will need to add links to appropriate notif
-				//var link_splices = []; // to clean up for the next round so it wont iterate through as many
+				var link_splices = []; // to clean up for the next round so it wont iterate through as many
 				// only add if event ids match
 				if(this._notificationData.notifications[j].EID == tmp.EID) {
 					// iterate through links to check for their notification id
@@ -354,25 +354,26 @@ var SC = function(config) {
 						// validate notification
 						if(this._notificationData.links[n].NID == this._notificationData.notifications[j].NID) {
 							this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUri);
-							//link_splices.push(n);
+							link_splices.push(n);
 						}
 
 					} // END for loop for links
 
-					//// remove items from link array
-					//for(var m in link_splices) {
-						//this._notificationData.links.splice(link_splices[m],1);
-					//}
-					//// clean array
-					//link_splices = undefined;
+					// remove items from link array
+					for(var m in link_splices) {
+						this._notificationData.links.splice(link_splices[m],1);
+					}
+					// clean array
+					link_splices = undefined;
 
 					// push the object to the notification list to pass into event function
 					notification_list.push(this._notificationData.notifications[j]);
 				}
 
 			} // END for loop for notifications
-			console.log(tmp,identifiers[tmp.EIdentifier]+tmp.EAttrVal);
+
 			this.triggerEvent(identifiers[tmp.EIdentifier]+tmp.EAttrVal,action_str,tmp.EID,notification_list);
+
 		} // END for loop for events
 	};
 
@@ -387,41 +388,41 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.triggerEvent = function(idnt, act_str, eid, notifs) {
-		this._$(idnt).on(act_str, function() {
-			console.log(eid);
-		});
-
-		// record the event triggering
-		if(!this.eventTriggered(eid)) {
-			console.warn('Failed to record triggered event [ '+eid+' ]');
-		}
-
-		var has_notifs = false;
-		for(var i in notifs) {
-			if(notifs[i].NID > 0 && (!!notifs[i].NBody || !!notifs[i].NMedia || !!notifs[i].NTitle)) {
-				has_notifs = true;
-			} else {
-				console.error('Invalid notification list passed to triggerEvent');
-				console.log(notifs[i]);
-			}
-		}
-
-		if(has_notifs) {
-			this._widget.find('.chatbox span,.chatbox p, .chatbox input, .chatbox label').text(notifs[0].NBody || notifs[0].NTitle || 'View message...');
-			this._widget.find('.notification small').text(notifs.length.toString());
-		}
-
-		if(!this._widgetDisplayed) {
-			this.renderSc('widget');
-		}
-
 		var me = this;
-		this._$('.closer').on('click', function() {
-			me.removeSc('widget');
-		});
-		this._$('.sc_main').on('click', function() {
-			me.removeSc('widget');
-			me.viewNotifications(eid, notifs);
+		this._$(idnt).on(act_str, function() {
+			console.log('triggering event: '+eid.toString());
+
+			// record the event triggering
+			if(!me.eventTriggered(eid)) {
+				console.warn('Failed to record triggered event [ '+eid+' ]');
+			}
+
+			var has_notifs = false;
+			for(var i in notifs) {
+				if(notifs[i].NID > 0 && (!!notifs[i].NBody || !!notifs[i].NMedia || !!notifs[i].NTitle)) {
+					has_notifs = true;
+				} else {
+					console.error('Invalid notification list passed to triggerEvent');
+					console.log(notifs[i]);
+				}
+			}
+
+			if(has_notifs) {
+				me._widget.find('.chatbox span,.chatbox p, .chatbox input, .chatbox label').text(notifs[0].NBody || notifs[0].NTitle || 'View message...');
+				me._widget.find('.notification small').text(notifs.length.toString());
+			}
+
+			if(!me._widgetDisplayed) {
+				me.renderSc('widget');
+			}
+
+			me._$('.closer').on('click', function() {
+				me.removeSc('widget');
+			});
+			me._$('.sc_main').on('click', function() {
+				me.removeSc('widget');
+				me.viewNotifications(eid, notifs);
+			});
 		});
 	};
 
