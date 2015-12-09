@@ -29,8 +29,12 @@ var SC = function(config) {
 	this._notificationData = {};
 	// html for widget
 	this._widget = (this._$ === -1) ? '': this._$('<div id="SCWidget" class="sc_main"></div>');
+	// sidebar
+	this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
 	// tracks widget status
 	this._widgetDisplayed = false;
+	// tracks sidebar status
+	this._sidebarDisplayed = false;
 	// default getThemeUri
 	this._defaultGetThemeUri = 'http://www.barnescode.com/sc/include/getTheme.php';
 	// default getNotifDataUri
@@ -48,7 +52,7 @@ var SC = function(config) {
 		var loc = window.location;
 
 		// insert css for SC
-		this.installCss(document);
+		this.installJsCss(document);
 
 		// make sure jQuery is loaded
 		if(this._$ == -1 || typeof this._$ == 'undefined') {
@@ -91,10 +95,8 @@ var SC = function(config) {
 	 * @param d document
 	 * @return void
 	 */
-	this.installCss = function(d) {
-		var ns = d.createElement('link'); ns.type = 'text/css'; ns.rel = 'stylesheet';
-		ns.href = d.location.protocol+'//www.barnescode.com/sc/css/style.css';
-		var es = d.getElementsByTagName('link')[0]; es.parentNode.insertBefore(ns, es);
+	this.installJsCss = function(d) {
+		this._$('head').append('<link type="text/css" rel="stylesheet" href="http://www.barnescode.com/sc/css/style.css"><script src="//www.barnescode.com/sc/js/autosize.min.js"></script>');
 	};
 
 
@@ -412,12 +414,12 @@ var SC = function(config) {
 		}
 
 		if(!this._widgetDisplayed) {
-			this.renderWidget();
+			this.renderSc('widget');
 		}
 
 		var me = this;
 		this._$('.closer').on('click', function() {
-			me.removeWidget();
+			me.removeSc('widget');
 		});
 		this._$('.sc_main').on('click', function() {
 			me.viewNotifications(eid, notifs);
@@ -428,17 +430,19 @@ var SC = function(config) {
 
 
 	/*
-	 * renderWidget
+	 * renderSc
 	 * renders the widgeth
+	 *
+	 * @param rend string 'widget' or 'sidebar'
 	 */
-	this.renderWidget = function() {
-		if(this._widgetDisplayed) {
-			console.warn('Widget is already displayed. Function trying to render widget: '+arguments.callee.caller.name);
-			console.info(this); // show the state of the app for debug
+	this.renderSc = function(rend) {
+		if((rend === 'widget' && this._widgetDisplayed) || (rend === 'sidebar' && this._sidebarDisplayed)) {
+			console.warn(rend+' is already displayed. Function trying to render it: '+arguments.callee.caller.name);
 			return false;
 		}
-		this._$('body').append(this._widget);
-		this._widgetDisplayed = true;
+		var attr = '_'+rend, dattr = '_'+rend+'Displayed';
+		this._$('body').append(this[attr]);
+		this[dattr] = true;
 
 		return true;
 	};
@@ -447,17 +451,20 @@ var SC = function(config) {
 
 
 	/*
-	 * removeWidget
+	 * removeSc
 	 * removes the widget from page
 	 */
-	this.removeWidget = function() {
-		if(!this._widgetDisplayed) {
-			console.warn('Widget is already removed. Function trying to remove widget: '+arguments.callee.caller.name);
-			console.info(this); // show state of the app for debug
+	this.removeSc = function(rend) {
+		if((rend === 'widget' && !this._widgetDisplayed) || (rend === 'sidebar' && !this._sidebarDisplayed)) {
+			console.warn(rend+' is already removed. Function trying to remove it: '+arguments.callee.caller.name);
 			return false;
 		}
-		$('#SCWidget').remove();
-		this._widgetDisplayed = false;
+		var i = (rend === 'widget') ? '#SCWidget':'#SCSB';
+		var dattr = '_'+rend+'Displayed';
+		$(i).remove();
+		$('#tmpScScr').remove();
+		this[dattr] = false;
+
 		return true;
 	}
 
@@ -472,7 +479,44 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.viewNotifications = function(e,n) {
-		console.log(arguments);
+		var ids = [];
+		var d, ts; // date object, time string
+		for(var i in n) {
+			ids.push(n[i].NID);
+			d = new Date();
+			ts = d.getHours().toString()+':'+d.getMinues().toString();
+			this._sidebar.find('.primarychat').append(this._$('<div></div>').attr('id', 'ml'+i.toString()).addClass('message').addClass('left'));
+			this._sidebar.find('.primarychat').append(this._$('<div></div>').addClass('timestamp'));
+			this._sidebar.find('#ml'+i.toString()).append('<div class="icon"><img src="'+this._themeData.sidebar.SBImg+'" /></div>');
+			this._sidebar.find('#ml'+i.toString()).append(this._$('<div></div>').attr('id', 'cb'+i.toString()).addClass('chatbubble'));
+
+			if(!!n[i].NTitle) {
+				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].NTitle));
+			}
+			if(!!n[i].NMedia) {
+				this._sidebar.find('#cb'+i.toString()).append(n[i].NMedia);
+			}
+			if(!!n[i].NBody) {
+				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].NBody));
+			}
+		}
+
+		if(!this.notificationSeen(ids)) {
+			console.warn('Failed to record seen notifications');
+			console.log(ids);
+		}
+
+		ids = d = ts = undefined; // clean up
+
+		var me = this;
+
+		this.renderSc('sidebar');
+
+		this._$('#ChatClose').on('click', function() {
+			me.removeSc('sidebar');
+		});
+
+		this._$('body'.append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
 	};
 
 
