@@ -46,6 +46,9 @@ var SC = function(config) {
 	this.ini = function() {
 		var loc = window.location;
 
+		// insert css for SC
+		this.installCss(document);
+
 		// make sure jQuery is loaded
 		if(this._$ == -1 || typeof this._$ == 'undefined') {
 			console.error('Snake Charmer Relies on jQuery. Please include jQuery library on your web page');
@@ -57,7 +60,7 @@ var SC = function(config) {
 		// make sure all config is correct
 		for(var i in conf) {
 			if(!(conf[i] in this._config)) {
-				console.warn('Invalid configuration detected. Please see documentation to include all config values for Snake Charmer. Using default config');
+				console.info('Using default configuration for Snake Charmer');
 				this._config = undefined;
 				break;
 			}
@@ -80,6 +83,23 @@ var SC = function(config) {
 
 
 
+
+	/*
+	 * installCss
+	 * installs snake charmer css
+	 *
+	 * @param d document
+	 * @return void
+	 */
+	this.installCss = function(d) {
+		var ns = d.createElement('link'); ns.type = 'text/css'; ns.rel = 'stylesheet';
+		ns.href = d.location.protocol+'//www.barnescode.com/sc/css/style.css';
+		var es = d.getElementsByTagName('link')[0]; es.parentNode.insertBefore(ns, es);
+	};
+
+
+
+
 	/*
 	 * getDefaultConfig
 	 * gets default configuration values for app
@@ -87,11 +107,21 @@ var SC = function(config) {
 	 * @return object of config vars and values
 	 */
 	this.getDefaultConfig = function() {
-		return {
-			pageUri: window.location.protocol+'//'+window.location.hostname+window.location.pathname,
-			license: '',
-			themeId: 0,
+
+		var ret = {}; // config to return
+
+		// get src of SCJS file so we can parse for configuration
+		var tmpuri = this._$('#SCJS').attr('src');
+		var pieces = tmpuri.split('?')[0].split('&');
+		var tmp = [];
+		for(var p in pieces) {
+			tmp = pieces[p].split('=');
+			ret[tmp[0]] = tmp[1];
 		}
+		ret.pageUri = window.location.protocol+'//'+window.location.hostname+window.location.pathname;
+
+		console.log(ret);
+		return ret;
 	};
 
 

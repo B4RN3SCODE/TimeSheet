@@ -11,10 +11,9 @@
 		<link href="//www.barnescode.com/public/style/main.css" rel="stylesheet">
 
 
-		<!--		SNAKE CHARMER CSS AND JS		-->
-		<link href="//www.barnescode.com/sc/css/style.css" rel="stylesheet">
-		<script src="//www.barnescode.com/sc/js/sc.js"></script>
-		<!--		SNAKE CHARMER CSS AND JS		-->
+		<!--		SNAKE CHARMER JS		-->
+		<script type="text/javascript" id="SCJS" src="//www.barnescode.com/sc/js/sc.js?license=xkH4edko9Kl3&theme=1"></script>
+		<!--		SNAKE CHARMER JS		-->
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -72,6 +71,5 @@
 				</div>
 			</div>
 		</div>
-		<script>var a = new SC({themeId:1,license:'xkH4edko9Kl3',pageUri:'http://www.barnescode.com/sc.php'});a.ini();</script>
 	</body>
 </html>
