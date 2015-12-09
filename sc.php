@@ -89,26 +89,6 @@
         <div class="timestamp">
         	12:03pm
         </div>
-        <div class="message left">
-        	<div class="icon"></div>
-            <div class="chatbubble">
-            	<iframe width="100%" height="200px" src="https://www.youtube.com/embed/pY-q7Bed6DU?list=RDpY-q7Bed6DU" frameborder="0"></iframe>
-            </div>
-        </div>
-        <div class="timestamp">
-        	12:04pm
-        </div>
-        <div class="message right">
-        	<div class="icon"></div>
-            <div class="chatbubble">
-            	<p>asdfas dfsadf asdf asdf asdf as sad f</p>
-            </div>
-        </div>
-    </div>
-    <div class="chatfield">
-    	<textarea rows="1" placeholder="Write a reply..."></textarea>
-        <button class="chatbutton attachment" type="submit"><i class="fa fa-paperclip"></i></button>
-        <button class="chatbutton emoji" type="submit"><i class="fa fa-smile-o"></i></button>
     </div>
   </div>
 </div>
