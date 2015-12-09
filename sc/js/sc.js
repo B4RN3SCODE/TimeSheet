@@ -390,13 +390,12 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.triggerEvent = function(eid, notifs) {
+		console.log(arguments);
+
 		// record the event triggering
 		if(!this.eventTriggered(eid)) {
 			console.warn('Failed to record triggered event [ '+eid+' ]');
 		}
-
-		window.SC_EID = eid;
-		window.SC_NOTIFS_CACHE = notifs;
 
 		var has_notifs = false;
 		for(var i in notifs) {
