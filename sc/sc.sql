@@ -180,3 +180,16 @@ TimeStamp DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 PRIMARY KEY (Id) ) ENGINE = InnoDB;
 /* end NotificationView table */
 
+
+/* NotificationSideBar table */
+CREATE TABLE NotificationSideBar ( Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+Title VARCHAR(100) NOT NULL DEFAULT 'Snake Charmer',
+Width VARCHAR(20) NULL DEFAULT NULL,
+HeaderStyle TEXT NULL DEFAULT NULL,
+MainStyle TEXT NULL DEFAULT NULL,
+IconImg VARCHAR(200) NULL DEFAULT NULL,
+ChatBubbleStyle TEXT NULL DEFAULT NULL,
+PRIMARY KEY (Id) ) ENGINE = InnoDB;
+/* end NotificationSideBar table */
+
+
