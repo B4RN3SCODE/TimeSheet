@@ -445,6 +445,11 @@ var SC = function(config) {
 		var ids = [];
 		var d, ts; // date object, time string
 		for(var i in n) {
+
+			if(n[i].EID != e) {
+				continue;
+			}
+
 			ids.push(n[i].NID);
 			d = new Date();
 			ts = d.getHours().toString()+':'+d.getMinutes().toString();
