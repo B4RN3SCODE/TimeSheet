@@ -72,19 +72,5 @@
 				</div>
 			</div>
 		</div>
-
-		<!--		SNAKE CHARMER SECTION BEGIN		-->
-		<div id="SCWidget" class="sc_main">
-		  <div class="chatbox">
-			<p>Hi there! Have any questions we could help out with?</p>
-			<div class="closer"><i class="fa fa-close"></i></div>
-		  </div>
-		  <div class="icon">
-			<img src="https://scontent-lax3-1.xx.fbcdn.net/hprofile-xpf1/v/t1.0-1/p160x160/12191926_10101837650884937_3818581403182139697_n.jpg?oh=eaea8f7d9de03df52a540adfd700025b&oe=56DD606B">
-			<div class="notification"> <small>1</small> </div>
-		  </div>
-		</div>
-		<!--		SNAKE CHARMER SECTION END		-->
-
 	</body>
 </html>

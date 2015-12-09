@@ -29,6 +29,8 @@ var SC = function(config) {
 	this._notificationData = {};
 	// html for widget
 	this._widget = $('<div id="SCWidget" class="sc_main"></div>');
+	// tracks widget status
+	this._widgetDisplayed = false;
 	// default getThemeUri
 	this._defaultGetThemeUri = 'http://www.barnescode.com/sc/include/getTheme.php';
 	// default getNotifDataUri
@@ -65,11 +67,15 @@ var SC = function(config) {
 		if(typeof this._config == 'undefined') {
 			this._config = this.getDefaultConfig();
 		} else {
-			this._config.pageUri = loc.protocol+'//'+loc.hostname+loc.pathname;
+			// let user override page URI for now
+			this._config.pageUri = (!!this._config.pageUri && this._config.pageUri.length > 0) ? this._config.pageUri : loc.protocol+'//'+loc.hostname+loc.pathname;
 		}
 
 
+		this.getThemeData();
+		this.getEventData();
 
+		console.log(this);
 	};
 
 
@@ -206,7 +212,7 @@ var SC = function(config) {
 	 */
 	this.setUpTheme = function(d) {
 		this._themeData = d;
-		var tmpstr = '', tmp, outter_class = 'chatbox', set_inner_html = true;
+		var tmpstr = '', tmp, outter_class = 'chatbox', set_inner_html = true, show_closer = true;
 
 		for(var x in this._themeData.elements) {
 			 tmp = this._themeData.elements[x];
@@ -214,7 +220,7 @@ var SC = function(config) {
 			if(tmp.ElmTag == 'img') { // NOTE could add more elm types in this condition
 				outter_class = 'icon';
 				set_inner_html = false;
-
+				show_closer = false;
 			}
 
 			this._widget.append($('<div></div>').addClass(outter_class).attr('id', outter_class+'_'+x.toString()));
@@ -234,6 +240,11 @@ var SC = function(config) {
 			if(set_inner_html) {
 				this._widget.find(tmp.ElmId).html((tmp.ElmInnerHtml===null)?'':tmp.ElmInnerHtml);
 			}
+
+			if(show_closer) {
+				this._widget.find('#chatbox_'+x.toString()).append($('<div class="closer"><i class="fa fa-close"></i></div>'));
+			}
+
 
 			// ADD ATTRIBUTES
 			for(var y in this._themeData.attributes) {
@@ -330,8 +341,6 @@ var SC = function(config) {
 
 			} // END for loop for notifications
 
-			console.log(identifiers[tmp.EIdentifier]+tmp.EAttrVal);
-			console.log('on '+action_str);
 			this._$(identifiers[tmp.EIdentifier]+tmp.EAttrVal).on(action_str, function() {
 				me.triggerEvent(tmp.EID, notification_list);
 			});
@@ -350,7 +359,43 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.triggerEvent = function(eid, notifs) {
-		console.log('event');
+		// record the event triggering
+		if(!this.eventTriggered(eid)) {
+			console.warn('Failed to record triggered event [ '+eid+' ]');
+		}
+
+		console.log(arguments);
+
+		window.SC_EID = eid;
+		window.SC_NOTIFS_CACHE = notifs;
+
+		var has_notifs = false;
+		for(var i in notifs) {
+			if(notifs[i].NID > 0 && (!!notifs[i].NBody || !!notifs[i].NMedia || !!notifs[i].NTitle)) {
+				has_notifs = true;
+			} else {
+				console.error('Invalid notification list passed to triggerEvent');
+				console.log(notifs[i]);
+			}
+		}
+
+		if(has_notifs) {
+			this._widget.find('.chatbox span,.chatbox p, .chatbox input, .chatbox label').text(notifs[0].NBody || notifs[0].NTitle || 'View message...');
+		}
+
+		if(!this._widgetDisplayed) {
+			this.renderWidget();
+		}
+
+		var me = this;
+		this._$('.closer').on('click', function() {
+			me.removeWidget();
+		});
+		this._$('.sc_main').on('click', function() {
+			console.log('-----------');
+			console.log(notifs);
+			me.viewNotifications(eid, notifs);
+		});
 	};
 
 
@@ -361,6 +406,47 @@ var SC = function(config) {
 	 * renders the widgeth
 	 */
 	this.renderWidget = function() {
+		if(this._widgetDisplayed) {
+			console.warn('Widget is already displayed. Function trying to render widget: '+arguments.callee.caller.name);
+			console.info(this); // show the state of the app for debug
+			return false;
+		}
+		this._$('body').append(this._widget);
+		this._widgetDisplayed = true;
+
+		return true;
+	};
+
+
+
+
+	/*
+	 * removeWidget
+	 * removes the widget from page
+	 */
+	this.removeWidget = function() {
+		if(!this._widgetDisplayed) {
+			console.warn('Widget is already removed. Function trying to remove widget: '+arguments.callee.caller.name);
+			console.info(this); // show state of the app for debug
+			return false;
+		}
+		$('#SCWidget').remove();
+		this._widgetDisplayed = false;
+		return true;
+	}
+
+
+
+	/*
+	 * viewNotifications
+	 * opens side bar and stuff
+	 *
+	 * @param event id
+	 * @param list of notifications
+	 * @return void
+	 */
+	this.viewNotifications = function(e,n) {
+		console.log(arguments);
 	};
 
 
@@ -379,6 +465,8 @@ var SC = function(config) {
 	};
 
 
+
+
 	/*
 	 * defaultAjaxErrCb
 	 * default ajax error callback
@@ -386,7 +474,9 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.defaultAjaxErrCb = function() {
+		console.error('Ajax failure... contact support or whatever');
 	};
+
 
 
 
@@ -407,6 +497,7 @@ var SC = function(config) {
 
 
 
+
 	/*
 	 * validUrl
 	 * checks if param is a valid url
@@ -421,6 +512,21 @@ var SC = function(config) {
 
 		return (result != null && result.length > 0);
 	};
+
+
+
+
+	/*
+	 * eventTriggered
+	 * records an event being triggered
+	 *
+	 * @param event id
+	 * @return false if failure
+	 */
+	this.eventTriggered = function(e) {
+		console.log(e);
+	};
+
 
 
 
