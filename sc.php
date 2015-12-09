@@ -13,8 +13,9 @@
 		<script src="//www.barnescode.com/sc/js/bootstrap.min.js"></script>
 
 		<!--		SNAKE CHARMER JS		-->
+		<script>window.SC_AUTO_INIT=false;</script>
 		<script type="text/javascript" id="SCJS" src="//www.barnescode.com/sc/js/sc.js?license=xkH4edko9Kl3&themeId=1"></script>
-		<!--		SNAKE CHARMER JS		-->
+		<!--		END SNAKE CHARMER JS		-->
 
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

@@ -79,7 +79,6 @@ var SC = function(config) {
 		this.getThemeData();
 		this.getNotifData();
 
-		console.log(this);
 	};
 
 
@@ -121,7 +120,6 @@ var SC = function(config) {
 		}
 		ret.pageUri = window.location.protocol+'//'+window.location.hostname+window.location.pathname;
 
-		console.log(ret);
 		return ret;
 	};
 
@@ -395,8 +393,6 @@ var SC = function(config) {
 			console.warn('Failed to record triggered event [ '+eid+' ]');
 		}
 
-		console.log(arguments);
-
 		window.SC_EID = eid;
 		window.SC_NOTIFS_CACHE = notifs;
 
@@ -424,8 +420,6 @@ var SC = function(config) {
 			me.removeWidget();
 		});
 		this._$('.sc_main').on('click', function() {
-			console.log('-----------');
-			console.log(notifs);
 			me.viewNotifications(eid, notifs);
 		});
 	};
@@ -562,8 +556,22 @@ var SC = function(config) {
 
 
 
+	/*
+	 * notificationSeen
+	 * records when notification is seen
+	 *
+	 * @param array of notification ids
+	 * @return false if fails
+	 */
+	this.notificationSeen = function(nids) {
+	};
+
+
+
+
 };
 // END SC
+
 // auto initialize
 $(document).ready(function() {
 	if(typeof window.SC_AUTO_INIT == 'undefined' || window.SC_AUTO_INIT !== false) {
