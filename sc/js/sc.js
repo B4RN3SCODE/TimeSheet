@@ -509,7 +509,6 @@ var SC = function(config) {
 	 */
 	this.renderSc = function(rend) {
 		if((rend === 'widget' && this._widgetDisplayed) || (rend === 'sidebar' && this._sidebarDisplayed)) {
-			console.warn(rend+' is already displayed. Function trying to render it: '+arguments.callee.caller.name);
 			return false;
 		}
 		var attr = '_'+rend, dattr = '_'+rend+'Displayed';
@@ -528,7 +527,6 @@ var SC = function(config) {
 	 */
 	this.removeSc = function(rend) {
 		if((rend === 'widget' && !this._widgetDisplayed) || (rend === 'sidebar' && !this._sidebarDisplayed)) {
-			console.warn(rend+' is already removed. Function trying to remove it: '+arguments.callee.caller.name);
 			return false;
 		}
 		var i = (rend === 'widget') ? '#SCWidget':'#SCSB';
