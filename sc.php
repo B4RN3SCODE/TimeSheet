@@ -74,26 +74,39 @@
 
 <div class="sc_main">
   <div class="bigchat">
+
   	<div class="header">
     	<div class="name">Elias</div>
         <div class="time">Last seen at 9:47am</div>
         <div class="close"><i class="fa fa-close"></i></div>
     </div>
+
+
     <div class="primarychat">
+
+
+
     	<div class="message left">
         	<div class="icon"></div>
             <div class="chatbubble">
             	<p>asdfas dfsadf asdf asdf asdf asdf asdfasd fasdfasdf asdfas dfasd fasdf asdfasd fsadf sad fsdfsdf</p>
+            	<iframe width="100%" height="200px" src="https://www.youtube.com/embed/pY-q7Bed6DU?list=RDpY-q7Bed6DU" frameborder="0"></iframe>
+            	<p>aaaa a a a a a  a aaaaaaa a a a   a d fasd fasd fadf</p>
             </div>
         </div>
         <div class="timestamp">
         	12:03pm
         </div>
+
+
+
     </div>
+
+
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="js/autosize.min.js"></script>
+<script src="//www.barnescode.com/sc/js/autosize.min.js"></script>
 <script>
 	autosize(document.querySelectorAll('textarea'));
 </script>
