@@ -20,7 +20,7 @@
 var SC = function(config) {
 
 	// config
-	this._config = (!!config && (typeof config).toLowerCase() == 'object') ? config : undefined;
+	this._config = (!!config && (typeof config).toLowerCase() == 'object') ? config : {};
 	// jQuery
 	this._$ = ('undefined'==typeof jQuery) ? -1 : jQuery;
 	// theme data
@@ -35,6 +35,7 @@ var SC = function(config) {
 	this._defaultGetThemeUri = 'http://www.barnescode.com/sc/include/getTheme.php';
 	// default getNotifDataUri
 	this._defaultGetNotifDataUri = 'http://www.barnescode.com/sc/include/getNotifData.php';
+
 
 
 	/*
@@ -563,3 +564,8 @@ var SC = function(config) {
 
 };
 // END SC
+// auto initialize
+if(typeof window.SC_AUTO_INIT == 'undefined' || window.SC_AUTO_INIT !== false) {
+	(window.SC = new SC()).ini();
+}
+// end auto initialize
