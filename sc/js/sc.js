@@ -324,28 +324,28 @@ var SC = function(config) {
 		for(var x in this._notificationData.page_event) {
 			tmp = this._notificationData.page_event[x];
 
-			var splices = []; // so we can eliminate actions for the next iteration
+			//var splices = []; // so we can eliminate actions for the next iteration
 			// iterate through actions see if they are for this event
 			for(var y in this._notificationData.actions) {
 				// check event IDs
 				if(this._notificationData.actions[y].EID == tmp.EID) {
 					action_list.push(this._notificationData.actions[y].EAction);
-					splices.push(y);
+					//splices.push(y);
 				}
 			}
-			// remove the actions we are using already
-			for(var i in splices) {
-				this._notificationData.actions.splice(splices[i],1);
-			}
-			// clecn this array
-			splices = undefined;
+			//// remove the actions we are using already
+			//for(var i in splices) {
+				//this._notificationData.actions.splice(splices[i],1);
+			//}
+			//// clecn this array
+			//splices = undefined;
 
 			action_str = action_list.join(', ');
 
 			// iterate through notifications and find their links
 			for(var j in this._notificationData.notifications) {
 				this._notificationData.notifications[j].links = []; // will need to add links to appropriate notif
-				var link_splices = []; // to clean up for the next round so it wont iterate through as many
+				//var link_splices = []; // to clean up for the next round so it wont iterate through as many
 				// only add if event ids match
 				if(this._notificationData.notifications[j].EID == tmp.EID) {
 					// iterate through links to check for their notification id
@@ -354,17 +354,17 @@ var SC = function(config) {
 						// validate notification
 						if(this._notificationData.links[n].NID == this._notificationData.notifications[j].NID) {
 							this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUri);
-							link_splices.push(n);
+							//link_splices.push(n);
 						}
 
 					} // END for loop for links
 
-					// remove items from link array
-					for(var m in link_splices) {
-						this._notificationData.links.splice(link_splices[m],1);
-					}
-					// clean array
-					link_splices = undefined;
+					//// remove items from link array
+					//for(var m in link_splices) {
+						//this._notificationData.links.splice(link_splices[m],1);
+					//}
+					//// clean array
+					//link_splices = undefined;
 
 					// push the object to the notification list to pass into event function
 					notification_list.push(this._notificationData.notifications[j]);
