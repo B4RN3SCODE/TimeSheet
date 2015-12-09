@@ -478,7 +478,7 @@ var SC = function(config) {
 			}
 		}
 
-		if(!this.notificationSeen(ids)) {
+		if(!this.notificationSeen(e,ids)) {
 			console.warn('Failed to record seen notifications');
 			console.log(ids);
 		}
@@ -633,8 +633,8 @@ var SC = function(config) {
 	 * @param array of notification ids
 	 * @return false if fails
 	 */
-	this.notificationSeen = function(nids) {
-		console.log(nids);
+	this.notificationSeen = function(eid,nids) {
+		console.log(eid,nids);
 	};
 
 
