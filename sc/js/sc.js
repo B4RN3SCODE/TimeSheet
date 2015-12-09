@@ -331,6 +331,7 @@ var SC = function(config) {
 			} // END for loop for notifications
 
 			console.log(identifiers[tmp.EIdentifier]+tmp.EAttrVal);
+			console.log('on '+action_str);
 			this._$(identifiers[tmp.EIdentifier]+tmp.EAttrVal).on(action_str, function() {
 				me.triggerEvent(tmp.EID, notification_list);
 			});
