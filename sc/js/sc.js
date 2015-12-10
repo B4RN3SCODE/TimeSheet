@@ -430,11 +430,14 @@ var SC = function(config) {
 			}
 
 			if(!me._displayState.widget) {
-				if(cnt > 0) {
-					me.playNotifSound();
-				}
 				me.renderWidget(false);
 			}
+
+
+			if(cnt > 0) {
+				me.playNotifSound();
+			}
+
 
 			me._$('.closer').on('click', function() {
 				me._widgetElmsRemoved.push(me._$(this).parent());
@@ -444,6 +447,8 @@ var SC = function(config) {
 				me.removeWidget(true);
 				me.viewNotifications(eid, notifs);
 			});
+
+
 		});
 	};
 
