@@ -496,7 +496,9 @@ var SC = function(config) {
 
 		var me = this;
 
-		/* TODO render shit here */
+		if(!me._displayState.sidebar) {
+			me.renderSidebar();
+		}
 
 		this._$('#ChatClose').on('click', function() {
 			/* TODO remove shit here */
@@ -553,6 +555,13 @@ var SC = function(config) {
 	 * renders the sidebar
 	 */
 	this.renderSidebar = function() {
+		if(this._displayState.sidebar) {
+			return false;
+		}
+		this._$('body').append(this._sidebar);
+		this._displayState.sidebar == true;
+
+		return true;
 	};
 
 
@@ -564,6 +573,32 @@ var SC = function(config) {
 	this.removeSidebar = function() {
 	};
 
+
+
+
+
+	/*
+	 * removeSc
+	 * removes the widget from page
+	 */
+	this.removeSc = function(rend) {
+		if((rend === 'widget' && !this._widgetDisplayed) || (rend === 'sidebar' && !this._sidebarDisplayed)) {
+			console.warn(rend+' is already removed. Function trying to remove it: '+arguments.callee.caller.name);
+			return false;
+		}
+		var i = (rend === 'widget') ? '#SCWidget':'#SCSB';
+		var dattr = '_'+rend+'Displayed';
+		$(i).remove();
+		$('#tmpScScr').remove();
+		this[dattr] = false;
+
+		// reset the sidebar
+		if(rend === 'sidebar') {
+			this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
+		}
+
+		return true;
+	}
 
 
 
