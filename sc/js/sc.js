@@ -322,6 +322,10 @@ var SC = function(config) {
 		for(var x in this._notificationData.page_event) {
 			tmp = this._notificationData.page_event[x];
 
+			if(tmp.HasTriggered) {
+				continue;
+			}
+
 			var splices = []; // so we can eliminate actions for the next iteration
 			// iterate through actions see if they are for this event
 			for(var y in this._notificationData.actions) {
@@ -392,7 +396,6 @@ var SC = function(config) {
 		this._$(idnt).on(act_str, function() {
 
 			if(e.HasTriggered === true) {
-				me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').off('click');
 				return false;
 			}
 			e.HasTriggered = true;
