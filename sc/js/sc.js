@@ -418,6 +418,7 @@ var SC = function(config) {
 				for(var elm in me._widgetElmsRemoved) {
 					me._widget.prepend(me._widgetElmsRemoved[elm]);
 				}
+				me._widgetElmsRemoved = []; // reset the list
 				/* TODO
 				 * change this to an iteration of the IDs set up in setUpTheme so we can do .text to the correct notification element...
 				 * if there is more than one element set up in the them to display notif msg boxes or whatever, we need to fill them
@@ -559,6 +560,15 @@ var SC = function(config) {
 			return false;
 		}
 		if(hide_state) {
+			// add removed items to the cache so we can
+			// prepend them back onto the widget later
+			var me = this;
+			this._$.each(this._$('.closer'), function(i,e) {
+				me._widgetElmsRemoved.push(e);
+			});
+
+			me = undefined;
+
 			this._$('.closer').parent().remove();
 			this._$('#SCWidget').hide();
 
