@@ -348,18 +348,18 @@ var SC = function(config) {
 			for(var j in this._notificationData.notifications) {
 				this._notificationData.notifications[j].links = []; // will need to add links to appropriate notif
 
+				// iterate through links to check for their notification id
+				for(var n in this._notificationData.links) {
+
+					// validate notification
+					if(this._notificationData.links[n].NID == this._notificationData.notifications[j].NID) {
+						this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUri);
+					}
+
+				} // END for loop for links
+
 				// only add if event ids match
 				if(this._notificationData.notifications[j].EID == tmp.EID) {
-					// iterate through links to check for their notification id
-					for(var n in this._notificationData.links) {
-
-						// validate notification
-						if(this._notificationData.links[n].NID == this._notificationData.notifications[j].NID) {
-							this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUri);
-						}
-
-					} // END for loop for links
-
 					// push the object to the notification list to pass into event function
 					notification_list.push(this._notificationData.notifications[j]);
 				}
@@ -382,9 +382,6 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.triggerEvent = function(idnt, act_str, e, notifs) {
-		console.log('sssssssssss');
-		console.log(notifs);
-		console.log('sssssssssss');
 		var eid = e.EID;
 		var me = this;
 		this._$(idnt).on(act_str, function() {
