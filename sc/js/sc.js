@@ -564,7 +564,7 @@ var SC = function(config) {
 			// prepend them back onto the widget later
 			var me = this;
 			this._$.each(this._$('.closer'), function(i,e) {
-				me._widgetElmsRemoved.push(e);
+				me._widgetElmsRemoved.push(me._$(e).parent());
 			});
 
 			me = undefined;
