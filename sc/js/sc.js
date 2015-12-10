@@ -32,7 +32,7 @@ var SC = function(config) {
 	// sidebar
 	this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
 	// tracks the state of whats displayed
-	this._displayState = { msgBox: false, mainImg: false, sideBar: false };
+	this._displayState = { widget: false, sidebar: false };
 	// default getThemeUri
 	this._defaultGetThemeUri = 'http://www.barnescode.com/sc/include/getTheme.php';
 	// default getNotifDataUri
@@ -421,7 +421,9 @@ var SC = function(config) {
 				me._widget.find('.notification small').text(cnt.toString());
 			}
 
-			/* TODO render shit here */
+			if(!me._displayState.widget) {
+				me.renderWidget();
+			}
 
 			me._$('.closer').on('click', function() {
 				me._$(this).parent().remove();
@@ -506,17 +508,60 @@ var SC = function(config) {
 
 
 
+	///*
+	 //* changeState
+	 //* changes the widget or sidebar's display
+	 //* state...
+	 //*
+	 //* @return true if success
+	 //*/
+	//this.changeState = function(show, hide) {
+		//show = (!show || typeof show == 'undefined') ? [] : show;
+		//hide = (!hide || typeof hide == 'undefined') ? [] : hide;
+		///* TODO render shit here */
+	//};
+
+
+
 	/*
-	 * changeState
-	 * changes the widget or sidebar's display
-	 * state...
-	 *
-	 * @param show array of items to show
-	 * @para, hide array of items to hide
-	 * @return true if success
+	 * renderWidget
+	 * renders the widget
 	 */
-	this.changeState = function(show, hide) {
-		/* TODO render shit here */
+	this.renderWidget = function() {
+		if(this._displayState.widget) {
+			return false;
+		}
+		this._$('body').append(this._widget);
+		this._displayState.widget = true;
+
+		return true;
+	};
+
+
+
+	/*
+	 * removeWidget
+	 * removes the widget
+	 */
+	this.removeWidget = function() {
+	};
+
+
+
+	/*
+	 * renderSidebar
+	 * renders the sidebar
+	 */
+	this.renderSidebar = function() {
+	};
+
+
+
+	/*
+	 * removeSidebar
+	 * removes the sidebar
+	 */
+	this.removeSidebar = function() {
 	};
 
 
