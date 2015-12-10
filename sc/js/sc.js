@@ -434,14 +434,6 @@ var SC = function(config) {
 			}
 
 
-			if(!me._displayState.widget) {
-				me.renderWidget(false);
-			}
-
-			if(cnt > 0) {
-				me.playNotifSound();
-			}
-
 			me._$('.closer').on('click', function() {
 				me._widgetElmsRemoved.push(me._$(this).parent());
 				me._$(this).parent().remove();
@@ -451,7 +443,18 @@ var SC = function(config) {
 				me.viewNotifications(eid, notifs);
 			});
 
-			if(add_to_sidebar) {
+
+			if(!add_to_sidebar) {
+				if(!me._displayState.widget) {
+					me.renderWidget(false);
+				}
+
+				if(cnt > 0) {
+					me.playNotifSound();
+				}
+
+			} else {
+				me.playNotifSound();
 				me.viewNotifications(eid, notifs);
 				me.renderWidget(true);
 			}
