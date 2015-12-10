@@ -391,6 +391,7 @@ var SC = function(config) {
 		var eid = e.EID;
 		var me = this;
 		this._$(idnt).on(act_str, function() {
+			console.log(e);
 			if(e.HasTriggered === true) {
 				return false;
 			}
