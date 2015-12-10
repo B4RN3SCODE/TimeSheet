@@ -452,6 +452,7 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.viewNotifications = function(e,n) {
+		console.log(n);
 		this._sidebar.find('.bigchat .header .name').text(this._themeData.sidebar.SBTitle);
 		this._sidebar.find('.bigchat .header .time').text('just now'); // lazy as fuck right now
 
