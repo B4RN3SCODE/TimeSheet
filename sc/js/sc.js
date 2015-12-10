@@ -347,7 +347,7 @@ var SC = function(config) {
 			// iterate through notifications and find their links
 			for(var j in this._notificationData.notifications) {
 				this._notificationData.notifications[j].links = []; // will need to add links to appropriate notif
-				var link_splices = []; // to clean up for the next round so it wont iterate through as many
+
 				// only add if event ids match
 				if(this._notificationData.notifications[j].EID == tmp.EID) {
 					// iterate through links to check for their notification id
@@ -356,17 +356,9 @@ var SC = function(config) {
 						// validate notification
 						if(this._notificationData.links[n].NID == this._notificationData.notifications[j].NID) {
 							this._notificationData.notifications[j].links.push(this._notificationData.links[n].LinkUri);
-							link_splices.push(n);
 						}
 
 					} // END for loop for links
-
-					// remove items from link array
-					for(var m in link_splices) {
-						this._notificationData.links.splice(link_splices[m],1);
-					}
-					// clean array
-					link_splices = undefined;
 
 					// push the object to the notification list to pass into event function
 					notification_list.push(this._notificationData.notifications[j]);
