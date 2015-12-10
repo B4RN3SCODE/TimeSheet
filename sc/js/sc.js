@@ -402,7 +402,7 @@ var SC = function(config) {
 				console.warn('Failed to record triggered event [ '+eid+' ]');
 			}
 
-			var has_notifs = false, cnt = 0;
+			var has_notifs = false, cnt = isNaN(parseInt($('body').find('.notification small').text())) ? 0:parseInt($('body').find('.notification small').text());
 			for(var i in notifs) {
 
 				if(notifs[i].NID > 0 && (!!notifs[i].NBody || !!notifs[i].NMedia || !!notifs[i].NTitle)) {
