@@ -431,6 +431,7 @@ var SC = function(config) {
 				me._$('.chatbox').remove();
 			});
 			me._$('#imgSCMain, .chatbox:nth-child(1)').on('click', function() {
+				me._$('.chatbox').remove();
 				me._$('#SCWidget').hide();
 				me.viewNotifications(eid, notifs);
 			});
