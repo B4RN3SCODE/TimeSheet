@@ -433,28 +433,29 @@ var SC = function(config) {
 				}
 			}
 
-			if(!add_to_sidebar) {
-				if(!me._displayState.widget) {
-					me.renderWidget(false);
-				}
 
-				if(cnt > 0) {
-					me.playNotifSound();
-				}
+			if(!me._displayState.widget) {
+				me.renderWidget(false);
+			}
 
-				me._$('.closer').on('click', function() {
-					me._widgetElmsRemoved.push(me._$(this).parent());
-					me._$(this).parent().remove();
-				});
-				me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
-					me.removeWidget(true);
-					me.viewNotifications(eid, notifs);
-				});
-			} else {
+			if(cnt > 0) {
 				me.playNotifSound();
+			}
+
+			me._$('.closer').on('click', function() {
+				me._widgetElmsRemoved.push(me._$(this).parent());
+				me._$(this).parent().remove();
+			});
+			me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
+				me.removeWidget(true);
+				me.viewNotifications(eid, notifs);
+			});
+
+			if(add_to_sidebar) {
 				me.viewNotifications(eid, notifs);
 				me.renderWidget(true);
 			}
+
 
 		});
 	};
