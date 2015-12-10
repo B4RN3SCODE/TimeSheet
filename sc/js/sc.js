@@ -382,7 +382,9 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.triggerEvent = function(idnt, act_str, e, notifs) {
-
+		console.log('sssssssssss');
+		console.log(notifs);
+		console.log('sssssssssss');
 		var eid = e.EID;
 		var me = this;
 		this._$(idnt).on(act_str, function() {
