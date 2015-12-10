@@ -29,6 +29,8 @@ var SC = function(config) {
 	this._notificationData = {};
 	// html for widget
 	this._widget = (this._$ === -1) ? '': this._$('<div id="SCWidget" class="sc_main"></div>');
+	// rewrite cache
+	this._widgetElmsRemoved = [];
 	// sidebar
 	this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
 	// tracks the state of whats displayed
@@ -413,6 +415,14 @@ var SC = function(config) {
 			}
 
 			if(has_notifs) {
+				for(var elm in me._widgetElmsRemoved) {
+					me._widget.prepend(me._widgetElmsRemoved[elm]);
+				}
+				/* TODO
+				 * change this to an iteration of the IDs set up in setUpTheme so we can do .text to the correct notification element...
+				 * if there is more than one element set up in the them to display notif msg boxes or whatever, we need to fill them
+				 * ONLY if there are the same number (or more) notifications to be displayed
+				 */
 				me._widget.find('.chatbox span,.chatbox p, .chatbox input, .chatbox label').text(notifs[0].NBody || notifs[0].NTitle || 'View message...');
 				me._widget.find('.notification small').text(cnt.toString());
 			}
@@ -422,7 +432,7 @@ var SC = function(config) {
 			}
 
 			me._$('.closer').on('click', function() {
-				console.log($(this).parent());
+				this._widgetElmsRemoved.push(me._$(this).parent());
 				me._$(this).parent().remove();
 			});
 			me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
