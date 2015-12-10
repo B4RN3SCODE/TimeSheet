@@ -447,9 +447,6 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.viewNotifications = function(e,n) {
-		console.log('---------------------------------------');
-		console.log(arguments);
-		console.log('---------------------------------------');
 		this._sidebar.find('.bigchat .header .name').text(this._themeData.sidebar.SBTitle);
 		this._sidebar.find('.bigchat .header .time').text('just now'); // lazy as fuck right now
 
@@ -458,6 +455,7 @@ var SC = function(config) {
 		for(var i in n) {
 
 			if(n[i].EID != e) {
+				console.log(n[i]);
 				continue;
 			}
 
