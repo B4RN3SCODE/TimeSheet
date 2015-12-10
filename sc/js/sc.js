@@ -386,16 +386,13 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.triggerEvent = function(idnt, act_str, e, notifs) {
-		if(e.HasTriggered === true) {
-			console.log('ffffuuuuuuuccccccckkkkkkk');
-			this._$(idnt).off(act_str);
-		}
 
 		var eid = e.EID;
 		var me = this;
 		this._$(idnt).on(act_str, function() {
 
 			if(e.HasTriggered === true) {
+				me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').off('click');
 				return false;
 			}
 			e.HasTriggered = true;
