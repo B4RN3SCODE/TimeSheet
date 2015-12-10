@@ -568,7 +568,7 @@ var SC = function(config) {
 			return false;
 		}
 		this._$('body').append(this._sidebar);
-		this._displayState.sidebar == true;
+		this._displayState.sidebar = true;
 
 		return true;
 	};
