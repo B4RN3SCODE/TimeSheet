@@ -391,7 +391,7 @@ var SC = function(config) {
 		var eid = e.EID;
 		var me = this;
 		this._$(idnt).on(act_str, function() {
-			console.log(e);
+
 			if(e.HasTriggered === true) {
 				return false;
 			}
@@ -423,10 +423,10 @@ var SC = function(config) {
 			}
 
 			me._$('.closer').on('click', function() {
-				me.removeSc('widget');
+				me._$('.chatbox').remove();
 			});
 			me._$('.sc_main').on('click', function() {
-				me.removeSc('widget');
+				me._$('#SCWidget').hide();
 				me.viewNotifications(eid, notifs);
 			});
 		});
@@ -499,6 +499,7 @@ var SC = function(config) {
 
 		this._$('#ChatClose').on('click', function() {
 			me.removeSc('sidebar');
+			me.._$('#SCWidget').show();
 		});
 
 		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
@@ -543,7 +544,7 @@ var SC = function(config) {
 
 		// reset the sidebar
 		if(rend === 'sidebar') {
-			this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
+			this._sidebar = this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
 		}
 
 		return true;
