@@ -410,7 +410,7 @@ var SC = function(config) {
 
 				if(notifs[i].NID > 0 && (!!notifs[i].NBody || !!notifs[i].NMedia || !!notifs[i].NTitle)) {
 
-					if(notifs[i].EID == eid)
+					if(notifs[i].EID == eid && notifs[i].HasSeen !== true)
 						cnt++;
 
 					has_notifs = true;
@@ -491,6 +491,8 @@ var SC = function(config) {
 			if(!!n[i].NBody) {
 				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].NBody));
 			}
+
+			n[i].HasSeen = true;
 		}
 
 		if(!this.notificationSeen(e,ids)) {
