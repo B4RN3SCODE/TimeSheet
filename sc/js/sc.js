@@ -422,14 +422,14 @@ var SC = function(config) {
 			}
 
 			if(!me._displayState.widget) {
-				me.renderWidget();
+				me.renderWidget(false);
 			}
 
 			me._$('.closer').on('click', function() {
 				me._$(this).parent().remove();
 			});
-			me._$('#imgSCMain, .chatbox:nth-child(1)').on('click', function() {
-				/* TODO remove shit here */
+			me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
+				me.removeWidget(true);
 				me.viewNotifications(eid, notifs);
 			});
 		});
@@ -501,7 +501,8 @@ var SC = function(config) {
 		}
 
 		this._$('#ChatClose').on('click', function() {
-			/* TODO remove shit here */
+			me.removeSidebar();
+			me.renderWidget(true);
 		});
 
 		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
@@ -510,30 +511,23 @@ var SC = function(config) {
 
 
 
-	///*
-	 //* changeState
-	 //* changes the widget or sidebar's display
-	 //* state...
-	 //*
-	 //* @return true if success
-	 //*/
-	//this.changeState = function(show, hide) {
-		//show = (!show || typeof show == 'undefined') ? [] : show;
-		//hide = (!hide || typeof hide == 'undefined') ? [] : hide;
-		///* TODO render shit here */
-	//};
-
-
-
 	/*
 	 * renderWidget
 	 * renders the widget
 	 */
-	this.renderWidget = function() {
+	this.renderWidget = function(show_state) {
+		show_state = (show_state === true);
 		if(this._displayState.widget) {
 			return false;
 		}
-		this._$('body').append(this._widget);
+		if(show_state) {
+			//this._$('.closer').parent().remove();
+			this._$('#SCWidget').show();
+
+		} else {
+			this._$('body').append(this._widget);
+		}
+
 		this._displayState.widget = true;
 
 		return true;
@@ -545,7 +539,22 @@ var SC = function(config) {
 	 * removeWidget
 	 * removes the widget
 	 */
-	this.removeWidget = function() {
+	this.removeWidget = function(hide_state) {
+		hide_state = (hide_state === true);
+		if(!this._displayState.widget) {
+			return false;
+		}
+		if(hide_state) {
+			this._$('.closer').parent().remove();
+			this._$('#SCWidget').hide();
+
+		} else {
+			this._$('#SCWidget').remove();
+		}
+
+		this._displayState.widget = false;
+
+		return true;
 	};
 
 
@@ -571,34 +580,20 @@ var SC = function(config) {
 	 * removes the sidebar
 	 */
 	this.removeSidebar = function() {
-	};
-
-
-
-
-
-	/*
-	 * removeSc
-	 * removes the widget from page
-	 */
-	this.removeSc = function(rend) {
-		if((rend === 'widget' && !this._widgetDisplayed) || (rend === 'sidebar' && !this._sidebarDisplayed)) {
-			console.warn(rend+' is already removed. Function trying to remove it: '+arguments.callee.caller.name);
+		if(!this._displayState.sidebar) {
 			return false;
 		}
-		var i = (rend === 'widget') ? '#SCWidget':'#SCSB';
-		var dattr = '_'+rend+'Displayed';
-		$(i).remove();
-		$('#tmpScScr').remove();
-		this[dattr] = false;
 
-		// reset the sidebar
-		if(rend === 'sidebar') {
-			this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
-		}
+		this._$('#SCSB').remove();
+		this._displayState.sidebar = false;
+
+		$('#tmpScScr').remove();
+
+		this._sidebar = this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
 
 		return true;
-	}
+	};
+
 
 
 
