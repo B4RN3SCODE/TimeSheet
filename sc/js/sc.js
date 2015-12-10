@@ -483,6 +483,9 @@ var SC = function(config) {
 			if(!!n[i].NBody) {
 				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].NBody));
 			}
+			for(var idx in n[i].links) {
+				this._sidebar.find('#cb'+i.toString()).append(this._$('<p></p>').text(n[i].links[idx]));
+			}
 
 			n[i].HasSeen = true;
 		}
