@@ -406,6 +406,7 @@ var SC = function(config) {
 					if(notifs[i].EID == eid && notifs[i].HasSeen !== true)
 						cnt++;
 
+
 					has_notifs = true;
 
 				} else {
@@ -429,6 +430,9 @@ var SC = function(config) {
 			}
 
 			if(!me._displayState.widget) {
+				if(cnt > 0) {
+					me.playNotifSound();
+				}
 				me.renderWidget(false);
 			}
 
@@ -617,6 +621,17 @@ var SC = function(config) {
 		this._sidebar = this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
 
 		return true;
+	};
+
+
+
+
+	/*
+	 * playNotifSound
+	 * plays a sound for notifications
+	 */
+	this.playNotifSound = function() {
+		(new Audio('sc/media/notif.mp3')).play();
 	};
 
 

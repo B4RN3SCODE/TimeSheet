@@ -13,7 +13,7 @@
 		<script src="//www.barnescode.com/sc/js/bootstrap.min.js"></script>
 
 		<!--		SNAKE CHARMER JS		-->
-		<script type="text/javascript" id="SCJS" src="//www.barnescode.com/sc/js/sc.min.js?license=xkH4edko9Kl3&themeId=1"></script>
+		<script type="text/javascript" id="SCJS" src="//www.barnescode.com/sc/js/sc.js?license=xkH4edko9Kl3&themeId=1"></script>
 		<!--		END SNAKE CHARMER JS		-->
 
 
@@ -69,6 +69,6 @@
 					</div>
 				</div>
 			</div>
-		</div><audio preload="auto" src="sc/media/notif.mp3"></audio>
+		</div>
 	</body>
 </html>
