@@ -322,7 +322,7 @@ var SC = function(config) {
 		for(var x in this._notificationData.page_event) {
 			tmp = this._notificationData.page_event[x];
 
-			if(tmp.HasTriggered) {
+			if(tmp.HasTriggered === true) {
 				continue;
 			}
 
