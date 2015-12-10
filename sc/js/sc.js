@@ -386,13 +386,13 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.triggerEvent = function(idnt, act_str, e, notifs) {
+		if(e.HasTriggered === true) {
+			return false;
+		}
 		var eid = e.EID;
 		var me = this;
 		this._$(idnt).on(act_str, function() {
 
-			if(e.HasTriggered === true) {
-				return false;
-			}
 			e.HasTriggered = true;
 
 			// record the event triggering
