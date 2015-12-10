@@ -432,7 +432,7 @@ var SC = function(config) {
 			}
 
 			me._$('.closer').on('click', function() {
-				this._widgetElmsRemoved.push(me._$(this).parent());
+				me._widgetElmsRemoved.push(me._$(this).parent());
 				me._$(this).parent().remove();
 			});
 			me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
