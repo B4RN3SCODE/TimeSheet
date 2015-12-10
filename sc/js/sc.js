@@ -503,6 +503,7 @@ var SC = function(config) {
 		}
 
 		this._$('#ChatClose').on('click', function() {
+			me._widget.find('.notification small').text("0");
 			me.removeSc('sidebar');
 			me._$('#SCWidget').show();
 		});
