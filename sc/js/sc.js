@@ -415,21 +415,23 @@ var SC = function(config) {
 				}
 			}
 
-			if(has_notifs) {
-				for(var elm in me._widgetElmsRemoved) {
-					me._widget.prepend(me._widgetElmsRemoved[elm]);
-				}
-				me._widgetElmsRemoved = []; // reset the list
-				/* TODO
-				 * change this to an iteration of the IDs set up in setUpTheme so we can do .text to the correct notification element...
-				 * if there is more than one element set up in the them to display notif msg boxes or whatever, we need to fill them
-				 * ONLY if there are the same number (or more) notifications to be displayed
-				 */
-				me._widget.find('.chatbox span,.chatbox p, .chatbox input, .chatbox label').text(notifs[0].NBody || notifs[0].NTitle || 'View message...');
-				me._widget.find('.notification small').text(cnt.toString());
-			}
-
 			var add_to_sidebar = (me._displayState.sidebar && has_notifs);
+
+			if(has_notifs) {
+				if(!add_to_sidebar) {
+					for(var elm in me._widgetElmsRemoved) {
+						me._widget.prepend(me._widgetElmsRemoved[elm]);
+					}
+					me._widgetElmsRemoved = []; // reset the list
+					/* TODO
+					* change this to an iteration of the IDs set up in setUpTheme so we can do .text to the correct notification element...
+					* if there is more than one element set up in the them to display notif msg boxes or whatever, we need to fill them
+					* ONLY if there are the same number (or more) notifications to be displayed
+					*/
+					me._widget.find('.chatbox span,.chatbox p, .chatbox input, .chatbox label').text(notifs[0].NBody || notifs[0].NTitle || 'View message...');
+					me._widget.find('.notification small').text(cnt.toString());
+				}
+			}
 
 			if(!add_to_sidebar) {
 				if(!me._displayState.widget) {
@@ -449,7 +451,6 @@ var SC = function(config) {
 					me.viewNotifications(eid, notifs);
 				});
 			} else {
-				me.removeWidget(true);
 				me.playNotifSound();
 				me.viewNotifications(eid, notifs);
 				me.renderWidget(true);
