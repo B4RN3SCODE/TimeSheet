@@ -435,7 +435,7 @@ var SC = function(config) {
 			});
 			me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
 				me.removeWidget(true);
-				me.viewNotifications(eid, notifs);
+				me.viewNotifications(e, notifs);
 			});
 		});
 	};
@@ -451,7 +451,13 @@ var SC = function(config) {
 	 * @param list of notifications
 	 * @return void
 	 */
-	this.viewNotifications = function(e,n) {
+	this.viewNotifications = function(ee,n) {
+		if(ee.HasTriggered === true) {
+			console.log('dddddddddd');
+			return false;
+		}
+		var e = ee.EID;
+
 		this._sidebar.find('.bigchat .header .name').text(this._themeData.sidebar.SBTitle);
 		this._sidebar.find('.bigchat .header .time').text('just now'); // lazy as fuck right now
 
