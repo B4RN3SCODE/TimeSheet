@@ -509,7 +509,7 @@ var SC = function(config) {
 		this._$('#ChatClose').on('click', function() {
 			me.removeSidebar();
 			me.renderWidget(true);
-			me_$('#SCWidget .notification small').text("0");
+			me._$('#SCWidget .notification small').text("0");
 		});
 
 		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
