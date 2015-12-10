@@ -31,10 +31,8 @@ var SC = function(config) {
 	this._widget = (this._$ === -1) ? '': this._$('<div id="SCWidget" class="sc_main"></div>');
 	// sidebar
 	this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
-	// tracks widget status
-	this._widgetDisplayed = false;
-	// tracks sidebar status
-	this._sidebarDisplayed = false;
+	// tracks the state of whats displayed
+	this._displayState = { msgBox: false, mainImg: false, sideBar: false };
 	// default getThemeUri
 	this._defaultGetThemeUri = 'http://www.barnescode.com/sc/include/getTheme.php';
 	// default getNotifDataUri
@@ -423,16 +421,13 @@ var SC = function(config) {
 				me._widget.find('.notification small').text(cnt.toString());
 			}
 
-			if(!me._widgetDisplayed) {
-				me.renderSc('widget');
-			}
+			/* TODO render shit here */
 
 			me._$('.closer').on('click', function() {
-				me._$('.chatbox').remove();
+				me._$(this).parent().remove();
 			});
 			me._$('#imgSCMain, .chatbox:nth-child(1)').on('click', function() {
-				me._$('.chatbox').remove();
-				me._$('#SCWidget').hide();
+				/* TODO remove shit here */
 				me.viewNotifications(eid, notifs);
 			});
 		});
@@ -499,14 +494,10 @@ var SC = function(config) {
 
 		var me = this;
 
-		if(!this._sidebarDisplayed) {
-			this.renderSc('sidebar');
-		}
+		/* TODO render shit here */
 
 		this._$('#ChatClose').on('click', function() {
-			me.removeSc('sidebar');
-			me._widget.find('.notification small').text("0");
-			me._$('#SCWidget').show();
+			/* TODO remove shit here */
 		});
 
 		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
@@ -516,46 +507,17 @@ var SC = function(config) {
 
 
 	/*
-	 * renderSc
-	 * renders the widgeth
+	 * changeState
+	 * changes the widget or sidebar's display
+	 * state...
 	 *
-	 * @param rend string 'widget' or 'sidebar'
+	 * @param show array of items to show
+	 * @para, hide array of items to hide
+	 * @return true if success
 	 */
-	this.renderSc = function(rend) {
-		if((rend === 'widget' && this._widgetDisplayed) || (rend === 'sidebar' && this._sidebarDisplayed)) {
-			return false;
-		}
-		var attr = '_'+rend, dattr = '_'+rend+'Displayed';
-		this._$('body').append(this[attr]);
-		this[dattr] = true;
-
-		return true;
+	this.changeState = function(show, hide) {
+		/* TODO render shit here */
 	};
-
-
-
-
-	/*
-	 * removeSc
-	 * removes the widget from page
-	 */
-	this.removeSc = function(rend) {
-		if((rend === 'widget' && !this._widgetDisplayed) || (rend === 'sidebar' && !this._sidebarDisplayed)) {
-			return false;
-		}
-		var i = (rend === 'widget') ? '#SCWidget':'#SCSB';
-		var dattr = '_'+rend+'Displayed';
-		$(i).remove();
-		$('#tmpScScr').remove();
-		this[dattr] = false;
-
-		// reset the sidebar
-		if(rend === 'sidebar') {
-			this._sidebar = this._$('<div id="SCSB" class="sc_main"><div class="bigchat"><div class="header"><div class="name"></div><div class="time"></div><div id="ChatClose" class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
-		}
-
-		return true;
-	}
 
 
 
