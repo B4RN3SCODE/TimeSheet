@@ -441,30 +441,21 @@ var SC = function(config) {
 				if(cnt > 0) {
 					me.playNotifSound();
 				}
-				me._$('.closer').on('click', function() {
-					me._widgetElmsRemoved.push(me._$(this).parent());
-					me._$(this).parent().remove();
-				});
-				me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
-					me.removeWidget(true);
-					me.viewNotifications(eid, notifs);
-				});
+
 			} else {
 				me.playNotifSound();
 				me.viewNotifications(eid, notifs);
 				me.renderWidget(true);
-
-				me._$('.closer').on('click', function() {
-					me._widgetElmsRemoved.push(me._$(this).parent());
-					me._$(this).parent().remove();
-				});
-				me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
-					me.removeWidget(true);
-					me.viewNotifications(eid, notifs);
-				});
-
-
 			}
+
+			me._$('.closer').on('click', function() {
+				me._widgetElmsRemoved.push(me._$(this).parent());
+				me._$(this).parent().remove();
+			});
+			me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
+				me.removeWidget(true);
+				me.viewNotifications(eid, notifs);
+			});
 
 		});
 	};
