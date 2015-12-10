@@ -396,17 +396,22 @@ var SC = function(config) {
 				return false;
 			}
 			e.HasTriggered = true;
-			console.log('triggering event: '+eid.toString());
 
 			// record the event triggering
 			if(!me.eventTriggered(eid)) {
 				console.warn('Failed to record triggered event [ '+eid+' ]');
 			}
 
-			var has_notifs = false;
+			var has_notifs = false, cnt = 0;
 			for(var i in notifs) {
+
 				if(notifs[i].NID > 0 && (!!notifs[i].NBody || !!notifs[i].NMedia || !!notifs[i].NTitle)) {
+
+					if(notifs[i].EID == eid)
+						cnt++;
+
 					has_notifs = true;
+
 				} else {
 					console.error('Invalid notification list passed to triggerEvent');
 					console.log(notifs[i]);
@@ -415,7 +420,7 @@ var SC = function(config) {
 
 			if(has_notifs) {
 				me._widget.find('.chatbox span,.chatbox p, .chatbox input, .chatbox label').text(notifs[0].NBody || notifs[0].NTitle || 'View message...');
-				me._widget.find('.notification small').text(notifs.length.toString());
+				me._widget.find('.notification small').text(cnt.toString());
 			}
 
 			if(!me._widgetDisplayed) {
