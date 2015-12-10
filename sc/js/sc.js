@@ -449,9 +449,10 @@ var SC = function(config) {
 					me.viewNotifications(eid, notifs);
 				});
 			} else {
-				me.renderWidget(true);
+				me.removeWidget(true);
 				me.playNotifSound();
 				me.viewNotifications(eid, notifs);
+				me.renderWidget(true);
 			}
 
 		});
