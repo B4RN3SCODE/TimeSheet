@@ -512,7 +512,6 @@ var SC = function(config) {
 			me._$('#SCWidget .notification small').text("0");
 		});
 
-		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
 	};
 
 
@@ -576,6 +575,7 @@ var SC = function(config) {
 		}
 		this._$('body').append(this._sidebar);
 		this._displayState.sidebar = true;
+		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
 
 		return true;
 	};
