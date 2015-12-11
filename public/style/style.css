@@ -93,13 +93,19 @@ form[name="timesheet"] table input[type="checkbox"] {
   height: 34px;
   margin-top: -1px; }
 
-#existing-entries tbody td {
-  vertical-align: middle; }
-  #existing-entries tbody td:nth-child(n+3) {
-    text-align: center; }
+#existing-entries {
+  max-height: 300px;
+  overflow-y: auto; }
+  #existing-entries table tbody td {
+    vertical-align: middle; }
+    #existing-entries table tbody td:nth-child(n+3) {
+      text-align: center; }
 
 #ActiveProjects ul li[data-pid] {
   cursor: pointer; }
+
+.floatThead-container {
+  background: #fff; }
 
 #TimeSheetSummary table.table {
   table-layout: fixed; }

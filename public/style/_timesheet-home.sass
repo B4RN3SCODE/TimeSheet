@@ -12,12 +12,17 @@ form[name="timesheet"]
       height: 34px
       margin-top: -1px
 #existing-entries
-  tbody
-    td
-      vertical-align: middle
-      &:nth-child(n+3)
-        text-align: center
+  max-height: 300px
+  overflow-y: auto
+  table
+    tbody
+      td
+        vertical-align: middle
+        &:nth-child(n+3)
+          text-align: center
 #ActiveProjects
   ul
     li[data-pid]
       cursor: pointer
+.floatThead-container
+  background: #fff

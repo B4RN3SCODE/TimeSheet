@@ -339,4 +339,10 @@ function AddProject(form) {
     return false;
 }
 
+function FloatTableHead(selector, container) {
+    var table = $(selector);
+    var scrollContainer = (container !== undefined) ? function(table) { return table.closest('div'); } : undefined;
+    table.floatThead({ scrollContainer: scrollContainer });
+}
+
 $(document).ready(initialize);
