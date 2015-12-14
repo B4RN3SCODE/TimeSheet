@@ -384,45 +384,6 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.triggerEvent = function(idnt, act_str, e, notifs) {
-		/* BEGIN CLUSTER FUCK */
-		var cval = this.getCookie('scns'); var cdata; var o; var ccval = this.getCookie('scstate'); var ccdata;
-		var lst = [];
-		if(!!cval && cval.length > 0) {
-			try {
-				cdata = cval.split('&');
-				for(var i in cdata) {
-					o = JSON.parse(cdata[i]);
-					if(e.EID == o.e) {
-						e.HasTriggered = true;
-					}
-					for(var n in notifs) {
-						if(notifs[n].EID == o.e && notifs[n].NID == o.n) {
-							lst.push(notifs[n]);
-						}
-					}
-				}
-				this.viewNotifications(e.EID,lst,false);
-			} catch(e) {
-				console.error(e);
-			}
-		}
-
-		if(!!ccval && ccval.length > 0) {
-			ccdata = JSON.parse(ccval);
-			if(ccdata.w) {
-				this.renderWidget(false);
-				this._widgetElmsRemoved.push(this._$('.closer').parent());
-				this._$('.closer').parent().remove();
-				this._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
-					me.removeWidget(true);
-					me.viewNotifications(eid, notifs,true);
-				});
-			}
-			if(ccdata.s) {
-				this.renderSidebar();
-			}
-		}
-		/* END CLUSTER FUCK */
 		var eid = e.EID;
 		var me = this;
 		this._$(idnt).on(act_str, function() {
@@ -431,8 +392,6 @@ var SC = function(config) {
 				return false;
 			}
 			e.HasTriggered = true;
-			me.setNotifSeenCookie(e.EID,0); // zero means notif not seen
-
 
 			// record the event triggering
 			if(!me.eventTriggered(eid)) {
@@ -559,8 +518,6 @@ var SC = function(config) {
 
 			n[i].HasSeen = true;
 
-			this.setNotifSeenCookie(n[i].EID,n[i].NID);
-
 		}
 
 		if(!this.notificationSeen(e,ids)) {
@@ -605,7 +562,7 @@ var SC = function(config) {
 		}
 
 		this._displayState.widget = true;
-		this.setCookie('scstate',JSON.stringify({w:true,s:this._displayState.sidebar}),10);
+
 		return true;
 	};
 
@@ -638,7 +595,7 @@ var SC = function(config) {
 		}
 
 		this._displayState.widget = false;
-		this.setCookie('scstate',JSON.stringify({w:false,s:this._displayState.sidebar}),10);
+
 		return true;
 	};
 
@@ -648,19 +605,14 @@ var SC = function(config) {
 	 * renderSidebar
 	 * renders the sidebar
 	 */
-	this.renderSidebar = function(rend) {
+	this.renderSidebar = function() {
 		if(this._displayState.sidebar) {
 			return false;
 		}
 		this._$('body').append(this._sidebar);
 		this._displayState.sidebar = true;
 		this._$('body').append('<script id="tmpScScr">autosize(document.querySelectorAll("textarea"));</script>');
-		this.setCookie('scstate',JSON.stringify({w:this._displayState.widget,s:true}),10);
-		if(rend === false) {
-			this._$('#SCSB').hide();
-		} else if(rend === true && this._$('#SCSB').css('display') == 'none') {
-			this._$('#SCSB').show();
-		}
+
 		return true;
 	};
 
@@ -681,7 +633,7 @@ var SC = function(config) {
 		$('#tmpScScr').remove();
 
 		this._sidebar = this._$('<div id="SCSB" class="sc_main" style="z-index:999;"><div class="bigchat"><div id="ChatClose" class="header"><div class="name"></div><div class="time"></div><div class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
-		this.setCookie('scstate',JSON.stringify({w:this._displayState.widget,s:false}),10);
+
 		return true;
 	};
 
@@ -824,29 +776,6 @@ var SC = function(config) {
 			if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
 		}
 		return "";
-	};
-
-
-	/*
-	 * setNotifSeenCookie
-	 * sets cookie when notification seen
-	 *
-	 * @param eid event id
-	 * @param nid notif id
-	 * @return void
-	 */
-	this.setNotifSeenCookie = function(eid,nid) {
-		var str = JSON.stringify({e:eid,n:nid});
-		var v = this.getCookie('scns');
-		if(!v || v.length < 1) {
-			v = str;
-		} else {
-			if(v.indexOf(str) === -1) {
-				v+='&'+str;
-			}
-		}
-
-		this.setCookie('scns',v,10);
 	};
 
 
