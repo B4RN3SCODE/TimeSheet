@@ -41,6 +41,10 @@ var SC = function(config) {
 	this._defaultGetNotifDataUri = 'http://www.conversionvoodoo.com/sc/include/getNotifData.php';
 
 
+	// cookie name(s) & stuff
+	this._eventCookieName = 'snevdat';
+	this._defaultCookieExpire = 10; // days
+
 
 	/*
 	 * ini
@@ -392,6 +396,8 @@ var SC = function(config) {
 				return false;
 			}
 			e.HasTriggered = true;
+			me.setEventCookie(eid);
+
 
 			// record the event triggering
 			if(!me.eventTriggered(eid)) {
@@ -458,6 +464,16 @@ var SC = function(config) {
 			});
 
 		});
+
+		// if cookie set with event already triggered & in cookie then manually trigger the event
+		if(this.manualTrigger(eid)) {
+			var elst = act_str.split(',');
+			for(var ev in elst) {
+				this._$(idnt).trigger(elst[ev].trim());
+			}
+		}
+
+
 	};
 
 
@@ -651,6 +667,39 @@ var SC = function(config) {
 
 
 
+
+	/*
+	 * manualTrigger
+	 * decides if a manual trigger should be done
+	 * based on cookie
+	 *
+	 * @param eid event id
+	 * @return bool true if should manually trigger
+	 */
+	this.manualTrigger = function(eid) {
+		var v = this.getCookie(this._eventCookieName);
+		var o;
+		if(!!v && v.length > 0) {
+			console.log(v);
+			o = JSON.parse(v);
+			console.log(o);
+		} else {
+			return false;
+		}
+
+		var e = '_'+eid.toString()+'_';
+		console.log(o[e]);
+
+		if(!o || !o[e] || typeof o[e] == 'undefined') {
+			return false;
+		}
+
+		return true;
+	};
+
+
+
+
 	/*
 	 * defaultAjaxSuccCb
 	 * decides what to do by default with ajax data
@@ -779,6 +828,55 @@ var SC = function(config) {
 	};
 
 
+
+
+	/*
+	 * setEventCookie
+	 * sets cookie for when an event is triggered
+	 *
+	 * @param eid int event id
+	 * @return void
+	 */
+	this.setEventCookie = function(eid) {
+		var v = this.getCookie(this._eventCookieName);
+		var o = (!!v && v.length > 0) ? JSON.parse(v) : {};
+		var e = '_'+eid.toString()+'_';
+		if(!o || !o[e] || typeof o[e] == 'undefined') {
+			o = (typeof o == 'object' || o instanceof Object) ? o : {};
+			o[e] = [];
+		}
+		this.setCookie(this._eventCookieName,JSON.stringify(o),this._defaultCookieExpire);
+	}
+
+
+
+	/*
+	 * setEventNotifCookie
+	 * sets cookie for when an event is triggered
+	 *
+	 * @param eid int event id
+	 * @param nid int notification id
+	 * @return void
+	 */
+	this.setEventNotifCookie = function(eid,nid) {
+		var v = this.getCookie(this._eventCookieName);
+		var o = (!!v && v.length > 0) ? JSON.parse(v) : {};
+		var e = '_'+eid.toString()+'_';
+		if(!o || !o[e] || typeof o[e] == 'undefined') {
+			o = (typeof o == 'object' || o instanceof Object) ? o : {};
+			o[e] = [];
+		}
+		var has_seen = false;
+		for(var x in o[e]) {
+			if(o[e][x] == nid) {
+				has_seen  =true;
+			}
+		}
+		if(!has_seen) {
+			o[e].push(nid);
+		}
+		this.setCookie(this._eventCookieName,JSON.stringify(o),this._defaultCookieExpire);
+	}
 
 };
 // END SC
