@@ -85,7 +85,6 @@ var SC = function(config) {
 
 
 		this.getThemeData();
-		this.getNotifData();
 
 	};
 
@@ -197,7 +196,7 @@ var SC = function(config) {
 			}
 		});
 		this._$.ajax({
-			url: u, data: d, type: t, error: e,	success: function(d) { s(d); }
+			url: u, data: d, crossDomain: true, type: t, error: e, success: function(d) { s(d); }
 		});
 
 		return true;
@@ -216,7 +215,7 @@ var SC = function(config) {
 			this._config.getThemeUri = this._defaultGetThemeUri;
 		}
 		var me = this;
-		this.ajax(this._config.getThemeUri,{theme:this._config.themeId,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpTheme(d); });
+		this.ajax(this._config.getThemeUri,{theme:this._config.themeId,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpTheme(d); me.getNotifData(); });
 
 	};
 
@@ -469,7 +468,7 @@ var SC = function(config) {
 		if(this.manualTrigger(eid)) {
 			var elst = act_str.split(',');
 			for(var ev in elst) {
-				this._$(idnt).trigger(elst[ev].trim());
+				setTimeout(function(){me._$(idnt).trigger(elst[ev].trim());},1000);
 			}
 		}
 
