@@ -5,8 +5,22 @@
  * @author		Tyler J Barnes
  * @contact		b4rn3scode@gmail.com
  * @version		1.0
- * @doc			www.barnescode.com/sc/README.txt
  */
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++/
+ * Change Log | todo list
+ *
+ * 20160108	Tyler J Barnes
+ *  - TODO
+ * 		Use generated (temp) uid to handle events triggered
+ * 		and seen notification storing
+ *
+ *  - TODO
+ * 		Cookie handling for new generated uid
+ *
+ *
+ *++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
 
 // strict mode
 'use strict';
@@ -32,18 +46,33 @@ var SC = function(config) {
 	// rewrite cache
 	this._widgetElmsRemoved = [];
 	// sidebar
-	this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main" style="z-index:999;"><div class="bigchat"><div id="ChatClose" class="header"><div class="name"></div><div class="time"></div><div class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
+	this._sidebar = (this._$ === -1) ? '': this._$('<div id="SCSB" class="sc_main" style="z-index:999;"><div class="bigchat"><div id="ChatClose" class="header"><div class="name"></div><div class="time"></div><div class="close">Close</div></div><div class="primarychat"></div></div></div>');
 	// tracks the state of whats displayed
 	this._displayState = { widget: false, sidebar: false };
 	// default getThemeUri
-	this._defaultGetThemeUri = 'http://www.conversionvoodoo.com/sc/include/getTheme.php';
+	this._defaultGetThemeUri = '//www.conversionvoodoo.com/sc/include/getTheme.php';
 	// default getNotifDataUri
-	this._defaultGetNotifDataUri = 'http://www.conversionvoodoo.com/sc/include/getNotifData.php';
+	this._defaultGetNotifDataUri = '//www.conversionvoodoo.com/sc/include/getNotifData.php';
+	// default eventTriggered url
+	this._defaultEventTriggeredUri = '//www.conversionvoodoo.com/sc/include/eventTriggered.php';
+	// default notifSeen url
+	this._defaultNotifSeenUri = '//www.conversionvoodoo.com/sc/include/notifSeen.php';
 
+	// notification sound location
+	//		** note: to change this, after using SC_AUTO_INIT = false to
+	//			prevent the app from auto initializing, set SC._notificationSoundFile
+	//			to point to the new sound location -- then do SC.ini()
+	this._notificationSoundFile = '//www.conversionvoodoo.com/sc/media/notif.mp3';
+	// audio object to play
+	this._audio = null;
 
 	// cookie name(s) & stuff
 	this._eventCookieName = 'snevdat';
 	this._defaultCookieExpire = 10; // days
+
+	// events manual trigger... dont store trigger or write cookies
+	this._dispatchedCodes = [];
+
 
 
 	/*
@@ -56,7 +85,7 @@ var SC = function(config) {
 		var loc = window.location;
 
 		// insert css for SC
-		this.installJsCss(document);
+		this.installJsCss();
 
 		// make sure jQuery is loaded
 		if(this._$ == -1 || typeof this._$ == 'undefined') {
@@ -83,6 +112,8 @@ var SC = function(config) {
 			this._config.pageUri = (!!this._config.pageUri && this._config.pageUri.length > 0) ? this._config.pageUri : loc.protocol+'//'+loc.hostname+loc.pathname;
 		}
 
+		// init audio obj
+		this._audio = new Audio(this._notificationSoundFile);
 
 		this.getThemeData();
 
@@ -98,8 +129,8 @@ var SC = function(config) {
 	 * @param d document
 	 * @return void
 	 */
-	this.installJsCss = function(d) {
-		this._$('head').append('<link type="text/css" rel="stylesheet" href="http://www.conversionvoodoo.com/sc/css/style.css"><script src="//www.conversionvoodoo.com/sc/js/autosize.min.js"></script>');
+	this.installJsCss = function() {
+		this._$('head').append('<link type="text/css" rel="stylesheet" href="//www.conversionvoodoo.com/sc/css/style.css"><script src="//www.conversionvoodoo.com/sc/js/autosize.min.js"></script>');
 	};
 
 
@@ -196,7 +227,7 @@ var SC = function(config) {
 			}
 		});
 		this._$.ajax({
-			url: u, data: d, crossDomain: true, type: t, error: e, success: function(d) { s(d); }
+			url: u, data: d, type: t, error: e,	success: function(d) { s(d); }
 		});
 
 		return true;
@@ -211,11 +242,14 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.getThemeData = function() {
+
 		if(!this._config.getThemeUri || typeof this._config.getThemeUri == 'undefined') {
 			this._config.getThemeUri = this._defaultGetThemeUri;
 		}
-		var me = this;
-		this.ajax(this._config.getThemeUri,{theme:this._config.themeId,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpTheme(d); me.getNotifData(); });
+
+		var scriptParams = '?theme='+this._config.themeId+'&license='+this._config.license;
+
+		this.addScript(document.location.protocol+this._config.getThemeUri+scriptParams, true);
 
 	};
 
@@ -228,12 +262,44 @@ var SC = function(config) {
 	 * @reutn void
 	 */
 	this.getNotifData = function() {
+
 		if(!this._config.getNotifDataUri || typeof this._config.getNotifDataUri == 'undefined') {
 			this._config.getNotifDataUri = this._defaultGetNotifDataUri;
 		}
-		var me = this;
-		this.ajax(this._config.getNotifDataUri,{page:this._config.pageUri,license:this._config.license},function() { console.log('err'); }, function(d) { me.setUpEvents(d); });
+
+		var scriptParams = '?page='+this._config.pageUri+'&license='+this._config.license;
+
+		this.addScript(document.location.protocol+this._config.getNotifDataUri+scriptParams, true);
+
 	};
+
+
+
+
+	/*
+	 * addScript
+	 * adds a js script to document
+	 *
+	 * @param s string full source url
+	 * @param asnc bool asyncronous
+	 * @return void
+	 */
+	this.addScript = function(s, asnc) {
+
+		if(!!s && this.validUrl(s)) {
+			asnc = (asnc === true);
+
+			var ns2 = document.createElement('script');
+			ns2.type = 'text/javascript';
+			ns2.async = asnc;
+			ns2.src = s;
+			var es2 = document.getElementsByTagName('script')[0];
+			es2.parentNode.insertBefore(ns2, es2);
+
+		}
+
+	};
+
 
 
 
@@ -244,8 +310,15 @@ var SC = function(config) {
 	 *
 	 * @return void
 	 */
-	this.setUpTheme = function(d) {
-		this._themeData = d;
+	this.setUpTheme = function() {
+		var hasData = false;
+		for(var p in this._themeData) {
+			hasData = true;
+			break;
+		}
+		if(!hasData) {
+			return false;
+		}
 		var tmpstr = '', tmp, outter_class = 'chatbox', set_inner_html = true, show_closer = true;
 
 		for(var x in this._themeData.elements) {
@@ -292,6 +365,8 @@ var SC = function(config) {
 		}
 		// clean up
 		delete this._themeData.attributes;
+
+		return true;
 	};
 
 
@@ -303,8 +378,14 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.setUpEvents = function(d) {
-		/* TODO add in page verification */
-		this._notificationData = d;
+		var hasData = false;
+		for(var p in this._notificationData) {
+			hasData = true;
+			break;
+		}
+		if(!hasData) {
+			return false;
+		}
 		// reference for callback function when triggering event
 		var me = this;
 
@@ -374,6 +455,8 @@ var SC = function(config) {
 			this.triggerEvent(identifiers[tmp.EIdentifier]+tmp.EAttrVal,action_str,tmp,notification_list);
 
 		} // END for loop for events
+
+		return true;
 	};
 
 
@@ -397,9 +480,8 @@ var SC = function(config) {
 			e.HasTriggered = true;
 			me.setEventCookie(eid);
 
-
 			// record the event triggering
-			if(!me.eventTriggered(eid)) {
+			if(!me.eventTriggered(e)) {
 				console.warn('Failed to record triggered event [ '+eid+' ]');
 			}
 
@@ -416,7 +498,6 @@ var SC = function(config) {
 
 				} else {
 					console.error('Invalid notification list passed to triggerEvent');
-					console.log(notifs[i]);
 				}
 			}
 
@@ -449,7 +530,7 @@ var SC = function(config) {
 
 			} else {
 				me.playNotifSound();
-				me.viewNotifications(eid, notifs,true);
+				me.viewNotifications(e, notifs,true);
 				me.renderWidget(true);
 			}
 
@@ -459,13 +540,15 @@ var SC = function(config) {
 			});
 			me._$('#SCWidget .icon img, #SCWidget .chatbox:nth-child(1)').on('click', function() {
 				me.removeWidget(true);
-				me.viewNotifications(eid, notifs,true);
+				me.viewNotifications(e, notifs,true);
 			});
 
 		});
 
 		// if cookie set with event already triggered & in cookie then manually trigger the event
 		if(this.manualTrigger(eid)) {
+			this._dispatchedCodes.push(e.DispatchCode);
+
 			var elst = act_str.split(',');
 			for(var ev in elst) {
 				setTimeout(function(){me._$(idnt).trigger(elst[ev].trim());},1000);
@@ -482,12 +565,14 @@ var SC = function(config) {
 	 * viewNotifications
 	 * opens side bar and stuff
 	 *
-	 * @param event id
+	 * @param event
 	 * @param list of notifications
 	 * @param rend bool if sidbar should render
 	 * @return void
 	 */
-	this.viewNotifications = function(e,n,rend) {
+	this.viewNotifications = function(E,n,rend) {
+		var e = E.EID;
+
 		this._sidebar.find('.bigchat .header .name').text(this._themeData.sidebar.SBTitle);
 		this._sidebar.find('.bigchat .header .time').text('just now'); // lazy as fuck right now
 
@@ -496,7 +581,6 @@ var SC = function(config) {
 		for(var i in n) {
 
 			if(n[i].EID != e) {
-				console.log(n[i]);
 				continue;
 			}
 
@@ -535,7 +619,7 @@ var SC = function(config) {
 
 		}
 
-		if(!this.notificationSeen(e,ids)) {
+		if(!this.notificationSeen(E,ids)) {
 			console.warn('Failed to record seen notifications');
 			console.log(e,ids);
 		}
@@ -647,7 +731,7 @@ var SC = function(config) {
 
 		$('#tmpScScr').remove();
 
-		this._sidebar = this._$('<div id="SCSB" class="sc_main" style="z-index:999;"><div class="bigchat"><div id="ChatClose" class="header"><div class="name"></div><div class="time"></div><div class="close"><i class="fa fa-close"></i></div></div><div class="primarychat"></div></div></div>');
+		this._sidebar = this._$('<div id="SCSB" class="sc_main" style="z-index:999;"><div class="bigchat"><div id="ChatClose" class="header"><div class="name"></div><div class="time"></div><div class="close">Close</div></div><div class="primarychat"></div></div></div>');
 
 		return true;
 	};
@@ -658,9 +742,22 @@ var SC = function(config) {
 	/*
 	 * playNotifSound
 	 * plays a sound for notifications
+	 *
+	 * @return void
 	 */
 	this.playNotifSound = function() {
-		(new Audio('sc/media/notif.mp3')).play();
+
+		if(typeof this._audio == 'object' && this._audio instanceof Audio) {
+
+			this._audio.play();
+
+		} else {
+
+			console.warn('Notification sound not instance of Audio Object.');
+			console.log('Audio obj:',this._audio);
+
+		}
+
 	};
 
 
@@ -678,16 +775,16 @@ var SC = function(config) {
 	this.manualTrigger = function(eid) {
 		var v = this.getCookie(this._eventCookieName);
 		var o;
+
 		if(!!v && v.length > 0) {
-			console.log(v);
+
 			o = JSON.parse(v);
-			console.log(o);
+
 		} else {
 			return false;
 		}
 
 		var e = '_'+eid.toString()+'_';
-		console.log(o[e]);
 
 		if(!o || !o[e] || typeof o[e] == 'undefined') {
 			return false;
@@ -764,6 +861,33 @@ var SC = function(config) {
 
 
 	/*
+	 * eventDispatched
+	 * checks to see if event already dispatched
+	 *
+	 * @param dc event dispatch code
+	 * @return true if already fired
+	 */
+	this.eventDispatched = function(dc) {
+
+		if(!!dc && dc.length > 0) {
+			// iterate through dispatched codes
+			for(var s in this._dispatchedCodes) {
+
+				// check for match
+				if(dc == this._dispatchedCodes[s]) {
+					return true;
+				}
+
+			} // end for
+
+		} // end if
+
+		return false;
+	};
+
+
+
+	/*
 	 * eventTriggered
 	 * records an event being triggered
 	 *
@@ -771,7 +895,35 @@ var SC = function(config) {
 	 * @return false if failure
 	 */
 	this.eventTriggered = function(e) {
-		console.log(e);
+
+		if(!e || 'object' != typeof e) {
+			return false;
+		}
+
+		if(!e.DispatchCode || e.DispatchCode.length < 1) {
+			return false;
+		}
+		if(this.getCookie(e.DispatchCode).length > 0) {
+			return true;
+		}
+
+		if(this.eventDispatched(e.DispatchCode)) {
+			return true;
+		}
+
+
+		var tmp = this._$('script[data-dispatch='+e.DispatchCode+']');
+		if(tmp.length > 0) {
+			return true;
+		}
+
+
+		var scriptParams = '?eid='+e.EID+'&dc='+e.DispatchCode;
+
+		this._$('head').prepend(this._$('<script type="text/javascript"></script>').attr('src',this._defaultEventTriggeredUri+scriptParams).attr('data-dispatch',e.DispatchCode).prop('async',true));
+
+		return true;
+
 	};
 
 
@@ -781,11 +933,51 @@ var SC = function(config) {
 	 * notificationSeen
 	 * records when notification is seen
 	 *
+	 * @param e event object
 	 * @param array of notification ids
 	 * @return false if fails
 	 */
-	this.notificationSeen = function(eid,nids) {
-		console.log(eid,nids);
+	this.notificationSeen = function(e,nids) {
+		// make sure event objec is valid
+		if(!e || !e.EID || !e.DispatchCode || e.DispatchCode < 1) {
+			return false;
+		}
+
+		// make sure nids are all valid
+		// 	then check to see if there is a
+		//	notification that has not been seen
+		var unseen_cnt = 0;
+		for(var n in nids) {
+
+			if(nids[n] < 1) {
+				return false;
+			}
+
+			if(!this.notifHasSeen(e.EID,nids[n])) {
+				this.setEventNotifCookie(e.EID,nids[n]);
+				unseen_cnt++;
+			}
+		}
+
+		if(unseen_cnt == 0) {
+			console.log('all notifications have been seen');
+			return true;
+		}
+
+		// stirng of nids
+		var nid_str = nids.join('-'), dc_nid = e.DispatchCode+'-'+nid_str;
+
+		var tmp = this._$('script[data-n-dispatch='+dc_nid+']');
+		if(tmp.length > 0) {
+			return true;
+		}
+
+		var scriptParams = '?eid='+e.EID+'&dc='+e.DispatchCode+'&nids='+nid_str;
+
+		this._$('head').prepend(this._$('<script type="text/javascript"></script>').attr('src',this._defaultNotifSeenUri+scriptParams).attr('data-n-dispatch',dc_nid).prop('async',true));
+
+		return true;
+
 	};
 
 
@@ -793,6 +985,7 @@ var SC = function(config) {
 	/*
 	 * setCookie
 	 * sets a cookie
+	 *
 	 * @param n name
 	 * @param v value
 	 * @param ex expiration
@@ -812,6 +1005,7 @@ var SC = function(config) {
 
 	/*
 	 * getCookie
+	 *
 	 * @param cname cookie name
 	 * @return cookie value
 	 */
@@ -837,15 +1031,9 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.setEventCookie = function(eid) {
-		var v = this.getCookie(this._eventCookieName);
-		var o = (!!v && v.length > 0) ? JSON.parse(v) : {};
-		var e = '_'+eid.toString()+'_';
-		if(!o || !o[e] || typeof o[e] == 'undefined') {
-			o = (typeof o == 'object' || o instanceof Object) ? o : {};
-			o[e] = [];
-		}
+		var o = this.getEventCookieObject(eid);
 		this.setCookie(this._eventCookieName,JSON.stringify(o),this._defaultCookieExpire);
-	}
+	};
 
 
 
@@ -858,24 +1046,87 @@ var SC = function(config) {
 	 * @return void
 	 */
 	this.setEventNotifCookie = function(eid,nid) {
-		var v = this.getCookie(this._eventCookieName);
-		var o = (!!v && v.length > 0) ? JSON.parse(v) : {};
+		var o = this.getEventCookieObject(eid);
 		var e = '_'+eid.toString()+'_';
-		if(!o || !o[e] || typeof o[e] == 'undefined') {
-			o = (typeof o == 'object' || o instanceof Object) ? o : {};
-			o[e] = [];
+		if(!this.notifHasSeen(eid,nid)) {
+			o[e].push(nid);
 		}
+		this.setCookie(this._eventCookieName,JSON.stringify(o),this._defaultCookieExpire);
+	};
+
+
+
+
+	/*
+	 * notifHasSeen
+	 * determines whether or not a notif has been seen
+	 *
+	 * @param eid int event id
+	 * @param nid int netif id
+	 * @return true if seen
+	 */
+	this.notifHasSeen = function(eid,nid) {
+		var o = this.getEventCookieObject(eid);
+		var e = '_'+eid.toString()+'_';
 		var has_seen = false;
 		for(var x in o[e]) {
 			if(o[e][x] == nid) {
 				has_seen  =true;
 			}
 		}
-		if(!has_seen) {
-			o[e].push(nid);
+
+		return has_seen;
+	};
+
+
+
+	/*
+	 * getEventCookieObject
+	 * gets event object from cookie val
+	 *
+	 * @return object
+	 */
+	this.getEventCookieObject = function(eid) {
+		if(eid < 1) return {};
+
+		var e = '_'+eid.toString()+'_';
+		var v = this.getCookie(this._eventCookieName);
+		var o = (!!v && v.length > 0) ? JSON.parse(v) : {};
+		if(!o || !o[e] || typeof o[e] == 'undefined') {
+			o = (typeof o == 'object' || o instanceof Object) ? o : {};
+			o[e] = [];
 		}
-		this.setCookie(this._eventCookieName,JSON.stringify(o),this._defaultCookieExpire);
-	}
+		return o;
+	};
+
+
+
+	/*
+	 * reportEventFailure
+	 * reports that there was an error when trying to store
+	 * triggered event data
+	 *
+	 * @param m string message
+	 * @return void
+	 */
+	this.reportEventFailure = function(m) {
+		console.warn(m);
+	};
+
+
+
+	/*
+	 * reportNotifSuccess
+	 * reports successful notif views
+	 *
+	 * @param array of ids
+	 * @return void
+	 */
+	this.reportNotifSuccess = function(ids) {
+		console.info('following notification ids viewed and tracked: '+ids.toString());
+	};
+
+
 
 };
 // END SC

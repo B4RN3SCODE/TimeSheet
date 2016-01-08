@@ -18,6 +18,7 @@
 	position: relative;
 	box-sizing: border-box;
 	cursor: pointer;
+	background-color:white;
 }
 .sc_main .chatbox:after, .sc_main .chatbox:before {
 	left: 100%;
