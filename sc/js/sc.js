@@ -89,7 +89,7 @@ var SC = function(config) {
 
 		// make sure jQuery is loaded
 		if(this._$ == -1 || typeof this._$ == 'undefined') {
-			console.error('Snake Charmer Relies on jQuery. Please include jQuery library on your web page');
+			this.reportDependencies();
 			return false;
 		}
 
@@ -1128,13 +1128,58 @@ var SC = function(config) {
 
 
 
+	/*
+	 * reportInvalidLicense
+	 * reports the license is invalid
+	 *
+	 * @param m message
+	 * @return void
+	 */
+	this.reportInvalidLicense = function(m) {
+		console.warn('Invalid License Detected. Request Response:');
+		console.info(m);
+	};
+
+
+
+	/*
+	 * reportRequestFaulure
+	 * reports request failure
+	 *
+	 * @param m message
+	 * @return void
+	 */
+	this.reportRequestFaulure = function(m) {
+		console.warn('Request to SC server failed. Message:');
+		console.info(m);
+	};
+
+
+
+	/*
+	 * reportDependencies
+	 * reports the fact SC needs shit to work
+	 *
+	 * @return void
+	 */
+	this.reportDependencies = function() {
+		console.error('Snake Charmer Relies on jQuery. Please include jQuery library on your web page');
+		console.info('Snake Charmer also relies on bootstrap. If the widget renders like crap, make sure bootstrap is loaded');
+	};
+
+
+
 };
 // END SC
 
-// auto initialize
-$(document).ready(function() {
-	if(typeof window.SC_AUTO_INIT == 'undefined' || window.SC_AUTO_INIT !== false) {
-		(window.SC = new SC()).ini();
-	}
-});
-// end auto initialize
+if(jQuery && 'undefined' != typeof jQuery) {
+	// auto initialize
+	$(document).ready(function() {
+		if(typeof window.SC_AUTO_INIT == 'undefined' || window.SC_AUTO_INIT !== false) {
+			(window.SC = new SC()).ini();
+		}
+	});
+	// end auto initialize
+} else {
+	(new SC).reportDependencies();
+}
