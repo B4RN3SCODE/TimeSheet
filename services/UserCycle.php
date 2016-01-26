@@ -208,6 +208,9 @@ foreach($Sheets as $Name => $sheet) {
 			->getColumnDimension($col)
 			->setAutoSize(true);
 	}
+	if($Name != "Totals") {
+		$objPHPExcel->getActiveSheet()->getColumnDimension("C")->setAutoSize(false)->setWidth("60");
+	}
 }
 $objPHPExcel->setActiveSheetIndex(0);
 
