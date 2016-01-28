@@ -1,23 +1,60 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.3
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jan 28, 2016 at 05:43 PM
+-- Server version: 5.6.24
+-- PHP Version: 5.6.8
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+--
+-- Database: `TimeSheet`
+--
+CREATE DATABASE IF NOT EXISTS `TimeSheet` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `TimeSheet`;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `AccountType`
+--
+
+DROP TABLE IF EXISTS `AccountType`;
 CREATE TABLE IF NOT EXISTS `AccountType` (
   `id` int(11) NOT NULL,
   `Type` varchar(30) DEFAULT NULL,
   `Description` varchar(200) NOT NULL DEFAULT 'no description'
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `AccountType`
+--
+
 TRUNCATE TABLE `AccountType`;
+--
+-- Dumping data for table `AccountType`
+--
+
 INSERT INTO `AccountType` (`id`, `Type`, `Description`) VALUES
 (1, 'Super User', 'Even more privileged than admin'),
 (2, 'Admin', 'Administrative privileges ');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Client`
+--
+
+DROP TABLE IF EXISTS `Client`;
 CREATE TABLE IF NOT EXISTS `Client` (
   `id` int(11) NOT NULL,
   `Name` varchar(50) DEFAULT NULL,
@@ -30,9 +67,17 @@ CREATE TABLE IF NOT EXISTS `Client` (
   `StreetAddress` varchar(100) DEFAULT NULL,
   `StreetAddress2` varchar(100) DEFAULT NULL,
   `City` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+
+--
+-- Truncate table before insert `Client`
+--
 
 TRUNCATE TABLE `Client`;
+--
+-- Dumping data for table `Client`
+--
+
 INSERT INTO `Client` (`id`, `Name`, `Country`, `StateOrProv`, `Zip`, `Priority`, `Phone`, `Contact`, `StreetAddress`, `StreetAddress2`, `City`) VALUES
 (1, 'ACG Corporate Disbursements', 225, 'MI', '48121-0360', 1, '313-336-6937', '', 'PO Box 360', '', 'Dearborn'),
 (2, 'Agile Technology Architects, LLC', 225, 'WI', '53146', 1, '414-433-4363', 'Jim Oberholtzer', '21305 W. Glengarry RD', '', 'New Berlin'),
@@ -112,14 +157,31 @@ INSERT INTO `Client` (`id`, `Name`, `Country`, `StateOrProv`, `Zip`, `Priority`,
 (76, 'West Michigan Rheumatology', 225, 'MI', '49546', 1, '', 'Mr. Brian Dempkey', '1155 East Paris Ave. SE, Suite 100', '', 'Grand Rapids'),
 (77, 'WL Molding Company', 225, 'MI', '49024', 1, '269-327-3075', 'Dave Brightwell', 'Accounts Payable', '8212 Shaver Road', 'Portage'),
 (78, 'Wolverine World Wide Inc', 225, 'OR', '97208-4776', 1, '616 863-3890', 'Diane Ten Eyck', 'Attn:  Accounts Payable', 'P.O. Box 4776', 'Portland'),
-(80, 'Arbor Solutions', 225, 'MI', '49505', 0, '6164512500', '', '1345 Monroe NW, Suite 309', '', 'Grand Rapids');
+(80, 'Arbor Solutions', 225, 'MI', '49505', 0, '6164512500', '', '1345 Monroe NW, Suite 309', '', 'Grand Rapids'),
+(81, 'Elkhart Brass', 225, '', '', 0, '', '', '', '', ''),
+(82, 'Flex-N-Gate', 225, '', '', 0, '', '', '', '', '');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Country`
+--
+
+DROP TABLE IF EXISTS `Country`;
 CREATE TABLE IF NOT EXISTS `Country` (
   `id` int(11) NOT NULL,
   `Code` varchar(3) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `Country`
+--
+
 TRUNCATE TABLE `Country`;
+--
+-- Dumping data for table `Country`
+--
+
 INSERT INTO `Country` (`id`, `Code`) VALUES
 (1, 'AD'),
 (2, 'AE'),
@@ -364,6 +426,13 @@ INSERT INTO `Country` (`id`, `Code`) VALUES
 (241, 'ZM'),
 (242, 'ZW');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LineItem`
+--
+
+DROP TABLE IF EXISTS `LineItem`;
 CREATE TABLE IF NOT EXISTS `LineItem` (
   `id` int(11) NOT NULL,
   `UserId` int(11) NOT NULL,
@@ -374,9 +443,17 @@ CREATE TABLE IF NOT EXISTS `LineItem` (
   `Hours` double NOT NULL DEFAULT '0',
   `Travel` double NOT NULL DEFAULT '0',
   `Billable` bit(1) DEFAULT b'1'
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
+
+--
+-- Truncate table before insert `LineItem`
+--
 
 TRUNCATE TABLE `LineItem`;
+--
+-- Dumping data for table `LineItem`
+--
+
 INSERT INTO `LineItem` (`id`, `UserId`, `ClientId`, `ProjectId`, `Description`, `EntryDate`, `Hours`, `Travel`, `Billable`) VALUES
 (9, 1, 10, 3, 'ASDF', '2015-11-04', 4, 0, b'1'),
 (10, 1, 10, 3, 'FDSA', '2015-11-06', 3, 0, b'1'),
@@ -395,15 +472,87 @@ INSERT INTO `LineItem` (`id`, `UserId`, `ClientId`, `ProjectId`, `Description`, 
 (36, 2, 80, 6, 'TimeSheet application, updating individual user spreadsheet design', '2015-11-23', 5, 0, b'1'),
 (37, 2, 80, 6, 'Fixing forms not submitting numbers and validation along with creating all user timesheet script', '2015-11-24', 4, 0, b'1'),
 (38, 2, 80, 6, 'Creating client timesheets', '2015-11-24', 3, 0, b'1'),
-(39, 2, 24, 4, 'Neighborhood map, nearby searches, places api', '2015-12-02', 6, 0, b'1');
+(39, 2, 24, 4, 'Neighborhood map, nearby searches, places api', '2015-12-02', 6, 0, b'1'),
+(40, 2, 81, 8, 'Determining what needs to be provided to fix email.', '2015-12-04', 0.5, 0, b'1'),
+(41, 2, 24, 4, 'Youtube Video Frame, Comm Lease / Sale Search, Push State, Media Queries', '2015-12-08', 4, 0, b'1'),
+(42, 2, 24, 4, 'Neighborhood Edit Page, Fix MichRIC, Update Commercial Display', '2015-12-09', 5, 0, b'1'),
+(43, 2, 81, 8, 'Figuring out what needs to be done to fix compiler errors. Looking for the cause of the QIR email issue.', '2015-12-09', 3, 0, b'1'),
+(44, 2, 24, 4, 'Neighborhood Edit Page Functioning', '2015-12-10', 3, 0, b'1'),
+(45, 2, 81, 8, 'OPIQ issues after mapping with reports, drawings, and broken links. Fixed broken JavaScript with browser profile.', '2015-12-11', 4, 0, b'1'),
+(46, 2, 81, 8, 'Transit Change Process site fix and resolving print button not appearing in IE11 for crystal reports.', '2015-12-14', 4.25, 0, b'1'),
+(47, 2, 24, 4, 'Commercial Sale search testing and debugging', '2015-11-30', 3, 0, b'1'),
+(48, 2, 24, 4, 'Commercial Sale search panel design and implemented', '2015-12-03', 3.5, 0, b'1'),
+(49, 2, 24, 4, 'Redesigning display and tweaking menu layouts', '2015-12-07', 2, 0, b'1'),
+(50, 2, 80, 9, 'Setting up VPN client and reconfiguring connections to Arbor and Elkart Brass', '2015-12-07', 1, 0, b'1'),
+(51, 2, 24, 4, 'Commercial Detail script and implementation + State Changes', '2015-12-15', 3, 0, b'1'),
+(52, 2, 24, 4, 'Updated CommDetail and fixed issue resulting with page saying false.', '2015-12-16', 3, 0, b'1'),
+(53, 2, 28, 10, 'Fixed ECR user''s not able to save new forms due to windows authentication on working properly.', '2015-12-16', 1, 0, b'1'),
+(54, 2, 81, 8, 'Change request application Windows Authentication broken.', '2015-12-16', 0.5, 0, b'1'),
+(55, 2, 28, 10, 'Fixed ECR file upload truncation error resolved.', '2015-12-18', 1.5, 0, b'1'),
+(57, 2, 81, 8, 'Debugging email issue, confirmed code is bug free. Tested using Google smtp server and it worked. Problem points to the exchange server. May be configuration issue.', '2015-12-18', 1.5, 0, b'1'),
+(58, 2, 24, 4, 'Neighborhoods, member detail, property detail', '2015-12-22', 8, 0, b'1'),
+(59, 2, 24, 4, 'Documentation, Fixed Map to display location name, Updated Icons', '2015-12-23', 6.5, 0, b'1'),
+(60, 2, 28, 7, 'File upload issue. Updated configuration to new file server.', '2015-12-23', 1, 0, b'1'),
+(61, 2, 25, 11, 'Rectifying force shutdown issue and corrupt data upon application start.', '2015-12-28', 6, 0, b'1'),
+(62, 2, 24, 4, 'All Neighborhood KML layer', '2015-12-28', 1.5, 0, b'1'),
+(63, 2, 24, 4, 'Member Detail, Search Panel Inline Loading, Saved Property Display, MLS # Search', '2015-12-29', 6.5, 0, b'1'),
+(64, 2, 24, 4, 'GR & MI Neighborhood google maps, Finishing touches on Member Detail, Fixing little bugs as they show themselves', '2015-12-30', 7, 0, b'1'),
+(65, 2, 24, 4, 'Member Sides', '2015-12-31', 6.5, 0, b'1'),
+(66, 2, 24, 4, 'Homepage search, agent sides, member detail', '2016-01-04', 7.5, 0, b'1'),
+(67, 2, 24, 4, 'Frontend changes, Javascript updates', '2016-01-05', 7, 0, b'1'),
+(68, 2, 24, 4, 'Major search updates, Minor front end changes', '2016-01-06', 9.5, 0, b'1'),
+(69, 2, 80, 9, 'Meeting regarding Elkhart Brass migration.', '2016-01-05', 1, 0, b'1'),
+(70, 2, 24, 4, 'Optimized main search scripts, javascript, updated search programs and markup, finished adding common id''s for neighborhoods, fixed map scripts and loading issue.', '2016-01-07', 9, 0, b'1'),
+(71, 2, 24, 4, 'Beta changes, MichRIC site created and modified', '2016-01-08', 7.5, 0, b'1'),
+(72, 2, 24, 4, 'Display changes, IE bug fix', '2016-01-09', 2, 0, b'1'),
+(73, 2, 24, 4, 'Openhouse and registration Member Id issue', '2016-01-10', 2, 0, b'1'),
+(74, 2, 24, 4, 'Preparing to go live, misc changes, added new search.', '2016-01-11', 6.5, 0, b'1'),
+(75, 2, 24, 4, 'Went live, addressing bugs', '2016-01-12', 8, 0, b'1'),
+(76, 2, 24, 4, 'Continuing enhancements, bug fixes, added analytics, apple and windows bookmark icons', '2016-01-13', 8, 0, b'1'),
+(77, 2, 24, 4, 'Continuing to fix issues from public emails. Updated permalink redirects so old site bookmarks continued to work with current site.', '2016-01-14', 7, 0, b'1'),
+(78, 2, 24, 4, 'Continued work on refined searches, added and moved some search criteria around.', '2016-01-15', 5.5, 0, b'1'),
+(79, 2, 25, 11, 'Investigating problem with counter being turned off then back on. Found the cause.', '2016-01-15', 1.5, 0, b'1'),
+(80, 2, 25, 11, 'Programmed solution to problem from 01/15/2016, uploaded and sent link to new installer.', '2016-01-17', 3, 0, b'1'),
+(82, 2, 24, 4, 'Refine search, Member search,', '2016-01-18', 7, 0, b'1'),
+(83, 2, 24, 4, 'Property Search Menu changes, updating searches, mobile UI enhancements/fixes', '2016-01-19', 8, 0, b'1'),
+(84, 2, 24, 4, 'Created property detail class to prepare doc title''s to help SEO', '2016-01-24', 1, 0, b'1'),
+(85, 2, 24, 4, 'Search Engine Optimization, Refine Search fixes, Stylesheet Updates, Fixed Save Search error messages, Added MLS Search', '2016-01-25', 7.5, 0, b'1'),
+(86, 2, 81, 8, 'Moving SQL databases to EBSQL1, still need to restore a few tables next Friday.', '2016-01-21', 3, 0, b'1'),
+(87, 2, 82, 12, 'Fixing invalid values on form submit and replacing empty Flags with "N".', '2016-01-21', 1.5, 0, b'1'),
+(88, 2, 81, 8, 'Building list of ALL software on GVMWEB01 and GVMSQL03A as well as highlighting which is used.', '2016-01-26', 1, 0, b'1'),
+(89, 2, 24, 4, 'Refine search, zip code issue, property thumbs, parm map, panels, new stylesheet, sccss, fonts, modals', '2016-01-20', 8, 0, b'1'),
+(90, 2, 81, 8, 'Generated list of installed software on GVMWEB01 & GVMSQL03A along with selecting which software we use.', '2016-01-23', 2, 0, b'1'),
+(91, 2, 80, 6, 'Remaking individual timesheet generation script to put clients on different worksheets.', '2016-01-26', 2.5, 0, b'1'),
+(92, 2, 24, 4, 'Redesign inside-grar, updated display program call, updated map polygon, user zoom, fixed school count.', '2016-01-26', 4, 0, b'1'),
+(93, 2, 24, 4, 'Manually testing commercial searches, Sort Sequence added (not functional)', '2016-01-27', 4, 0, b'1'),
+(94, 2, 82, 12, 'Meeting to test/demo changes, Updating minor changes in dev.', '2016-01-27', 1, 0, b'1'),
+(95, 2, 24, 4, 'Force static page load on direct request, updated beta to wordpress 4.4.1,  Member Thumbs Display, Permalink added for member-search', '2016-01-28', 8, 0, b'1');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Office`
+--
+
+DROP TABLE IF EXISTS `Office`;
 CREATE TABLE IF NOT EXISTS `Office` (
   `id` int(11) NOT NULL,
   `Name` varchar(50) DEFAULT NULL,
   `Description` varchar(200) NOT NULL DEFAULT 'no description'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `Office`
+--
+
 TRUNCATE TABLE `Office`;
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Project`
+--
+
+DROP TABLE IF EXISTS `Project`;
 CREATE TABLE IF NOT EXISTS `Project` (
   `id` int(11) NOT NULL,
   `UserId` int(11) DEFAULT NULL,
@@ -415,9 +564,17 @@ CREATE TABLE IF NOT EXISTS `Project` (
   `Active` bit(1) DEFAULT b'1',
   `InternalReference` varchar(50) DEFAULT NULL,
   `CustomerReference` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Truncate table before insert `Project`
+--
 
 TRUNCATE TABLE `Project`;
+--
+-- Dumping data for table `Project`
+--
+
 INSERT INTO `Project` (`id`, `UserId`, `ClientId`, `Title`, `Description`, `DateCreated`, `Rate`, `Active`, `InternalReference`, `CustomerReference`) VALUES
 (1, 10, 29, 'Create Bin Locations', 'General description of project.', '2015-11-03 21:19:21', 70, b'1', NULL, NULL),
 (2, 10, 19, 'Service Parts Expand Date', 'Increase the size of the field on the Service Parts entry screen (FCP018R)', '2015-11-03 21:21:18', 70, b'1', '982', '14696'),
@@ -425,64 +582,159 @@ INSERT INTO `Project` (`id`, `UserId`, `ClientId`, `Title`, `Description`, `Date
 (4, 11, 24, 'Public Site', 'GRAR''s public website', '2015-11-04 13:16:10', 38, b'1', '', ''),
 (5, 2, 28, 'OPIQ', 'General description of project.', '2015-11-05 00:08:08', 38, b'1', NULL, NULL),
 (6, 2, 80, 'TimeSheet Application', 'General description of project.', '2015-11-17 15:11:21', 15, b'1', NULL, NULL),
-(7, 2, 28, 'SMDB', 'Sales and Marketing Database', '2015-11-19 20:27:07', 38, b'1', '', '');
+(7, 2, 28, 'SMDB', 'Sales and Marketing Database', '2015-11-19 20:27:07', 38, b'1', '', ''),
+(8, 2, 81, 'QIR & OPIQ Move', 'General description of project.', '2015-12-04 20:00:53', 38, b'1', '', ''),
+(9, 2, 80, 'Misc', 'General description of project.', '2015-12-15 16:23:17', 15, b'1', '', ''),
+(10, 2, 28, 'Maintenance / Support', 'General description of project.', '2015-12-16 22:56:48', 38, b'1', '', ''),
+(11, 2, 25, 'Press Counter', 'General description of project.', '2015-12-28 18:53:00', 38, b'1', '', ''),
+(12, 2, 82, 'Alert Processing', 'General description of project.', '2016-01-26 08:17:50', 38, b'1', '', '14490');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ProjectItemProject`
+--
+
+DROP TABLE IF EXISTS `ProjectItemProject`;
 CREATE TABLE IF NOT EXISTS `ProjectItemProject` (
   `id` int(11) NOT NULL,
   `ProjectItemId` int(11) NOT NULL DEFAULT '0',
   `ProjectId` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncate table before insert `ProjectItemProject`
+--
+
 TRUNCATE TABLE `ProjectItemProject`;
+--
+-- Dumping data for table `ProjectItemProject`
+--
+
 INSERT INTO `ProjectItemProject` (`id`, `ProjectItemId`, `ProjectId`) VALUES
 (1, 1, 1),
 (2, 2, 1),
 (3, 3, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ProjectTimeSheet`
+--
+
+DROP TABLE IF EXISTS `ProjectTimeSheet`;
 CREATE TABLE IF NOT EXISTS `ProjectTimeSheet` (
   `id` int(11) NOT NULL,
   `ProjectId` int(11) NOT NULL DEFAULT '0',
   `TimeSheetId` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncate table before insert `ProjectTimeSheet`
+--
+
 TRUNCATE TABLE `ProjectTimeSheet`;
+--
+-- Dumping data for table `ProjectTimeSheet`
+--
+
 INSERT INTO `ProjectTimeSheet` (`id`, `ProjectId`, `TimeSheetId`) VALUES
 (1, 1, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TimeSheetPeriod`
+--
+
+DROP TABLE IF EXISTS `TimeSheetPeriod`;
 CREATE TABLE IF NOT EXISTS `TimeSheetPeriod` (
   `id` int(11) NOT NULL,
   `CycleStart` date NOT NULL,
   `CycleEnd` date NOT NULL,
   `Processed` bit(1) DEFAULT b'0'
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+
+--
+-- Truncate table before insert `TimeSheetPeriod`
+--
 
 TRUNCATE TABLE `TimeSheetPeriod`;
+--
+-- Dumping data for table `TimeSheetPeriod`
+--
+
 INSERT INTO `TimeSheetPeriod` (`id`, `CycleStart`, `CycleEnd`, `Processed`) VALUES
 (1, '2015-11-02', '2015-11-15', b'0'),
 (3, '2015-10-19', '2015-11-01', b'0'),
 (6, '2015-10-05', '2015-10-18', b'0'),
 (9, '2015-11-16', '2015-11-29', b'0'),
-(10, '2015-11-30', '2015-12-13', b'0');
+(10, '2015-11-30', '2015-12-13', b'0'),
+(11, '2015-12-14', '2015-12-27', b'0'),
+(12, '2015-12-28', '2016-01-10', b'0'),
+(13, '2016-01-11', '2016-01-24', b'0'),
+(17, '2016-01-25', '2016-02-07', b'0');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TimeSheetSettings`
+--
+
+DROP TABLE IF EXISTS `TimeSheetSettings`;
 CREATE TABLE IF NOT EXISTS `TimeSheetSettings` (
   `userId` int(11) NOT NULL,
   `DefaultClient` int(11) DEFAULT '0',
   `DefaultProject` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `TimeSheetSettings`
+--
+
 TRUNCATE TABLE `TimeSheetSettings`;
+--
+-- Dumping data for table `TimeSheetSettings`
+--
+
 INSERT INTO `TimeSheetSettings` (`userId`, `DefaultClient`, `DefaultProject`) VALUES
 (2, 24, 4);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TimeSheetSubmit`
+--
+
+DROP TABLE IF EXISTS `TimeSheetSubmit`;
 CREATE TABLE IF NOT EXISTS `TimeSheetSubmit` (
   `UserId` int(11) NOT NULL,
   `PeriodId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-TRUNCATE TABLE `TimeSheetSubmit`;
-INSERT INTO `TimeSheetSubmit` (`UserId`, `PeriodId`) VALUES
-(2, 9);
+--
+-- Truncate table before insert `TimeSheetSubmit`
+--
 
+TRUNCATE TABLE `TimeSheetSubmit`;
+--
+-- Dumping data for table `TimeSheetSubmit`
+--
+
+INSERT INTO `TimeSheetSubmit` (`UserId`, `PeriodId`) VALUES
+(2, 9),
+(2, 10),
+(2, 11),
+(2, 12),
+(2, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `User`
+--
+
+DROP TABLE IF EXISTS `User`;
 CREATE TABLE IF NOT EXISTS `User` (
   `id` int(11) NOT NULL,
   `Email` varchar(100) NOT NULL,
@@ -498,87 +750,186 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Online` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `User`
+--
+
 TRUNCATE TABLE `User`;
+--
+-- Dumping data for table `User`
+--
+
 INSERT INTO `User` (`id`, `Email`, `FirstName`, `LastName`, `AccountType`, `Password`, `DateAdded`, `LastModified`, `Phone`, `Active`, `Restriction`, `Online`) VALUES
 (1, 'tbarnes@arbsol.com', 'Tyler', 'Barnes', 1, '$2y$10$pbClvD.OBOoeLBnM5WLhPu3Xhh.7DPHxTRgTKPJOe.XcFiiLt2O1K', '2015-10-08 21:23:51', '2015-10-30 17:19:15', '6195773861', 1, 0, 1),
-(2, 'cschaefer@arbsol.com', 'Christopher', 'Schaefer', 1, '$2y$10$PtSBL5gNiq.6vC9pRWj5DO4VM80eDjZLmGJSxoqSwZJR4eebmamfe', '2015-10-28 15:04:45', '2015-11-20 15:15:54', '2489829600', 1, 0, 0),
+(2, 'cschaefer@arbsol.com', 'Christopher', 'Schaefer', 1, '$2y$10$PtSBL5gNiq.6vC9pRWj5DO4VM80eDjZLmGJSxoqSwZJR4eebmamfe', '2015-10-28 15:04:45', '2015-12-07 22:12:22', '2489829600', 1, 0, 0),
 (10, 'spalma@arbsol.com', 'Scott', 'Palma', 1, '$2y$10$lVLA3vKDBMmrqubrogND9u2AoICD0/ItBH1b3rmg/dkiFfEglBFzK', '2015-11-02 13:58:27', '2015-11-02 13:58:27', '6166901728', 1, 0, NULL),
 (11, 'rpalma@arbsol.com', 'Richie', 'Palma', 1, '$2y$10$dnN0MG7qjMuqKrsOj/DtG.snRT4lRrhbnxSFXerjfq1VwDx1xJNcm', '2015-11-04 14:13:45', '2015-11-07 03:57:35', '', 1, 0, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UserProjects`
+--
+
+DROP TABLE IF EXISTS `UserProjects`;
 CREATE TABLE IF NOT EXISTS `UserProjects` (
   `UserId` int(11) NOT NULL,
   `ProjectId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `UserProjects`
+--
+
 TRUNCATE TABLE `UserProjects`;
+--
+-- Dumping data for table `UserProjects`
+--
+
 INSERT INTO `UserProjects` (`UserId`, `ProjectId`) VALUES
 (2, 4),
 (2, 5),
 (2, 6),
 (2, 7),
+(2, 8),
+(2, 9),
+(2, 10),
+(2, 12),
 (11, 1),
 (11, 2),
 (11, 3);
 
+--
+-- Indexes for dumped tables
+--
 
+--
+-- Indexes for table `AccountType`
+--
 ALTER TABLE `AccountType`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `Client`
+--
 ALTER TABLE `Client`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `Country`
+--
 ALTER TABLE `Country`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `LineItem`
+--
 ALTER TABLE `LineItem`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `Office`
+--
 ALTER TABLE `Office`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `Project`
+--
 ALTER TABLE `Project`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `ProjectItemProject`
+--
 ALTER TABLE `ProjectItemProject`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `ProjectTimeSheet`
+--
 ALTER TABLE `ProjectTimeSheet`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `TimeSheetPeriod`
+--
 ALTER TABLE `TimeSheetPeriod`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `TimeSheetPeriod_CycleStart_uindex` (`CycleStart`),
   ADD UNIQUE KEY `TimeSheetPeriod_CycleEnd_uindex` (`CycleEnd`);
 
+--
+-- Indexes for table `TimeSheetSettings`
+--
 ALTER TABLE `TimeSheetSettings`
   ADD PRIMARY KEY (`userId`);
 
+--
+-- Indexes for table `User`
+--
 ALTER TABLE `User`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `Email` (`Email`);
 
+--
+-- Indexes for table `UserProjects`
+--
 ALTER TABLE `UserProjects`
   ADD PRIMARY KEY (`UserId`,`ProjectId`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
 
+--
+-- AUTO_INCREMENT for table `AccountType`
+--
 ALTER TABLE `AccountType`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `Client`
+--
 ALTER TABLE `Client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=83;
+--
+-- AUTO_INCREMENT for table `Country`
+--
 ALTER TABLE `Country`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=243;
+--
+-- AUTO_INCREMENT for table `LineItem`
+--
 ALTER TABLE `LineItem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=96;
+--
+-- AUTO_INCREMENT for table `Office`
+--
 ALTER TABLE `Office`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Project`
+--
 ALTER TABLE `Project`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `ProjectItemProject`
+--
 ALTER TABLE `ProjectItemProject`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `ProjectTimeSheet`
+--
 ALTER TABLE `ProjectTimeSheet`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `TimeSheetPeriod`
+--
 ALTER TABLE `TimeSheetPeriod`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT for table `User`
+--
 ALTER TABLE `User`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
