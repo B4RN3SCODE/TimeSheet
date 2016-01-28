@@ -45,7 +45,7 @@
 									<?php $Countries = array(35=>"CA",225=>"US");
 									foreach($Countries as $key => $value) { ?>
 										<option value="<?php echo $key; ?>"<?php if($key == $Country) echo " selected"; ?>><?php echo $value; ?></option>
-									<? } ?>
+									<?php } ?>
 								</select>
 							</div>
 						</div>

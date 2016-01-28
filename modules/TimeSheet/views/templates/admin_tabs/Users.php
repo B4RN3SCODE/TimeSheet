@@ -11,11 +11,11 @@
 			<tbody>
 			<?php foreach($TPLDATA["Users"] as $User) { ?>
 				<tr>
-					<td class="text-center"><? echo $User->getId(); ?><input type="hidden" name="userid[]" value="<? echo $User->getId(); ?>" /></td>
-					<td><? echo $User->getFirstName() . ' ' . $User->getLastName(); ?></td>
+					<td class="text-center"><?php echo $User->getId(); ?><input type="hidden" name="userid[]" value="<?php echo $User->getId(); ?>" /></td>
+					<td><?php echo $User->getFirstName() . ' ' . $User->getLastName(); ?></td>
 					<td class="text-center"><input type="checkbox" name="active[]"<?php if($User->getActive()) echo " checked"; ?> /></td>
 				</tr>
-			<? } ?>
+			<?php } ?>
 			</tbody>
 			<tfoot>
 			<tr>

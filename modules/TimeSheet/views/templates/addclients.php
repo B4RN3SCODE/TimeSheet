@@ -223,7 +223,7 @@ $Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $StateOrProv = $Z
 				<td><input type="text" class="form-control" name="Contact[]" placeholder="Scott Palma" value="<?php echo $Contact; ?>" maxlength="60"/></td>
 				<td><input type="text" class="form-control" name="Phone[]" placeholder="2489829600" value="<?php echo $Phone; ?>" maxlength="17"/></td>
 			</tr>
-		<? } ?>
+		<?php } ?>
 		</tbody>
 		<tfoot>
 			<tr>
@@ -264,7 +264,7 @@ $Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $StateOrProv = $Z
 							<?php $Countries = array(35=>"CA",225=>"US");
 							foreach($Countries as $key => $value) { ?>
 								<option value="<?php echo $key; ?>"<?php if($key == $Country) echo " selected"; ?>><?php echo $value; ?></option>
-							<? } ?>
+							<?php } ?>
 						</select>
 					</div>
 				</div>
@@ -314,7 +314,7 @@ $Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $StateOrProv = $Z
 							<?php $Countries = array(35=>"CA",225=>"US");
 							foreach($Countries as $key => $value) { ?>
 								<option value="<?php echo $key; ?>"<?php if($key == $Country) echo " selected"; ?>><?php echo $value; ?></option>
-							<? } ?>
+							<?php } ?>
 						</select>
 					</div>
 				</div>
@@ -367,7 +367,7 @@ $Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $StateOrProv = $Z
 							<?php $Countries = array(35=>"CA",225=>"US");
 							foreach($Countries as $key => $value) { ?>
 								<option value="<?php echo $key; ?>"<?php if($key == $Country) echo " selected"; ?>><?php echo $value; ?></option>
-							<? } ?>
+							<?php } ?>
 						</select>
 					</div>
 				</div>
@@ -417,7 +417,7 @@ $Name = $Contact = $Phone = $StreetAddress = $StreetAddress2 = $StateOrProv = $Z
 							<?php $Countries = array(35=>"CA",225=>"US");
 							foreach($Countries as $key => $value) { ?>
 								<option value="<?php echo $key; ?>"<?php if($key == $Country) echo " selected"; ?>><?php echo $value; ?></option>
-							<? } ?>
+							<?php } ?>
 						</select>
 					</div>
 				</div>

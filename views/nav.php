@@ -37,11 +37,11 @@
           <label>
             <ul class="list-unstyled"><?php foreach($GLOBALS["APP"]["MSG"]["ERROR"] as $error) { ?>
                 <li><?php echo $error; ?></li>
-            <? } ?></ul>
+            <?php } ?></ul>
           </label>
         </div>
       </div>
-      <? } ?>
+      <?php } ?>
       <?php if(isset($GLOBALS["APP"]["MSG"]["INFO"])) { ?>
       <div class="col-md-12">
         <div class="alert alert-info alert-dismissible text-center" role="alert">
@@ -49,11 +49,11 @@
           <label>
             <ul class="list-unstyled"><?php foreach($GLOBALS["APP"]["MSG"]["INFO"] as $info) { ?>
               <li><?php echo $info; ?></li>
-            <? } ?></ul>
+            <?php } ?></ul>
           </label>
         </div>
       </div>
-      <? } ?>
+      <?php } ?>
       <?php if(isset($GLOBALS["APP"]["MSG"]["SUCCESS"])) { ?>
       <div class="col-md-12">
         <div class="alert alert-success alert-dismissible text-center" role="alert">
@@ -61,8 +61,8 @@
           <label>
             <ul class="list-unstyled"><?php foreach($GLOBALS["APP"]["MSG"]["SUCCESS"] as $success) { ?>
               <li><?php echo $success; ?></li>
-            <? } ?></ul>
+            <?php } ?></ul>
           </label>
         </div>
       </div>
-      <? } ?>
+      <?php } ?>

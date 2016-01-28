@@ -3,7 +3,7 @@
 		<?php foreach ($MyClients as $cid => $client) { ?>
 			<div class="panel panel-default">
 				<h4 class="panel-title">
-					<a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#myclient<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="badge"><? echo count($client["Projects"]); ?></span></a>
+					<a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#myclient<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="badge"><?php echo count($client["Projects"]); ?></span></a>
 				</h4>
 				<div id="myclient<?php echo $cid; ?>" class="panel-collapse collapse">
 					<?php if(count($client["Projects"]) > 0) {
@@ -15,8 +15,9 @@
 								<span class="rate">$<?php echo $project["Rate"]; ?></span>
 								<h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
 							</a>
-							</div><?
-						}}?>
+							</div><?php
+						}
+					}?>
 					<form name="add-project" action="/TimeSheet/Database/AddProject" method="post" onsubmit="return AddProject(this);">
 						<input type="hidden" name="clientId" value="<?php echo $cid; ?>" />
 						<div class="list-group">
@@ -40,6 +41,6 @@
 					</form>
 				</div>
 			</div>
-		<? } ?>
+		<?php } ?>
 	</div>
 </div>

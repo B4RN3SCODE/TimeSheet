@@ -14,21 +14,21 @@ $MyProjects = array();
 						<div class="row">
 							<div class="form-group col-sm-6">
 							  <label for="first-name">First Name</label>
-							  <input type="text" class="form-control" name="first-name" placeholder="First Name" value="<? echo $TPLDATA["FirstName"]; ?>" autofocus>
+							  <input type="text" class="form-control" name="first-name" placeholder="First Name" value="<?php echo $TPLDATA["FirstName"]; ?>" autofocus>
 							</div>
 							<div class="form-group col-sm-6">
 							  <label for="last-name">Last Name</label>
-							  <input type="text" class="form-control" name="last-name" placeholder="Last Name" value="<? echo $TPLDATA["LastName"]; ?>">
+							  <input type="text" class="form-control" name="last-name" placeholder="Last Name" value="<?php echo $TPLDATA["LastName"]; ?>">
 							</div>
 							</div>
 							<div class="row">
 							<div class="form-group col-sm-6">
 							  <label for="email">Email</label>
-							  <input type="email" class="form-control" name="email" placeholder="user@arbsol.com" value="<? echo $TPLDATA["Email"]; ?>">
+							  <input type="email" class="form-control" name="email" placeholder="user@arbsol.com" value="<?php echo $TPLDATA["Email"]; ?>">
 							</div>
 							<div class="form-group col-sm-6">
 							  <label for="phone">Phone Number</label>
-							  <input type="number" class="form-control" name="phone" placeholder="6165551234" value="<? echo $TPLDATA["Phone"]; ?>">
+							  <input type="number" class="form-control" name="phone" placeholder="6165551234" value="<?php echo $TPLDATA["Phone"]; ?>">
 							</div>
 						</div>
 					<a href="/User/ChangePassword" class="btn btn-primary">Change Password</a>

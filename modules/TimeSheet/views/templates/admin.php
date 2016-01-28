@@ -17,7 +17,7 @@ $Periods = $TPLDATA["Periods"];
 							<option value="-1">-- Select --</option>
 							<?php foreach($Users as $tmpUser) { ?>
 							<option value="<?php echo $tmpUser["value"];?>"><?php echo $tmpUser["label"]; ?></option>
-							<? } ?>
+							<?php } ?>
 						</select>
 					</div>
 					<div class="col-sm-6">
@@ -26,7 +26,7 @@ $Periods = $TPLDATA["Periods"];
 							<option value="-1">-- Select --</option>
 							<?php foreach($Periods as $tmpPeriod) { ?>
 								<option value="<?php echo $tmpPeriod["value"];?>"><?php echo $tmpPeriod["label"]; ?></option>
-							<? } ?>
+							<?php } ?>
 						</select>
 					</div>
 				</div>
@@ -54,7 +54,7 @@ $Periods = $TPLDATA["Periods"];
 								<option value="-1">-- Select --</option>
 								<?php foreach($Periods as $tmpPeriod) { ?>
 									<option value="<?php echo $tmpPeriod["value"];?>"><?php echo $tmpPeriod["label"]; ?></option>
-								<? } ?>
+								<?php } ?>
 							</select>
 						</div>
 					</div>

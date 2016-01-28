@@ -33,7 +33,7 @@
 						}?></td>
 						<td><a href="/services/UserCycle.php?pid=<?php echo $TimeSheet["PeriodId"]; ?>" class="btn btn-primary">Download</a></td>
 					</tr>
-				<? } ?>
+				<?php } ?>
 				</tbody>
 			</table>
 		</div>
@@ -83,15 +83,15 @@
 													<td><?php echo $Entry["Travel"]; ?></td>
 													<td><?php echo ($Entry["Billable"] == 1) ? "Yes" : "No"; ?></td>
 												</tr>
-											<? } ?>
+											<?php } ?>
 											</tbody>
 										</table>
 									</div>
-								<? } ?>
+								<?php } ?>
 							</div>
-						<? } ?>
+						<?php } ?>
 					</div>
-				<? } ?>
+				<?php } ?>
 			</div>
 		</div>
 	</div>

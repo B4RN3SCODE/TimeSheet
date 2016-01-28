@@ -23,7 +23,7 @@
     <ul class="list-group">
       <?php foreach($TPLDATA["ActiveProject"] as $id => $row) { ?>
         <li class="list-group-item" data-pid="<?php echo $id; ?>"><span class="badge"><?php echo $row["Count"]; ?></span><?php echo $row["Title"]; ?></li>
-      <? } ?>
+      <?php } ?>
     </ul>
   </div>
 </div>

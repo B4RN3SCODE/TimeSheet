@@ -1,4 +1,4 @@
-<?
+<?php
 //https://docs.typo3.org/typo3cms/extensions/phpexcel_library/1.7.4/manual.html#_Toc237519971
 $styles = array(
 	"text-left" => array(

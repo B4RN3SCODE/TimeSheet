@@ -3,7 +3,7 @@
 		<?php foreach ($clients as $cid => $client) { ?>
 			<div class="panel panel-default">
 				<h4 class="panel-title">
-					<a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="pull-right glyphicon glyphicon-pencil" data-edit-client="<?php echo $cid; ?>"></span><span class="badge"><? echo count($client["Projects"]); ?></span></a>
+					<a class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#accordion" href="#client<?php echo $cid; ?>"><?php echo trim($client["Name"]); ?><span class="pull-right glyphicon glyphicon-pencil" data-edit-client="<?php echo $cid; ?>"></span><span class="badge"><?php echo count($client["Projects"]); ?></span></a>
 				</h4>
 
 				<div id="client<?php echo $cid; ?>" class="panel-collapse collapse">
@@ -14,13 +14,14 @@
 								<span class="pull-right glyphicon glyphicon-pencil" data-edit-id="<?php echo $pid; ?>" title="Edit Project"></span>
 								<!-- TODO check if it is already in mylist and replace with a remove from mylist option -->
 								<?php if(!isset($MyClients[$cid]["Projects"][$pid])) {
-									?><span class="pull-right glyphicon glyphicon-plus" data-addtomylist="<?php echo $pid; ?>" title="Add project to my list"></span><? } ?>
+									?><span class="pull-right glyphicon glyphicon-plus" data-addtomylist="<?php echo $pid; ?>" title="Add project to my list"></span><?php } ?>
 								<span class="pull-right glyphicon glyphicon-remove" data-del-id="<?php echo $pid; ?>" title="Delete Project"></span>
 								<span class="rate">$<?php echo $project["Rate"]; ?></span>
 								<h4 class="list-group-item-heading"><?php echo $project["Name"]; ?></h4>
 							</a>
-							</div><?
-						}}?>
+							</div><?php
+						}
+					}?>
 					<form name="add-project" action="/TimeSheet/Database/AddProject" method="post" onsubmit="return AddProject(this);">
 						<input type="hidden" name="clientId" value="<?php echo $cid; ?>" />
 						<div class="list-group">
@@ -44,6 +45,6 @@
 					</form>
 				</div>
 			</div>
-		<? } ?>
+		<?php } ?>
 	</div>
 </div>

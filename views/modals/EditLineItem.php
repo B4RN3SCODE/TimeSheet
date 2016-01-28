@@ -12,7 +12,7 @@
 							<div class="col-sm-3">
 								<div class="form-group">
 									<label for="EntryDate">Date</label>
-									<input class="form-control datepicker text-center" name="EntryDate" placeholder="<? echo date("m/d/Y", time())?>" value="<?php echo $_POST["EntryDate"][$index]; ?>" />
+									<input class="form-control datepicker text-center" name="EntryDate" placeholder="<?php echo date("m/d/Y", time())?>" value="<?php echo $_POST["EntryDate"][$index]; ?>" />
 								</div>
 							</div>
 							<div class="col-sm-3">
