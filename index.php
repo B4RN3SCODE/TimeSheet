@@ -12,6 +12,7 @@ ini_set("html_errors", 1);
 /**********************************
  * only entry point for application
  *********************************/
+define('ABSPATH', dirname(__FILE__) . '/');
 include_once("include/app/initialize.php");
 $app = new TSApp(array(),3600,false);
 $app->SessionActivate();

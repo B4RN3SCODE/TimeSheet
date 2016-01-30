@@ -11,9 +11,16 @@
 						<label for="email">Email</label>
 						<input type="email" class="form-control" name="email" placeholder="user@arbsol.com" value="<?php echo $TPLDATA["Email"]; ?>" autofocus>
 					</div>
-					<div class="form-group col-sm-6">
-						<label for="password">Password</label>
-						<input type="text" class="form-control" name="password">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="password">Password</label>
+							<div class="input-group">
+								<input type="text" class="form-control" name="password" placeholder="Password">
+								<span class = "input-group-btn">
+									<button id="GeneratePassword" class="btn btn-primary" type="button">Gen</button>
+								</span>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">

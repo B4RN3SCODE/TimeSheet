@@ -145,7 +145,7 @@ function RemoveLineEntryFromProject(id,row) {
         error: function( xhr, status, errorThrown ) {
             Error_Output(xhr, status, errorThrown);
         }
-    })
+    });
 }
 function RemoveProjectFromMyList(ProjectId) {
     Debug_Print("RemoveProjectFromMyList(" + ProjectId + ")");

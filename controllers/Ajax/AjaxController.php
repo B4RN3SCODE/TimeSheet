@@ -111,5 +111,10 @@ class AjaxController extends TSController
 			die('Something went wrong: ' . $LineItem->GetDBError());
 		}
 	}
+
+	public function GeneratePassword() {
+		$PWGen = new PWGen(12);
+		echo $PWGen->generate();
+	}
 }
 ?>
