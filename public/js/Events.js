@@ -1,10 +1,13 @@
 $(document).ready(function() {
-  $("#GeneratePassword").on("click", function(e) {
+  $("[data-task='PWGen']").on("click", function(e) {
+    e.preventDefault();
     var url = urlPrefix + root_dir + 'Ajax/Index/GeneratePassword';
+    var target = $(this).data('target');
+    console.log(target);
     $.ajax({
       url: url, dataType: "html",
       success: function(data) {
-        $('input[name="password"]').val(data);
+        $(target).val(data);
       },
       error: function( xhr, status, errorThrown ) {
         Error_Output(xhr, status, errorThrown);

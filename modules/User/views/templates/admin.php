@@ -15,9 +15,9 @@
 						<div class="form-group">
 							<label for="password">Password</label>
 							<div class="input-group">
-								<input type="text" class="form-control" name="password" placeholder="Password">
-								<span class = "input-group-btn">
-									<button id="GeneratePassword" class="btn btn-primary" type="button">Gen</button>
+								<input type="text" class="form-control" id="password" name="password" placeholder="Password">
+								<span class="input-group-btn">
+									<button data-task="PWGen" data-target="#password" class="btn btn-primary" type="button">Generate</button>
 								</span>
 							</div>
 						</div>
@@ -34,6 +34,36 @@
 					</div>
 				</div>
 				<input type="submit" class="btn btn-block btn-secondary pull-right" value="Create User" />
+			</form>
+		</div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Reset User Password</h3>
+		</div>
+		<div class="panel-body">
+			<form name="reset-user-password" method="post" action="/User/Admin/ResetUserPassword">
+				<div class="form-group">
+					<label for="user">Select User</label>
+					<select class="form-control" name="userid">
+						<option value="">Select a user</option>
+						<?php foreach($TPLDATA["Users"] as $userId => $userName) { ?>
+						<option value="<?php echo $userId; ?>"><?php echo $userName; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="newpassword">New Password</label>
+					<div class="input-group">
+						<input type="text" id="newpassword" name="newpassword" class="form-control" placeholder="New Password" />
+						<span class="input-group-btn">
+							<button data-task="PWGen" data-target="#newpassword" class="btn btn-primary">Generate</button>
+						</span>
+					</div>
+				</div>
+				<input type="submit" class="btn btn-block btn-secondary" value="Reset Password" />
 			</form>
 		</div>
 	</div>

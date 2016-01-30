@@ -254,5 +254,18 @@ ORDER BY CycleStart DESC, CycleEnd DESC, EntryDate ASC";
         }
         return false;
     }
+
+    function LoadAllUserNames() {
+        $strSQL = "SELECT id, FirstName, LastName FROM User";
+        $this->db->setQueryStmt($strSQL);
+        if($this->db->query()) {
+            $arr = array();
+            foreach($this->db->GetAll() as $row) {
+                $arr[$row["id"]] = $row["FirstName"] . ' ' . $row["LastName"];
+            }
+            return $arr;
+        }
+        return false;
+    }
 }
 ?>

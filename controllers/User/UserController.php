@@ -168,6 +168,22 @@ class UserController extends TSController {
 		return $this->Redirect("user","admin");
 	}
 
+	public function ResetUserPassword() {
+		if(isset($_POST["userid"]) && !empty($_POST["userid"]) && isset($_POST["newpassword"])) {
+			$User = new User($_POST["userid"]);
+			$User->setPassword(password_hash($_POST["newpassword"], PASSWORD_DEFAULT));
+			if($User->save()) {
+				$GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Password reset successfully.";
+				//ToDo: Email user with new password.
+			} else {
+				$GLOBALS["APP"]["MSG"]["ERROR"][] = "There was a problem resetting the password, please try again.";
+			}
+		} else {
+			$GLOBALS["APP"]["MSG"]["ERROR"][] = "Failed to reset password.";
+		}
+		return $this->Redirect("user","admin");
+	}
+
 	public function Update() {
 		$this->User->setFirstName($_POST["first-name"]);
 		$this->User->setLastName($_POST["last-name"]);
