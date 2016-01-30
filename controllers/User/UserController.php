@@ -173,7 +173,7 @@ class UserController extends TSController {
 			$User = new User($_POST["userid"]);
 			$User->setPassword(password_hash($_POST["newpassword"], PASSWORD_DEFAULT));
 			if($User->save()) {
-				$GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Password reset successfully.";
+				$GLOBALS["APP"]["MSG"]["SUCCESS"][] = "Password reset successfully for {$User->GetName()}<br />They have been emailed with the new password";
 				//ToDo: Email user with new password.
 			} else {
 				$GLOBALS["APP"]["MSG"]["ERROR"][] = "There was a problem resetting the password, please try again.";
