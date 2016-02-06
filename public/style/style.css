@@ -110,6 +110,11 @@
   padding-right: 0.3em;
   padding-top: 0.1em; }
 
+.panel {
+  -webkit-box-shadow: 4px 4px 4px #ddd;
+  -moz-box-shadow: 4px 4px 4px #ddd;
+  box-shadow: 4px 4px 4px #ddd; }
+
 #line-entries .panel.panel-default input[type="checkbox"], #modal-editlineitem .modal-body input[type="checkbox"] {
   display: block;
   width: 100%;
