@@ -54,7 +54,7 @@
 						<div class="col-xs-6">
 							<div class="form-group">
 								<label for="Contact">Contact Name</label>
-								<input type="text" class="form-control" name="Contact" placeholder="Scott Palma" value="<?php echo $Contect; ?>" maxlength="60"/>
+								<input type="text" class="form-control" name="Contact" placeholder="Scott Palma" value="<?php echo $Contact; ?>" maxlength="60"/>
 							</div>
 						</div>
 						<div class="col-xs-6">
